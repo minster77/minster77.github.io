@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java基础语法  注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc  ###1、注释、标识符、关键字
+1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是==大小写敏感==的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3&#43;1; System.'><title></title>
+
+<link rel='canonical' href='https://minster77.github.io/p/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
+<meta property='og:description' content='Java基础语法  注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc  ###1、注释、标识符、关键字
+1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是==大小写敏感==的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3&#43;1; System.'>
+<meta property='og:url' content='https://minster77.github.io/p/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="Java基础语法  注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc  ###1、注释、标识符、关键字
+1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是==大小写敏感==的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3&#43;1; System.">
+    </head>
+    <body class="">
+        <div class="container flex on-phone--column align-items--flex-start extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+
+                
+                    
+                    <img src="/img/avatar_hub46c38b1d7bd93efa7f804e587c6940c_45695_300x300_resize_box_2.png" width="300"
+                        height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+
+                <span class="emoji">🍥</span>
+            </figure>
+        
+        <h1 class="site-name"><a href="https://minster77.github.io/">MinsterBlog</a></h1>
+        <h2 class="site-description">这是一个记录学习的Blog</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+    </ol>
+</aside>
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://minster77.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/"></a>
+    </h2>
+
+    </div>
+</header>
+
+    <section class="article-content">
+    <h1 id="java基础语法">Java基础语法</h1>
+<ol>
+<li>注释、标识符、关键字</li>
+<li>数据类型</li>
+<li>类型转换</li>
+<li>变量常量</li>
+<li>运算符</li>
+<li>包机制、JavaDoc</li>
+</ol>
+<p>###1、注释、标识符、关键字</p>
+<p>1.注释（注释不会被执行）</p>
+<ul>
+<li>单行注释：用&quot;//&ldquo;表示</li>
+<li>多行注释：”/* */“表示</li>
+<li>JavaDoc文档注释：用/** */表示</li>
+</ul>
+<p>2.标识符</p>
+<ul>
+<li>标识符以字母、美元符($)、下划线(_)开头</li>
+<li>首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合</li>
+<li>不能使用关键字作为变量名或方法名</li>
+<li>标识符是==大小写敏感==的</li>
+<li>String不是关键字，是一个类</li>
+</ul>
+<h2 id="2java数据类型">2、Java数据类型</h2>
+<ul>
+<li>
+<p>整数类型</p>
+<ul>
+<li>Byte占1个字节范围-128-127</li>
+<li>short占2个字节范围</li>
+<li>int占四个字节范围</li>
+<li>long占8个字节范围（Long类型要在数字后面加个L）</li>
+</ul>
+</li>
+<li>
+<p>浮点类型</p>
+<ul>
+<li>float占4个字节范围（float类型要在数字后面加个F）</li>
+<li>double占8个字节</li>
+</ul>
+</li>
+<li>
+<p>字符类型：char占2个字节</p>
+</li>
+<li>
+<p>Boolean类型：占一位 其真值只有true和Flase两个</p>
+</li>
+<li>
+<p>浮点数拓展</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="kt">float</span> <span class="n">a1</span> <span class="o">=</span> <span class="n">0</span><span class="o">.</span><span class="na">1f</span><span class="o">;</span><span class="c1">//0.1
+</span><span class="c1"></span>        <span class="kt">double</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">/</span><span class="n">10</span><span class="o">;</span><span class="c1">//0.1
+</span><span class="c1"></span>  
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a1</span><span class="o">==</span><span class="n">a2</span><span class="o">);</span><span class="c1">//此处输出为false
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a1</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a2</span><span class="o">);</span>
+  
+        <span class="kt">float</span> <span class="n">a3</span> <span class="o">=</span> <span class="n">2121213121212f</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">a4</span> <span class="o">=</span> <span class="n">a3</span><span class="o">+</span><span class="n">1</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a3</span><span class="o">==</span><span class="n">a4</span><span class="o">);</span><span class="c1">//此处输出为true
+</span></code></pre></div><p>因为float的有限性、离散性、==舍入误差==，所以以上代码比较结果如下</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210315215441175.png" alt="image-20210315215441175"  /></p>
+</li>
+</ul>
+<ul>
+<li>
+<p>避免使用浮点数进行比较</p>
+</li>
+<li>
+<p>字符拓展</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//字符拓展
+</span><span class="c1"></span>        <span class="kt">char</span> <span class="n">a1</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="o">;</span>
+        <span class="kt">char</span> <span class="n">a2</span> <span class="o">=</span> <span class="sc">&#39;中&#39;</span><span class="o">;</span>
+  
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a1</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">a1</span><span class="o">);</span><span class="c1">//强制转换
+</span><span class="c1"></span>  
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">a2</span><span class="o">);</span><span class="c1">//强制转换
+</span></code></pre></div></li>
+<li>
+<p>输出结果为</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210316094719430.png" alt="image-20210316094719430"  /></p>
+</li>
+<li>
+<p>所有字符的本质都是数字，所有所有字符都有对应的==Unicode==编码</p>
+</li>
+<li>
+<p>Unicode的编码方式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="kt">char</span> <span class="n">a3</span> <span class="o">=</span> <span class="sc">&#39;\u0061&#39;</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a3</span><span class="o">);</span>
+</code></pre></div><p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210316095230357.png" alt="image-20210316095230357"  /></p>
+</li>
+</ul>
+<h2 id="3类型转换">3、类型转换</h2>
+<ul>
+<li>
+<p>Java是强类型转换语言，所以在进行运算时，需要把不同类型的数据转换成同一类型再进行运算</p>
+</li>
+<li>
+<p>类型优先级</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210316102820218.png" alt="image-20210316102820218"  /></p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">128</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span><span class="c1">//自动转换
+</span><span class="c1"></span>        <span class="kt">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span><span class="n">i</span><span class="o">;</span><span class="c1">//强制转换，注意数据溢出
+</span><span class="c1"></span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">d</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+        <span class="cm">/**
+</span><span class="cm">         * 注意点：
+</span><span class="cm">         * 不能对布尔型进行转换
+</span><span class="cm">         * 不能把对象类型转换为不相干的类型
+</span><span class="cm">         * 在把高容量转换成低容量的时候，强制转换
+</span><span class="cm">         * 转换的时候可能存在内存1溢出，或者是精度问题*/</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210316103707468.png" alt="image-20210316103707468"  /></p>
+<ul>
+<li>因为Byte类型取值范围为-128-127所以数据溢出了。</li>
+<li>==强制转换==时需要注意数据溢出； 转换方式: (类型)变量名 优先级==高&ndash;低==时使用</li>
+<li>自动转换：优先级==低&ndash;高==时自动使用</li>
+</ul>
+<p>数据溢出问题：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//操作比较大的数据时 注意溢出问题
+</span><span class="c1"></span>        <span class="c1">//JDK7新特性 数字之间可以用下划线_分割
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">money</span> <span class="o">=</span> <span class="n">10_0000_0000</span><span class="o">;</span><span class="c1">//新特性
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">years</span> <span class="o">=</span> <span class="n">20</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">total1</span> <span class="o">=</span> <span class="n">money</span><span class="o">*</span><span class="n">years</span><span class="o">;</span><span class="c1">//-1474836480,计算的时候已经溢出
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">money</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">years</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total1</span><span class="o">);</span>
+
+        <span class="kt">long</span> <span class="n">total2</span> <span class="o">=</span> <span class="n">money</span><span class="o">*</span><span class="n">years</span><span class="o">;</span><span class="c1">//先计算再赋值，所以数据转换前已经溢出了
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total2</span><span class="o">);</span>
+
+        <span class="kt">long</span> <span class="n">total3</span> <span class="o">=</span> <span class="n">money</span><span class="o">*((</span><span class="kt">long</span><span class="o">)</span><span class="n">years</span><span class="o">);</span><span class="c1">//先把一个数转换成long 计算后的结果的类型即为long类型
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total3</span><span class="o">);</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210316110202222.png" alt="image-20210316110202222"  /></p>
+<h2 id="变量常量作用域">变量、常量、作用域</h2>
+<ol>
+<li>
+<p>类变量</p>
+<ul>
+<li>
+<p>静态代码块（static）</p>
+<ul>
+<li>静态代码块只会被执行一次</li>
+<li>静态类可以被局部对象调用</li>
+<li>静态变量可以被执行多次</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">demo5</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">1</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">);</span>
+        <span class="n">i</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">demo5</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">);</span>
+        <span class="n">i</span><span class="o">++;</span>
+    <span class="o">}</span>
+   <span class="c1">//在此之前i已被调用两次，i的值为2
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">demo5</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">demo5</span><span class="o">();</span><span class="c1">//i在次被调用，i+1，此时i=3
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">d1</span><span class="o">.</span><span class="na">i</span><span class="o">);</span>
+     
+        <span class="n">demo5</span> <span class="n">d2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">demo5</span><span class="o">();</span><span class="c1">//i在次被调用，i+1，此时i=4
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">d2</span><span class="o">.</span><span class="na">i</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+     
+</code></pre></div><p>输出结果：</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210317124200291.png" alt="image-20210317124200291"  /></p>
+</li>
+<li>
+<p>实例变量：从属于对象，如果不自动化初始化，这个类型的默认值为0/0.0</p>
+</li>
+<li>
+<p>布尔值：默认是false</p>
+</li>
+<li>
+<p>除了基本类型，其余的默认值都是null；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>常量</p>
+<ul>
+<li>常量定义通过final实现 一般使用大写字母表示</li>
+<li>修饰符不存在先后顺序</li>
+</ul>
+</li>
+<li>
+<p>变量命名规则</p>
+<p><img src="C:%5cUsers%5c35811%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210317131220563.png" alt="image-20210317131220563"  /></p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">&copy; 2021 MinsterBlog</section>
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="1.1.0">Stack</a></b> designed by
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<link rel="stylesheet" href="/css/highlight/light.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="/css/highlight/dark.min.css" media="(prefers-color-scheme: dark)">
+
+    </body>
+</html>

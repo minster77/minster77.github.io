@@ -16,5 +16,22 @@
       <description>Hello Hugo  aaa bbb ccc  </description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Java基础语法  注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc  ###1、注释、标识符、关键字
+1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是==大小写敏感==的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
+    </item>
+    
   </channel>
 </rss>
