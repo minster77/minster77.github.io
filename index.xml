@@ -21,11 +21,11 @@
 </description>
         </item>
         <item>
-        <title></title>
-        <link>https://minster77.github.io/p/</link>
+        <title>JavaSE01</title>
+        <link>https://minster77.github.io/p/javase01/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://minster77.github.io/p/</guid>
+        <guid>https://minster77.github.io/p/javase01/</guid>
         <description>&lt;h1 id=&#34;java基础语法&#34;&gt;Java基础语法&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;注释、标识符、关键字&lt;/li&gt;

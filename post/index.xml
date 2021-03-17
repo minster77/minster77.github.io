@@ -17,11 +17,11 @@
     </item>
     
     <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
+      <title>JavaSE01</title>
+      <link>https://minster77.github.io/p/javase01/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://minster77.github.io/p/</guid>
+      <guid>https://minster77.github.io/p/javase01/</guid>
       <description>Java基础语法  注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc  ###1、注释、标识符、关键字
 1.注释（注释不会被执行）
  单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
