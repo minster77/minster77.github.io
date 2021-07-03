@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='#Java流程控制
+  用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+  基础语法：
+Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
+  package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;&#43;str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
+ 通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据  package com.'><title></title>
+
+<link rel='canonical' href='https://minster77.github.io/p/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
+<meta property='og:description' content='#Java流程控制
+  用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+  基础语法：
+Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
+  package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;&#43;str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
+ 通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据  package com.'>
+<meta property='og:url' content='https://minster77.github.io/p/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="#Java流程控制
+  用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+  基础语法：
+Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
+  package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;&#43;str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
+ 通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据  package com.">
+    </head>
+    <body class="">
+        <div class="container flex on-phone--column align-items--flex-start extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+
+                
+                    
+                    <img src="/img/avatar_hub46c38b1d7bd93efa7f804e587c6940c_45695_300x300_resize_box_2.png" width="300"
+                        height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+
+                <span class="emoji">🍥</span>
+            </figure>
+        
+        <h1 class="site-name"><a href="https://minster77.github.io/">MinsterBlog</a></h1>
+        <h2 class="site-description">这是一个记录学习的Blog</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+    </ol>
+</aside>
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://minster77.github.io/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/"></a>
+    </h2>
+
+    </div>
+</header>
+
+    <section class="article-content">
+    <p>#Java流程控制</p>
+<hr>
+<ol>
+<li>用户交互Scanner</li>
+<li>顺序结构</li>
+<li>选择结构</li>
+<li>循环结构</li>
+<li>break&amp;continue</li>
+<li>练习</li>
+</ol>
+<hr>
+<h2 id="1用户交互scanner">1、用户交互Scanner</h2>
+<ul>
+<li>
+<p>通过Scanner类来获取用户的输入</p>
+</li>
+<li>
+<p>基础语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+</code></pre></div></li>
+<li>
+<p>通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.scanner</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">demo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//创建一个扫描器对象，用于接收用户输入的数据
+</span><span class="c1"></span>        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;用next方式接收：&#34;</span><span class="o">);</span>
+        <span class="c1">//判断用户有没有输入字符串
+</span><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">scanner</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+            <span class="c1">//使用next的方式来接收
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出的内容为：&#34;</span><span class="o">+</span><span class="n">str</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">//凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭
+</span><span class="c1"></span>        <span class="n">scanner</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-1.jpg" alt="image2-1"  />因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作</p>
+<ul>
+<li>通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.scanner</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">demo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        
+       <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;用nextLine方式接收：&#34;</span><span class="o">);</span>
+	   <span class="c1">//判断是否还有输入
+</span><span class="c1"></span>       <span class="k">if</span><span class="o">(</span><span class="n">scanner</span><span class="o">.</span><span class="na">hasNextLine</span><span class="o">()){</span>
+           <span class="c1">//通过nextLine()方法来接收
+</span><span class="c1"></span>           <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出的内容为：&#34;</span><span class="o">+</span><span class="n">str</span><span class="o">);</span>
+       <span class="o">}</span>
+       <span class="n">scanner</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="image/image2-2.png" alt="image2-2"  /></p>
+<ul>
+<li>next()方法与nextLine()方法都能用来接收输入的内容，大多数情况使用后者</li>
+</ul>
+<p><img src="image/image2-3.jpg" alt="image2-3"  /></p>
+<ul>
+<li>
+<p>scanner的进阶用法</p>
+<ul>
+<li>
+<p>scanner类中有许多个方法来接收不同的数据</p>
+<p><img src="image/image2-4.jpg" alt="image2-4"  /></p>
+<p>例：利用scanner类中方法来接收数字并求出其和以及平均值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.scanner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+    
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">demo03</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//输入多个数字，求出其总和以及平均数，每输入一个数字用回车确认，通过输入非数字来结算循环
+</span><span class="c1"></span>        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="c1">//用于计算总和
+</span><span class="c1"></span>        <span class="kt">double</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">//用于统计输入的数据个数.
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;请输入数据:&#34;</span><span class="o">);</span>
+        <span class="c1">//用while循环来判断是否还有输入，并且在里面累加求和
+</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">scanner</span><span class="o">.</span><span class="na">hasNextDouble</span><span class="o">()){</span>
+            <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+            <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="o">+</span><span class="n">1</span><span class="o">;</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">x</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;你输入了第&#34;</span><span class="o">+</span><span class="n">m</span><span class="o">+</span><span class="s">&#34;个数，当前总和sum=&#34;</span><span class="o">+</span><span class="n">sum</span><span class="o">);</span>
+    
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">+</span><span class="s">&#34;个数的和为:&#34;</span><span class="o">+</span><span class="n">sum</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">+</span><span class="s">&#34;个数的平均值为:&#34;</span><span class="o">+(</span><span class="n">sum</span><span class="o">/</span><span class="n">m</span><span class="o">));</span>
+    
+        <span class="n">scanner</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+    
+</code></pre></div><p><img src="image2-5.jpg" alt="image2-5"  /></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2顺序结构">2、顺序结构</h2>
+<ul>
+<li>Java的基本结构就是顺序结构，除非特别指明，否则就按照顺序一句一句执行</li>
+<li>顺序结构是最基本的算法结构</li>
+<li>顺序结构是任何一个算法都离不开的一个结构</li>
+</ul>
+<h2 id="3选择结构">3、选择结构</h2>
+<h3 id="31-if单选择结构">3.1 if单选择结构</h3>
+<pre><code class="language-mermaid" data-lang="mermaid">graph TB
+	A[开始]--&gt;B{&quot;布尔表达式&quot;}
+	B--&gt;|true|C[语句]
+	B--&gt;|false|结束
+	
+</code></pre><ul>
+<li>
+<p>语法结构</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+  
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+  
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+  
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;请输入内容：&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+        <span class="c1">//equals:判断字符串是否相等
+</span><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span><span class="o">)){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;END&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-7.jpg" alt="image2-7"  /><img src="image/image2-8.jpg" alt="image2-8"  /></p>
+</li>
+</ul>
+<h3 id="32-if双选择结构">3.2 if双选择结构</h3>
+<p><img src="image/image2-9.jpg" alt="image2-9"  /></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">布尔表达式</span><span class="o">){</span>
+    <span class="c1">//如果布尔表达式为true
+</span><span class="c1"></span><span class="o">}</span><span class="k">else</span><span class="o">{</span>
+    <span class="c1">//如果布尔表达式为false
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>###3.3 if多选择结构</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">布尔表达式1</span><span class="o">){</span>
+    <span class="c1">//如果布尔表达式1的值为true 执行
+</span><span class="c1"></span><span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">布尔表达式2</span><span class="o">){</span>
+    <span class="c1">//如果布尔表达式2的值为true 执行
+</span><span class="c1"></span><span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">布尔表达式3</span><span class="o">){</span>
+    <span class="c1">//如果布尔表达式3的值为true 执行
+</span><span class="c1"></span><span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+    <span class="c1">//如果以上布尔表达式都不为true 执行
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><ul>
+<li>else语句必须在所有的else if语句后面</li>
+<li>if嵌套结构</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">布尔表达式1</span><span class="o">){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">布尔表达式2</span><span class="o">){</span>
+        <span class="c1">//执行
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="34-switch选择结构">3.4 switch选择结构</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">switch</span><span class="o">(</span><span class="n">expression</span><span class="o">){</span>
+    <span class="k">case</span> <span class="n">value</span><span class="o">:</span>
+        <span class="c1">//语句
+</span><span class="c1"></span>        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="n">value</span><span class="o">:</span>
+        <span class="c1">//语句
+</span><span class="c1"></span>        <span class="k">break</span><span class="o">;</span>
+    <span class="c1">//可以有任意数量个case语句
+</span><span class="c1"></span>    <span class="k">default</span> <span class="o">:</span><span class="c1">//可选 一般在最后
+</span><span class="c1"></span>        <span class="c1">//语句
+</span><span class="c1"></span>        
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>
+<p>switch语句中变量可以使 byte、short、int、char在jdk7之后还支持String类型</p>
+</li>
+<li>
+<p>但字符的本质还是数字</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwitchDemo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;志恒&#34;</span><span class="o">;</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">name</span><span class="o">){</span>
+            <span class="k">case</span> <span class="s">&#34;小胖&#34;</span> <span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小胖&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="s">&#34;志恒&#34;</span> <span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;志恒&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="s">&#34;松涛&#34;</span> <span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;松涛&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;查无此人&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-10.jpg" alt="image2-10"  /></p>
+<ul>
+<li>反编译 	Java&mdash;&mdash;&gt;class文件&mdash;&mdash;&gt;反编译（IDEA实现）</li>
+</ul>
+<p><img src="image/image2-12.jpg" alt="image2-12"  /></p>
+<ul>
+<li>需要注意的是case具有穿透性 如果不加break或继续执行后面的case</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwitchDemo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="kt">char</span> <span class="n">grade</span> <span class="o">=</span> <span class="sc">&#39;B&#39;</span><span class="o">;</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">grade</span><span class="o">){</span>
+            <span class="k">case</span> <span class="sc">&#39;A&#39;</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;优秀&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="sc">&#39;B&#39;</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;良好&#34;</span><span class="o">);</span>
+            <span class="k">case</span> <span class="sc">&#39;C&#39;</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;及格&#34;</span><span class="o">);</span>
+            <span class="k">case</span> <span class="sc">&#39;D&#39;</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不及格&#34;</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;未知等级&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-11.jpg" alt="image2-11"  /></p>
+<h2 id="4循环结构">4、循环结构</h2>
+<p>###4.1 while循环</p>
+<ul>
+<li>只要布尔表达式结果为true就会一直执行</li>
+<li>用一个表达式失效的方式来结束循环</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">while</span><span class="o">(</span><span class="n">布尔表达式</span><span class="o">){</span>
+    <span class="c1">//语句
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>###4.2 do&hellip;while循环</p>
+<ul>
+<li>布尔表达式的值为false do&hellip;while循环也会执行一次</li>
+<li>do&hellip;while循环至少会执行一次</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">do</span><span class="o">{</span>
+    <span class="c1">//语句
+</span><span class="c1"></span><span class="o">}</span><span class="k">while</span><span class="o">(</span><span class="n">布尔表达式</span><span class="o">);</span>
+</code></pre></div><ul>
+<li>while与do&hellip;while的区别
+<ul>
+<li>while先判断后执行；do&hellip;while先执行后判断</li>
+<li>do&hellip;while总是保证循环体至少执行一次。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WhileDemo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+        <span class="k">while</span><span class="o">(</span><span class="n">a</span><span class="o">&lt;</span><span class="n">0</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+            <span class="n">a</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;====================&#34;</span><span class="o">);</span>
+        <span class="k">do</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+            <span class="n">a</span><span class="o">++;</span>
+        <span class="o">}</span><span class="k">while</span> <span class="o">(</span><span class="n">a</span><span class="o">&lt;</span><span class="n">0</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-13.png" alt="image2-13"  /></p>
+<h3 id="43-for循环">4.3 For循环</h3>
+<ul>
+<li>
+<p>语法结构</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">for</span><span class="o">(</span><span class="n">初始化</span><span class="o">;</span><span class="n">布尔表达式</span><span class="o">;</span><span class="n">更新</span><span class="o">){</span>
+    <span class="c1">//代码语句
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>for循环数支持迭代的一种通用结构，是<strong>最有效的、最灵活的循环结构</strong></p>
+</li>
+<li>
+<p>用for循环打印九九乘法表</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ForDemo04</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">9</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">sum</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="o">;</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">j</span><span class="o">+</span><span class="s">&#34;*&#34;</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="s">&#34;=&#34;</span><span class="o">+</span><span class="n">sum</span><span class="o">+</span><span class="s">&#34;\t&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-14.jpg" alt="image2-14"  /></p>
+<ul>
+<li>增强For循环</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ForDemo05</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="o">[]</span> <span class="n">number</span><span class="o">=</span> <span class="o">{</span><span class="n">10</span><span class="o">,</span><span class="n">20</span><span class="o">,</span><span class="n">30</span><span class="o">,</span><span class="n">40</span><span class="o">,</span><span class="n">50</span><span class="o">};</span>
+        <span class="c1">//首先看基本的for循环遍历数组
+</span><span class="c1"></span>        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===================&#34;</span><span class="o">);</span>
+        <span class="c1">//下面是增强型for循环遍历
+</span><span class="c1"></span>        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">:</span><span class="n">number</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-15.png" alt="image2-15"  /></p>
+<h2 id="5break与continue">5、break与continue</h2>
+<h3 id="51-break">5.1 break</h3>
+<ul>
+<li>
+<p>在任何循环语句的主体部分，均可用break控制循环的流程。break用于<strong>强行退出循环</strong>不执行循环体的剩余语句</p>
+</li>
+<li>
+<p>switch中的break可以避免case的穿透性</p>
+</li>
+</ul>
+<h3 id="52-continue">5.2 continue</h3>
+<ul>
+<li>
+<p>continue语句用在循环语句体中，用于终止某次循环过程，即跳过循环体中尚未执行的语句，接着进行下一次是否执行循环的判定</p>
+</li>
+<li>
+<p>java中可以使用标签（goto）</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LabelDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//求101-150之间的质数
+</span><span class="c1"></span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">//outer为标签
+</span><span class="c1"></span>        <span class="n">outer</span><span class="o">:</span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">101</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span><span class="n">j</span><span class="o">&lt;(</span><span class="n">i</span><span class="o">/</span><span class="n">2</span><span class="o">);</span><span class="n">j</span><span class="o">++){</span>
+               <span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">%</span><span class="n">j</span><span class="o">==</span><span class="n">0</span><span class="o">){</span>
+                   <span class="k">continue</span> <span class="n">outer</span><span class="o">;</span><span class="c1">//continue直接跳出到最外面的循环
+</span><span class="c1"></span>               <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">i</span><span class="o">+</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="image/image2-16.png" alt="image2-16"  /></p>
+<h2 id="6练习">6、练习</h2>
+<ul>
+<li>打印一个五行的三角形</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.struct</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestDemo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//打印三角形
+</span><span class="c1"></span>        <span class="cm">/*
+</span><span class="cm">        * 所打印的三角形就是用空格+“*”组成
+</span><span class="cm">        * 所以一开始进入循环1 打印倒三角的空格
+</span><span class="cm">        * 然后进入循环二，打印三角形的一半
+</span><span class="cm">        * 最后进入循环三，将三角形补全
+</span><span class="cm">        * */</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">5</span><span class="o">;</span><span class="n">j</span><span class="o">&gt;=</span><span class="n">i</span><span class="o">;</span><span class="n">j</span><span class="o">--){</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span><span class="c1">//循环1 打印倒三角的空格
+</span><span class="c1"></span>                <span class="o">}</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span><span class="n">i</span> <span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;*&#34;</span><span class="o">);</span><span class="c1">//循环2 打印了三角形的左半部分
+</span><span class="c1"></span>                <span class="o">}</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span><span class="n">i</span> <span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;*&#34;</span><span class="o">);</span><span class="c1">//循环3 将三角形补全
+</span><span class="c1"></span>                <span class="o">}</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+</code></pre></div><p><img src="image/image2-17.jpg" alt="image2-17"  /></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">&copy; 2021 MinsterBlog</section>
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="1.1.0">Stack</a></b> designed by
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<link rel="stylesheet" href="/css/highlight/light.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="/css/highlight/dark.min.css" media="(prefers-color-scheme: dark)">
+
+    </body>
+</html>
