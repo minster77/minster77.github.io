@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on MinsterBlog</title>
+    <link>https://minster77.github.io/post/</link>
+    <description>Recent content in Posts on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Jun 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>polymorphic</title>
+      <link>https://minster77.github.io/p/polymorphic/</link>
+      <pubDate>Mon, 28 Jun 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/polymorphic/</guid>
+      <description>编译类型、运行类型及多态的区别 Java的引用变量有两个类型，一个是编译时类型，一个是运行时类型，编译时类型由声明该变量时使用的类型决定，运行时类型由实际赋给该变量的对象决定。如果编译时类型和运行时类型不一致，会出现所谓的多态。
+ 因为子类其实是一种特殊的父类，因此Java允许把一个子类对象直接赋值给一个父类引用变量，无须任何转型，或者被称为向上转型，由系统自动完成。  测试代码
+  Father类
+package com.polymorphic; public class Father { public Father(){ System.out.println(&amp;#34;Father的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Father Do Work!&amp;#34;); } }   Son类
+package com.polymorphic; public class Son extends Father{ public Son(){ System.out.println(&amp;#34;Son的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Son Do Work!&amp;#34;); } }   Test类
+package com.polymorphic; public class Test { public static void main(String[] args) { Father child = new Son(); son.doWork(); } }   运行结果</description>
+    </item>
+    
+    <item>
+      <title>Java_IO流_2</title>
+      <link>https://minster77.github.io/p/java_io%E6%B5%81_2/</link>
+      <pubDate>Sat, 19 Jun 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java_io%E6%B5%81_2/</guid>
+      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   1、BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
+  关闭处理流的时候，只需要关闭外层流即可
+演示bufferedReader的使用
+package com.java_io; import java.io.BufferedReader; import java.io.FileReader; public class BufferedReaderTest { public static void main(String[] args) throws Exception{ String path = &amp;#34;E://note.txt&amp;#34;; //创建BufferedReader对象  BufferedReader bufferedReader = new BufferedReader(new FileReader(path)); //按行读取，提高效率  String line; /* * bufferedReader.readLine()是按行读取文件的 * 当返回null时，表示已读取完毕 */ while ((line =bufferedReader.readLine())!=null){ System.out.println(line); } bufferedReader.close(); } }   需要注意的是，关闭流时只需要关闭BufferedReader。因为底层会自动关闭节点流</description>
+    </item>
+    
+    <item>
+      <title>Java_IO流</title>
+      <link>https://minster77.github.io/p/java_io%E6%B5%81/</link>
+      <pubDate>Sat, 29 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java_io%E6%B5%81/</guid>
+      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   1、文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
+  文件流
+文件在程序中是以流的形式来操作的
+ 流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
+    使用new File（String pathname）创建
+package com.java_io; import org.junit.Test; import java.io.File; import java.io.IOException; public class FileCreate1 { public static void main(String[] args) { } //方法1：使用new File(filePath)创建文件  @Test public void createFile01() throws IOException { //创建的文件路径名称  String filePath = &amp;#34;e:\\news1.</description>
+    </item>
+    
+    <item>
+      <title>Java单例模式</title>
+      <link>https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 28 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <description>单例设计模式 1、什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  2、什么是单例模式   单例：就是单个的实例
+  所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
+  单例模式有两种方式：
+  饿汉式（只有类被加载了，该对象就会被创建）
+ 将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
+package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.</description>
+    </item>
+    
+    <item>
+      <title>JavaException</title>
+      <link>https://minster77.github.io/p/javaexception/</link>
+      <pubDate>Mon, 03 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaexception/</guid>
+      <description>JavaException   什么是异常 异常体系结构 Java异常处理机制 自定义异常 总结   1、什么是异常   软件程序在运行过程中，非常可能遇到一些异常问题，在Java中称为异常。
+  异常指程序运行中出现的不期而至的各种状况，如文件找不到、网络连接错误等。
+  需要掌握的三种类型的异常
+ 检查性异常：最具代表的检查性异常是用户错误或问题引起的异常，这是程序员无法预见的。 运行时异常：运行时异常是可能被程序员避免的异常，与检查性异常相反，运行时异常可以在编译时被忽略。 错误ERROR：错误不是异常，而是脱离程序员控制的问题。    2、异常体系结构   在Exception分支中有一个重要的子类RuntimeException(运行时异常)
+ ArrayIndexOutOfBoundsException(数组下标越界异常) NullPointerException(空指针异常) ArithmeticException（算术异常） MissingResourceException（丢失资源） ClassNotFountException（找不到类）  等异常，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。
+  这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。
+  Exception与Error的区别
+ Error通常是灾难性的致命的错误，是程序无法控制和处理的，当出现这些异常时，Java虚拟机(JVM)一般会选择终止线程 Exception通常情况下是可以被程序处理的，并且在程序中应该尽可能去处理这些异常    3、异常处理机制   当编写的代码出现异常时，程序会自动报出现异常错误
+package com.exception; public class Test { public static void main(String[] args) { int a = 1; int b = 0; System.</description>
+    </item>
+    
+    <item>
+      <title>JavaOOP_02</title>
+      <link>https://minster77.github.io/p/javaoop_02/</link>
+      <pubDate>Sun, 02 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaoop_02/</guid>
+      <description>深入面向对象   面向对象三大特性 static关键字详解 抽象类和接口 内部类及OOP实战   1、面向对象三大特性 1.1 封装   我们在程序设计中要追求“高内聚，低耦合”。
+ 高内聚：就是类的内部数据操作细节由自己完成，不允许外部干涉 仅暴露少量的方法给外部使用    所以在设计时需要把一些数据与方法封装起来（数据的隐藏）
+  属性私有，get/set调用
+  作用
+ 提高程序的安全性，保护数据 隐藏代码的实现细节 统一接口 增加了系统可维护性    代码演示
+Student类
+package com.oop.demo02; //学生类 public class Student { private String name; private int age; private String sex; public String getName() { return name; } public void setName(String name) { this.name = name; } public int getAge() { return age; } public void setAge(int age) { this.</description>
+    </item>
+    
+    <item>
+      <title>JavaOOP_01</title>
+      <link>https://minster77.github.io/p/javaoop_01/</link>
+      <pubDate>Sat, 01 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaoop_01/</guid>
+      <description>初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+ 步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
+ 物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
+  面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
+  面向对象的三大特性
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+Student类
+package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
+package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student.</description>
+    </item>
+    
+    <item>
+      <title>JavaArray</title>
+      <link>https://minster77.github.io/p/javaarray/</link>
+      <pubDate>Tue, 20 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaarray/</guid>
+      <description>Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
+dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
+  获取数组长度：arrays.length
+  联系：给数组赋值并累加求值
+package com.heng.array; public class Demo01 { public static void main(String[] args) { int[] arrays = new int[10]; int sum = 0; for (int i = 0; i &amp;lt;arrays.</description>
+    </item>
+    
+    <item>
+      <title>JavaMethod</title>
+      <link>https://minster77.github.io/p/javamethod/</link>
+      <pubDate>Thu, 08 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javamethod/</guid>
+      <description>JavaMethod   什么是方法 方法的定义及调用 方法重载 命令行传参 可变参数 递归   1、何谓方法   方法是语句的结合，他们在一起执行一个功能。
+ 方法是解决一类问题的步骤的有序组合 方法包含于类中 方法在程序中被创建，在其地方被引用    设计方法时，最好保持方法的原子性，就是一个方法只完成一个功能，这样子利于我们后期的拓展。
+  命名规则：首字母小写的驼峰命名法
+  方法创建及使用
+package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   2、方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
+    </item>
+    
+    <item>
+      <title>Java流程控制</title>
+      <link>https://minster77.github.io/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
+      <description>Java流程控制   用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+  基础语法：
+Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
+package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;+str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
+  通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据
+package com.heng.scanner; import java.</description>
+    </item>
+    
+    <item>
+      <title>JavaSE01</title>
+      <link>https://minster77.github.io/p/javase01/</link>
+      <pubDate>Sun, 28 Mar 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javase01/</guid>
+      <description>Java基础语法   注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc   1、注释、标识符、关键字 1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是大小写敏感的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
+  Collection实现子类可以存放多个元素，每个元素可以是Object
+  有些Collection的实现类，可以存放重复的元素，有些不可以
+  Collection实现类有些是有序的（List），有些不是有序的（Set）
+  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</description>
+    </item>
+    
+  </channel>
+</rss>

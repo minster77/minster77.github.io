@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
+  Collection实现子类可以存放多个元素，每个元素可以是Object
+  有些Collection的实现类，可以存放重复的元素，有些不可以
+  Collection实现类有些是有序的（List），有些不是有序的（Set）
+  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的'><title></title>
+
+<link rel='canonical' href='https://minster77.github.io/p/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
+<meta property='og:description' content='Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
+  Collection实现子类可以存放多个元素，每个元素可以是Object
+  有些Collection的实现类，可以存放重复的元素，有些不可以
+  Collection实现类有些是有序的（List），有些不是有序的（Set）
+  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的'>
+<meta property='og:url' content='https://minster77.github.io/p/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
+  Collection实现子类可以存放多个元素，每个元素可以是Object
+  有些Collection的实现类，可以存放重复的元素，有些不可以
+  Collection实现类有些是有序的（List），有些不是有序的（Set）
+  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/"></a>
+    </h2>
+
+    </div>
+</header>
+
+    <section class="article-content">
+    <h3 id="java集合类_01">Java集合类_01</h3>
+<hr>
+<ol>
+<li>集合的概念</li>
+</ol>
+<hr>
+<h4 id="1集合的概念">1、集合的概念</h4>
+<ul>
+<li>
+<p>由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。</p>
+<ol>
+<li>长度开始时必须指定，而且一旦指定，不能更改</li>
+<li>保存的必须为同一类型的元素</li>
+<li>使用数组进行增加元素/删除会比较麻烦</li>
+</ol>
+</li>
+<li>
+<p>若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：</p>
+<ul>
+<li>可以动态保存任意多个对象，使用比较方便！</li>
+<li>提供了一系列方便操作对象的方法：add、remove、set、get等</li>
+<li>使用集合添加、删除新元素的代码更加简洁了</li>
+</ul>
+</li>
+<li>
+<p>集合的框架体系</p>
+<p>Collection接口实现子类：</p>
+<p><img src="/JavaCollections01/Image1.png" alt="Image1"  /></p>
+<p>Map接口实现子类：</p>
+<p><img src="/JavaCollections01/Image2.png" alt="Image2"  /></p>
+</li>
+<li>
+<p>集合主要有两种（单列集合，双列集合）</p>
+<ul>
+<li>
+<p>Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+</code></pre></div></li>
+<li>
+<p>Map接口的实现子类是双列集合，即以K-V形式存放数据的</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">HashMap</span> <span class="n">hashMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No1&#34;</span><span class="o">,</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No2&#34;</span><span class="o">,</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h4 id="2collection接口和常用方法">2、Collection接口和常用方法</h4>
+<ul>
+<li>
+<p>Collection接口的特征</p>
+<ol>
+<li>
+<p>Collection实现子类可以存放多个元素，每个元素可以是Object</p>
+</li>
+<li>
+<p>有些Collection的实现类，可以存放重复的元素，有些不可以</p>
+</li>
+<li>
+<p>Collection实现类有些是有序的（List），有些不是有序的（Set）</p>
+</li>
+<li>
+<p>Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Collection接口的常用方法</p>
+<ul>
+<li>add：添加单个元素</li>
+<li>remove：删除指定元素</li>
+<li>contains：查找元素是否存在</li>
+<li>size：获取元素个数</li>
+<li>isEmpty：判断是否为空</li>
+<li>clear：清空</li>
+<li>addAll：增加多个元素</li>
+<li>containsAll：查找多个元素是否都存在</li>
+<li>removeAll：删除多个元素</li>
+</ul>
+<p>以Collection的实现子类演示上述方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collecyion_</span> <span class="o">{</span>
+    <span class="nd">@SuppressWarnings</span><span class="o">({</span><span class="s">&#34;all&#34;</span><span class="o">})</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">List</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="c1">//add：添加单个元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;java&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//remove：删除指定元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//contains：查找元素是否存在
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">10</span><span class="o">));</span>
+        <span class="c1">//size：获取元素个数
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+        <span class="c1">//isEmpty：判断是否为空
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+        <span class="c1">//clear：清空
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//addAll:增加多个元素
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">List2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">);</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">);</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;水浒传&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//containsAll：查找多个元素是否都存在
+</span><span class="c1"></span>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">containsAll</span><span class="o">(</span><span class="n">List2</span><span class="o">));</span>
+        <span class="c1">//removeAll：删除多个元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">removeAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/JavaCollections01/image3.png" alt="image3"  /></p>
+</li>
+<li>
+<p>Collection接口使用Iterator(迭代器)遍历元素</p>
+<ul>
+<li>Iterator对象称为迭代器，主要用于遍历Collection集合中的元素</li>
+<li>所有实现了Collection接口的集合类都有一个iterator()方法，用以返回一个实现了Iterator接口的对象，即可以返回一个迭代器</li>
+<li>Iterator仅用于遍历集合，Iterator本身并不存放对象</li>
+<li>hasNext()：判断是否还有下一个元素</li>
+<li>next()：将下移以后集合位置上的元素返回</li>
+</ul>
+<p>代码演示：</p>
+<p><strong>Collection_Book</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Book</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Collection_Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">author</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Collection_Book{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, author=&#39;&#34;</span> <span class="o">+</span> <span class="n">author</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, price=&#34;</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>Collection_Iterator</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.conllection_.Collection_Book</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Iterator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+      <span class="c1">//创建col对应的迭代器
+</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="c1">//使用while遍历循环
+</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+            <span class="c1">//因为迭代器取到的数据可以是任意类型的，所以用Object
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>运行结果</strong></p>
+<p><img src="/JavaCollections01/image4.png" alt="image4"  /></p>
+<blockquote>
+<p>hasNext()的返回值为Boolean，</p>
+<p>next()的返回值可以为任意类型</p>
+</blockquote>
+<p>注意：当退出while循环后，这是iterator迭代器指向最后一个元素，此时再使用iterator.next()系统会报错。</p>
+<p>如果要再次遍历，我们需要<strong>重置迭代器</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span><span class="c1">//重置迭代器
+</span></code></pre></div></li>
+<li>
+<p>在IDEA中可以使用itit快捷生成</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+        <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>ctrl+j可以看到所有快捷键</p>
+<p><img src="/JavaCollections01/image5.png" alt="image5"  /></p>
+</li>
+<li>
+<p>Collection接口使用增强for循环来遍历元素</p>
+<ul>
+<li>增强for就是简化版的iterator，本质一样，只能用于遍历集合或素组</li>
+</ul>
+<p>基本语法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>代码演示</p>
+<p><strong>Collection_For</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_For</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果与使用迭代器的一致。</p>
+<p>我们在**for(Object object : col)**这行代码加一个断点，通过Debug，可以发现增强for会依次调用迭代器的底层方法！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Itr</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">cursor</span> <span class="o">!=</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">E</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">checkForComodification</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchElementException</span><span class="o">();</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">elementData</span> <span class="o">=</span> <span class="n">ArrayList</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">elementData</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">ConcurrentModificationException</span><span class="o">();</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">E</span><span class="o">)</span> <span class="n">elementData</span><span class="o">[</span><span class="n">lastRet</span> <span class="o">=</span> <span class="n">i</span><span class="o">];</span>
+<span class="o">}</span>
+</code></pre></div><p>所以，我们可以得知，增强for的底层仍然是<strong>迭代器</strong>！</p>
+</li>
+</ul>
+<h4 id="3list接口和常用方法">3、List接口和常用方法</h4>
+<p>List接口是Collection接口的子接口</p>
+<ol>
+<li>List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复</li>
+<li>List集合中的每个元素都有其对应的顺序索引，即支持索引</li>
+<li>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素</li>
+<li>List接口常用的实现类有:ArrayList、LinkedList、Vector</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#java集合类_01">Java集合类_01</a>
+          <ol>
+            <li><a href="#1集合的概念">1、集合的概念</a></li>
+            <li><a href="#2collection接口和常用方法">2、Collection接口和常用方法</a></li>
+            <li><a href="#3list接口和常用方法">3、List接口和常用方法</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

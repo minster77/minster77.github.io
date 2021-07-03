@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='单例设计模式 1、什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  2、什么是单例模式   单例：就是单个的实例
+  所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
+  单例模式有两种方式：
+  饿汉式（只有类被加载了，该对象就会被创建）
+ 将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
+package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.'><title>Java单例模式</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java单例模式'>
+<meta property='og:description' content='单例设计模式 1、什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  2、什么是单例模式   单例：就是单个的实例
+  所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
+  单例模式有两种方式：
+  饿汉式（只有类被加载了，该对象就会被创建）
+ 将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
+package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-05-28T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-28T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java单例模式">
+<meta name="twitter:description" content="单例设计模式 1、什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  2、什么是单例模式   单例：就是单个的实例
+  所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
+  单例模式有两种方式：
+  饿汉式（只有类被加载了，该对象就会被创建）
+ 将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
+package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/designpattern/" >
+                DesignPattern
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Java单例模式</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 28, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h3 id="单例设计模式">单例设计模式</h3>
+<h4 id="1什么是设计模式">1、什么是设计模式</h4>
+<ul>
+<li>静态方法和属性的经典实用</li>
+<li>设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索</li>
+</ul>
+<h4 id="2什么是单例模式">2、什么是单例模式</h4>
+<ul>
+<li>
+<p>单例：就是单个的实例</p>
+</li>
+<li>
+<p>所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法</p>
+</li>
+<li>
+<p>单例模式有两种方式：</p>
+<ul>
+<li>
+<p>饿汉式（只有类被加载了，该对象就会被创建）</p>
+<ol>
+<li>将构造器私有化</li>
+<li>在类的内部之间创建（该对象是static）</li>
+<li>提供一个公共的static方法，返回对象</li>
+</ol>
+<p>例如，我们规定一个人必须专一，只能有一个女朋友！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleTon</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">GirlFriend</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">GirlFriend</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">instance</span><span class="o">);</span>
+        <span class="c1">//无论你怎么创建，该对象都是同一个
+</span><span class="c1"></span>        <span class="n">GirlFriend</span> <span class="n">instance1</span> <span class="o">=</span> <span class="n">GirlFriend</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">instance1</span><span class="o">);</span>
+        <span class="c1">//返回结果为True
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">instance</span><span class="o">==</span><span class="n">instance1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">GirlFriend</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">;</span>
+    <span class="c1">//在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">GirlFriend</span> <span class="n">girlFriend</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GirlFriend</span><span class="o">(</span><span class="s">&#34;小红&#34;</span><span class="o">);</span>
+    <span class="c1">//构造器私有化
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="nf">GirlFriend</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">GirlFriend</span> <span class="nf">getInstance</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">girlFriend</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;GirlFriend{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/SingleTon/image1.png" alt="1622205319(1)"  /></p>
+<p>由于类被加载之后，对象无论如何都会被创建，会造成资源的浪费。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleTon</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">GirlFriend</span><span class="o">.</span><span class="na">n</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">GirlFriend</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+    <span class="c1">//对象，通常是重量级的对象，饿汉模式可能造成创建了对象，但没有使用
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">GirlFriend</span> <span class="n">girlFriend</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GirlFriend</span><span class="o">(</span><span class="s">&#34;小红&#34;</span><span class="o">);</span>
+    <span class="c1">//构造器私有化
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="nf">GirlFriend</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;构造器被调用了&#34;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">GirlFriend</span> <span class="nf">getInstance</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">girlFriend</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;GirlFriend{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/SingleTon/image2.png" alt="1622205969(1)"  /></p>
+<p>使用懒汉式可以很好的解决这个问题</p>
+</li>
+<li>
+<p>懒汉式（不调用就不会创建对象）</p>
+<ol>
+<li>将构造器私有化</li>
+<li>定义一个static静态属性对象</li>
+<li>提供一个public的static方法，可以返回一个对象</li>
+</ol>
+<p>懒汉式：只有当用户使用getInstance时才会返回一个对象。后面再调用时，会返回上次创建的对象</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleTon01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Cat</span><span class="o">.</span><span class="na">n</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;================&#34;</span><span class="o">);</span>
+        <span class="n">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Cat</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Cat</span> <span class="n">cat</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nf">Cat</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;构造器被调用&#34;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Cat</span> <span class="nf">getInstance</span><span class="o">(){</span>
+        <span class="c1">//判断有没有创建Cat对象
+</span><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">cat</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cat</span><span class="o">(</span><span class="s">&#34;miao&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">cat</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Cat{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/SingleTon/image3.png" alt="1622207500(1)"  /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>饿汉式VS懒汉式</p>
+<ul>
+<li>二者最主要的区别在于创建对象的<strong>时机</strong>不同：饿汉式是在类加载就创建了对象实例而懒汉式是在使用时才创建</li>
+<li>饿汉式不存在线程安全问题，懒汉式存在线程安全问题</li>
+<li>饿汉式存在浪费资源的可能。因为如果程序员一个对象实例都没有使用，那么饿汉式创建的对象就浪费了，懒汉式是使用时才创建，就不存在这个问题。</li>
+<li>在我们的JavaSE标准类中，java.lang.Runtime就是经典的单例模式</li>
+</ul>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#单例设计模式">单例设计模式</a>
+          <ol>
+            <li><a href="#1什么是设计模式">1、什么是设计模式</a></li>
+            <li><a href="#2什么是单例模式">2、什么是单例模式</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

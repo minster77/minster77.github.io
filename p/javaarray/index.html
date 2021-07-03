@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
+dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
+  获取数组长度：arrays.length
+  联系：给数组赋值并累加求值
+package com.heng.array; public class Demo01 { public static void main(String[] args) { int[] arrays = new int[10]; int sum = 0; for (int i = 0; i &amp;lt;arrays.'><title>JavaArray</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/javaarray/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JavaArray'>
+<meta property='og:description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
+dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
+  获取数组长度：arrays.length
+  联系：给数组赋值并累加求值
+package com.heng.array; public class Demo01 { public static void main(String[] args) { int[] arrays = new int[10]; int sum = 0; for (int i = 0; i &amp;lt;arrays.'>
+<meta property='og:url' content='https://minster77.github.io/p/javaarray/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-04-20T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-04-20T16:22:25&#43;08:00'/><meta property='og:image' content='https://minster77.github.io/cover04.jpg' />
+<meta name="twitter:title" content="JavaArray">
+<meta name="twitter:description" content="Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
+dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
+  获取数组长度：arrays.length
+  联系：给数组赋值并累加求值
+package com.heng.array; public class Demo01 { public static void main(String[] args) { int[] arrays = new int[10]; int sum = 0; for (int i = 0; i &amp;lt;arrays."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://minster77.github.io/cover04.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/javaarray/">
+                
+                    <img src="/cover04.jpg" loading="lazy" alt="Featured image of post JavaArray" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javabase/" >
+                JavaBase
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/javaarray/">JavaArray</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Apr 20, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="java数组">Java数组</h2>
+<hr>
+<ol>
+<li>数组概述</li>
+<li>数组声明创建</li>
+<li>java内存分析</li>
+<li>数组使用</li>
+<li>多维数组</li>
+<li>Arrays类</li>
+<li>冒泡排序</li>
+<li>稀疏数组</li>
+</ol>
+<hr>
+<h3 id="1数组概述">1、数组概述</h3>
+<ul>
+<li>数组是相同类型数据的有序集合</li>
+<li>数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成</li>
+<li>每一个数据称作一个数组元素，数组元素可以通过一个下标来访问</li>
+</ul>
+<h3 id="2数组声明与创建">2、数组声明与创建</h3>
+<ul>
+<li>
+<p>首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">dataType</span><span class="o">[]</span> <span class="n">arrayRefvar</span><span class="o">;</span>		<span class="c1">//首选方法
+</span><span class="c1"></span><span class="n">dataType</span> <span class="n">addayRefvar</span><span class="o">[];</span>		<span class="c1">//效果相同，但不是首选方法
+</span></code></pre></div></li>
+<li>
+<p>java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">dataType</span><span class="o">[]</span> <span class="n">arrayRefvar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">dataType</span><span class="o">[</span><span class="n">arraySize</span><span class="o">];</span>
+</code></pre></div></li>
+<li>
+<p>数组的元素是通过索引访问的，数组索引从0开始</p>
+</li>
+<li>
+<p>获取数组长度：arrays.length</p>
+</li>
+<li>
+<p>联系：给数组赋值并累加求值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">10</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">arrays</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">arrays</span><span class="o">.</span><span class="na">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">sum</span><span class="o">+=</span><span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sum</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>初始化</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//静态初始化:创建+赋值
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">};</span>
+        <span class="n">Demo01</span><span class="o">[]</span> <span class="n">demo01s</span> <span class="o">=</span> <span class="o">{</span><span class="k">new</span> <span class="n">Demo01</span><span class="o">(),</span><span class="k">new</span> <span class="n">Demo01</span><span class="o">()};</span>
+        <span class="c1">//动态初始化
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">10</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>数组的四个基本特点</p>
+<ul>
+<li>数组一旦被创建，它的大小就是不可以改变的。</li>
+<li>其元素必须是相同的数据类型，不允许出现混合类型</li>
+<li>数组中的元素可以是任何类型，包括基本类型和引用类型</li>
+<li>数组可以看做一个对象，Java对象是在堆中的，数组对象本身是在堆中的。</li>
+</ul>
+</li>
+<li>
+<p>数组边界</p>
+<p>数组的合法区间：[0,length-1],如果越界就就会报错！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo03</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">2</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">2</span><span class="o">]);</span><span class="c1">//越界！
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-3.png" alt="image4-3"  /></p>
+</li>
+</ul>
+<h3 id="3java内存分析">3、Java内存分析</h3>
+<ul>
+<li>
+<p>堆</p>
+<ul>
+<li>存放new的对象和数组</li>
+<li>可以被所有的线程共享，不会存放别的对象引用</li>
+</ul>
+</li>
+<li>
+<p>栈</p>
+<ul>
+<li>存放基本变量类型（会包含这个基本类型的具体数值）</li>
+<li>引用对象的变量（会存放这个引用在堆里面的具体地址）</li>
+</ul>
+</li>
+<li>
+<p>方法区</p>
+<ul>
+<li>可以被所有的线程共享</li>
+<li>包含了所有的class和static变量</li>
+</ul>
+</li>
+<li>
+<p>java内存分析图示</p>
+<p><img src="/Arrayimage/image4-2.png" alt="image4-2"  /></p>
+</li>
+</ul>
+<h3 id="4数组使用">4、数组使用</h3>
+<ul>
+<li>
+<p>For-Each循环</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo04</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">5</span><span class="o">};</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-4.png" alt="image4-4"  /></p>
+</li>
+<li>
+<p>数组作为参数</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo05</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">5</span><span class="o">};</span>
+        <span class="n">printArrays</span><span class="o">(</span><span class="n">arrays</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printArrays</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span><span class="o">){</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arrays</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-5.png" alt="image4-5"  /></p>
+</li>
+<li>
+<p>数组做返回值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo05</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">5</span><span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">reverse</span> <span class="o">=</span> <span class="n">reverse</span><span class="o">(</span><span class="n">arrays</span><span class="o">);</span>
+        <span class="n">printArrays</span><span class="o">(</span><span class="n">reverse</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//反转数组
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">reverse</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span><span class="o">){</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">arrays</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span><span class="n">j</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arrays</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++,</span><span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//打印数组
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printArrays</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span><span class="o">){</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arrays</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/Arrayimage/image4-6.png" alt="image4-6"  /></p>
+</li>
+</ul>
+<h3 id="5多维数组">5、多维数组</h3>
+<ul>
+<li>
+<p>多维数组可以看成是数组的数组。例如一个二维数组就是一个特殊的一维数组，每一个元素都是一个一维数组</p>
+</li>
+<li>
+<p>多维数组的组成</p>
+<p><img src="/Arrayimage/image4-7.png" alt="image4-7"  /></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo06</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//创建一个二维数组
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[][]</span> <span class="n">arrays</span> <span class="o">=</span> <span class="o">{{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">},{</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">},{</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">},{</span><span class="n">7</span><span class="o">,</span><span class="n">8</span><span class="o">}};</span>
+        <span class="cm">/*
+</span><span class="cm">        *  相当于一个四行二列  [4][2]
+</span><span class="cm">        *   {1,2}   arrays[0]
+</span><span class="cm">        *   {3,4}   arrays[1]
+</span><span class="cm">        *   {5,6}   arrays[2]
+</span><span class="cm">        *   {7,8}   arrays[3]
+</span><span class="cm">        * */</span>
+        <span class="c1">//打印arrays[0]所得的结果为arrays[0]的地址
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==================&#34;</span><span class="o">);</span>
+        <span class="c1">//但是通过printArrays函数打印就能把arrays[0]的值打印出来
+</span><span class="c1"></span>        <span class="n">printArrays</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==================&#34;</span><span class="o">);</span>
+        <span class="c1">//或者用二维数组打印方式打印
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]+</span><span class="s">&#34; &#34;</span><span class="o">+</span><span class="n">arrays</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">]);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printArrays</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arrays</span><span class="o">){</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arrays</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">arrays</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-8.png" alt="image4-8"  /></p>
+</li>
+</ul>
+<h3 id="6arrays类">6、Arrays类</h3>
+<ul>
+<li>
+<p>数组的工具类java.util.Arrays</p>
+</li>
+<li>
+<p>该类包含用于操作数组的各种方法（如排序和搜索）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo07</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="n">2</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">71</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">15</span><span class="o">,</span><span class="n">48</span><span class="o">,</span><span class="n">89</span><span class="o">,</span><span class="n">12</span><span class="o">,</span><span class="n">545</span><span class="o">};</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">a</span><span class="o">));</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//排序方法 ：升序
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">a</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-9.png" alt="image4-9"  /></p>
+</li>
+</ul>
+<h3 id="7冒泡排序">7、冒泡排序</h3>
+<ul>
+<li>
+<p>冒泡排序是最常用的八大排序算法之一，通过嵌套循环实现</p>
+</li>
+<li>
+<p>冒泡排序的原理</p>
+<ol>
+<li>比较数组中两个相邻的元素，如果第一个数比第二个数大，我们就交换他们的位置</li>
+<li>每一次比较都会产生一个最大或者最小的数字</li>
+<li>下一轮则可以少一次排序</li>
+<li>一次循环，直到结束</li>
+</ol>
+</li>
+<li>
+<p>示例代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo08</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">10</span><span class="o">,</span><span class="n">55</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">444</span><span class="o">,</span><span class="n">64</span><span class="o">,</span><span class="n">50</span><span class="o">};</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">a</span><span class="o">));</span>		
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=================&#34;</span><span class="o">);</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+        <span class="c1">//调用完排序方法后，返回一个排序后的数组
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">a</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">){</span>
+        <span class="c1">//临时变量
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">//外层循环，判断我们要走多少次
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">//通过flag标识减少没有意义的比较
+</span><span class="c1"></span>            <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="c1">//内层循环，比较判断两个数，交换位置
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">-</span><span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]&gt;</span><span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+                    <span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">];</span>
+                    <span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+                    <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">flag</span><span class="o">==</span><span class="kc">false</span><span class="o">){</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/Arrayimage/image4-10.png" alt="image4-10"  /></p>
+</li>
+</ul>
+<h3 id="8稀疏数组">8、稀疏数组</h3>
+<ul>
+<li>
+<p>稀疏数组就是一种数据结构</p>
+</li>
+<li>
+<p>当一个数组中大部分元素为0，或者为同一值得数组时，可以使用稀疏数组来保存该数组。</p>
+</li>
+<li>
+<p>稀疏数组的处理方式是：</p>
+<ul>
+<li>记录数组一共有几行几列，有多少个不同值</li>
+<li>把具有不同值的元素的行列及值记录在一个小规模数组中，从而缩小程序的规模</li>
+</ul>
+<p><img src="/Arrayimage/image4-11.png" alt="image4-11"  /></p>
+</li>
+<li>
+<p>原始数组转换成稀疏数组</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.heng.array</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo09</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//五子棋游戏：创建一个二维数组 11*11 0：没有旗子 1：黑棋 2：白棋
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[][]</span> <span class="n">array1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">11</span><span class="o">][</span><span class="n">11</span><span class="o">];</span>
+        <span class="n">array1</span><span class="o">[</span><span class="n">1</span><span class="o">][</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">array1</span><span class="o">[</span><span class="n">2</span><span class="o">][</span><span class="n">3</span><span class="o">]</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+        <span class="c1">//输出原始的数组
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出原始的数组&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">ints</span><span class="o">:</span><span class="n">array1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">anInt</span><span class="o">:</span><span class="n">ints</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">anInt</span><span class="o">+</span><span class="s">&#34;\t&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//转换为稀疏数组
+</span><span class="c1"></span>        <span class="c1">//获取有效值的个数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">11</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">11</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">array1</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]!=</span><span class="n">0</span><span class="o">){</span>
+                    <span class="n">sum</span><span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;有效值为：&#34;</span><span class="o">+</span><span class="n">sum</span><span class="o">);</span>
+
+        <span class="c1">//创建一个稀疏数组
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[][]</span> <span class="n">array2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">sum</span><span class="o">+</span><span class="n">1</span><span class="o">][</span><span class="n">3</span><span class="o">];</span>
+        <span class="n">array2</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">11</span><span class="o">;</span>
+        <span class="n">array2</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">11</span><span class="o">;</span>
+        <span class="n">array2</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">sum</span><span class="o">;</span>
+
+        <span class="c1">//遍历二维数组，将非0的值存放到稀疏数组中
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array1</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">array1</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">array1</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]!=</span><span class="n">0</span><span class="o">){</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                    <span class="n">array2</span><span class="o">[</span><span class="n">count</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="n">array2</span><span class="o">[</span><span class="n">count</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span>
+                    <span class="n">array2</span><span class="o">[</span><span class="n">count</span><span class="o">][</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">array1</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="c1">//输出稀疏数组
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出稀疏数组&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span>
+                    <span class="o">+</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span>
+                    <span class="o">+</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">2</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-12.jpg" alt="image4-12"  /></p>
+</li>
+<li>
+<p>稀疏数组还原</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//输出稀疏数组
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出稀疏数组&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span>
+                    <span class="o">+</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span>
+                    <span class="o">+</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">2</span><span class="o">]+</span><span class="s">&#34;\t&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=======================&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;还原&#34;</span><span class="o">);</span>
+        <span class="c1">//稀疏数组转换成原始数组
+</span><span class="c1"></span>
+        <span class="c1">//1.读取稀疏数组
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[][]</span> <span class="n">array3</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">array2</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]][</span><span class="n">array2</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">]];</span>
+
+        <span class="c1">//2.给其中的元素还原值
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">array3</span><span class="o">[</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]][</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]]</span> <span class="o">=</span> <span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">2</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;输出还原后的数组&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">ints</span><span class="o">:</span><span class="n">array1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">anInt</span><span class="o">:</span><span class="n">ints</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">anInt</span><span class="o">+</span><span class="s">&#34;\t&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="o">}</span>
+</code></pre></div><p><img src="/Arrayimage/image4-13.jpg" alt="image4-13"  /></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/polymorphic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">polymorphic</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java_io%E6%B5%81_2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java_IO流_2</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java_io%E6%B5%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java_IO流</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javamethod/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/cover03.jpg" loading="lazy" data-key="" data-hash="/cover03.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaMethod</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/cover02.jpg" loading="lazy" data-key="" data-hash="/cover02.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java流程控制</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#java数组">Java数组</a>
+      <ol>
+        <li><a href="#1数组概述">1、数组概述</a></li>
+        <li><a href="#2数组声明与创建">2、数组声明与创建</a></li>
+        <li><a href="#3java内存分析">3、Java内存分析</a></li>
+        <li><a href="#4数组使用">4、数组使用</a></li>
+        <li><a href="#5多维数组">5、多维数组</a></li>
+        <li><a href="#6arrays类">6、Arrays类</a></li>
+        <li><a href="#7冒泡排序">7、冒泡排序</a></li>
+        <li><a href="#8稀疏数组">8、稀疏数组</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

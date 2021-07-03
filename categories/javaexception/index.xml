@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaException on MinsterBlog</title>
+    <link>https://minster77.github.io/categories/javaexception/</link>
+    <description>Recent content in JavaException on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/javaexception/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaException</title>
+      <link>https://minster77.github.io/p/javaexception/</link>
+      <pubDate>Mon, 03 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaexception/</guid>
+      <description>JavaException   什么是异常 异常体系结构 Java异常处理机制 自定义异常 总结   1、什么是异常   软件程序在运行过程中，非常可能遇到一些异常问题，在Java中称为异常。
+  异常指程序运行中出现的不期而至的各种状况，如文件找不到、网络连接错误等。
+  需要掌握的三种类型的异常
+ 检查性异常：最具代表的检查性异常是用户错误或问题引起的异常，这是程序员无法预见的。 运行时异常：运行时异常是可能被程序员避免的异常，与检查性异常相反，运行时异常可以在编译时被忽略。 错误ERROR：错误不是异常，而是脱离程序员控制的问题。    2、异常体系结构   在Exception分支中有一个重要的子类RuntimeException(运行时异常)
+ ArrayIndexOutOfBoundsException(数组下标越界异常) NullPointerException(空指针异常) ArithmeticException（算术异常） MissingResourceException（丢失资源） ClassNotFountException（找不到类）  等异常，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。
+  这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。
+  Exception与Error的区别
+ Error通常是灾难性的致命的错误，是程序无法控制和处理的，当出现这些异常时，Java虚拟机(JVM)一般会选择终止线程 Exception通常情况下是可以被程序处理的，并且在程序中应该尽可能去处理这些异常    3、异常处理机制   当编写的代码出现异常时，程序会自动报出现异常错误
+package com.exception; public class Test { public static void main(String[] args) { int a = 1; int b = 0; System.</description>
+    </item>
+    
+  </channel>
+</rss>

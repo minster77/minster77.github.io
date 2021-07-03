@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java_OOP on MinsterBlog</title>
+    <link>https://minster77.github.io/categories/java_oop/</link>
+    <description>Recent content in Java_OOP on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/java_oop/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaOOP_02</title>
+      <link>https://minster77.github.io/p/javaoop_02/</link>
+      <pubDate>Sun, 02 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaoop_02/</guid>
+      <description>深入面向对象   面向对象三大特性 static关键字详解 抽象类和接口 内部类及OOP实战   1、面向对象三大特性 1.1 封装   我们在程序设计中要追求“高内聚，低耦合”。
+ 高内聚：就是类的内部数据操作细节由自己完成，不允许外部干涉 仅暴露少量的方法给外部使用    所以在设计时需要把一些数据与方法封装起来（数据的隐藏）
+  属性私有，get/set调用
+  作用
+ 提高程序的安全性，保护数据 隐藏代码的实现细节 统一接口 增加了系统可维护性    代码演示
+Student类
+package com.oop.demo02; //学生类 public class Student { private String name; private int age; private String sex; public String getName() { return name; } public void setName(String name) { this.name = name; } public int getAge() { return age; } public void setAge(int age) { this.</description>
+    </item>
+    
+    <item>
+      <title>JavaOOP_01</title>
+      <link>https://minster77.github.io/p/javaoop_01/</link>
+      <pubDate>Sat, 01 May 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javaoop_01/</guid>
+      <description>初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+ 步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
+ 物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
+  面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
+  面向对象的三大特性
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+Student类
+package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
+package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+ 步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
+ 物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
+  面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
+  面向对象的三大特性
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+Student类
+package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
+package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student.'><title>JavaOOP_01</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/javaoop_01/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JavaOOP_01'>
+<meta property='og:description' content='初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+ 步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
+ 物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
+  面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
+  面向对象的三大特性
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+Student类
+package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
+package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student.'>
+<meta property='og:url' content='https://minster77.github.io/p/javaoop_01/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-05-01T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-01T16:22:25&#43;08:00'/><meta property='og:image' content='https://minster77.github.io/Java_OOP_01.jpg' />
+<meta name="twitter:title" content="JavaOOP_01">
+<meta name="twitter:description" content="初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+ 步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
+ 物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
+  面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
+  面向对象的三大特性
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+Student类
+package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
+package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://minster77.github.io/Java_OOP_01.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/javaoop_01/">
+                
+                    <img src="/Java_OOP_01.jpg" loading="lazy" alt="Featured image of post JavaOOP_01" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java_oop/" >
+                Java_OOP
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/javaoop_01/">JavaOOP_01</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 01, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="初识面向对象">初识面向对象</h2>
+<hr>
+<ol>
+<li>初识面向对象</li>
+<li>方法回顾和加深</li>
+<li>对象的创建分析</li>
+</ol>
+<hr>
+<h3 id="1初识面向对象">1、初识面向对象</h3>
+<ul>
+<li>
+<p>面向过程思想</p>
+<ul>
+<li>步骤清晰简单，第一步做什么，第二部做什么&hellip;.</li>
+<li>面向过程适合处理一些较为简单的问题</li>
+</ul>
+</li>
+<li>
+<p>面向对象思想</p>
+<ul>
+<li>物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索</li>
+<li>面向对象适合处理复杂的问题，适合处理需要多人协作的问题！</li>
+</ul>
+</li>
+<li>
+<p>对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。</p>
+</li>
+<li>
+<p>面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据</p>
+</li>
+<li>
+<p>面向对象的三大特性</p>
+<ul>
+<li>封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。</li>
+<li>继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。</li>
+<li>多态：多态是同一个行为具有多个不同表现形式或形态的能力。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2回顾方法和加深">2、回顾方法和加深</h3>
+<ul>
+<li>
+<p>静态方法与非静态方法的调用</p>
+<p>Student类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="c1">//静态方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;kazikazi&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//非静态方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Demo01类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//调用静态方法可以直接调用
+</span><span class="c1"></span>        <span class="n">Student</span><span class="o">.</span><span class="na">eat</span><span class="o">();</span>
+                 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;========================&#34;</span><span class="o">);</span>
+        <span class="c1">//调用非静态方法时需要实例化对象 new
+</span><span class="c1"></span>        <span class="c1">//对象类型 对象名字 = new 对象值；
+</span><span class="c1"></span>        <span class="n">Student</span> <span class="n">student</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+        <span class="n">student</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/OOP-image/image1.jpg" alt="image1"  /></p>
+<p>可以知道，静态方法在main方法中调用可以直接调用，非静态方法则需要先实例化类(new一个对象)才能调用</p>
+</li>
+<li>
+<p>值传递</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//1
+</span><span class="c1"></span>        <span class="n">change</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//实参
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//1
+</span><span class="c1"></span>    <span class="o">}</span>
+    <span class="c1">//返回值为空
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">change</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span><span class="c1">//形参
+</span><span class="c1"></span>        <span class="n">a</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/OOP-image/image2.jpg" alt="image2"  /></p>
+<p>上述代码中a的值没有改变是因为实参传递给形参的是值  形参和实参在内存上是两个独立的变量 对形参做任何修改不会影响实参</p>
+<blockquote>
+<p>通俗来说就是：小明去餐厅看到别人桌子上的糯米鸡好吃，然后小明就叫服务员点了一份糯米鸡，小明吃完了，别人桌上的却不受影响，因为他们吃的不是同一份糯米鸡。</p>
+</blockquote>
+</li>
+<li>
+<p>引用传递</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo04</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;高佬&#34;</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="n">Demo04</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">change</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
+        <span class="c1">//person是一个对象，指向了一个对象
+</span><span class="c1"></span>        <span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">=</span><span class="s">&#34;志恒&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/OOP-image/image3.jpg" alt="image3"  /></p>
+<p>实参传递给形参的是参数对于 堆内存上的引用地址 实参和 形参在内存上指向 了同一块区域  对形参的修改会影响实参</p>
+</li>
+</ul>
+<h3 id="3对象的创建分析">3、对象的创建分析</h3>
+<h4 id="31-对象的创建">3.1 对象的创建</h4>
+<ul>
+<li>
+<p>对象可以通过new关键字来创建，示例如下</p>
+<p>创建一个Student类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+<span class="c1">//学生类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="c1">//属性
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="c1">//方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">+</span><span class="s">&#34;学生在学习&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Test类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+<span class="c1">//一个项目只能有一个main方法
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/* 类：抽象的，需要实例化
+</span><span class="cm">        *  类实例化之后会返回一个自己的对象
+</span><span class="cm">        *  student对象就是一个Student类的具体实例
+</span><span class="cm">        * */</span>
+        <span class="n">Student</span> <span class="n">student1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+        <span class="n">Student</span> <span class="n">student2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+
+        <span class="c1">//给对象赋值
+</span><span class="c1"></span>        <span class="n">student1</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;小明&#34;</span><span class="o">;</span>
+        <span class="n">student1</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student1</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student1</span><span class="o">.</span><span class="na">age</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student2</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student2</span><span class="o">.</span><span class="na">age</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/OOP-image/image4.jpg" alt="image4"  /></p>
+</li>
+<li>
+<p>使用new关键字创建的时候，除了分配空间之外，还会给创建好的对象进行默认初始化以及对类中构造器的调用。</p>
+</li>
+</ul>
+<h4 id="32-构造器">3.2 构造器</h4>
+<ul>
+<li>
+<p>构造器又叫构造方法，在进行创建对象的时候必须要调用的。并且构造器有一下两个特点：</p>
+<ul>
+<li>必须和类的名字相同</li>
+<li>必须没有返回类型，也不能写void</li>
+</ul>
+<p>作用</p>
+<ol>
+<li>使用new关键字，本质就是在调用构造器</li>
+<li>初始化对象的值</li>
+</ol>
+<p>注意点</p>
+<ol>
+<li>定义有参构造之后，如果想使用无参构造，就必须显示的定义一个无参的构造</li>
+</ol>
+<blockquote>
+<p>ait+Insert IDEA生成构造器的快捷键</p>
+</blockquote>
+</li>
+<li>
+<p>构造器代码示例：</p>
+<p>Person类：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="c1">//一个类即使什么都不写，它都会存在一个方法（构造器）
+</span><span class="c1"></span>    <span class="c1">//显示的定义构造器
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="c1">//无参构造
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">Person</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="c1">//有参构造：一旦定义了有参构造，无参就必须显示定义
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Test类：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+<span class="c1">//一个项目只能有一个main方法
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//new 实例化一个对象
+</span><span class="c1"></span>        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">&#34;minster&#34;</span><span class="o">,</span><span class="n">21</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">+</span><span class="s">&#34; &#34;</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">age</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/OOP-image/image5.png" alt="image5"  /></p>
+</li>
+</ul>
+<h4 id="33-对象的内存分析">3.3 对象的内存分析</h4>
+<ul>
+<li>
+<p>首先先创建一个简单的Pet类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pet</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Pet</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Pet</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shout</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">+</span><span class="s">&#34;在叫&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Tset</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop.demo02</span><span class="o">;</span>
+<span class="c1">//一个项目只能有一个main方法
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//new 实例化一个对象
+</span><span class="c1"></span>        <span class="n">Pet</span> <span class="n">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pet</span><span class="o">(</span><span class="s">&#34;旺财&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">);</span>
+        <span class="n">Pet</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pet</span><span class="o">(</span><span class="s">&#34;cat&#34;</span><span class="o">,</span> <span class="n">3</span><span class="o">);</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">shout</span><span class="o">();</span>
+        <span class="n">cat</span><span class="o">.</span><span class="na">shout</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>内存分析图</p>
+<p><img src="/OOP-image/image6.png" alt="image6"  /></p>
+<p>在内存中，创建一个对象，栈空间中存放的是对象的引用，而堆空间中存放的是new出来的东西，栈、堆两个空间通过一个内存地址相互连接。</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/javaoop_02/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/Java_OOP_02.jpg" loading="lazy" data-key="" data-hash="/Java_OOP_02.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaOOP_02</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#初识面向对象">初识面向对象</a>
+      <ol>
+        <li><a href="#1初识面向对象">1、初识面向对象</a></li>
+        <li><a href="#2回顾方法和加深">2、回顾方法和加深</a></li>
+        <li><a href="#3对象的创建分析">3、对象的创建分析</a>
+          <ol>
+            <li><a href="#31-对象的创建">3.1 对象的创建</a></li>
+            <li><a href="#32-构造器">3.2 构造器</a></li>
+            <li><a href="#33-对象的内存分析">3.3 对象的内存分析</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

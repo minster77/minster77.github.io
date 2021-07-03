@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='JavaIO流的处理流与底层分析'><title>Java_IO流_2</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java_io%E6%B5%81_2/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java_IO流_2'>
+<meta property='og:description' content='JavaIO流的处理流与底层分析'>
+<meta property='og:url' content='https://minster77.github.io/p/java_io%E6%B5%81_2/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-06-19T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-06-19T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java_IO流_2">
+<meta name="twitter:description" content="JavaIO流的处理流与底层分析">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javabase/" >
+                JavaBase
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java_io%E6%B5%81_2/">Java_IO流_2</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        JavaIO流的处理流与底层分析
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 19, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h3 id="javaio流2">JavaIO流2</h3>
+<hr>
+<ol>
+<li>BufferedReader与BufferedWriter</li>
+<li>使用字节流实现对二进制文件复制</li>
+<li>对象流</li>
+<li>标准输入输出流</li>
+<li>转换流</li>
+<li>打印流</li>
+<li>Properties类</li>
+</ol>
+<hr>
+<h4 id="1bufferedreader与bufferedwriter">1、BufferedReader与BufferedWriter</h4>
+<ul>
+<li>
+<p>BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。</p>
+</li>
+<li>
+<p>关闭处理流的时候，只需要关闭外层流即可</p>
+<p>演示bufferedReader的使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.java_io</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BufferedReaderTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;E://note.txt&#34;</span><span class="o">;</span>
+        <span class="c1">//创建BufferedReader对象
+</span><span class="c1"></span>        <span class="n">BufferedReader</span> <span class="n">bufferedReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">path</span><span class="o">));</span>
+        <span class="c1">//按行读取，提高效率
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+        <span class="cm">/*
+</span><span class="cm">        * bufferedReader.readLine()是按行读取文件的
+</span><span class="cm">        * 当返回null时，表示已读取完毕
+</span><span class="cm">        */</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span><span class="n">bufferedReader</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">bufferedReader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image1.jpg" alt="image1"  /></p>
+</li>
+<li>
+<p>需要注意的是，关闭流时只需要关闭BufferedReader。因为底层会自动关闭节点流</p>
+<p>底层代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">in</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">in</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                <span class="n">cb</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image2.png" alt="image2"  /></p>
+</li>
+<li>
+<p>演示BufferedWriter</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.java_io</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BufferedWriterTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;E://a.txt&#34;</span><span class="o">;</span>
+        <span class="c1">//创建对象，把FileWriter的Boolean值置为true可以实现追加功能
+</span><span class="c1"></span>        <span class="c1">//默认为false，会覆盖原来的内容
+</span><span class="c1"></span>        <span class="n">BufferedWriter</span> <span class="n">bufferedWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="kc">true</span><span class="o">));</span>
+
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;hello,成志恒&#34;</span><span class="o">);</span>
+        <span class="c1">//插入一个当前系统的换行符
+</span><span class="c1"></span>        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">newLine</span><span class="o">();</span>
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;hello2,成志恒&#34;</span><span class="o">);</span>
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">newLine</span><span class="o">();</span>
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;hello3,成志恒&#34;</span><span class="o">);</span>
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">newLine</span><span class="o">();</span>
+
+        <span class="n">bufferedWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image3.png" alt="image3"  /></p>
+</li>
+<li>
+<p>使用bufferd进行文件拷贝</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.bufferd</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BufferedCopy_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">path1</span> <span class="o">=</span> <span class="s">&#34;e://a.txt&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">path2</span> <span class="o">=</span> <span class="s">&#34;e://a1.txt&#34;</span><span class="o">;</span>
+        <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">BufferedWriter</span> <span class="n">bw</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">path1</span><span class="o">));</span>
+            <span class="n">bw</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">path2</span><span class="o">));</span>
+            <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">bw</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+                <span class="n">bw</span><span class="o">.</span><span class="na">newLine</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">br</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+                    <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">bw</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+                    <span class="n">bw</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>使用说明：</p>
+<ul>
+<li>BufferedReader和BufferedWriter是按照字符操作的</li>
+<li>如果去操作二进制文件（声音，视频，doc，pdf），可能造成文件损坏</li>
+</ul>
+</li>
+</ul>
+<h4 id="2使用字节流实现对二进制文件复制">2、使用字节流实现对二进制文件复制</h4>
+<ul>
+<li>
+<p>BufferedOutputstream和BufferedInputStream结合实现对图片的拷贝</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.bufferd</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.sun.xml.internal.ws.api.ha.StickyFeature</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BufferedOutputStream_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">path1</span> <span class="o">=</span> <span class="s">&#34;e://567.jpg&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">path2</span> <span class="o">=</span> <span class="s">&#34;e://678.jpg&#34;</span><span class="o">;</span>
+        <span class="n">BufferedInputStream</span> <span class="n">bis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">BufferedOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">bis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">path1</span><span class="o">));</span>
+            <span class="n">bos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">path2</span><span class="o">));</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">len</span><span class="o">;</span>
+            <span class="k">while</span><span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">bis</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">b</span><span class="o">))!=-</span><span class="n">1</span><span class="o">){</span>
+                <span class="n">bos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">b</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;拷贝成功...&#34;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">bis</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                    <span class="n">bis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">bos</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                    <span class="n">bos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>字节流可以操作二进制文件，也可以操作文本文件</p>
+</li>
+</ul>
+<h4 id="3对象流">3、对象流</h4>
+<ul>
+<li>
+<p>序列化和反序列化</p>
+<ol>
+<li>序列化就是在保存数据时，保存数据的值和数据类型</li>
+<li>反序列化就是在恢复数据时，恢复数据的值和数据类型</li>
+<li>需要让某个对象支持序列化机制，则必须让其类是可序列化的，为了让某个类是可序列化的，改类必须实现两个接口之一：
+<ul>
+<li>Serializable //这是一个标记接口，没有方法</li>
+<li>Externalizable //该接口有方法需要实现，一般不使用</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>ObjectOutputStream提供序列化功能</p>
+<ul>
+<li>
+<p>序列化后保存的文件格式不是纯文本的，而是按照序列化的格式来保存</p>
+</li>
+<li>
+<p>常用的几种基本类型都实现了Serializable接口，所以可以直接保存其数据类型</p>
+<p><img src="/Java_IO_2/image4.png" alt="image4"  /></p>
+</li>
+<li>
+<p>如果需要实例化某个类的对象，该类需要实现Serializable</p>
+</li>
+</ul>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.outputstream</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ObjectOutputStream_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;e:\\a.bat&#34;</span><span class="o">;</span>
+
+        <span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+
+        <span class="n">oos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">100</span><span class="o">);</span><span class="c1">//int -&gt; Integer(实现了Serializable接口)
+</span><span class="c1"></span>        <span class="n">oos</span><span class="o">.</span><span class="na">writeBoolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span><span class="c1">//boolean -&gt; Boolean(实现了Serializable接口)
+</span><span class="c1"></span>        <span class="n">oos</span><span class="o">.</span><span class="na">writeChar</span><span class="o">(</span><span class="sc">&#39;a&#39;</span><span class="o">);</span><span class="c1">//char -&gt; Character(实现了Serializable接口)
+</span><span class="c1"></span>        <span class="n">oos</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//string -&gt; String(实现了Serializable接口)
+</span><span class="c1"></span>        <span class="n">oos</span><span class="o">.</span><span class="na">writeDouble</span><span class="o">(</span><span class="n">9</span><span class="o">.</span><span class="na">5</span><span class="o">);</span><span class="c1">//double -&gt; Double(实现了Serializable接口)
+</span><span class="c1"></span>
+        <span class="c1">//保存一个dog对象
+</span><span class="c1"></span>        <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">&#34;dog&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">));</span>
+        <span class="n">oos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;保存成功...&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dog</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>ObjectInputStream提供反序列化功能</p>
+<ul>
+<li>读取（反序列化）的顺序需要和你保存数据（序列化）的顺序一致</li>
+<li>在反序列化的时候，如果需要调用对象（dog）的方法，则需要向下转型，而实现向下转型的关键是当前类可以引用dog类，即在当前类下引用类。</li>
+</ul>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.inputstream_</span><span class="o">;</span>
+
+
+<span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.outputstream.Dog</span><span class="o">;</span><span class="n">8</span><span class="c1">//引用dog类
+</span><span class="c1"></span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ObjectInputStream_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;e:\\a.bat&#34;</span><span class="o">;</span>
+
+        <span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ois</span><span class="o">.</span><span class="na">readInt</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ois</span><span class="o">.</span><span class="na">readBoolean</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ois</span><span class="o">.</span><span class="na">readChar</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ois</span><span class="o">.</span><span class="na">readUTF</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ois</span><span class="o">.</span><span class="na">readDouble</span><span class="o">());</span>
+        <span class="n">Object</span> <span class="n">dog</span> <span class="o">=</span> <span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;类型为:&#34;</span><span class="o">+</span><span class="n">dog</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">dog</span><span class="o">);</span>
+
+        <span class="c1">//向下转型
+</span><span class="c1"></span>        <span class="n">Dog</span> <span class="n">dog1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Dog</span><span class="o">)</span><span class="n">dog</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">dog1</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+
+        <span class="n">ois</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;反序列成功&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image5.png" alt="image5"  /></p>
+</li>
+<li>
+<p>注意事项和细节说明</p>
+<ul>
+<li>
+<p>读写顺序要一致</p>
+</li>
+<li>
+<p>要求实现序列化或反序列化对象，需要实现Serializable接口</p>
+</li>
+<li>
+<p>序列化的类中建议添加SerialVersionUID，为了提高版本的兼容性</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//SerialVersionUID序列化的版本号，可以提高兼容性
+</span><span class="c1"></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>序列化对象时，默认将里面所有属性都进行序列化，但除了static或transient修饰的成员</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//下面两个属性都不会被序列化
+</span><span class="c1"></span><span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">transient</span> <span class="n">String</span> <span class="n">nation</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>序列化对象时，要求里面属性的类型也需要实现序列化接口</p>
+<p>代码演示</p>
+<p>Master类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.outputstream</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Master</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div><p>Dog类新增加一个Master类型的属性</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">Master</span> <span class="n">master</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Master</span><span class="o">();</span>
+</code></pre></div><p>此时运行ObjectOutputStream_系统会报错</p>
+<p><img src="/Java_IO_2/image6.png" alt="image6"  /></p>
+<p>如果要解决上述问题，需要Master类实现Serializable接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.outputstream</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Master</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><p>此时再运行ObjectOutoutStream_，保存成功</p>
+<p><img src="/Java_IO_2/image7.png" alt="image7"  /></p>
+</li>
+<li>
+<p>序列化具备可继承性，也就是如果某类已经 实现了序列化，则它的所有子类也已经默认实现了序列化</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4标准输入输出流">4、标准输入输出流</h4>
+<ul>
+<li>
+<p>System.in(标准输入：键盘)</p>
+<ul>
+<li>该流为System类中的public final static InputStream in = null;</li>
+<li>编译类型：InputStream</li>
+<li>运行类型：BufferedInputStream</li>
+</ul>
+</li>
+<li>
+<p>System.out(标准输出：显示器)</p>
+<ul>
+<li>该流为System类中的public final static PrintStream out = null;</li>
+<li>编译类型：PrintStream</li>
+<li>运行类型：PrintStream</li>
+</ul>
+</li>
+<li>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.standard</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutAndIn</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;请输入数据&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">next</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;next=&#34;</span><span class="o">+</span><span class="n">next</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image8.png" alt="image8"  /></p>
+</li>
+</ul>
+<h4 id="5转换流">5、转换流</h4>
+<ul>
+<li>
+<p>在读取文件内容时，会默认文件为utf-8方式编码的，一旦文件编码方式改变了，所读取到的信息就会产生乱码，所以有转换流的出现</p>
+</li>
+<li>
+<p>转换流可以把一个字节流转换成字符流，而字节流读取文件信息可以按照其编码方式来读取，所以能很好解决乱码问题</p>
+</li>
+<li>
+<p>转换流有InputStreamReader与OutputStreamWriter</p>
+<ul>
+<li>
+<p>InputStreamReader：Reader的子类，可以将InputStream包装成Reader</p>
+</li>
+<li>
+<p>OutputStreamWriter：Writer的子类，可以将OutputStream包装成Writer</p>
+</li>
+<li>
+<p>当处理纯文本数据时，如果使用字符流效率更高，并且可以有效解决中文问题，所以建议将字节流转换成字符流</p>
+</li>
+<li>
+<p>可以在使用是指定编码格式（比如utf-8，gbk，gb2312等）</p>
+<p><img src="/Java_IO_2/image9.png" alt="image9"  /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>演示使用InputStreamReader转换流解决中文乱码问题</p>
+<p>将字节流FileInputStream转换成字符流InputStreamReader，指定编码gbk/utf-8</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.inputstream_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InputStreamReader_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;e:\\a.txt&#34;</span><span class="o">;</span>
+
+        <span class="c1">//1.将FieleInputStream转换成InputStreamReader，编码方式为gbk
+</span><span class="c1"></span>        <span class="n">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span><span class="s">&#34;gbk&#34;</span><span class="o">);</span>
+        <span class="c1">//2.将InputStreamReader传入BufferedReader
+</span><span class="c1"></span>        <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+        <span class="c1">//3.读取文件
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="c1">//4.打印文件内容
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        <span class="c1">//5.关闭流
+</span><span class="c1"></span>        <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>为了减少代码行数，在开发中经常把1和2合在一起写</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
+     <span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span>
+         <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span><span class="s">&#34;gbk&#34;</span><span class="o">));</span>
+</code></pre></div></li>
+<li>
+<p>OutStreamWriter同理</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.outputstream</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.OutputStreamWriter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutStreamWriter_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;e:\\a.txt&#34;</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">charSet</span> <span class="o">=</span> <span class="s">&#34;utf-8&#34;</span><span class="o">;</span>
+
+        <span class="n">OutputStreamWriter</span> <span class="n">osw</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span><span class="n">charSet</span><span class="o">);</span>
+
+        <span class="n">osw</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;hello,成志恒11&#34;</span><span class="o">);</span>
+
+        <span class="n">osw</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="6打印流">6、打印流</h4>
+<ul>
+<li>
+<p>打印流只有输出流没有输入流</p>
+</li>
+<li>
+<p>PrintStream(字节打印流)</p>
+<p>在默认情况下，PrintStream输出数据的位置是标准输出（显示器）</p>
+<p>演示代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.print</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.PrintStream</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintStream_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PrintStream</span> <span class="n">printStream</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">;</span>
+
+        <span class="n">printStream</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hello,word&#34;</span><span class="o">);</span>
+
+        <span class="n">printStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image10.jpg" alt="image10"  /></p>
+<p>通过查看Print的底层源码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;null&#34;</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">write</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>可以知道print底层使用的是write，所以我们可以直接调用write进行打印/输出</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">printStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;hello,word&#34;</span><span class="o">,</span><span class="n">getBytes</span><span class="o">());</span>
+</code></pre></div><p>所得运行结果跟上述一样。</p>
+<p>另外，通过System.setOut()方法可以将内容输出到指定的的设备上</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">      <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;e:\\a.txt&#34;</span><span class="o">;</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">setOut</span><span class="o">(</span><span class="k">new</span> <span class="n">PrintStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hi，word！&#34;</span><span class="o">);</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/Java_IO_2/image11.png" alt="image11"  /></p>
+</li>
+<li>
+<p>PrintWriter(字符字符打印流)</p>
+<ul>
+<li>PrintWriter使用完之后必须关闭流，否则写入的内容不会刷新</li>
+</ul>
+<p>使用PrintWriter将内容输出到指定设备</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.print</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.PrintWriter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrintWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="s">&#34;e:\\a.txt&#34;</span><span class="o">));</span>
+
+        <span class="n">printWriter</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;hello.word!!!&#34;</span><span class="o">);</span>
+      <span class="c1">//必须关闭流！
+</span><span class="c1"></span>        <span class="n">printWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span><span class="c1">//相当于flush+关闭流
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image12.png" alt="image12"  /></p>
+</li>
+</ul>
+<h4 id="7properties类">7、Properties类</h4>
+<ul>
+<li>
+<p>Properties类主要用于读取Java的配置文件。</p>
+</li>
+<li>
+<p>传统的读取配置文件信息的方法</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.properties</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Properties_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="s">&#34;src\\mysql.properties&#34;</span><span class="o">));</span>
+
+        <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+
+        <span class="k">while</span><span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="c1">//利用split将等号前后的内容划分成两个数组
+</span><span class="c1"></span>            <span class="n">String</span><span class="o">[]</span> <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;=&#34;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">split</span><span class="o">[</span><span class="n">0</span><span class="o">]+</span><span class="s">&#34;值为&#34;</span><span class="o">+</span><span class="n">split</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+        <span class="o">}</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/Java_IO_2/image13.png" alt="image13"  /></p>
+<p>如果我们使用传统方法获取指定的ip值，会有很多问题，所以一般使用Properties类去读取配置文件</p>
+</li>
+<li>
+<p>Properties类读取配置文件</p>
+<ul>
+<li>
+<p>该类是专门用于读取配置文件的集合类，配置文件的格式需要按照一下格式编写：</p>
+<blockquote>
+<p>键=值</p>
+<p>键=值</p>
+</blockquote>
+</li>
+<li>
+<p>注意：键值对不需要有空格，值不需要用引号括起来，默认类型为String</p>
+</li>
+<li>
+<p>Properties的常见方法</p>
+<ul>
+<li>load：加载配置文件的键值对到Priperties对象</li>
+<li>list：将数据显示到指定设备</li>
+<li>getProperty(key)：根据键获取值</li>
+<li>setProperty(key,value)：设置键值对到Properties对象</li>
+<li>store：将Properties中的键值对存储到配置文件。在idea中，保存信息到配置文件，如果信息含有中文，会存储为Unicode码</li>
+<li><a href="http://tool.chinaz.com/tools/unicode/aspx">http://tool.chinaz.com/tools/unicode/aspx</a>  Unicode码查询工具</li>
+</ul>
+</li>
+</ul>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.properties</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Properties_01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">//1.创建Properties对象
+</span><span class="c1"></span>        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+        <span class="c1">//2.加载指定文件
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="s">&#34;src\\mysql.properties&#34;</span><span class="o">));</span>
+        <span class="c1">//3.把k-v输出到控制台
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">);</span>
+        <span class="c1">//4.根据key值获取相对应的value
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">user</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;用户名=&#34;</span><span class="o">+</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/Java_IO_2/image14.png" alt="image14"  /></p>
+</li>
+<li>
+<p>使用Properties类来创建配置文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.properties</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Properties_02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+
+        <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&#34;charset&#34;</span><span class="o">,</span><span class="s">&#34;utf8&#34;</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">,</span><span class="s">&#34;志恒&#34;</span><span class="o">);</span><span class="c1">//中文保存为Unicode码
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&#34;pwd&#34;</span><span class="o">,</span><span class="s">&#34;11111&#34;</span><span class="o">);</span>
+
+        <span class="n">properties</span><span class="o">.</span><span class="na">store</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="s">&#34;src\\mysql2.properties&#34;</span><span class="o">),</span><span class="kc">null</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;保存成功&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/Java_IO_2/image15.png" alt="image15"  /></p>
+</li>
+<li>
+<p>使用Properties来修改文件内容</p>
+<ul>
+<li>如果该文件没有key，就会自动创建</li>
+<li>如果该文件有key，就会修改</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">properties</span><span class="o">.</span><span class="na">setProperties</span><span class="o">(</span><span class="s">&#34;pwd&#34;</span><span class="o">,</span><span class="n">888888</span><span class="o">);</span>
+</code></pre></div><p><img src="/Java_IO_2/image16.png" alt="image16"  /></p>
+</li>
+<li>
+<p>Properties父类是Hashtable，所以其核心代码底层就是Hashtable 的核心方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kd">synchronized</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Make sure the value is not null
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">// Makes sure the key is not already in the hashtable.
+</span><span class="c1"></span>        <span class="n">Entry</span><span class="o">&lt;?,?&gt;</span> <span class="n">tab</span><span class="o">[]</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="n">0x7FFFFFFF</span><span class="o">)</span> <span class="o">%</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+        <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+        <span class="k">for</span><span class="o">(;</span> <span class="n">entry</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">entry</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">key</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">V</span> <span class="n">old</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+                <span class="n">entry</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span><span class="c1">//如果key存在，就替换
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">old</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="n">addEntry</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span><span class="c1">//如果是新的值，就addEntry
+</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>​</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/polymorphic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">polymorphic</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java_io%E6%B5%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java_IO流</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javaarray/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/cover04.jpg" loading="lazy" data-key="" data-hash="/cover04.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaArray</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javamethod/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/cover03.jpg" loading="lazy" data-key="" data-hash="/cover03.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaMethod</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/cover02.jpg" loading="lazy" data-key="" data-hash="/cover02.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java流程控制</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#javaio流2">JavaIO流2</a>
+          <ol>
+            <li><a href="#1bufferedreader与bufferedwriter">1、BufferedReader与BufferedWriter</a></li>
+            <li><a href="#2使用字节流实现对二进制文件复制">2、使用字节流实现对二进制文件复制</a></li>
+            <li><a href="#3对象流">3、对象流</a></li>
+            <li><a href="#4标准输入输出流">4、标准输入输出流</a></li>
+            <li><a href="#5转换流">5、转换流</a></li>
+            <li><a href="#6打印流">6、打印流</a></li>
+            <li><a href="#7properties类">7、Properties类</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
