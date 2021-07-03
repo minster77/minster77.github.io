@@ -60,7 +60,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;运行结果&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/polymorphic/image1.jpg&#34; alt=&#34;image1&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/polymorphic/image1.jpg&#34; alt=&#34;image1&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;在测试类中：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Father&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Son&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这里我们声明了一个Father的引用变量，指向了Son类的一个实例，我们可以得知child这个引用变量的Father类就是&lt;strong&gt;编译类型&lt;/strong&gt;，而new Son()中的Son类就是&lt;strong&gt;运行类型&lt;/strong&gt;。&lt;/p&gt;
@@ -827,7 +827,7 @@
 &lt;li&gt;
 &lt;p&gt;文件流&lt;/p&gt;
 &lt;p&gt;文件在程序中是以流的形式来操作的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image01.jpg&#34; alt=&#34;image01&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image01.jpg&#34; alt=&#34;image01&#34;  /&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;流：数据在数据源(文件）和程序（内存）之间经历的路径&lt;/li&gt;
 &lt;li&gt;输入流：数据从数据源（文件）到程序（内存）的路径&lt;/li&gt;
@@ -906,7 +906,7 @@
             &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image02.png&#34; alt=&#34;image02&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image02.png&#34; alt=&#34;image02&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;获取文件信息&lt;/p&gt;
@@ -945,7 +945,7 @@
 
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image03.png&#34; alt=&#34;image03&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image03.png&#34; alt=&#34;image03&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;目录的操作&lt;/p&gt;
@@ -988,7 +988,7 @@
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image04.png&#34; alt=&#34;image04&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image04.png&#34; alt=&#34;image04&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h4 id=&#34;2io流原理及流的分类&#34;&gt;2、IO流原理及流的分类&lt;/h4&gt;
@@ -1034,9 +1034,9 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;其他的流都是继承于这四大基类的。下图是Java IO流的整体架构图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image05.jpg&#34; alt=&#34;image05&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image05.jpg&#34; alt=&#34;image05&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;所理解的流就像快递小哥，在物流中心和客户之间做传递作用&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image06.png&#34; alt=&#34;image06&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image06.png&#34; alt=&#34;image06&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;3inputstream的子类及使用&#34;&gt;3、InputStream的子类及使用&lt;/h4&gt;
@@ -1089,7 +1089,7 @@
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image07.png&#34; alt=&#34;image07&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image07.png&#34; alt=&#34;image07&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;read(byte[b])缓冲区读取b个字节&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;	&lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;InputStream02&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(){&lt;/span&gt;
@@ -1119,9 +1119,9 @@
             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image09.png&#34; alt=&#34;image09&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image09.png&#34; alt=&#34;image09&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;需要注意的是使用FileInputStream读取文件时，读取到的字符是乱码的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image08.png&#34; alt=&#34;image08&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image08.png&#34; alt=&#34;image08&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -1169,7 +1169,7 @@
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image10.png&#34; alt=&#34;image10&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image10.png&#34; alt=&#34;image10&#34;  /&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;若需要写入指定的字符，使用&lt;/p&gt;
@@ -1249,7 +1249,7 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image11.png&#34; alt=&#34;image11&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image11.png&#34; alt=&#34;image11&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;需要注意的是，写入文件时，必须使用&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[],&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;readLength&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;写入。readLength为读入数据的长度，这样写可以避免byte数组过大时把其余子集读入造成文件损失&lt;/p&gt;
@@ -1334,7 +1334,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;FileWriter的类图如下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image12.png&#34; alt=&#34;image12&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image12.png&#34; alt=&#34;image12&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;FileWriter的使用&lt;/p&gt;
@@ -1381,7 +1381,7 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image13.png&#34; alt=&#34;image13&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image13.png&#34; alt=&#34;image13&#34;  /&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;如果需要换行或者输入制表符则可以&lt;/p&gt;
@@ -1398,11 +1398,11 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;处理流(包装流)是“连接”在已存在的流（节点流或处理流）之上，为程序提供更为强大的读写功能，如BufferedReader、BufferedWriter&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image14.png&#34; alt=&#34;image14&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image14.png&#34; alt=&#34;image14&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;分析BufferedReader处理流&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image15.png&#34; alt=&#34;image15&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image15.png&#34; alt=&#34;image15&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;查看BufferedReader的源码可以知道，BufferedReader中定义了一个Reader属性，即他可以封装任意一个节点流，所以使用BufferedReader去操作的时候，其可以访问各种不同的数据源。其功能更为强大&lt;/p&gt;
 &lt;p&gt;BufferedWriter同理。&lt;/p&gt;
 &lt;/li&gt;
@@ -1479,7 +1479,7 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;测试结果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/Java_IO_01/image16.png&#34; alt=&#34;image16&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/Java_IO_01/image16.png&#34; alt=&#34;image16&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;通过上述设计模式可以让BufferedReader包装其他节点流，这样子就能提高对数据源操作的效率&lt;/p&gt;
 &lt;p&gt;可以使用统一的一个read方法来优化上述代码。如：&lt;/p&gt;
 &lt;p&gt;在Reader_抽象类中使用抽象方法read&lt;/p&gt;

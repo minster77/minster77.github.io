@@ -114,7 +114,7 @@
 <li>
 <p>文件流</p>
 <p>文件在程序中是以流的形式来操作的</p>
-<p><img src="/Java_IO_01/image01.jpg" alt="image01"  /></p>
+<p><img src="/image/Java_IO_01/image01.jpg" alt="image01"  /></p>
 <ul>
 <li>流：数据在数据源(文件）和程序（内存）之间经历的路径</li>
 <li>输入流：数据从数据源（文件）到程序（内存）的路径</li>
@@ -193,7 +193,7 @@
             <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image02.png" alt="image02"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image02.png" alt="image02"  /></p>
 </li>
 <li>
 <p>获取文件信息</p>
@@ -232,7 +232,7 @@
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image03.png" alt="image03"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image03.png" alt="image03"  /></p>
 </li>
 <li>
 <p>目录的操作</p>
@@ -275,7 +275,7 @@
         <span class="o">}</span>
 
     <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image04.png" alt="image04"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image04.png" alt="image04"  /></p>
 </li>
 </ol>
 <h4 id="2io流原理及流的分类">2、IO流原理及流的分类</h4>
@@ -321,9 +321,9 @@
 </tbody>
 </table>
 <p>其他的流都是继承于这四大基类的。下图是Java IO流的整体架构图</p>
-<p><img src="/Java_IO_01/image05.jpg" alt="image05"  /></p>
+<p><img src="/image/Java_IO_01/image05.jpg" alt="image05"  /></p>
 <p>所理解的流就像快递小哥，在物流中心和客户之间做传递作用</p>
-<p><img src="/Java_IO_01/image06.png" alt="image06"  /></p>
+<p><img src="/image/Java_IO_01/image06.png" alt="image06"  /></p>
 </li>
 </ul>
 <h4 id="3inputstream的子类及使用">3、InputStream的子类及使用</h4>
@@ -376,7 +376,7 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image07.png" alt="image07"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image07.png" alt="image07"  /></p>
 <p>read(byte[b])缓冲区读取b个字节</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">	<span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">InputStream02</span><span class="o">(){</span>
@@ -406,9 +406,9 @@
             <span class="o">}</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image09.png" alt="image09"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image09.png" alt="image09"  /></p>
 <p>需要注意的是使用FileInputStream读取文件时，读取到的字符是乱码的</p>
-<p><img src="/Java_IO_01/image08.png" alt="image08"  /></p>
+<p><img src="/image/Java_IO_01/image08.png" alt="image08"  /></p>
 </li>
 </ul>
 </li>
@@ -456,7 +456,7 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image10.png" alt="image10"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image10.png" alt="image10"  /></p>
 <ul>
 <li>
 <p>若需要写入指定的字符，使用</p>
@@ -536,7 +536,7 @@
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/Java_IO_01/image11.png" alt="image11"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image11.png" alt="image11"  /></p>
 <p>需要注意的是，写入文件时，必须使用</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">write</span><span class="o">(</span><span class="kt">byte</span><span class="o">[],</span><span class="n">0</span><span class="o">,</span><span class="n">readLength</span><span class="o">)</span>
 </code></pre></div><p>写入。readLength为读入数据的长度，这样写可以避免byte数组过大时把其余子集读入造成文件损失</p>
@@ -621,7 +621,7 @@
 </li>
 <li>
 <p>FileWriter的类图如下</p>
-<p><img src="/Java_IO_01/image12.png" alt="image12"  /></p>
+<p><img src="/image/Java_IO_01/image12.png" alt="image12"  /></p>
 </li>
 </ul>
 <p>FileWriter的使用</p>
@@ -668,7 +668,7 @@
     <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div><p><img src="/Java_IO_01/image13.png" alt="image13"  /></p>
+</code></pre></div><p><img src="/image/Java_IO_01/image13.png" alt="image13"  /></p>
 <ul>
 <li>
 <p>如果需要换行或者输入制表符则可以</p>
@@ -685,11 +685,11 @@
 </li>
 <li>
 <p>处理流(包装流)是“连接”在已存在的流（节点流或处理流）之上，为程序提供更为强大的读写功能，如BufferedReader、BufferedWriter</p>
-<p><img src="/Java_IO_01/image14.png" alt="image14"  /></p>
+<p><img src="/image/Java_IO_01/image14.png" alt="image14"  /></p>
 </li>
 <li>
 <p>分析BufferedReader处理流</p>
-<p><img src="/Java_IO_01/image15.png" alt="image15"  /></p>
+<p><img src="/image/Java_IO_01/image15.png" alt="image15"  /></p>
 <p>查看BufferedReader的源码可以知道，BufferedReader中定义了一个Reader属性，即他可以封装任意一个节点流，所以使用BufferedReader去操作的时候，其可以访问各种不同的数据源。其功能更为强大</p>
 <p>BufferedWriter同理。</p>
 </li>
@@ -766,7 +766,7 @@
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>测试结果</p>
-<p><img src="/Java_IO_01/image16.png" alt="image16"  /></p>
+<p><img src="/image/Java_IO_01/image16.png" alt="image16"  /></p>
 <p>通过上述设计模式可以让BufferedReader包装其他节点流，这样子就能提高对数据源操作的效率</p>
 <p>可以使用统一的一个read方法来优化上述代码。如：</p>
 <p>在Reader_抽象类中使用抽象方法read</p>
