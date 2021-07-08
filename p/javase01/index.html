@@ -34,6 +34,8 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
   浮点数拓展
 float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3&#43;1; System."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://minster77.github.io/cover.jpg' />
+    <link rel="shortcut icon" href="icons/M.ico" />
+
     </head>
     <body class="
     article-page has-toc
@@ -183,7 +185,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
         <span class="kt">float</span> <span class="n">a4</span> <span class="o">=</span> <span class="n">a3</span><span class="o">+</span><span class="n">1</span><span class="o">;</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a3</span><span class="o">==</span><span class="n">a4</span><span class="o">);</span><span class="c1">//此处输出为true
 </span></code></pre></div><p>因为float的有限性、离散性、舍入误差，所以以上代码比较结果如下</p>
-<p><img src="/image/image1/image-1-1.png" alt="image-1-1"  /></p>
+<p><img src="/image/image-1-1.png" alt="image-1-1"  /></p>
 </li>
 </ul>
 <ul>
@@ -204,7 +206,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 </span></code></pre></div></li>
 <li>
 <p>输出结果为</p>
-<p><img src="/image/image1/image-1-2.png" alt="image-1-2"  /></p>
+<p><img src="/image/image-1-2.png" alt="image-1-2"  /></p>
 </li>
 <li>
 <p>所有字符的本质都是数字，所有所有字符都有对应的Unicode编码</p>
@@ -213,7 +215,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 <p>Unicode的编码方式：</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="kt">char</span> <span class="n">a3</span> <span class="o">=</span> <span class="sc">&#39;\u0061&#39;</span><span class="o">;</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a3</span><span class="o">);</span>
-</code></pre></div><p><img src="/image/image1/image-1-3.png" alt="image-1-3"  /></p>
+</code></pre></div><p><img src="/image/image-1-3.png" alt="image-1-3"  /></p>
 </li>
 </ul>
 <h2 id="3类型转换">3、类型转换</h2>
@@ -223,7 +225,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 </li>
 <li>
 <p>类型优先级</p>
-<p><img src="/image/image1/image-1-4.png" alt="image-1-4"  /></p>
+<p><img src="/image/image-1-4.png" alt="image-1-4"  /></p>
 </li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">128</span><span class="o">;</span>
@@ -240,7 +242,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 </span><span class="cm">         * 在把高容量转换成低容量的时候，强制转换
 </span><span class="cm">         * 转换的时候可能存在内存1溢出，或者是精度问题*/</span>
 </code></pre></div><p>输出结果：</p>
-<p><img src="/image/image1/image-1-5.png" alt="image-1-5"  /></p>
+<p><img src="/image/image-1-5.png" alt="image-1-5"  /></p>
 <ul>
 <li>因为Byte类型取值范围为-128-127所以数据溢出了。</li>
 <li>&ldquo;强制转换&quot;时需要注意数据溢出； 转换方式: (类型)变量名 优先级高&ndash;低时使用</li>
@@ -262,7 +264,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
         <span class="kt">long</span> <span class="n">total3</span> <span class="o">=</span> <span class="n">money</span><span class="o">*((</span><span class="kt">long</span><span class="o">)</span><span class="n">years</span><span class="o">);</span><span class="c1">//先把一个数转换成long 计算后的结果的类型即为long类型
 </span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total3</span><span class="o">);</span>
 </code></pre></div><p>输出结果：</p>
-<p><img src="/image/image1/image-1-6.png" alt="image-1-6"  /></p>
+<p><img src="/image/image-1-6.png" alt="image-1-6"  /></p>
 <h2 id="4变量常量作用域">4、变量、常量、作用域</h2>
 <ol>
 <li>
@@ -296,7 +298,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 <span class="o">}</span>
 
 </code></pre></div><p>输出结果：</p>
-<p><img src="/image/image1/image-1-7.png" alt="image-1-7"  /></p>
+<p><img src="/image/image-1-7.png" alt="image-1-7"  /></p>
 </li>
 <li>
 <p>实例变量：从属于对象，如果不自动化初始化，这个类型的默认值为0/0.0</p>
@@ -318,14 +320,14 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 </li>
 <li>
 <p>变量命名规则</p>
-<p><img src="/image/image1/image-1-8.png" alt="image-1-8"  /></p>
+<p><img src="/image/image-1-8.png" alt="image-1-8"  /></p>
 </li>
 </ol>
 <h2 id="5基本运算符">5、基本运算符</h2>
 <ul>
 <li>Java语言支持如下运算符</li>
 </ul>
-<p><img src="1/image/image1/image-1-9.png" alt="image-1-9"  /></p>
+<p><img src="/image/image-1-9.png" alt="image-1-9"  /></p>
 <ul>
 <li>
 <p>当java进行除法运算时，需要进行类型强转换</p>
@@ -345,7 +347,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/image1/image-1-10.png" alt="1-10"  /></p>
+</code></pre></div><p><img src="/image/image-1-10.png" alt="1-10"  /></p>
 <p>显然加了强转double的表达式输出了正确的结果</p>
 </li>
 <li>
@@ -365,7 +367,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 </span><span class="c1"></span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/image1/image-1-11.png" alt="image-1-11"  /></p>
+</code></pre></div><p><img src="/image/image-1-11.png" alt="image-1-11"  /></p>
 </li>
 <li>
 <p>一元运算符：自增与自减</p>
@@ -385,7 +387,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/image/image1/image-1-12.png" alt="image-1-12"  /></p>
+</code></pre></div><p><img src="/image/image-1-12.png" alt="image-1-12"  /></p>
 </li>
 <li>
 <p>逻辑运算符</p>
@@ -410,7 +412,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/image/image1/image-1-13.png" alt="image-1-13"  /></p>
+</code></pre></div><p><img src="/image/image-1-13.png" alt="image-1-13"  /></p>
 </li>
 </ul>
 </li>
@@ -452,7 +454,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/image/image1/image-1-14.png" alt="image-1-14"  /></p>
+</code></pre></div><p><img src="/image/image-1-14.png" alt="image-1-14"  /></p>
 </li>
 <li>
 <p>+号运算符的特殊之处（运算符）</p>
@@ -475,14 +477,14 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/image1/image-1-15.png" alt="image-1-15"  /></p>
+</code></pre></div><p><img src="/image/image-1-15.png" alt="image-1-15"  /></p>
 </li>
 </ul>
 <h2 id="6包机制">6、包机制</h2>
 <ul>
 <li>命名规范</li>
 </ul>
-<p><img src="/image/image1/image-1-16.png" alt="image-1.16"  /></p>
+<p><img src="/image/image-1-16.png" alt="image-1.16"  /></p>
 <h2 id="7javadoc">7、JavaDoc</h2>
 <ul>
 <li><a href="https://blog.csdn.net/vbirdbest/article/details/80296136">https://blog.csdn.net/vbirdbest/article/details/80296136</a></li>

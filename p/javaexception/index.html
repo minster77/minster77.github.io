@@ -37,6 +37,8 @@ package com.exception; public class Test { public static void main(String[] args
  Error通常是灾难性的致命的错误，是程序无法控制和处理的，当出现这些异常时，Java虚拟机(JVM)一般会选择终止线程 Exception通常情况下是可以被程序处理的，并且在程序中应该尽可能去处理这些异常    3、异常处理机制   当编写的代码出现异常时，程序会自动报出现异常错误
 package com.exception; public class Test { public static void main(String[] args) { int a = 1; int b = 0; System."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://minster77.github.io/Java_Exception.jpg' />
+    <link rel="shortcut icon" href="icons/M.ico" />
+
     </head>
     <body class="
     article-page has-toc
@@ -151,7 +153,7 @@ package com.exception; public class Test { public static void main(String[] args
 </li>
 </ul>
 <h3 id="2异常体系结构">2、异常体系结构</h3>
-<p><img src="/image/JavaException/image1.jpg" alt="image1"  /></p>
+<p><img src="/JavaException/image1.jpg" alt="image1"  /></p>
 <ul>
 <li>
 <p>在Exception分支中有一个重要的子类RuntimeException(运行时异常)</p>
@@ -189,7 +191,7 @@ package com.exception; public class Test { public static void main(String[] args
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>控制台会报出Exception</p>
-<p><img src="/image/JavaException/image2.jpg" alt="image2"  /></p>
+<p><img src="/JavaException/image2.jpg" alt="image2"  /></p>
 </li>
 <li>
 <p>在代码中加入了<strong>try&hellip;catch&hellip;finally</strong>异常处理机制</p>
@@ -208,7 +210,7 @@ package com.exception; public class Test { public static void main(String[] args
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/JavaException/image3.jpg" alt="image3"  /></p>
+</code></pre></div><p><img src="/JavaException/image3.jpg" alt="image3"  /></p>
 <p>finally在异常捕获块中主要用于一些IO流及资源的关闭工作，可以不写。</p>
 <p>catch里面的参数表示想要捕获的异常类型，Throwable为最高异常</p>
 </li>

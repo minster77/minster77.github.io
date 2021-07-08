@@ -31,6 +31,8 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 Student类
 package com.oop.demo02; //学生类 public class Student { private String name; private int age; private String sex; public String getName() { return name; } public void setName(String name) { this.name = name; } public int getAge() { return age; } public void setAge(int age) { this."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://minster77.github.io/Java_OOP_02.jpg' />
+    <link rel="shortcut icon" href="icons/M.ico" />
+
     </head>
     <body class="
     article-page has-toc
@@ -199,7 +201,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34; &#34;</span><span class="o">+</span><span class="n">s1</span><span class="o">.</span><span class="na">getAge</span><span class="o">()+</span><span class="s">&#34; &#34;</span><span class="o">+</span><span class="n">s1</span><span class="o">.</span><span class="na">getSex</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image7.png" alt="image7"  /></p>
+</code></pre></div><p><img src="/OOP-image/image7.png" alt="image7"  /></p>
 </li>
 </ul>
 <h4 id="12-继承">1.2 继承</h4>
@@ -240,7 +242,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>结果：</p>
-<p><img src="/image/OOP-image/image8.png" alt="image8"  /></p>
+<p><img src="/OOP-image/image8.png" alt="image8"  /></p>
 <p>由此可见，在Java中通过extends实现继承关系，而子类可以使用父类中的属性与方法（私有的不能调用）。</p>
 </li>
 <li>
@@ -293,7 +295,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 
 <span class="o">}</span>
 </code></pre></div><p>运行结果:</p>
-<p><img src="/image/OOP-image/image9.png" alt="image9"  /></p>
+<p><img src="/OOP-image/image9.png" alt="image9"  /></p>
 <p>可以看到，this调用的是Student类中本身的值，super调用了Person类中的值。方法亦如此</p>
 </li>
 <li>
@@ -327,7 +329,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 </code></pre></div><p><img src="/OOP-image/image10.png" alt="image10"  /></p>
 <p>由此可见在Student类中的无参构造器默认调用了Person类中的无参构造器，即隐藏使用了super()方法。</p>
 <p>需要注意的是，super()方法必须要在子类构造器的第一行，否则系统会报错</p>
-<p><img src="/image/OOP-image/image11.png" alt="image11"  /></p>
+<p><img src="/OOP-image/image11.png" alt="image11"  /></p>
 </li>
 <li>
 <p>super的注意点</p>
@@ -407,7 +409,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
     <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image12.png" alt="image12"  /></p>
+</code></pre></div><p><img src="/OOP-image/image12.png" alt="image12"  /></p>
 </li>
 <li>
 <p>静态方法和非静态方法的区别</p>
@@ -469,7 +471,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image13.png" alt="image13"  /></p>
+</code></pre></div><p><img src="/OOP-image/image13.png" alt="image13"  /></p>
 <p>可以知道虽然s1，s2，s3的对象都是Student，但是它可以有不同的父类的引用，这就是方法的多态。</p>
 <p>如果子类重写了父类的方法，则执行子类的方法</p>
 <p>在Studunt类中重写run方法</p>
@@ -483,7 +485,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 <span class="o">}</span>
 
 </code></pre></div><p>运行结果：</p>
-<p><img src="/image/OOP-image/image14.png" alt="image14"  /></p>
+<p><img src="/OOP-image/image14.png" alt="image14"  /></p>
 <hr>
 <p>假如在子类中写一个独有的方法，s2可以调用吗？</p>
 <p>Student类</p>
@@ -501,7 +503,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 
 </code></pre></div><p>在Student类中加了一个eat方法</p>
 <p>如果使用Test类中的s2调用这个方法，系统会报错</p>
-<p><img src="/image/OOP-image/image15.png" alt="image15"  /></p>
+<p><img src="/OOP-image/image15.png" alt="image15"  /></p>
 <p>所以父类可以指向子类，但是不能调用子类独有的方法</p>
 </li>
 <li>
@@ -534,11 +536,11 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
     <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image16.jpg" alt="image16"  /></p>
+</code></pre></div><p><img src="/OOP-image/image16.jpg" alt="image16"  /></p>
 </li>
 </ul>
 <p>​	需要注意的是若比较的两个类毫无联系，编译器会报错</p>
-<p>​	<img src="/image/OOP-image/image17.jpg" alt="image17"  /></p>
+<p>​	<img src="/OOP-image/image17.jpg" alt="image17"  /></p>
 <ul>
 <li>
 <p>类型转换</p>
@@ -559,7 +561,7 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
 </span><span class="c1"></span>    <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image18.jpg" alt="image18"  /></p>
+</code></pre></div><p><img src="/OOP-image/image18.jpg" alt="image18"  /></p>
 </li>
 </ul>
 <h3 id="2static关键字详解">2、Static关键字详解</h3>
@@ -591,14 +593,14 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
         <span class="n">Person</span> <span class="n">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image19.jpg" alt="image19"  /></p>
+</code></pre></div><p><img src="/OOP-image/image19.jpg" alt="image19"  /></p>
 </li>
 <li>
 <p>static关键字还可以用来静态导入包</p>
 <p>正常来说要使用Math类的方法每一次都需要在方法前面加&quot;Math.&quot;</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">());</span>
 </code></pre></div><p>否则会报错</p>
-<p><img src="/image/OOP-image/image20.jpg" alt="image20"  /></p>
+<p><img src="/OOP-image/image20.jpg" alt="image20"  /></p>
 <p>但是如果通过static导入包的话，就可以直接使用了</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.oop</span><span class="o">;</span>
 
@@ -633,11 +635,11 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;go&#34;</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/OOP-image/image21.jpg" alt="image21"  /></p>
+</code></pre></div><p><img src="/OOP-image/image21.jpg" alt="image21"  /></p>
 </li>
 <li>
 <p>抽象类不能new 只能靠子类去实现它</p>
-<p><img src="/image/OOP-image/image22.jpg" alt="image22"  /></p>
+<p><img src="/OOP-image/image22.jpg" alt="image22"  /></p>
 </li>
 <li>
 <p>抽象类存在的意义：在一些复杂的项目中，把公有属性抽象出来，再使用时只需要继承这个抽象类即可，提高开发效率。</p>

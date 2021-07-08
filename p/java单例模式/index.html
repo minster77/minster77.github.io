@@ -27,6 +27,8 @@ package com.singleton; public class SingleTon { public static void main(String[]
   饿汉式（只有类被加载了，该对象就会被创建）
  将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
 package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.">
+    <link rel="shortcut icon" href="icons/M.ico" />
+
     </head>
     <body class="
     article-page has-toc
@@ -163,7 +165,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/image/SingleTon/image1.png" alt="1622205319(1)"  /></p>
+</code></pre></div><p><img src="/SingleTon/image1.png" alt="1622205319(1)"  /></p>
 <p>由于类被加载之后，对象无论如何都会被创建，会造成资源的浪费。</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.singleton</span><span class="o">;</span>
 
@@ -194,7 +196,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/image/SingleTon/image2.png" alt="1622205969(1)"  /></p>
+</code></pre></div><p><img src="/SingleTon/image2.png" alt="1622205969(1)"  /></p>
 <p>使用懒汉式可以很好的解决这个问题</p>
 </li>
 <li>
@@ -238,7 +240,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
                 <span class="sc">&#39;}&#39;</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/SingleTon/image3.png" alt="1622207500(1)"  /></p>
+</code></pre></div><p><img src="/SingleTon/image3.png" alt="1622207500(1)"  /></p>
 </li>
 </ul>
 </li>
