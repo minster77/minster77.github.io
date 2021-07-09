@@ -4274,9 +4274,9 @@
 &lt;li&gt;
 &lt;p&gt;集合的框架体系&lt;/p&gt;
 &lt;p&gt;Collection接口实现子类：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/JavaCollections01/Image1.png&#34; alt=&#34;Image1&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/Image1.png&#34; alt=&#34;Image1&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;Map接口实现子类：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/JavaCollections01/Image2.png&#34; alt=&#34;Image2&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/Image2.png&#34; alt=&#34;Image2&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;集合主要有两种（单列集合，双列集合）&lt;/p&gt;
@@ -4371,7 +4371,7 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/JavaCollections01/image3.png&#34; alt=&#34;image3&#34;  /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/image3.png&#34; alt=&#34;image3&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Collection接口使用Iterator(迭代器)遍历元素&lt;/p&gt;
@@ -4433,7 +4433,7 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;运行结果&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/JavaCollections01/image4.png&#34; alt=&#34;image4&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/image4.png&#34; alt=&#34;image4&#34;  /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;hasNext()的返回值为Boolean，&lt;/p&gt;
 &lt;p&gt;next()的返回值可以为任意类型&lt;/p&gt;
@@ -4451,7 +4451,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;ctrl+j可以看到所有快捷键&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/JavaCollections01/image5.png&#34; alt=&#34;image5&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/image5.png&#34; alt=&#34;image5&#34;  /&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Collection接口使用增强for循环来遍历元素&lt;/p&gt;
@@ -4507,11 +4507,58 @@
 &lt;h4 id=&#34;3list接口和常用方法&#34;&gt;3、List接口和常用方法&lt;/h4&gt;
 &lt;p&gt;List接口是Collection接口的子接口&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复&lt;/li&gt;
-&lt;li&gt;List集合中的每个元素都有其对应的顺序索引，即支持索引&lt;/li&gt;
-&lt;li&gt;List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素&lt;/li&gt;
-&lt;li&gt;List接口常用的实现类有:ArrayList、LinkedList、Vector&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List集合中的每个元素都有其对应的顺序索引，即支持索引&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List接口常用的实现类有:ArrayList、LinkedList、Vector&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.conllection_.lists&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;List_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+           &lt;span class=&#34;c1&#34;&gt;//1. List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tom&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mary&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;heng&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tom&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jack&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tom&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;list=&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+           &lt;span class=&#34;c1&#34;&gt;//2. List集合中的每个元素都有其对应的顺序索引，即支持索引
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;           &lt;span class=&#34;c1&#34;&gt;//   索引从0开始
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;           &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://minster77.github.io/image/JavaCollections01/image6.jpg&#34; alt=&#34;image6&#34;  /&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://minster77.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://minster77.github.io/p/</guid>
+        <description>&lt;p&gt;&lt;strong&gt;List list = new ArrayList();与ArrayList list = new ArrayList()&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。&lt;/p&gt;
+&lt;p&gt;​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么一般都使用List list= new ArrayList()，而不是后者呢？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list  = new ArrayList()；这一行就可以了，&lt;strong&gt;其他使用了List接口的代码根本不需要改动&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！&lt;/p&gt;
+&lt;p&gt;​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。&lt;/p&gt;
 </description>
         </item>
         

@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
-  Collection实现子类可以存放多个元素，每个元素可以是Object
-  有些Collection的实现类，可以存放重复的元素，有些不可以
-  Collection实现类有些是有序的（List），有些不是有序的（Set）
-  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的'><title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢？
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。'><title></title>
 
 <link rel='canonical' href='https://minster77.github.io/p/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
-<meta property='og:description' content='Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
-  Collection实现子类可以存放多个元素，每个元素可以是Object
-  有些Collection的实现类，可以存放重复的元素，有些不可以
-  Collection实现类有些是有序的（List），有些不是有序的（Set）
-  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的'>
+<meta property='og:description' content='List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢？
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。'>
 <meta property='og:url' content='https://minster77.github.io/p/'>
 <meta property='og:site_name' content='MinsterBlog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
-  Collection实现子类可以存放多个元素，每个元素可以是Object
-  有些Collection的实现类，可以存放重复的元素，有些不可以
-  Collection实现类有些是有序的（List），有些不是有序的（Set）
-  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的">
-    <link rel="shortcut icon" href="icons/M.ico" />
+<meta name="twitter:description" content="List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢？
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。">
+    <link rel="shortcut icon" href="image/icons/M.ico" />
 
     </head>
     <body class="
@@ -137,9 +119,9 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 <li>
 <p>集合的框架体系</p>
 <p>Collection接口实现子类：</p>
-<p><img src="/JavaCollections01/Image1.png" alt="Image1"  /></p>
+<p><img src="/image/JavaCollections01/Image1.png" alt="Image1"  /></p>
 <p>Map接口实现子类：</p>
-<p><img src="/JavaCollections01/Image2.png" alt="Image2"  /></p>
+<p><img src="/image/JavaCollections01/Image2.png" alt="Image2"  /></p>
 </li>
 <li>
 <p>集合主要有两种（单列集合，双列集合）</p>
@@ -234,7 +216,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><p><img src="/JavaCollections01/image3.png" alt="image3"  /></p>
+</code></pre></div><p><img src="/image/JavaCollections01/image3.png" alt="image3"  /></p>
 </li>
 <li>
 <p>Collection接口使用Iterator(迭代器)遍历元素</p>
@@ -296,7 +278,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p><strong>运行结果</strong></p>
-<p><img src="/JavaCollections01/image4.png" alt="image4"  /></p>
+<p><img src="/image/JavaCollections01/image4.png" alt="image4"  /></p>
 <blockquote>
 <p>hasNext()的返回值为Boolean，</p>
 <p>next()的返回值可以为任意类型</p>
@@ -314,7 +296,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </code></pre></div></li>
 <li>
 <p>ctrl+j可以看到所有快捷键</p>
-<p><img src="/JavaCollections01/image5.png" alt="image5"  /></p>
+<p><img src="/image/JavaCollections01/image5.png" alt="image5"  /></p>
 </li>
 <li>
 <p>Collection接口使用增强for循环来遍历元素</p>
@@ -370,10 +352,42 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 <h4 id="3list接口和常用方法">3、List接口和常用方法</h4>
 <p>List接口是Collection接口的子接口</p>
 <ol>
-<li>List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复</li>
-<li>List集合中的每个元素都有其对应的顺序索引，即支持索引</li>
-<li>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素</li>
-<li>List接口常用的实现类有:ArrayList、LinkedList、Vector</li>
+<li>
+<p>List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复</p>
+</li>
+<li>
+<p>List集合中的每个元素都有其对应的顺序索引，即支持索引</p>
+</li>
+<li>
+<p>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素</p>
+</li>
+<li>
+<p>List接口常用的实现类有:ArrayList、LinkedList、Vector</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">List_</span> <span class="o">{</span>
+       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+           <span class="c1">//1. List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复
+</span><span class="c1"></span>           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;heng&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list=&#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+           <span class="c1">//2. List集合中的每个元素都有其对应的顺序索引，即支持索引
+</span><span class="c1"></span>           <span class="c1">//   索引从0开始
+</span><span class="c1"></span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">3</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections01/image6.jpg" alt="image6"  /></p>
+</li>
 </ol>
 
 </section>

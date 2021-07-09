@@ -188,5 +188,20 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
   Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢？
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。</description>
+    </item>
+    
   </channel>
 </rss>
