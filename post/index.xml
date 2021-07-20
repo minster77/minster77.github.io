@@ -168,12 +168,33 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
     </item>
     
     <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Java编程思想集合篇（一）</title>
+      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
       
-      <guid>https://minster77.github.io/p/</guid>
-      <description>Java集合类_01   集合的概念   1、集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</guid>
+      <description>List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。</description>
+    </item>
+    
+    <item>
+      <title>Java集合类（一）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</link>
+      <pubDate>Mon, 06 Apr 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</guid>
+      <description>Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
  长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
  可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
 Collection接口实现子类：
@@ -181,26 +202,7 @@ Map接口实现子类：
   集合主要有两种（单列集合，双列集合）
   Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
 ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     2、Collection接口和常用方法   Collection接口的特征
-  Collection实现子类可以存放多个元素，每个元素可以是Object
-  有些Collection的实现类，可以存放重复的元素，有些不可以
-  Collection实现类有些是有序的（List），有些不是有序的（Set）
-  Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://minster77.github.io/p/</guid>
-      <description>List list = new ArrayList();与ArrayList list = new ArrayList()
-​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
-​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
-为什么一般都使用List list= new ArrayList()，而不是后者呢？
-​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
-​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
-​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。</description>
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征</description>
     </item>
     
   </channel>

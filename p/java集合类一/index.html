@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征'><title>Java集合类（一）</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java集合类（一）'>
+<meta property='og:description' content='Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2020-04-06T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2020-04-06T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java集合类（一）">
+<meta name="twitter:description" content="Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征">
+    <link rel="shortcut icon" href="image/icons/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javacollection/" >
+                JavaCollection
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/">Java集合类（一）</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Apr 06, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h3 id="java集合类一">Java集合类（一）</h3>
+<hr>
+<ol>
+<li>
+<p>集合的概念</p>
+</li>
+<li>
+<p>Collection接口和常用方法</p>
+</li>
+<li>
+<p>List接口和常用方法</p>
+</li>
+<li>
+<p>ArrayList底层源码即注意事项</p>
+</li>
+<li>
+<p>Vector底层结构和源码解析</p>
+</li>
+<li>
+<p>LinkedList底层结构和源码解析</p>
+</li>
+</ol>
+<hr>
+<h4 id="集合的概念">集合的概念</h4>
+<ul>
+<li>
+<p>由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。</p>
+<ol>
+<li>长度开始时必须指定，而且一旦指定，不能更改</li>
+<li>保存的必须为同一类型的元素</li>
+<li>使用数组进行增加元素/删除会比较麻烦</li>
+</ol>
+</li>
+<li>
+<p>若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：</p>
+<ul>
+<li>可以动态保存任意多个对象，使用比较方便！</li>
+<li>提供了一系列方便操作对象的方法：add、remove、set、get等</li>
+<li>使用集合添加、删除新元素的代码更加简洁了</li>
+</ul>
+</li>
+<li>
+<p>集合的框架体系</p>
+<p>Collection接口实现子类：</p>
+<p><img src="/image/JavaCollections01/Image1.png" alt="Image1"  /></p>
+<p>Map接口实现子类：</p>
+<p><img src="/image/JavaCollections01/Image2.png" alt="Image2"  /></p>
+</li>
+<li>
+<p>集合主要有两种（单列集合，双列集合）</p>
+<ul>
+<li>
+<p>Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+</code></pre></div></li>
+<li>
+<p>Map接口的实现子类是双列集合，即以K-V形式存放数据的</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">HashMap</span> <span class="n">hashMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No1&#34;</span><span class="o">,</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No2&#34;</span><span class="o">,</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h4 id="collection接口和常用方法">Collection接口和常用方法</h4>
+<ul>
+<li>
+<p>Collection接口的特征</p>
+<ol>
+<li>
+<p>Collection实现子类可以存放多个元素，每个元素可以是Object</p>
+</li>
+<li>
+<p>有些Collection的实现类，可以存放重复的元素，有些不可以</p>
+</li>
+<li>
+<p>Collection实现类有些是有序的（List），有些不是有序的（Set）</p>
+</li>
+<li>
+<p>Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Collection接口的常用方法</p>
+<ul>
+<li>add：添加单个元素</li>
+<li>remove：删除指定元素</li>
+<li>contains：查找元素是否存在</li>
+<li>size：获取元素个数</li>
+<li>isEmpty：判断是否为空</li>
+<li>clear：清空</li>
+<li>addAll：增加多个元素</li>
+<li>containsAll：查找多个元素是否都存在</li>
+<li>removeAll：删除多个元素</li>
+</ul>
+<p>以Collection的实现子类演示上述方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collecyion_</span> <span class="o">{</span>
+    <span class="nd">@SuppressWarnings</span><span class="o">({</span><span class="s">&#34;all&#34;</span><span class="o">})</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">List</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="c1">//add：添加单个元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;java&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//remove：删除指定元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//contains：查找元素是否存在
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">10</span><span class="o">));</span>
+        <span class="c1">//size：获取元素个数
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+        <span class="c1">//isEmpty：判断是否为空
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+        <span class="c1">//clear：清空
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//addAll:增加多个元素
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">List2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">);</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">);</span>
+        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;水浒传&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="c1">//containsAll：查找多个元素是否都存在
+</span><span class="c1"></span>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">containsAll</span><span class="o">(</span><span class="n">List2</span><span class="o">));</span>
+        <span class="c1">//removeAll：删除多个元素
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">removeAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><img src="/image/JavaCollections01/image3.png" alt="image3"  /></p>
+</li>
+<li>
+<p>Collection接口使用Iterator(迭代器)遍历元素</p>
+<ul>
+<li>Iterator对象称为迭代器，主要用于遍历Collection集合中的元素</li>
+<li>所有实现了Collection接口的集合类都有一个iterator()方法，用以返回一个实现了Iterator接口的对象，即可以返回一个迭代器</li>
+<li>Iterator仅用于遍历集合，Iterator本身并不存放对象</li>
+<li>hasNext()：判断是否还有下一个元素</li>
+<li>next()：将下移以后集合位置上的元素返回</li>
+</ul>
+<p>代码演示：</p>
+<p><strong>Collection_Book</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Book</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Collection_Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">author</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Collection_Book{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, author=&#39;&#34;</span> <span class="o">+</span> <span class="n">author</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, price=&#34;</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>Collection_Iterator</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.conllection_.Collection_Book</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Iterator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+      <span class="c1">//创建col对应的迭代器
+</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="c1">//使用while遍历循环
+</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+            <span class="c1">//因为迭代器取到的数据可以是任意类型的，所以用Object
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>运行结果</strong></p>
+<p><img src="/image/JavaCollections01/image4.png" alt="image4"  /></p>
+<blockquote>
+<p>hasNext()的返回值为Boolean，</p>
+<p>next()的返回值可以为任意类型</p>
+</blockquote>
+<p>注意：当退出while循环后，这是iterator迭代器指向最后一个元素，此时再使用iterator.next()系统会报错。</p>
+<p>如果要再次遍历，我们需要<strong>重置迭代器</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span><span class="c1">//重置迭代器
+</span></code></pre></div></li>
+<li>
+<p>在IDEA中可以使用itit快捷生成</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+        <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>ctrl+j可以看到所有快捷键</p>
+<p><img src="/image/JavaCollections01/image5.png" alt="image5"  /></p>
+</li>
+<li>
+<p>Collection接口使用增强for循环来遍历元素</p>
+<ul>
+<li>增强for就是简化版的iterator，本质一样，只能用于遍历集合或素组</li>
+</ul>
+<p>基本语法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>代码演示</p>
+<p><strong>Collection_For</strong>类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_For</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果与使用迭代器的一致。</p>
+<p>我们在**for(Object object : col)**这行代码加一个断点，通过Debug，可以发现增强for会依次调用迭代器的底层方法！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Itr</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">cursor</span> <span class="o">!=</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">E</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">checkForComodification</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchElementException</span><span class="o">();</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">elementData</span> <span class="o">=</span> <span class="n">ArrayList</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">elementData</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">ConcurrentModificationException</span><span class="o">();</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">E</span><span class="o">)</span> <span class="n">elementData</span><span class="o">[</span><span class="n">lastRet</span> <span class="o">=</span> <span class="n">i</span><span class="o">];</span>
+<span class="o">}</span>
+</code></pre></div><p>所以，我们可以得知，增强for的底层仍然是<strong>迭代器</strong>！</p>
+</li>
+</ul>
+<h4 id="list接口和常用方法">List接口和常用方法</h4>
+<p>List接口是Collection接口的子接口</p>
+<ol>
+<li>
+<p>List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复</p>
+</li>
+<li>
+<p>List集合中的每个元素都有其对应的顺序索引，即支持索引</p>
+</li>
+<li>
+<p>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素</p>
+</li>
+<li>
+<p>List接口常用的实现类有:ArrayList、LinkedList、Vector</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">List_</span> <span class="o">{</span>
+       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+           <span class="c1">//1. List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复
+</span><span class="c1"></span>           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;heng&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list=&#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+           <span class="c1">//2. List集合中的每个元素都有其对应的顺序索引，即支持索引
+</span><span class="c1"></span>           <span class="c1">//   索引从0开始
+</span><span class="c1"></span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">3</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections01/image6.jpg" alt="image6"  /></p>
+</li>
+</ol>
+<p>List接口的常用方法</p>
+<ol>
+<li>
+<p>void add(int index,Object ele)：在index位置插入ele元素。</p>
+</li>
+<li>
+<p>bollean addAll(int index,Collection eles)：在index位置开始讲eles中的所有元素添加进来。</p>
+</li>
+<li>
+<p>Object get(int index)：获取指定index位置的元素。</p>
+</li>
+<li>
+<p>int indexOf(Object obj)：返回obj在集合中首次出现的位置。</p>
+</li>
+<li>
+<p>int lastIndexOf(Object obj)：返回obj在当前集合中末次出现的位置。</p>
+</li>
+<li>
+<p>Object remove(int index)：移除指定index位置的元素，并返回此元素。</p>
+</li>
+<li>
+<p>Object set(int index,Object ele)：设置指定index位置的元素为ele，相当于是替换。</p>
+</li>
+<li>
+<p>List subList(int formIndex,int toIndex)：返回从formIndex到tolIndex位置的子集合。</p>
+<p>代码演示：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListMethod</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;cat&#34;</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list1 = &#34;</span><span class="o">+</span><span class="n">list1</span><span class="o">);</span>
+       <span class="c1">// 1. void add(int index,Object ele)：在index位置插入ele元素。
+</span><span class="c1"></span>        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;nancy&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list1 = &#34;</span><span class="o">+</span><span class="n">list1</span><span class="o">);</span>
+       <span class="c1">// 2. bollean addAll(int index,Collection eles)：在index位置开始讲eles中的所有元素添加进来。
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">list2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">list2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;heng&#34;</span><span class="o">);</span>
+        <span class="n">list2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;minster&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list2 = &#34;</span><span class="o">+</span><span class="n">list2</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">3</span><span class="o">,</span><span class="n">list2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list1 = &#34;</span><span class="o">+</span><span class="n">list1</span><span class="o">);</span>
+       <span class="c1">// 3. Object get(int index)：获取指定index位置的元素。
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">3</span><span class="o">));</span>
+       <span class="c1">// 4. int indexOf(Object obj)：返回obj在集合中首次出现的位置。
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">));</span>
+       <span class="c1">// 5. int lastIndexOf(Object obj)：返回obj在当前集合中末次出现的位置。
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">));</span>
+       <span class="c1">// 6. Object remove(int index)：移除指定index位置的元素，并返回此元素。
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">0</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list1 = &#34;</span><span class="o">+</span><span class="n">list1</span><span class="o">);</span>
+       <span class="c1">// 7. Object set(int index,Object ele)：设置指定index位置的元素为ele，相当于是替换。
+</span><span class="c1"></span>        <span class="c1">//index必须是存在的下标，越界会报错！
+</span><span class="c1"></span>        <span class="c1">//返回被替换的值
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;rui&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list1 = &#34;</span><span class="o">+</span> <span class="n">list1</span><span class="o">);</span>
+       <span class="c1">// 8. List subList(int formIndex,int toIndex)：返回从formIndex到tolIndex位置的子集合。
+</span><span class="c1"></span>        <span class="c1">//返回的子集合为前闭后开区间！ forIndex &lt;= subList &lt; toIndexE
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">subList</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="n">4</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections01/image7.jpg" alt="image7"  /></p>
+</li>
+</ol>
+<ul>
+<li>
+<p>List的三种遍历方式</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListFor</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;====迭代器遍历====&#34;</span><span class="o">);</span>
+        <span class="c1">// 1.迭代器遍历
+</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span>  <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;obj = &#34;</span><span class="o">+</span><span class="n">obj</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;====增强for遍历====&#34;</span><span class="o">);</span>
+        <span class="c1">// 2.增强For
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">o</span> <span class="o">:</span> <span class="n">list</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;obj = &#34;</span><span class="o">+</span><span class="n">o</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;====普通For遍历====&#34;</span><span class="o">);</span>
+        <span class="c1">// 3.普通For
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span><span class="n">i</span><span class="o">++){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;obj = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections01/image8.png" alt="image8"  /></p>
+<p>List的其他实现子类（LinkedList、Vector）也可以使用上述三种方式进行遍历</p>
+</li>
+<li>
+<p>练习：<img src="/image/JavaCollections01/image9.png" alt="image9"  /></p>
+<p>Book类：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">author</span><span class="o">,</span><span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAuthor</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuthor</span><span class="o">(</span><span class="n">String</span> <span class="n">author</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;名称：&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;\t\t价格：&#34;</span><span class="o">+</span><span class="n">price</span><span class="o">+</span><span class="s">&#34;\t\t作者：&#34;</span><span class="o">+</span><span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>ListExercise02类：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListExercise02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">100</span><span class="o">));</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;三国&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">80</span><span class="o">));</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;西游记&#34;</span><span class="o">,</span><span class="s">&#34;吴承恩&#34;</span><span class="o">,</span><span class="n">90</span><span class="o">));</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;水浒传&#34;</span><span class="o">,</span><span class="s">&#34;施耐庵&#34;</span><span class="o">,</span><span class="n">9</span><span class="o">));</span>
+        <span class="c1">//list.add(new Book(&#34;西游记&#34;,&#34;吴承恩&#34;,90));
+</span><span class="c1"></span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">o</span> <span class="o">:</span> <span class="n">list</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+
+        <span class="n">sort</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==排序后==&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">o</span> <span class="o">:</span> <span class="n">list</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="n">List</span> <span class="n">list</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">listSize</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">listSize</span><span class="o">-</span><span class="n">1</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">listSize</span><span class="o">-</span><span class="n">1</span><span class="o">-</span><span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="c1">//取出对象Book
+</span><span class="c1"></span>                <span class="n">Book</span> <span class="n">book1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Book</span><span class="o">)</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">j</span><span class="o">);</span>
+                <span class="n">Book</span> <span class="n">book2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Book</span><span class="o">)</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">);</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">book1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">book2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()){</span>
+                    <span class="n">list</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">j</span><span class="o">,</span><span class="n">book2</span><span class="o">);</span>
+                    <span class="n">list</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">book1</span><span class="o">);</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections01/image10.png" alt="image10"  /></p>
+</li>
+</ul>
+<h4 id="arraylist底层源码及注意事项">ArrayList底层源码及注意事项</h4>
+<ul>
+<li>
+<p>注意事项</p>
+<ol>
+<li>
+<p>ArrayList可以加入任意元素，包括null（或者是多个null）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayListDetail</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ArrayList</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span> <span class="o">+</span> <span class="n">arrayList</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections01/image11.png" alt="image11"  /></p>
+</li>
+<li>
+<p>ArrayList是由数组来实现数据存储的</p>
+</li>
+<li>
+<p>ArrayList基本等同于Vector，除了ArrayList是线程不安全（执行效率高）。在多线程情况下，不建议使用ArrayList。</p>
+<p>ArrayList.add() 源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//ArrayList.add()的源码没有修饰词synchronized
+</span><span class="c1"></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//Increments modCount!!
+</span><span class="c1"></span>      <span class="n">ensureCapacityInternal</span><span class="o">(</span><span class="n">size</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+      <span class="n">elementData</span><span class="o">[</span><span class="n">size</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>由于该集合的方法没有用synchronized修饰，我们可以知道ArrayList是线程不安全的！下面可以跟Vector的源码进行比较</p>
+<p>Vector.add() 源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+    <span class="n">ensureCapacityHelper</span><span class="o">(</span><span class="n">elementCount</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">elementData</span><span class="o">[</span><span class="n">elementCount</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>ArrayList的底层源码分析（先说结论，再分析源码）</p>
+<ol>
+<li>
+<p>ArrayList中维护了一个Object类型的数组elementData。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//transient 表示瞬间，短暂的，表示该属性不会被序列化
+</span><span class="c1"></span><span class="kd">transient</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">elementData</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>当创建ArrayList对象时，如果使用的是无参构造器，则初始elementData容量为0，第1次添加，则扩容elementData为10，如果需要再次扩容，则扩容elementData为1.5倍（<strong>即初始化数组elementData的大小为0，初次添加数据时扩容成10，等到添加的数据达到容量极限时，继续扩容为elementData的1.5倍</strong>）。</p>
+</li>
+<li>
+<p>如果使用的是指定大小的构造器，则初始elementData容量为指定大小，如果需要扩容则直接扩容elementData为1.5倍</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>扩容机制源码分析</p>
+<ol>
+<li>
+<p>创建ArrayListSource类。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayListSource</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//利用无参构造创建了ArrayList
+</span><span class="c1"></span>        <span class="n">ArrayList</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="c1">//利用有参构造创建了ArrayList
+</span><span class="c1"></span>        <span class="c1">//ArrayList list = new ArrayList(8); 
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">11</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">15</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+        <span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>在ArrayList arrayList = new ArrayList();出添加断点，debug。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">elementData</span> <span class="o">=</span> <span class="n">DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>DEFAULTCAPACITY_EMPTY_ELEMENTDATA为空数组，其定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span> <span class="o">=</span> <span class="o">{};</span>
+</code></pre></div><p>可以知道此时创建了一个空的elementData数组={}！</p>
+</li>
+<li>
+<p>下一步 执行arrayList.add()。add源码如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ensureCapacityInternal</span><span class="o">(</span><span class="n">size</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>  <span class="c1">// Increments modCount!!
+</span><span class="c1"></span>    <span class="n">elementData</span><span class="o">[</span><span class="n">size</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<ol>
+<li>先确定是否需要扩容（ensureCapacityInternal）</li>
+<li>然后再执行，赋值</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>进入ensureCapacityInternal方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">ensureCapacityInternal</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ensureExplicitCapacity</span><span class="o">(</span>
+            <span class="n">calculateCapacity</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">minCapacity</span><span class="o">));</span>
+    <span class="o">}</span>
+</code></pre></div><p>该方法调用了ensureExplicitCapacity与calculateCapacity方法。</p>
+<p>calculateCapacity方法源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateCapacity</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">elementData</span><span class="o">,</span> <span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">elementData</span> <span class="o">==</span> <span class="n">DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//DEFAULT_CAPACITY为常量，定义为10
+</span><span class="c1"></span>        <span class="c1">//minCapacity为集合所需的最小容量
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">DEFAULT_CAPACITY</span><span class="o">,</span> <span class="n">minCapacity</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">minCapacity</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>ensureExplicitCapacity方法源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">ensureExplicitCapacity</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// modCount为当前集合被修改的次数
+</span><span class="c1"></span>    <span class="c1">//用来防止多个线程操作产生的异常。
+</span><span class="c1"></span>    <span class="n">modCount</span><span class="o">++;</span>
+
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">minCapacity</span> <span class="o">-</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">grow</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>ensureCapacityInternal方法在这一步中首先调用了<strong>calculateCapacity</strong>方法来确定<strong>minCapacity</strong>(最小容量)然后把最小容量返回到<strong>ensureExplicitCapacity</strong>方法中，判断elementData的大小是够足够，如果不够会使用<strong>grow()方法去扩容</strong>。</p>
+</li>
+<li>
+<p>然后通过调用grow方法 完成扩容。grow源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="c1">//按原来大小的1.5倍扩容
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">oldCapacity</span> <span class="o">+</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">);</span>
+    <span class="c1">//初始值扩容
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">minCapacity</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">minCapacity</span><span class="o">;</span>
+    <span class="c1">//判断容量是否超过数组最大容量
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">hugeCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+    <span class="c1">// minCapacity is usually close to size, so this is a win:
+</span><span class="c1"></span>    <span class="c1">// Arrays.copyOf可以把原先数组copy到新的elementData！
+</span><span class="c1"></span>    <span class="n">elementData</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">newCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>在这一步完成了：</p>
+<ol>
+<li>实现扩容</li>
+<li>使用扩容机制来确定要扩容到多大</li>
+<li>第一次newCapacity = 10</li>
+<li>第二次及其以后，按照1.5倍扩容</li>
+<li>扩容使用的是Arrays.copyOf()实现，可以把原来elementData的数据copy到扩容后的elementData中</li>
+<li>完成后把扩容后的数组逐层返回到add方法里面</li>
+</ol>
+<p>扩容后的elementData：</p>
+<p><img src="/image/JavaCollections01/image12.jpg" alt="image12"  /></p>
+</li>
+</ol>
+</li>
+<li>
+<p>当使用有参构造器创建与使用ArrayList时，扩容机制与上述基本一致。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">(</span><span class="kt">int</span> <span class="n">initialCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">initialCapacity</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">elementData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">initialCapacity</span><span class="o">];</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">initialCapacity</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">elementData</span> <span class="o">=</span> <span class="n">EMPTY_ELEMENTDATA</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;Illegal Capacity: &#34;</span><span class="o">+</span>
+                                           <span class="n">initialCapacity</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>this.elementData = new Object[initialCapacity]创建了指定大小的elementData数组。</p>
+<p>initialCapacity为构造器传入的初始参数，即为elementData数组的初始大小。</p>
+<p>需要注意的是，有参构造器扩容时<strong>第一次扩容为elementData的1.5倍，并不是初始为10！</strong></p>
+<blockquote>
+<p>因为calculateCapacity方法中只有elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA时才会把常量DEFAULT_CAPACITY的值返回到ensureExplicitCapacity。而DEFAULTCAPACITY_EMPTY_ELEMENTDATA为空数组。由于有参构造创建的elementData必不为空，所以初次扩容时的newCapaCity为elementData大小的1.5倍。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">elementData</span> <span class="o">==</span> <span class="n">DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">DEFAULT_CAPACITY</span><span class="o">,</span> <span class="n">minCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>扩容后的elementData：</p>
+<p><img src="/image/JavaCollections01/image13.jpg" alt="image13"  /></p>
+<p><strong>剩下的扩容步骤与无参的一样！</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="vector底层结构和源码解析">Vector底层结构和源码解析</h4>
+<ul>
+<li>
+<p>Vector的定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
+    <span class="kd">extends</span> <span class="n">AbstractList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
+    <span class="kd">implements</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;,</span> <span class="n">RandomAccess</span><span class="o">,</span> <span class="n">Cloneable</span><span class="o">,</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span>
+</code></pre></div></li>
+<li>
+<p>ector底层也是一个数组，protected Object[] elementData；</p>
+</li>
+<li>
+<p>Vector是线程同步的，即线程安全，Vector类的操作方法都带有synchronize</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">modCount</span><span class="o">++;</span>
+        <span class="n">ensureCapacityHelper</span><span class="o">(</span><span class="n">elementCount</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">elementData</span><span class="o">[</span><span class="n">elementCount</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Vector与ArrayList比较</p>
+<p><img src="/image/JavaCollections01/image14.jpg" alt="image14"  /></p>
+</li>
+<li>
+<p>Vector扩容的底层源码</p>
+<p>创建Vector_类，使用无参构造器来创建Vector。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Vector</span> <span class="n">vector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">vector</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">vector</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Vecto的无参创建初始化elementData大小为10</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">Vector</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>进入到add方法，通过ensureCapacityHelper判断是否需要扩容。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+    <span class="n">ensureCapacityHelper</span><span class="o">(</span><span class="n">elementCount</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">elementData</span><span class="o">[</span><span class="n">elementCount</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>ensureCapacityHelper方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">ensureCapacityHelper</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="c1">//如果最小容量大于数组的实际长度，则扩容
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">minCapacity</span> <span class="o">-</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">grow</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>如果minCapacity - elementData.length &gt; 0满足，则通过grow方法扩容</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">oldCapacity</span> <span class="o">+</span> <span class="o">((</span><span class="n">capacityIncrement</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">?</span>
+                                     <span class="n">capacityIncrement</span> <span class="o">:</span> <span class="n">oldCapacity</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">minCapacity</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">minCapacity</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">hugeCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+    <span class="n">elementData</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">newCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>又因为capacityIncrement=0，所以newCapacity=oldCapacity+oldCapacity，即为原来的两倍！</p>
+<p>扩容后的Vector：</p>
+<p><img src="/image/JavaCollections01/image15.png" alt="image15"  /></p>
+</li>
+</ul>
+<p>​</p>
+<h4 id="linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</h4>
+<ol>
+<li>LinkedList底层实现了双向链表和双端队列特点</li>
+<li>可以添加任意元素（元素可以重复），包括null</li>
+<li>LinkedList也是线程不安全的，没有实现同步</li>
+</ol>
+<ul>
+<li>
+<p>LinkedList的底层操作机制</p>
+<ul>
+<li>
+<p>LinkedList底层维护了一个双向链表。</p>
+</li>
+<li>
+<p>LinkedList中维护了两个属性first和last分别指向首节点和尾结点。</p>
+</li>
+<li>
+<p>每个节点（Node对象），里面又包含prev、next、item三个属性，其中通过prev指向前一个节点，通过next指向后一个节点。最终实现双向链表。</p>
+</li>
+<li>
+<p>所以LinkedList的元素添加和删除，不是通过数组完成的，相对来说效率较高。</p>
+</li>
+<li>
+<p>LinkedList链表示意图：</p>
+<p><img src="/image/JavaCollections01/image16.png" alt="image16"  /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>双向链表的创建使用演示</p>
+<p>创建Note类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+<span class="c1">//定义一个Note类，Note对象表示双向链表的一个节点。
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Note</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="n">item</span><span class="o">;</span><span class="c1">//存放数据
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Note</span> <span class="n">pre</span><span class="o">;</span><span class="c1">//指向上一个节点
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Note</span> <span class="n">next</span><span class="o">;</span><span class="c1">//指向下一个节点
+</span><span class="c1"></span>
+    <span class="kd">public</span> <span class="nf">Note</span><span class="o">(</span><span class="n">Object</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">item</span><span class="o">=</span><span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Note{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#34;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>在LinkedList类中模拟建立一个双向链表</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedList01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//模拟一个简单的双向链表
+</span><span class="c1"></span>        <span class="c1">//首先创建三个结点 jack、mary、tom
+</span><span class="c1"></span>        <span class="n">Note</span> <span class="n">jack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Note</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">Note</span> <span class="n">mary</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Note</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">);</span>
+        <span class="n">Note</span> <span class="n">tom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Note</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="c1">//连接三个结点形成双向链表
+</span><span class="c1"></span>        <span class="c1">//jack-&gt;mary-&gt;tom
+</span><span class="c1"></span>        <span class="n">jack</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">mary</span><span class="o">;</span>
+        <span class="n">mary</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">tom</span><span class="o">;</span>
+        <span class="c1">//tom-&gt;mary-&gt;jack
+</span><span class="c1"></span>        <span class="n">tom</span><span class="o">.</span><span class="na">pre</span> <span class="o">=</span> <span class="n">mary</span><span class="o">;</span>
+        <span class="n">mary</span><span class="o">.</span><span class="na">pre</span> <span class="o">=</span> <span class="n">jack</span><span class="o">;</span>
+
+        <span class="c1">//创建头结点与尾结点
+</span><span class="c1"></span>        <span class="c1">//让first引用指向jack，就是双向链表的头结点
+</span><span class="c1"></span>        <span class="n">Note</span> <span class="n">first</span> <span class="o">=</span> <span class="n">jack</span><span class="o">;</span>
+        <span class="c1">//让last引用指向tom，就是双向链表的尾结点
+</span><span class="c1"></span>        <span class="n">Note</span> <span class="n">last</span> <span class="o">=</span> <span class="n">tom</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>利用头结点遍历，遍历链表</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//头结点遍历
+</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==头结点遍历==&#34;</span><span class="o">);</span>
+<span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">first</span><span class="o">);</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>利用尾结点遍历，遍历链表</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==尾结点遍历==&#34;</span><span class="o">);</span>
+<span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">last</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">last</span><span class="o">);</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">last</span><span class="o">.</span><span class="na">pre</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>在mary结点与tom结点之间增加一个smith结点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//在mary与tom之间增加一个smith结点
+</span><span class="c1"></span>        <span class="n">Note</span> <span class="n">smith</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Note</span><span class="o">(</span><span class="s">&#34;smith&#34;</span><span class="o">);</span>
+
+        <span class="n">smith</span><span class="o">.</span><span class="na">pre</span> <span class="o">=</span> <span class="n">mary</span><span class="o">;</span>
+        <span class="n">smith</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">tom</span><span class="o">;</span>
+        <span class="n">mary</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">smith</span><span class="o">;</span>
+        <span class="n">tom</span><span class="o">.</span><span class="na">pre</span> <span class="o">=</span> <span class="n">smith</span><span class="o">;</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">jack</span><span class="o">;</span>
+
+
+        <span class="c1">//头结点遍历
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==头结点遍历==&#34;</span><span class="o">);</span>
+        <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">first</span><span class="o">);</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+</code></pre></div><p>删除smith结点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="c1">//删除smith结点
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;删除smith结点&#34;</span><span class="o">);</span>
+        <span class="n">mary</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">tom</span><span class="o">;</span>
+        <span class="n">tom</span><span class="o">.</span><span class="na">pre</span> <span class="o">=</span> <span class="n">mary</span><span class="o">;</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">jack</span><span class="o">;</span>
+        <span class="c1">//头结点遍历
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==头结点遍历==&#34;</span><span class="o">);</span>
+        <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">first</span><span class="o">);</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections01/image17.png" alt="image17"  /></p>
+</li>
+<li>
+<p>利用LinkedList的CRUD来查看其底层源码</p>
+<p>LinkedListCRUD.java</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedListCRUD</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LinkedList</span> <span class="n">linkedList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">();</span>
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>在LinkedList linkedList = new LinkedList();处添加断点，debug。</p>
+<p>可以知道此时LinkedList只初始化了一个空的linkedList</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">LinkedList</span><span class="o">()</span> <span class="o">{}</span>
+</code></pre></div><p>此时linkedList的属性 first = null，last = null</p>
+<p><img src="/image/JavaCollections01/image18.png" alt="image18"  /></p>
+<p>然后查看add方法的源码，我们可以发现add方法调用了方法linkLast</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">linkLast</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>查看linkLast方法的源码，我们可以发现此时创建了一个newNode结点，并将其加入到双向链表的最后。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">linkLast</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//初始last为null，所以l=null
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">l</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">l</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="k">else</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="n">size</span><span class="o">++;</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div><p>因为是第一个结点，所以newNode的next与last均为空。此时LinkedList的first与last均指向了newNode。此时链表的状态为：</p>
+<p><img src="/image/JavaCollections01/image19.png" alt="image19"  /></p>
+<p>当我们再次往LinkedList集合中添加元素时，会再次进入到底层的linkLast方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">linkLast</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//l = last 即指向了第一个newNode
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+    <span class="c1">//此时新的newNode有prev = l 即新的newNode指向了第一个结点！
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">l</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="c1">//因为l = last 所以l不为null
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">l</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="k">else</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="n">size</span><span class="o">++;</span>
+    <span class="c1">//modCount记录集合修改的次数
+</span><span class="c1"></span>    <span class="n">modCount</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div><p>因为此时的last不再为空，所以结点l指向了last结点，即第一个newNode。此时链表的状态为：</p>
+<p><img src="/image/JavaCollections01/image20.png" alt="image20"  /></p>
+</li>
+<li>
+<p>上述代码为LinkedList集合添加元素时的源码展示，下面我们看一下LinkedList集合删除指定索引的元素时的源码：</p>
+<p>LinkedListCURD类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedListCRUD</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LinkedList</span> <span class="n">linkedList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">();</span>
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">300</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;linkedList = &#34;</span> <span class="o">+</span> <span class="n">linkedList</span><span class="o">);</span>
+
+        <span class="n">linkedList</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;linkedList = &#34;</span> <span class="o">+</span> <span class="n">linkedList</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>查看linkedList.remove(int index)方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">E</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">checkElementIndex</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">unlink</span><span class="o">(</span><span class="n">node</span><span class="o">(</span><span class="n">index</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>我们可以知道该方法首先通过checkElementIndex(index);检查索引是否合法，不合法会抛出异常。</p>
+<p>checkElementIndex(index);方法源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">checkElementIndex</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">isElementIndex</span><span class="o">(</span><span class="n">index</span><span class="o">))</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IndexOutOfBoundsException</span><span class="o">(</span><span class="n">outOfBoundsMsg</span><span class="o">(</span><span class="n">index</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>上述isElementIndex方法的作用用来判断元素的索引范围</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isElementIndex</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>当索引在元素的合法范围时，进入到了node(int index)方法。该方法可以返回指定元素索引处的（非空）结点。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">node</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// assert isElementIndex(index);
+</span><span class="c1"></span>	<span class="c1">//如果index小于size的一半，从头到尾遍历
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="o">(</span><span class="n">size</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">index</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">//如果index大于size的一半，从尾到头遍历
+</span><span class="c1"></span>        <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">size</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">prev</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>然后再通过unlink(Node x)方法删除指定索引集合元素。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">E</span> <span class="nf">unlink</span><span class="o">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// assert x != null;
+</span><span class="c1"></span>    <span class="c1">//把要删除的元素数据赋值给element，以便删除后返回
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">E</span> <span class="n">element</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">item</span><span class="o">;</span>
+    <span class="c1">//新建一个结点next指向x.next
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="c1">//新建一个结点prev指向x.prev
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">prev</span><span class="o">;</span>
+	<span class="c1">//如果prev == null 说明x结点为头结点。
+</span><span class="c1"></span>    <span class="c1">//此时把first指向next，即说明x的下一个结点为新的头结点
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">prev</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="c1">//否则x的上一个节点的next值指向x的下一个结点
+</span><span class="c1"></span>        <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="c1">//因为x已经删除，所以把prev置为null
+</span><span class="c1"></span>        <span class="n">x</span><span class="o">.</span><span class="na">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+	<span class="c1">//如果next == null 说明该节点为尾结点
+</span><span class="c1"></span>    <span class="c1">//此时吧last指向prev，即说明x的上一个结点为新的尾结点
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">prev</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="c1">//否则把x的下一个结点的prev指向x的上一个结点
+</span><span class="c1"></span>        <span class="n">next</span><span class="o">.</span><span class="na">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">;</span>
+        <span class="c1">//因为x已经删除，next
+</span><span class="c1"></span>        <span class="n">x</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">x</span><span class="o">.</span><span class="na">item</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">//集合的大小减一
+</span><span class="c1"></span>    <span class="n">size</span><span class="o">--;</span>
+    <span class="c1">//修改次数+1次
+</span><span class="c1"></span>    <span class="n">modCount</span><span class="o">++;</span>
+    <span class="c1">//最后返回被删除的元素
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">element</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>下面为删除two结点的图解</p>
+<p><img src="/image/JavaCollections01/image21.png" alt="image21"  /></p>
+<p>删除后的链表状态为</p>
+<p><img src="/image/JavaCollections01/image22.png" alt="image22"  /></p>
+</li>
+<li>
+<p>ArrayList和LinkedList比较</p>
+<p><img src="/image/JavaCollections01/image23.png" alt="image23"  /></p>
+</li>
+<li>
+<p>如何选择ArrayList和LinkedList</p>
+<ul>
+<li>如果我们改查的操作多，就选ArrayList</li>
+<li>如果我们增删操作多，就选择LinkedList</li>
+<li>一般来说，在程序中，80%—90%都是查询，因此大部分情况下会选择ArrayList</li>
+<li>在一个项目中，根据业务灵活选择，也可能这样，一个模块使用的是ArrayList，另一个模块使用的是LinkedList</li>
+</ul>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#java集合类一">Java集合类（一）</a>
+          <ol>
+            <li><a href="#集合的概念">集合的概念</a></li>
+            <li><a href="#collection接口和常用方法">Collection接口和常用方法</a></li>
+            <li><a href="#list接口和常用方法">List接口和常用方法</a></li>
+            <li><a href="#arraylist底层源码及注意事项">ArrayList底层源码及注意事项</a></li>
+            <li><a href="#vector底层结构和源码解析">Vector底层结构和源码解析</a></li>
+            <li><a href="#linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -196,7 +196,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>运行结果</p>
-<p><img src="/OOP-image/image1.jpg" alt="image1"  /></p>
+<p><img src="/image/OOP-image/image1.jpg" alt="image1"  /></p>
 <p>可以知道，静态方法在main方法中调用可以直接调用，非静态方法则需要先实例化类(new一个对象)才能调用</p>
 </li>
 <li>
@@ -215,7 +215,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
 </span><span class="c1"></span>        <span class="n">a</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/OOP-image/image2.jpg" alt="image2"  /></p>
+</code></pre></div><p><img src="/image/OOP-image/image2.jpg" alt="image2"  /></p>
 <p>上述代码中a的值没有改变是因为实参传递给形参的是值  形参和实参在内存上是两个独立的变量 对形参做任何修改不会影响实参</p>
 <blockquote>
 <p>通俗来说就是：小明去餐厅看到别人桌子上的糯米鸡好吃，然后小明就叫服务员点了一份糯米鸡，小明吃完了，别人桌上的却不受影响，因为他们吃的不是同一份糯米鸡。</p>
@@ -242,7 +242,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
 <span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
     <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/OOP-image/image3.jpg" alt="image3"  /></p>
+</code></pre></div><p><img src="/image/OOP-image/image3.jpg" alt="image3"  /></p>
 <p>实参传递给形参的是参数对于 堆内存上的引用地址 实参和 形参在内存上指向 了同一块区域  对形参的修改会影响实参</p>
 </li>
 </ul>
@@ -288,7 +288,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>运行结果：</p>
-<p><img src="/OOP-image/image4.jpg" alt="image4"  /></p>
+<p><img src="/image/OOP-image/image4.jpg" alt="image4"  /></p>
 </li>
 <li>
 <p>使用new关键字创建的时候，除了分配空间之外，还会给创建好的对象进行默认初始化以及对类中构造器的调用。</p>
@@ -346,7 +346,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">+</span><span class="s">&#34; &#34;</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">age</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/OOP-image/image5.png" alt="image5"  /></p>
+</code></pre></div><p><img src="/image/OOP-image/image5.png" alt="image5"  /></p>
 </li>
 </ul>
 <h4 id="33-对象的内存分析">3.3 对象的内存分析</h4>
@@ -383,7 +383,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>内存分析图</p>
-<p><img src="/OOP-image/image6.png" alt="image6"  /></p>
+<p><img src="/image/OOP-image/image6.png" alt="image6"  /></p>
 <p>在内存中，创建一个对象，栈空间中存放的是对象的引用，而堆空间中存放的是new出来的东西，栈、堆两个空间通过一个内存地址相互连接。</p>
 </li>
 </ul>

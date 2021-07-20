@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java编程思想 on MinsterBlog</title>
+    <link>https://minster77.github.io/tags/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/</link>
+    <description>Recent content in Java编程思想 on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 May 2020 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java编程思想集合篇（一）</title>
+      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</guid>
+      <description>List list = new ArrayList();与ArrayList list = new ArrayList()
+​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
+​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
+为什么一般都使用List list= new ArrayList()，而不是后者呢
+​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
+​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
+​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。</description>
+    </item>
+    
+  </channel>
+</rss>
