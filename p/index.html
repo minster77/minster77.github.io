@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
   Map与Collection并列存在。用于保存具有映射关系的数据：key-value
   Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
   Map中的key不允许重复，原因和HashSet一样
@@ -10,12 +10,12 @@
   常用String类作为Map的key
   key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
 代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.'><title></title>
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.'><title></title>
 
 <link rel='canonical' href='https://minster77.github.io/p/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
-<meta property='og:description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+<meta property='og:description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
   Map与Collection并列存在。用于保存具有映射关系的数据：key-value
   Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
   Map中的key不允许重复，原因和HashSet一样
@@ -24,12 +24,12 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
   常用String类作为Map的key
   key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
 代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.'>
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.'>
 <meta property='og:url' content='https://minster77.github.io/p/'>
 <meta property='og:site_name' content='MinsterBlog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+<meta name="twitter:description" content="Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
   Map与Collection并列存在。用于保存具有映射关系的数据：key-value
   Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
   Map中的key不允许重复，原因和HashSet一样
@@ -38,7 +38,7 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
   常用String类作为Map的key
   key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
 代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.">
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.">
     <link rel="shortcut icon" href="image/icons/M.ico" />
 
     </head>
@@ -103,6 +103,12 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
     <section class="article-content">
     <h2 id="java集合类三">Java集合类(三)</h2>
 <hr>
+<ol>
+<li>Map接口实现类的特点和常用方法</li>
+<li>Map接口的六大遍历方式</li>
+<li>Map小结及HashMap底层源码分析</li>
+<li>Hashtable基本介绍</li>
+</ol>
 <hr>
 <h3 id="map接口实现类的特点和常用方法">Map接口实现类的特点和常用方法</h3>
 <h4 id="map接口的特点">Map接口的特点</h4>
@@ -537,7 +543,8 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
 <p>（key，value）是一个Node实现了Map$Entry&lt;K,V&gt;</p>
 </li>
 <li>
-<p>HashMap的扩容机制[和<a class="link" href="" >HashSet扩容机制</a>相同]</p>
+<p>HashMap的扩容机制[和<a class="link" href="https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/#hashset%E5%BA%95%E5%B1%82%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"  target="_blank" rel="noopener"
+    >HashSet扩容机制</a>相同]</p>
 <ul>
 <li>HashMap底层维护了Node类型的数组table，默认为null</li>
 <li>当创建对象时，将加载因子(loadfactor)初始化为0.75</li>
@@ -546,8 +553,237 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
 <li>如果需要再次扩容，会将需要扩容的table容量扩容到原来的2倍（32），临界值为原来的2倍（24） 依次类推。</li>
 <li>在Java8中，如果一条链表的元素个数到达TREEIFY_THRESHOLD(默认是8)，并且table的大小&gt;=MIN_TREEIFY_CAPACITY(默认是64)，就会进行树化（转换红黑树），<strong>否则任然采用数组扩容机制</strong></li>
 </ul>
+<p><strong>源码分析</strong></p>
+<p>创建MapSource类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>调试程序，执行HashMap的无参构造器，=。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">HashMap</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">loadFactor</span> <span class="o">=</span> <span class="n">DEFAULT_LOAD_FACTOR</span><span class="o">;</span> <span class="c1">// all other fields defaulted
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>将负载因子(loadFactor)初始化并且创建一个空的table。</p>
+<p>向HashMap集合添加元素，执行put方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">putVal</span><span class="o">(</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>通过hash方法计算key的Hash值，然后返回给putVal方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">h</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>执行putVal方法，程序首先判断table是否为null，如果为null就table的容量扩容到16</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="n">tab</span> <span class="o">=</span> <span class="n">resize</span><span class="o">()).</span><span class="na">length</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>实现扩容的方法为risize()方法。</p>
+<p>继续调试，程序会判断当前hash值对应的table索引位置上是否已经存在值，如果不存在值，就把当前Hash值的结点赋值进去。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+    <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>然后modCount++（记录修改的次数），size++（记录已添加元素的个数）；</p>
+<p>倘若当前hash值对应的table索引位置上已存在值，首先会判断<strong>当前索引位置上的hash值</strong>是否与需要添加的key值对应的hash值相同且满足以下两个条件之一：</p>
+<ul>
+<li>准备添加的key值与p指向的Node结点的key是同一个对象</li>
+<li>p指向的Node结点的key的equals()和准备假如的key比较后相同。</li>
+</ul>
+<p>如果上述条件皆成立，直接让e指向p（p为当前索引位置上的结点）,e为辅助变量</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+    <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">)))){</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>然后继续执行，把需要添加的key值对应的value值替换掉原先存在的key值的value值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// existing mapping for key
+</span><span class="c1"></span>    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">onlyIfAbsent</span> <span class="o">||</span> <span class="n">oldValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="n">afterNodeAccess</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>返回修改后的value值。</p>
+<p>倘若上述条件不成立，程序会继续进行判断，判断需要添加的结点是否为树结点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">){</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">p</span><span class="o">).</span><span class="na">putTreeVal</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>如果是树结点，会执行putTreeVal()方法，把需要添加的树节点添加到红黑树上。</p>
+<p>如果不是树节点，程序会继续调试，进入到下一个else。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">binCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="o">;</span> <span class="o">++</span><span class="n">binCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">binCount</span> <span class="o">&gt;=</span> <span class="n">TREEIFY_THRESHOLD</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// -1 for 1st
+</span><span class="c1"></span>                <span class="n">treeifyBin</span><span class="o">(</span><span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+            <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>在此处程序会进入一个死循环，直至找到对应索引位置上的尾结点或者找到key相同的结点才会退出。详细见<a class="link" href="https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/#hashset%E5%BA%95%E5%B1%82%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"  target="_blank" rel="noopener"
+    >HashSet底层添加元素源码分析</a>的最后一步。</p>
 </li>
 </ul>
+<h4 id="模拟hashmap触发扩容树化情况并debug验证">模拟HashMap触发扩容、树化情况，并debug验证</h4>
+<ul>
+<li>
+<p>创建测试类MapSource01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">12</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+          <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="k">new</span> <span class="n">A</span><span class="o">(</span><span class="n">i</span><span class="o">),</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建A类，重写HashCode方法，让他们有统一的Hash值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">A</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">no</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">A</span><span class="o">(</span><span class="kt">int</span> <span class="n">no</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">no</span> <span class="o">=</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">100</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNo</span><span class="o">(</span><span class="kt">int</span> <span class="n">no</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">no</span> <span class="o">=</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;\nA{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;no=&#34;</span> <span class="o">+</span> <span class="n">no</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行调试，直至添加到第9个元素，因为达到树化的条件（一条链表的元素个数到达8个），但table的大小&lt;MIN_TREEIFY_CAPACITY(默认是64)，所以table会扩容。</p>
+<p><img src="/image/JavaCollections03/image15.jpg" alt="image15"  /></p>
+<p>继续调试，table再次扩容，直至table扩容到容量为64时，该链表会发生树化</p>
+<p><img src="/image/JavaCollections03/image16.jpg" alt="image16"  /></p>
+</li>
+</ul>
+<h3 id="hashtable">Hashtable</h3>
+<h4 id="hashtable的基本介绍">Hashtable的基本介绍</h4>
+<ul>
+<li>
+<p>Hashtable存放的元素时键值对：即K-V</p>
+</li>
+<li>
+<p>Hashtable的键和值都不能为null，否则会抛出NullPointerException</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Hashtable使用方法基本上和HashMap一样</p>
+</li>
+<li>
+<p>Hashtable是线程安全的（synchronize），HashMap是线程不安全的</p>
+</li>
+</ul>
+<p><strong>Hashtable底层的简单剖析</strong></p>
+<ul>
+<li>
+<p>底层有数组 Hashtable$Entry[]，初始化大小为11</p>
+</li>
+<li>
+<p>临界值 threshold = 8 （11*0.75）</p>
+<p>创建HashtableSource类调试</p>
+<pre><code>package com.conllection_.maps;
+
+import java.util.Hashtable;
+
+public class HashtableSource {
+    public static void main(String[] args) {
+        Hashtable hashtable = new Hashtable();
+
+        hashtable.put(&quot;john&quot;,100);
+        hashtable.put(&quot;jack&quot;,100);
+        hashtable.put(&quot;mary&quot;,200);
+        hashtable.put(&quot;tom&quot;,300);
+        hashtable.put(&quot;smith&quot;,500);
+        hashtable.put(&quot;minster&quot;,600);
+        hashtable.put(&quot;chris&quot;,200);
+        hashtable.put(&quot;ssm&quot;,500);
+
+        System.out.println(&quot;hashtable = &quot; + hashtable);
+    }
+}
+</code></pre><p>调试程序，我们可以发现</p>
+<p><img src="/image/JavaCollections03/image17.jpg" alt="image17"  /></p>
+</li>
+<li>
+<p>Hashtable按照自己的扩容机制进行扩容</p>
+<p>继续调试HashtableSource，执行put方法，可以发现该接口添加元素时执行了addEntry方法把添加的K-V封装到Entry</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">addEntry</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+
+    <span class="n">Entry</span><span class="o">&lt;?,?&gt;</span> <span class="n">tab</span><span class="o">[]</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+    <span class="c1">//当增加的元素数量大于或等于临界值时，执行rehash方法进行扩容
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Rehash the table if the threshold is exceeded
+</span><span class="c1"></span>        <span class="n">rehash</span><span class="o">();</span>
+
+        <span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+        <span class="n">hash</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="n">0x7FFFFFFF</span><span class="o">)</span> <span class="o">%</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Creates the new entry.
+</span><span class="c1"></span>    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+    <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span> <span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+    <span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;&gt;(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="n">count</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div><p>执行rehash方法进行扩容。下面截取部分rehash源码。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="n">Entry</span><span class="o">&lt;?,?&gt;[]</span> <span class="n">oldMap</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="c1">//进行扩容
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&lt;&lt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">==</span> <span class="n">MAX_ARRAY_SIZE</span><span class="o">)</span>
+            <span class="c1">// Keep running with MAX_ARRAY_SIZE buckets
+</span><span class="c1"></span>            <span class="k">return</span><span class="o">;</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//指向扩容后的Entry
+</span><span class="c1"></span>    <span class="n">Entry</span><span class="o">&lt;?,?&gt;[]</span> <span class="n">newMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;?,?&gt;[</span><span class="n">newCapacity</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div><p>我们可以发现，当容量达到临界值时，rehash方法会通过 **int newCapacity = (oldCapacity &laquo; 1) + 1;**这条语句进行扩容。所以hashtable第一次扩容后的容量为23（11*2+1）；</p>
+<p><img src="/image/JavaCollections03/image18.jpg" alt="image18"  /></p>
+</li>
+</ul>
+<h4 id="hashmap与hashtable对比">HashMap与Hashtable对比</h4>
+<p><img src="/image/JavaCollections03/image19.jpg" alt="image19"  /></p>
 
 </section>
 
@@ -753,6 +989,13 @@ package com.conllection_.maps; import java.util.HashMap; import java.util.Map; p
           <ol>
             <li><a href="#map小结">Map小结</a></li>
             <li><a href="#hashmap底层机制及源码剖析">HashMap底层机制及源码剖析</a></li>
+            <li><a href="#模拟hashmap触发扩容树化情况并debug验证">模拟HashMap触发扩容、树化情况，并debug验证</a></li>
+          </ol>
+        </li>
+        <li><a href="#hashtable">Hashtable</a>
+          <ol>
+            <li><a href="#hashtable的基本介绍">Hashtable的基本介绍</a></li>
+            <li><a href="#hashmap与hashtable对比">HashMap与Hashtable对比</a></li>
           </ol>
         </li>
       </ol>

@@ -21,6 +21,20 @@ package com.polymorphic; public class Test { int a = 1; int number = 100000; // 
     </item>
     
     <item>
+      <title>polymorphic</title>
+      <link>https://minster77.github.io/p/polymorphic/</link>
+      <pubDate>Mon, 28 Jun 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/polymorphic/</guid>
+      <description>编译类型、运行类型及多态的区别 Java的引用变量有两个类型，一个是编译时类型，一个是运行时类型，编译时类型由声明该变量时使用的类型决定，运行时类型由实际赋给该变量的对象决定。如果编译时类型和运行时类型不一致，会出现所谓的多态。
+ 因为子类其实是一种特殊的父类，因此Java允许把一个子类对象直接赋值给一个父类引用变量，无须任何转型，或者被称为向上转型，由系统自动完成。  测试代码
+  Father类
+package com.polymorphic; public class Father { public Father(){ System.out.println(&amp;#34;Father的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Father Do Work!&amp;#34;); } }   Son类
+package com.polymorphic; public class Son extends Father{ public Son(){ System.out.println(&amp;#34;Son的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Son Do Work!&amp;#34;); } }   Test类
+package com.polymorphic; public class Test { public static void main(String[] args) { Father child = new Son(); son.doWork(); } }   运行结果</description>
+    </item>
+    
+    <item>
       <title>Java编程思想集合篇（一）</title>
       <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</link>
       <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>

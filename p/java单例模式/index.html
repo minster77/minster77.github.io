@@ -19,7 +19,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
 package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.'>
 <meta property='og:url' content='https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/'>
 <meta property='og:site_name' content='MinsterBlog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-05-28T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-28T16:22:25&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='设计模式' /><meta property='article:published_time' content='2021-05-28T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-28T16:22:25&#43;08:00'/>
 <meta name="twitter:title" content="Java单例模式">
 <meta name="twitter:description" content="单例设计模式 什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  什么是单例模式   单例：就是单个的实例
   所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
@@ -262,7 +262,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
     
     <section class="article-tags">
         
-            <a href="/tags/java/">Java</a>
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
         
     </section>
 

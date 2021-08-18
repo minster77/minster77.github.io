@@ -6,21 +6,7 @@
     <description>Recent content in Java on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Jun 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>polymorphic</title>
-      <link>https://minster77.github.io/p/polymorphic/</link>
-      <pubDate>Mon, 28 Jun 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/polymorphic/</guid>
-      <description>编译类型、运行类型及多态的区别 Java的引用变量有两个类型，一个是编译时类型，一个是运行时类型，编译时类型由声明该变量时使用的类型决定，运行时类型由实际赋给该变量的对象决定。如果编译时类型和运行时类型不一致，会出现所谓的多态。
- 因为子类其实是一种特殊的父类，因此Java允许把一个子类对象直接赋值给一个父类引用变量，无须任何转型，或者被称为向上转型，由系统自动完成。  测试代码
-  Father类
-package com.polymorphic; public class Father { public Father(){ System.out.println(&amp;#34;Father的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Father Do Work!&amp;#34;); } }   Son类
-package com.polymorphic; public class Son extends Father{ public Son(){ System.out.println(&amp;#34;Son的构造方法&amp;#34;); } public void doWork(){ System.out.println(&amp;#34;Son Do Work!&amp;#34;); } }   Test类
-package com.polymorphic; public class Test { public static void main(String[] args) { Father child = new Son(); son.doWork(); } }   运行结果</description>
-    </item>
-    
+    <lastBuildDate>Sat, 19 Jun 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java_IO流_2</title>
       <link>https://minster77.github.io/p/java_io%E6%B5%81_2/</link>
@@ -45,20 +31,6 @@ package com.java_io; import java.io.BufferedReader; import java.io.FileReader; p
  流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
     使用new File（String pathname）创建
 package com.java_io; import org.junit.Test; import java.io.File; import java.io.IOException; public class FileCreate1 { public static void main(String[] args) { } //方法1：使用new File(filePath)创建文件  @Test public void createFile01() throws IOException { //创建的文件路径名称  String filePath = &amp;#34;e:\\news1.</description>
-    </item>
-    
-    <item>
-      <title>Java单例模式</title>
-      <link>https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
-      <pubDate>Fri, 28 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
-      <description>单例设计模式 什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  什么是单例模式   单例：就是单个的实例
-  所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
-  单例模式有两种方式：
-  饿汉式（只有类被加载了，该对象就会被创建）
- 将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
-package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.</description>
     </item>
     
     <item>
@@ -149,41 +121,6 @@ Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输�
 package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;+str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
   通过nextLine()方法获取输入的字符串，需要使用hasNextLine()判断是否还有输入的数据
 package com.heng.scanner; import java.</description>
-    </item>
-    
-    <item>
-      <title>Java集合类（二）</title>
-      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</link>
-      <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</guid>
-      <description>Java集合类(二)   Set接口和常用方法 HashSet全面说明  思考 HashSet底层解析 HashSet底层添加元素源码分析 HashSet扩容机制和转换红黑树机制源码解析 threshold补充说明   LinkedHashSet说明及源码分析  LinkedHashSet全面说明 LinkedHashSet底层机制示意图 LinkedHashSet底层源码分析     Set接口和常用方法   Set接口基本介绍
- 无序（添加和取出的顺序不一致），没有索引 不允许重复元素，所以最多包含一个null JDK API中Set接口常用的实现类有：HashSet、TreeSet等    Set接口的常用方法
- 和List接口一样，Set接口也是Collection的子接口，因此，常用方法和Collection接口一样。（详情见Java集合类(一)）    以Set接口的实现类HashSet来讲解Set接口的方法
-package com.conllection_.sets; import java.util.HashSet; import java.util.Set; public class SetMethod { public static void main(String[] args) { Set set = new HashSet(); set.add(&amp;#34;john&amp;#34;); set.add(&amp;#34;jack&amp;#34;); set.add(&amp;#34;tom&amp;#34;); set.add(&amp;#34;john&amp;#34;); set.add(null); set.add(null); System.out.println(&amp;#34;set = &amp;#34; + set); } } 运行结果：</description>
-    </item>
-    
-    <item>
-      <title>Java集合类（一）</title>
-      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</link>
-      <pubDate>Mon, 05 Apr 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</guid>
-      <description>Java集合类（一）    集合的概念
-  Collection接口和常用方法
-  List接口和常用方法
-  ArrayList底层源码即注意事项
-  Vector底层结构和源码解析
-  LinkedList底层结构和源码解析
-   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征</description>
     </item>
     
     <item>

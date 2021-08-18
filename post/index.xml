@@ -236,7 +236,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://minster77.github.io/p/</guid>
-      <description>Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+      <description>Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
   Map与Collection并列存在。用于保存具有映射关系的数据：key-value
   Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
   Map中的key不允许重复，原因和HashSet一样
@@ -245,7 +245,7 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
   常用String类作为Map的key
   key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
 代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.</description>
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.</description>
     </item>
     
   </channel>

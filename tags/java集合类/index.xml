@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java集合类 on MinsterBlog</title>
+    <link>https://minster77.github.io/tags/java%E9%9B%86%E5%90%88%E7%B1%BB/</link>
+    <description>Recent content in Java集合类 on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Apr 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java%E9%9B%86%E5%90%88%E7%B1%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java集合类（二）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</link>
+      <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</guid>
+      <description>Java集合类(二)   Set接口和常用方法 HashSet全面说明  思考 HashSet底层解析 HashSet底层添加元素源码分析 HashSet扩容机制和转换红黑树机制源码解析 threshold补充说明   LinkedHashSet说明及源码分析  LinkedHashSet全面说明 LinkedHashSet底层机制示意图 LinkedHashSet底层源码分析     Set接口和常用方法   Set接口基本介绍
+ 无序（添加和取出的顺序不一致），没有索引 不允许重复元素，所以最多包含一个null JDK API中Set接口常用的实现类有：HashSet、TreeSet等    Set接口的常用方法
+ 和List接口一样，Set接口也是Collection的子接口，因此，常用方法和Collection接口一样。（详情见Java集合类(一)）    以Set接口的实现类HashSet来讲解Set接口的方法
+package com.conllection_.sets; import java.util.HashSet; import java.util.Set; public class SetMethod { public static void main(String[] args) { Set set = new HashSet(); set.add(&amp;#34;john&amp;#34;); set.add(&amp;#34;jack&amp;#34;); set.add(&amp;#34;tom&amp;#34;); set.add(&amp;#34;john&amp;#34;); set.add(null); set.add(null); System.out.println(&amp;#34;set = &amp;#34; + set); } } 运行结果：</description>
+    </item>
+    
+    <item>
+      <title>Java集合类（一）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</link>
+      <pubDate>Mon, 05 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</guid>
+      <description>Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征</description>
+    </item>
+    
+  </channel>
+</rss>
