@@ -6,7 +6,20 @@
     <description>Recent content in Posts on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Jun 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Aug 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java编程思想集合篇（二）</title>
+      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</link>
+      <pubDate>Sun, 01 Aug 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</guid>
+      <description>Java编程思想集合篇（二） Java HashMap为什么通过(n - 1) &amp;amp; hash 获取哈希桶数组下标？
+看过HashMap源码人应该都知道HashMap是如何根据hash值来计算哈希桶数组下标的，就是通过(n - 1) &amp;amp; hash来计算的，那么为什么用的是位运算而不是取模运算(hash % n)呢？
+获取hash桶数组下标源码
+if ((p = tab[i = (n - 1) &amp;amp; hash]) == null){ tab[i] = newNode(hash, key, value, null); } 一. 位运算与取模运算时间比较
+package com.polymorphic; public class Test { int a = 1; int number = 100000; // 数据集数量，初始定义为十万  // 位运算  public long bitwise() { long start = System.currentTimeMillis(); //从十万开始，一直到Integer的最大值，计算所需时间  for (int i = number; i &amp;gt; 0; i++) { a &amp;amp;= i; } long end = System.</description>
+    </item>
+    
     <item>
       <title>polymorphic</title>
       <link>https://minster77.github.io/p/polymorphic/</link>
@@ -27,7 +40,7 @@ package com.polymorphic; public class Test { public static void main(String[] ar
       <pubDate>Sat, 19 Jun 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java_io%E6%B5%81_2/</guid>
-      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   1、BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
+      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
   关闭处理流的时候，只需要关闭外层流即可
 演示bufferedReader的使用
 package com.java_io; import java.io.BufferedReader; import java.io.FileReader; public class BufferedReaderTest { public static void main(String[] args) throws Exception{ String path = &amp;#34;E://note.txt&amp;#34;; //创建BufferedReader对象  BufferedReader bufferedReader = new BufferedReader(new FileReader(path)); //按行读取，提高效率  String line; /* * bufferedReader.readLine()是按行读取文件的 * 当返回null时，表示已读取完毕 */ while ((line =bufferedReader.readLine())!=null){ System.out.println(line); } bufferedReader.close(); } }   需要注意的是，关闭流时只需要关闭BufferedReader。因为底层会自动关闭节点流</description>
@@ -39,7 +52,7 @@ package com.java_io; import java.io.BufferedReader; import java.io.FileReader; p
       <pubDate>Sat, 29 May 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java_io%E6%B5%81/</guid>
-      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   1、文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
+      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
   文件流
 文件在程序中是以流的形式来操作的
  流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
@@ -53,7 +66,7 @@ package com.java_io; import org.junit.Test; import java.io.File; import java.io.
       <pubDate>Fri, 28 May 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
-      <description>单例设计模式 1、什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  2、什么是单例模式   单例：就是单个的实例
+      <description>单例设计模式 什么是设计模式  静态方法和属性的经典实用 设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。设计模式就像是经典的棋谱，不同的棋局，我们用不同的棋谱，免去我们自己再思考和摸索  什么是单例模式   单例：就是单个的实例
   所谓的类的单例设计模式，就是采用一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的方法
   单例模式有两种方式：
   饿汉式（只有类被加载了，该对象就会被创建）
@@ -84,7 +97,7 @@ package com.exception; public class Test { public static void main(String[] args
       <pubDate>Sun, 02 May 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javaoop_02/</guid>
-      <description>深入面向对象   面向对象三大特性 static关键字详解 抽象类和接口 内部类及OOP实战   1、面向对象三大特性 1.1 封装   我们在程序设计中要追求“高内聚，低耦合”。
+      <description>深入面向对象   面向对象三大特性 static关键字详解 抽象类和接口 内部类及OOP实战   面向对象三大特性 封装   我们在程序设计中要追求“高内聚，低耦合”。
  高内聚：就是类的内部数据操作细节由自己完成，不允许外部干涉 仅暴露少量的方法给外部使用    所以在设计时需要把一些数据与方法封装起来（数据的隐藏）
   属性私有，get/set调用
   作用
@@ -99,12 +112,12 @@ package com.oop.demo02; //学生类 public class Student { private String name; 
       <pubDate>Sat, 01 May 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javaoop_01/</guid>
-      <description>初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   1、初识面向对象   面向过程思想
+      <description>初识面向对象   初识面向对象 方法回顾和加深 对象的创建分析   初识面向对象   面向过程思想
  步骤清晰简单，第一步做什么，第二部做什么&amp;hellip;. 面向过程适合处理一些较为简单的问题    面向对象思想
  物以类聚，分类的思想模式，思考问题首先会解决问题需要哪些分类，然后对这些分类进行单独思考。最后，才对某个分类下的细节进行面向过程的思索 面向对象适合处理复杂的问题，适合处理需要多人协作的问题！    对于描述复杂的事物，为了从宏观上把握、从整体上合理分析，我们需要使用面向对象的思路来分析整个系统。但是，具体到微观操作，仍然需要面向过程的思路去处理。
   面向对象编程的本质就是：以类的方式组织代码，以对象的形式组织(封装)数据
   面向对象的三大特性
- 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    2、回顾方法和加深   静态方法与非静态方法的调用
+ 封装：封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。 继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 多态：多态是同一个行为具有多个不同表现形式或形态的能力。    回顾方法和加深   静态方法与非静态方法的调用
 Student类
 package com.oop.demo01; public class Student { //静态方法  public static void eat(){ System.out.println(&amp;#34;kazikazi&amp;#34;); } //非静态方法  public void say(){ System.out.println(&amp;#34;hello&amp;#34;); } } Demo01类
 package com.oop.demo01; public class Demo01 { public static void main(String[] args) { //调用静态方法可以直接调用  Student.</description>
@@ -116,7 +129,7 @@ package com.oop.demo01; public class Demo01 { public static void main(String[] a
       <pubDate>Tue, 20 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javaarray/</guid>
-      <description>Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+      <description>Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
 dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
 dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
   获取数组长度：arrays.length
@@ -130,11 +143,11 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
       <pubDate>Thu, 08 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javamethod/</guid>
-      <description>JavaMethod   什么是方法 方法的定义及调用 方法重载 命令行传参 可变参数 递归   1、何谓方法   方法是语句的结合，他们在一起执行一个功能。
+      <description>JavaMethod   什么是方法 方法的定义及调用 方法重载 命令行传参 可变参数 递归   何谓方法   方法是语句的结合，他们在一起执行一个功能。
  方法是解决一类问题的步骤的有序组合 方法包含于类中 方法在程序中被创建，在其地方被引用    设计方法时，最好保持方法的原子性，就是一个方法只完成一个功能，这样子利于我们后期的拓展。
   命名规则：首字母小写的驼峰命名法
   方法创建及使用
-package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   2、方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
+package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
     </item>
     
     <item>
@@ -143,7 +156,7 @@ package com.heng.method; public class Demo01 { //main方法  public static void 
       <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
-      <description>Java流程控制   用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+      <description>Java流程控制   用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   用户交互Scanner   通过Scanner类来获取用户的输入
   基础语法：
 Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
 package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;+str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
@@ -152,19 +165,38 @@ package com.heng.scanner; import java.</description>
     </item>
     
     <item>
-      <title>JavaSE01</title>
-      <link>https://minster77.github.io/p/javase01/</link>
-      <pubDate>Sun, 28 Mar 2021 16:22:25 +0800</pubDate>
+      <title>Java集合类（二）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</link>
+      <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
       
-      <guid>https://minster77.github.io/p/javase01/</guid>
-      <description>Java基础语法   注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc   1、注释、标识符、关键字 1.注释（注释不会被执行）
- 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
- 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是大小写敏感的 String不是关键字，是一个类  2、Java数据类型   整数类型
- Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
- float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
-  Boolean类型：占一位 其真值只有true和Flase两个
-  浮点数拓展
-float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/</guid>
+      <description>Java集合类(二)   Set接口和常用方法 HashSet全面说明  思考 HashSet底层解析 HashSet底层添加元素源码分析 HashSet扩容机制和转换红黑树机制源码解析 threshold补充说明   LinkedHashSet说明及源码分析  LinkedHashSet全面说明 LinkedHashSet底层机制示意图 LinkedHashSet底层源码分析     Set接口和常用方法   Set接口基本介绍
+ 无序（添加和取出的顺序不一致），没有索引 不允许重复元素，所以最多包含一个null JDK API中Set接口常用的实现类有：HashSet、TreeSet等    Set接口的常用方法
+ 和List接口一样，Set接口也是Collection的子接口，因此，常用方法和Collection接口一样。（详情见Java集合类(一)）    以Set接口的实现类HashSet来讲解Set接口的方法
+package com.conllection_.sets; import java.util.HashSet; import java.util.Set; public class SetMethod { public static void main(String[] args) { Set set = new HashSet(); set.add(&amp;#34;john&amp;#34;); set.add(&amp;#34;jack&amp;#34;); set.add(&amp;#34;tom&amp;#34;); set.add(&amp;#34;john&amp;#34;); set.add(null); set.add(null); System.out.println(&amp;#34;set = &amp;#34; + set); } } 运行结果：</description>
+    </item>
+    
+    <item>
+      <title>Java集合类（一）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</link>
+      <pubDate>Mon, 05 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</guid>
+      <description>Java集合类（一）    集合的概念
+  Collection接口和常用方法
+  List接口和常用方法
+  ArrayList底层源码即注意事项
+  Vector底层结构和源码解析
+  LinkedList底层结构和源码解析
+   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
+ 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
+ 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
+Collection接口实现子类：
+Map接口实现子类：
+  集合主要有两种（单列集合，双列集合）
+  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
+ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
+HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征</description>
     </item>
     
     <item>
@@ -183,26 +215,37 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
     </item>
     
     <item>
-      <title>Java集合类（一）</title>
-      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</link>
-      <pubDate>Mon, 06 Apr 2020 16:22:25 +0800</pubDate>
+      <title>JavaSE01</title>
+      <link>https://minster77.github.io/p/javase01/</link>
+      <pubDate>Sat, 28 Mar 2020 16:22:25 +0800</pubDate>
       
-      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/</guid>
-      <description>Java集合类（一）    集合的概念
-  Collection接口和常用方法
-  List接口和常用方法
-  ArrayList底层源码即注意事项
-  Vector底层结构和源码解析
-  LinkedList底层结构和源码解析
-   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征</description>
+      <guid>https://minster77.github.io/p/javase01/</guid>
+      <description>Java基础语法   注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc   注释、标识符、关键字 1.注释（注释不会被执行）
+ 单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是大小写敏感的 String不是关键字，是一个类  Java数据类型   整数类型
+ Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
+ float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
+  Boolean类型：占一位 其真值只有true和Flase两个
+  浮点数拓展
+float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
+  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
+  Map中的key不允许重复，原因和HashSet一样
+  Map中的value可以重复
+  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
+  常用String类作为Map的key
+  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
+代码演示
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.</description>
     </item>
     
   </channel>

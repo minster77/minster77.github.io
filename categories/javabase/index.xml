@@ -27,7 +27,7 @@ package com.polymorphic; public class Test { public static void main(String[] ar
       <pubDate>Sat, 19 Jun 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java_io%E6%B5%81_2/</guid>
-      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   1、BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
+      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
   关闭处理流的时候，只需要关闭外层流即可
 演示bufferedReader的使用
 package com.java_io; import java.io.BufferedReader; import java.io.FileReader; public class BufferedReaderTest { public static void main(String[] args) throws Exception{ String path = &amp;#34;E://note.txt&amp;#34;; //创建BufferedReader对象  BufferedReader bufferedReader = new BufferedReader(new FileReader(path)); //按行读取，提高效率  String line; /* * bufferedReader.readLine()是按行读取文件的 * 当返回null时，表示已读取完毕 */ while ((line =bufferedReader.readLine())!=null){ System.out.println(line); } bufferedReader.close(); } }   需要注意的是，关闭流时只需要关闭BufferedReader。因为底层会自动关闭节点流</description>
@@ -39,7 +39,7 @@ package com.java_io; import java.io.BufferedReader; import java.io.FileReader; p
       <pubDate>Sat, 29 May 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java_io%E6%B5%81/</guid>
-      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   1、文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
+      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
   文件流
 文件在程序中是以流的形式来操作的
  流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
@@ -53,7 +53,7 @@ package com.java_io; import org.junit.Test; import java.io.File; import java.io.
       <pubDate>Tue, 20 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javaarray/</guid>
-      <description>Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+      <description>Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
 dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
 dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
   获取数组长度：arrays.length
@@ -67,11 +67,11 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
       <pubDate>Thu, 08 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javamethod/</guid>
-      <description>JavaMethod   什么是方法 方法的定义及调用 方法重载 命令行传参 可变参数 递归   1、何谓方法   方法是语句的结合，他们在一起执行一个功能。
+      <description>JavaMethod   什么是方法 方法的定义及调用 方法重载 命令行传参 可变参数 递归   何谓方法   方法是语句的结合，他们在一起执行一个功能。
  方法是解决一类问题的步骤的有序组合 方法包含于类中 方法在程序中被创建，在其地方被引用    设计方法时，最好保持方法的原子性，就是一个方法只完成一个功能，这样子利于我们后期的拓展。
   命名规则：首字母小写的驼峰命名法
   方法创建及使用
-package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   2、方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
+package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
     </item>
     
     <item>
@@ -80,7 +80,7 @@ package com.heng.method; public class Demo01 { //main方法  public static void 
       <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
-      <description>Java流程控制   用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   1、用户交互Scanner   通过Scanner类来获取用户的输入
+      <description>Java流程控制   用户交互Scanner 顺序结构 选择结构 循环结构 break&amp;amp;continue 练习   用户交互Scanner   通过Scanner类来获取用户的输入
   基础语法：
 Scanner s = new Scanner(System.in);   通过Scanner类的next()方法获取输入的字符串，需要使用hasNext()判断是否还有输入的数据
 package com.heng.scanner; import java.util.Scanner; public class demo01 { public static void main(String[] args) { //创建一个扫描器对象，用于接收用户输入的数据  Scanner scanner = new Scanner(System.in); System.out.println(&amp;#34;用next方式接收：&amp;#34;); //判断用户有没有输入字符串  if(scanner.hasNext()){ //使用next的方式来接收  String str = scanner.next(); System.out.println(&amp;#34;输出的内容为：&amp;#34;+str); } //凡是属于IO流的类如果不关闭就会一直浪费资源。所以要用完就关闭  scanner.close(); } } 因为使用next方法接收，所以空格后面的字符不能被str接收，因此可以使用nextLine()方法操作
@@ -91,12 +91,12 @@ package com.heng.scanner; import java.</description>
     <item>
       <title>JavaSE01</title>
       <link>https://minster77.github.io/p/javase01/</link>
-      <pubDate>Sun, 28 Mar 2021 16:22:25 +0800</pubDate>
+      <pubDate>Sat, 28 Mar 2020 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/javase01/</guid>
-      <description>Java基础语法   注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc   1、注释、标识符、关键字 1.注释（注释不会被执行）
+      <description>Java基础语法   注释、标识符、关键字 数据类型 类型转换 变量常量 运算符 包机制、JavaDoc   注释、标识符、关键字 1.注释（注释不会被执行）
  单行注释：用&amp;quot;//&amp;ldquo;表示 多行注释：”/* */“表示 JavaDoc文档注释：用/** */表示  2.标识符
- 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是大小写敏感的 String不是关键字，是一个类  2、Java数据类型   整数类型
+ 标识符以字母、美元符($)、下划线(_)开头 首字符之后可以是字母、美元符($)、下划线(_)或数字的任何字符组合 不能使用关键字作为变量名或方法名 标识符是大小写敏感的 String不是关键字，是一个类  Java数据类型   整数类型
  Byte占1个字节范围-128-127 short占2个字节范围 int占四个字节范围 long占8个字节范围（Long类型要在数字后面加个L）    浮点类型
  float占4个字节范围（float类型要在数字后面加个F） double占8个字节    字符类型：char占2个字节
   Boolean类型：占一位 其真值只有true和Flase两个

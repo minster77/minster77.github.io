@@ -6,7 +6,20 @@
     <description>Recent content in JavaThink on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 May 2020 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/javathink/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Aug 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/javathink/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java编程思想集合篇（二）</title>
+      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</link>
+      <pubDate>Sun, 01 Aug 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</guid>
+      <description>Java编程思想集合篇（二） Java HashMap为什么通过(n - 1) &amp;amp; hash 获取哈希桶数组下标？
+看过HashMap源码人应该都知道HashMap是如何根据hash值来计算哈希桶数组下标的，就是通过(n - 1) &amp;amp; hash来计算的，那么为什么用的是位运算而不是取模运算(hash % n)呢？
+获取hash桶数组下标源码
+if ((p = tab[i = (n - 1) &amp;amp; hash]) == null){ tab[i] = newNode(hash, key, value, null); } 一. 位运算与取模运算时间比较
+package com.polymorphic; public class Test { int a = 1; int number = 100000; // 数据集数量，初始定义为十万  // 位运算  public long bitwise() { long start = System.currentTimeMillis(); //从十万开始，一直到Integer的最大值，计算所需时间  for (int i = number; i &amp;gt; 0; i++) { a &amp;amp;= i; } long end = System.</description>
+    </item>
+    
     <item>
       <title>Java编程思想集合篇（一）</title>
       <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</link>

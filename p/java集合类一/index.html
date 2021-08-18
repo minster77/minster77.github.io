@@ -1,59 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类（一）    集合的概念
-  Collection接口和常用方法
-  List接口和常用方法
-  ArrayList底层源码即注意事项
-  Vector底层结构和源码解析
-  LinkedList底层结构和源码解析
-   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征'><title>Java集合类（一）</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='List接口及其子类的剖析'><title>Java集合类（一）</title>
 
 <link rel='canonical' href='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java集合类（一）'>
-<meta property='og:description' content='Java集合类（一）    集合的概念
-  Collection接口和常用方法
-  List接口和常用方法
-  ArrayList底层源码即注意事项
-  Vector底层结构和源码解析
-  LinkedList底层结构和源码解析
-   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征'>
+<meta property='og:description' content='List接口及其子类的剖析'>
 <meta property='og:url' content='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/'>
 <meta property='og:site_name' content='MinsterBlog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2020-04-06T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2020-04-06T16:22:25&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-04-05T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-04-05T16:22:25&#43;08:00'/>
 <meta name="twitter:title" content="Java集合类（一）">
-<meta name="twitter:description" content="Java集合类（一）    集合的概念
-  Collection接口和常用方法
-  List接口和常用方法
-  ArrayList底层源码即注意事项
-  Vector底层结构和源码解析
-  LinkedList底层结构和源码解析
-   集合的概念   由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。
- 长度开始时必须指定，而且一旦指定，不能更改 保存的必须为同一类型的元素 使用数组进行增加元素/删除会比较麻烦    若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：
- 可以动态保存任意多个对象，使用比较方便！ 提供了一系列方便操作对象的方法：add、remove、set、get等 使用集合添加、删除新元素的代码更加简洁了    集合的框架体系
-Collection接口实现子类：
-Map接口实现子类：
-  集合主要有两种（单列集合，双列集合）
-  Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合
-ArrayList arrayList = new ArrayList(); arrayList.add(&amp;#34;jack&amp;#34;); arrayList.add(&amp;#34;tom&amp;#34;);   Map接口的实现子类是双列集合，即以K-V形式存放数据的
-HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack&amp;#34;); hashMap.put(&amp;#34;No2&amp;#34;,&amp;#34;tom&amp;#34;);     Collection接口和常用方法   Collection接口的特征">
+<meta name="twitter:description" content="List接口及其子类的剖析">
     <link rel="shortcut icon" href="image/icons/M.ico" />
 
     </head>
@@ -120,6 +78,10 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
         <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/">Java集合类（一）</a>
     </h2>
 
+    
+    <h3 class="article-subtitle">
+        List接口及其子类的剖析
+    </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -129,12 +91,12 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 
 
 
-        <time class="article-time--published">Apr 06, 2020</time>
+        <time class="article-time--published">Apr 05, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <h3 id="java集合类一">Java集合类（一）</h3>
+    <h2 id="java集合类一">Java集合类（一）</h2>
 <hr>
 <ol>
 <li>
@@ -157,7 +119,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </li>
 </ol>
 <hr>
-<h4 id="集合的概念">集合的概念</h4>
+<h3 id="集合的概念">集合的概念</h3>
 <ul>
 <li>
 <p>由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。</p>
@@ -200,7 +162,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </ul>
 </li>
 </ul>
-<h4 id="collection接口和常用方法">Collection接口和常用方法</h4>
+<h3 id="collection接口和常用方法">Collection接口和常用方法</h3>
 <ul>
 <li>
 <p>Collection接口的特征</p>
@@ -408,7 +370,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </code></pre></div><p>所以，我们可以得知，增强for的底层仍然是<strong>迭代器</strong>！</p>
 </li>
 </ul>
-<h4 id="list接口和常用方法">List接口和常用方法</h4>
+<h3 id="list接口和常用方法">List接口和常用方法</h3>
 <p>List接口是Collection接口的子接口</p>
 <ol>
 <li>
@@ -652,7 +614,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 <p><img src="/image/JavaCollections01/image10.png" alt="image10"  /></p>
 </li>
 </ul>
-<h4 id="arraylist底层源码及注意事项">ArrayList底层源码及注意事项</h4>
+<h3 id="arraylist底层源码及注意事项">ArrayList底层源码及注意事项</h3>
 <ul>
 <li>
 <p>注意事项</p>
@@ -854,7 +816,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </ul>
 </li>
 </ul>
-<h4 id="vector底层结构和源码解析">Vector底层结构和源码解析</h4>
+<h3 id="vector底层结构和源码解析">Vector底层结构和源码解析</h3>
 <ul>
 <li>
 <p>Vector的定义：</p>
@@ -930,7 +892,7 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
 </li>
 </ul>
 <p>​</p>
-<h4 id="linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</h4>
+<h3 id="linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</h3>
 <ol>
 <li>LinkedList底层实现了双向链表和双端队列特点</li>
 <li>可以添加任意元素（元素可以重复），包括null</li>
@@ -1260,6 +1222,25 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
     <aside class="related-contents--wrapper">
     
     
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（二）</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
 </aside>
 
      
@@ -1421,18 +1402,14 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
                 <div class="widget--toc">
                     <nav id="TableOfContents">
   <ol>
-    <li>
+    <li><a href="#java集合类一">Java集合类（一）</a>
       <ol>
-        <li><a href="#java集合类一">Java集合类（一）</a>
-          <ol>
-            <li><a href="#集合的概念">集合的概念</a></li>
-            <li><a href="#collection接口和常用方法">Collection接口和常用方法</a></li>
-            <li><a href="#list接口和常用方法">List接口和常用方法</a></li>
-            <li><a href="#arraylist底层源码及注意事项">ArrayList底层源码及注意事项</a></li>
-            <li><a href="#vector底层结构和源码解析">Vector底层结构和源码解析</a></li>
-            <li><a href="#linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</a></li>
-          </ol>
-        </li>
+        <li><a href="#集合的概念">集合的概念</a></li>
+        <li><a href="#collection接口和常用方法">Collection接口和常用方法</a></li>
+        <li><a href="#list接口和常用方法">List接口和常用方法</a></li>
+        <li><a href="#arraylist底层源码及注意事项">ArrayList底层源码及注意事项</a></li>
+        <li><a href="#vector底层结构和源码解析">Vector底层结构和源码解析</a></li>
+        <li><a href="#linkedlist底层结构和源码解析">LinkedList底层结构和源码解析</a></li>
       </ol>
     </li>
   </ol>

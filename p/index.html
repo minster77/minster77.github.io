@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='List list = new ArrayList();与ArrayList list = new ArrayList()
-​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
-​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
-为什么一般都使用List list= new ArrayList()，而不是后者呢？
-​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
-​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
-​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。'><title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
+  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
+  Map中的key不允许重复，原因和HashSet一样
+  Map中的value可以重复
+  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
+  常用String类作为Map的key
+  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
+代码演示
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.'><title></title>
 
 <link rel='canonical' href='https://minster77.github.io/p/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
-<meta property='og:description' content='List list = new ArrayList();与ArrayList list = new ArrayList()
-​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
-​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
-为什么一般都使用List list= new ArrayList()，而不是后者呢？
-​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
-​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
-​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。'>
+<meta property='og:description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
+  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
+  Map中的key不允许重复，原因和HashSet一样
+  Map中的value可以重复
+  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
+  常用String类作为Map的key
+  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
+代码演示
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.'>
 <meta property='og:url' content='https://minster77.github.io/p/'>
 <meta property='og:site_name' content='MinsterBlog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="List list = new ArrayList();与ArrayList list = new ArrayList()
-​	List是一个接口，而ArrayList是一个类ArrayList继承并实现了List。
-​	List list = new ArrayList();这句话创建了一个ArrayList的对象后上溯到了List。此时它是一个List对象了，有一些ArrayList有但是List没有的属性和方法，它就不能再用了。而ArrayList alist = new ArrayList();创建了一对象则保留了ArrayList的所有属性。
-为什么一般都使用List list= new ArrayList()，而不是后者呢？
-​	问题在于List有多个实现类，如常用的LinkedList或者Vector等等，现在你用的是ArrayList，也许哪一天你需要换成其他的实现类的时候，你只需要改变：List list = new ArrayList()；这一行就可以了，其他使用了List接口的代码根本不需要改动。
-​	假如你开始使用了ArrayList alist = new ArrayList()；你要换成其他实现类的时候，你需要把全部实现了ArrayList的代码模块都进行修改，尤其是使用了ArrayList特有的方法和属性时！
-​	所以如果没有特别需求的话，最好使用List list = newArrayList()；这样可以便于程序代码的重构，这就是面向接口编程的好处。">
+<meta name="twitter:description" content="Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
+  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
+  Map中的key不允许重复，原因和HashSet一样
+  Map中的value可以重复
+  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
+  常用String类作为Map的key
+  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
+代码演示
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.put(null,&amp;#34;abc&amp;#34;);//等价替换  //value可以多个为null  map.put(&amp;#34;no4&amp;#34;,null); map.put(&amp;#34;no5&amp;#34;,null);//value可以多个为null  map.">
     <link rel="shortcut icon" href="image/icons/M.ico" />
 
     </head>
@@ -92,303 +101,453 @@
 </header>
 
     <section class="article-content">
-    <h3 id="java集合类_01">Java集合类_01</h3>
+    <h2 id="java集合类三">Java集合类(三)</h2>
 <hr>
-<ol>
-<li>集合的概念</li>
-</ol>
 <hr>
-<h4 id="1集合的概念">1、集合的概念</h4>
+<h3 id="map接口实现类的特点和常用方法">Map接口实现类的特点和常用方法</h3>
+<h4 id="map接口的特点">Map接口的特点</h4>
+<p>注意：这里讲的是Jdk8的Map接口特点</p>
 <ul>
 <li>
-<p>由于前面保存多个数据使用的是数组，而数组保存数据会有一些不足的地方。</p>
-<ol>
-<li>长度开始时必须指定，而且一旦指定，不能更改</li>
-<li>保存的必须为同一类型的元素</li>
-<li>使用数组进行增加元素/删除会比较麻烦</li>
-</ol>
+<p>Map与Collection并列存在。用于保存具有映射关系的数据：key-value</p>
 </li>
 <li>
-<p>若使用集合来处理数据的话，这类问题将会减少。集合的好处如下：</p>
-<ul>
-<li>可以动态保存任意多个对象，使用比较方便！</li>
-<li>提供了一系列方便操作对象的方法：add、remove、set、get等</li>
-<li>使用集合添加、删除新元素的代码更加简洁了</li>
-</ul>
+<p>Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中</p>
 </li>
 <li>
-<p>集合的框架体系</p>
-<p>Collection接口实现子类：</p>
-<p><img src="/image/JavaCollections01/Image1.png" alt="Image1"  /></p>
-<p>Map接口实现子类：</p>
-<p><img src="/image/JavaCollections01/Image2.png" alt="Image2"  /></p>
+<p>Map中的key不允许重复，原因和HashSet一样</p>
 </li>
 <li>
-<p>集合主要有两种（单列集合，双列集合）</p>
-<ul>
-<li>
-<p>Collection接口有两个重要的子接口List、Set，他们的实现子类都是单列集合</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
-<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
-</code></pre></div></li>
-<li>
-<p>Map接口的实现子类是双列集合，即以K-V形式存放数据的</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">HashMap</span> <span class="n">hashMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
-<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No1&#34;</span><span class="o">,</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
-<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;No2&#34;</span><span class="o">,</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
-</code></pre></div></li>
-</ul>
-</li>
-</ul>
-<h4 id="2collection接口和常用方法">2、Collection接口和常用方法</h4>
-<ul>
-<li>
-<p>Collection接口的特征</p>
-<ol>
-<li>
-<p>Collection实现子类可以存放多个元素，每个元素可以是Object</p>
+<p>Map中的value可以重复</p>
 </li>
 <li>
-<p>有些Collection的实现类，可以存放重复的元素，有些不可以</p>
+<p>Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个</p>
 </li>
 <li>
-<p>Collection实现类有些是有序的（List），有些不是有序的（Set）</p>
+<p>常用String类作为Map的key</p>
 </li>
 <li>
-<p>Collection接口没有直接的实现子类，是通过它的子接口Set和List来实现的</p>
-</li>
-</ol>
-</li>
-<li>
-<p>Collection接口的常用方法</p>
-<ul>
-<li>add：添加单个元素</li>
-<li>remove：删除指定元素</li>
-<li>contains：查找元素是否存在</li>
-<li>size：获取元素个数</li>
-<li>isEmpty：判断是否为空</li>
-<li>clear：清空</li>
-<li>addAll：增加多个元素</li>
-<li>containsAll：查找多个元素是否都存在</li>
-<li>removeAll：删除多个元素</li>
-</ul>
-<p>以Collection的实现子类演示上述方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+<p>key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collecyion_</span> <span class="o">{</span>
-    <span class="nd">@SuppressWarnings</span><span class="o">({</span><span class="s">&#34;all&#34;</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Map_</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">List</span> <span class="n">List</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-        <span class="c1">//add：添加单个元素
-</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
-        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;java&#34;</span><span class="o">);</span>
-        <span class="n">List</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
-        <span class="c1">//remove：删除指定元素
-</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
-        <span class="c1">//contains：查找元素是否存在
-</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">10</span><span class="o">));</span>
-        <span class="c1">//size：获取元素个数
-</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
-        <span class="c1">//isEmpty：判断是否为空
-</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
-        <span class="c1">//clear：清空
-</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
-        <span class="c1">//addAll:增加多个元素
-</span><span class="c1"></span>        <span class="n">List</span> <span class="n">List2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">);</span>
-        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">);</span>
-        <span class="n">List2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;水浒传&#34;</span><span class="o">);</span>
-        <span class="n">List</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
-        <span class="c1">//containsAll：查找多个元素是否都存在
-</span><span class="c1"></span>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">List</span><span class="o">.</span><span class="na">containsAll</span><span class="o">(</span><span class="n">List2</span><span class="o">));</span>
-        <span class="c1">//removeAll：删除多个元素
-</span><span class="c1"></span>        <span class="n">List</span><span class="o">.</span><span class="na">removeAll</span><span class="o">(</span><span class="n">List2</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List=&#34;</span><span class="o">+</span><span class="n">List</span><span class="o">);</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+
+        <span class="c1">//key不可以重复，重复的会被等价替换
+</span><span class="c1"></span>        <span class="c1">//value可以重复
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;张三丰&#34;</span><span class="o">);</span><span class="c1">//当有相同的key，就等于等价替换
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="c1">//key只能有一个null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;abc&#34;</span><span class="o">);</span><span class="c1">//等价替换
+</span><span class="c1"></span>        <span class="c1">//value可以多个为null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span><span class="c1">//value可以多个为null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;赵敏&#34;</span><span class="o">);</span>
+
+        <span class="c1">//通过get方法，传入key，会返回对应的value
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">));</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-
-</code></pre></div><p><img src="/image/JavaCollections01/image3.png" alt="image3"  /></p>
+</code></pre></div><p><img src="/image/JavaCollections03/image01.jpg" alt="image01"  /></p>
+</li>
+</ul>
+<p><strong>Map接口k-v详解</strong></p>
+<ul>
+<li>
+<p>Map存放数据的key-value示意图，一对k-v是放在一个HashMap$Node中的。因为Node实现了Entry接口，所以有些书上也说一对k-v就是一个Entry。</p>
 </li>
 <li>
-<p>Collection接口使用Iterator(迭代器)遍历元素</p>
-<ul>
-<li>Iterator对象称为迭代器，主要用于遍历Collection集合中的元素</li>
-<li>所有实现了Collection接口的集合类都有一个iterator()方法，用以返回一个实现了Iterator接口的对象，即可以返回一个迭代器</li>
-<li>Iterator仅用于遍历集合，Iterator本身并不存放对象</li>
-<li>hasNext()：判断是否还有下一个元素</li>
-<li>next()：将下移以后集合位置上的元素返回</li>
-</ul>
-<p>代码演示：</p>
-<p><strong>Collection_Book</strong>类</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
+<p>k-v 数据最后是存放在HashMap$Node node = newNode(hash,key,value,null) 这个对象里面的。</p>
+</li>
+<li>
+<p>k-v 为了方便程序员的遍历，还会创建EntrySet集合，该集合存放的元素的类型是Entry。而一个Entry对象本身就具有key，value值。所以有EntrySet&lt;Entry&lt;K,V&raquo;，即</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">transient</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">entrySet</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>EntrySet中，定义的类型是Map.Entry，但是实际上存放的还是HashMap$Node。原因如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> 
+</code></pre></div></li>
+<li>
+<p>由于Map.Entry提供了两个重要的方法：K getKey(); V getValue() ，所以当我们把HashMap$Node对象存放到EntrySet就可以方便我们的遍历。</p>
+<p><img src="/image/JavaCollections03/image02.jpg" alt="image02"  /></p>
+<p>程序演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Book</span> <span class="o">{</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>
+        <span class="n">Set</span> <span class="n">set</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">:</span><span class="n">set</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//向下转型
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">obj</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;-&#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="/image/JavaCollections03/image03.jpg" alt="image03"  /></p>
+<p>keySet()：与Node封装到EntrySet集合一样，不过他是封装到Set集合，利用该方法可以单独遍历Key值</p>
+<p>values：与Node封装到EntrySet集合一样，不过他是封装到Collection集合，利用该方法可以单独遍历Value值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Set</span> <span class="n">set1</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set1</span><span class="o">);</span>
+
+<span class="n">Collection</span> <span class="n">values</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">values</span><span class="o">);</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image04.jpg" alt="image04"  /></p>
+</li>
+</ul>
+<h4 id="map接口的常用方法">Map接口的常用方法</h4>
+<ol>
+<li>
+<p>put()：添加元素</p>
+</li>
+<li>
+<p>remove()：根据键删除映射关系</p>
+</li>
+<li>
+<p>get()：根据键获取值</p>
+</li>
+<li>
+<p>size()：获取元素的个数</p>
+</li>
+<li>
+<p>isEmpty()：判断元素个数是否为0</p>
+</li>
+<li>
+<p>clear()：清除集合键值对</p>
+</li>
+<li>
+<p>containsKey()：查找键是否存在</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapMethod</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="c1">//        1. put()：添加元素
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;小王子&#34;</span><span class="o">,</span><span class="n">100</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;史森明&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;小虎&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+<span class="c1">//        2. remove()：根据键删除映射关系
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+<span class="c1">//        3. get()：根据键获取值
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">));</span>
+<span class="c1">//        4. size()：获取元素的个数
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="c1">//        5. isEmpty()：判断元素个数是否为0
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+<span class="c1">//        6. clear()：清除集合键值对
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="c1">//        7. containsKey()：查找键是否存在
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;小王子&#34;</span><span class="o">,</span><span class="n">100</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">));</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Book</span><span class="o">{</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">Collection_Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">author</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&#34;Collection_Book{&#34;</span> <span class="o">+</span>
+        <span class="k">return</span> <span class="s">&#34;Book{&#34;</span> <span class="o">+</span>
                 <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
-                <span class="s">&#34;, author=&#39;&#34;</span> <span class="o">+</span> <span class="n">author</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
                 <span class="s">&#34;, price=&#34;</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span>
                 <span class="sc">&#39;}&#39;</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><strong>Collection_Iterator</strong>类</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.conllection_.Collection_Book</span><span class="o">;</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_Iterator</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-      <span class="c1">//创建col对应的迭代器
-</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
-        <span class="c1">//使用while遍历循环
-</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
-            <span class="c1">//因为迭代器取到的数据可以是任意类型的，所以用Object
-</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
-        <span class="o">}</span>
-
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p><strong>运行结果</strong></p>
-<p><img src="/image/JavaCollections01/image4.png" alt="image4"  /></p>
-<blockquote>
-<p>hasNext()的返回值为Boolean，</p>
-<p>next()的返回值可以为任意类型</p>
-</blockquote>
-<p>注意：当退出while循环后，这是iterator迭代器指向最后一个元素，此时再使用iterator.next()系统会报错。</p>
-<p>如果要再次遍历，我们需要<strong>重置迭代器</strong>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">iterator</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span><span class="c1">//重置迭代器
-</span></code></pre></div></li>
-<li>
-<p>在IDEA中可以使用itit快捷生成</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
-        <span class="n">Object</span> <span class="n">obj</span><span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
-    <span class="o">}</span>
-</code></pre></div></li>
-<li>
-<p>ctrl+j可以看到所有快捷键</p>
-<p><img src="/image/JavaCollections01/image5.png" alt="image5"  /></p>
-</li>
-<li>
-<p>Collection接口使用增强for循环来遍历元素</p>
-<ul>
-<li>增强for就是简化版的iterator，本质一样，只能用于遍历集合或素组</li>
-</ul>
-<p>基本语法</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>代码演示</p>
-<p><strong>Collection_For</strong>类</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collection_For</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Collection</span> <span class="n">col</span> <span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;三国演义&#34;</span><span class="o">,</span><span class="s">&#34;罗贯中&#34;</span><span class="o">,</span><span class="n">10</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;红楼梦&#34;</span><span class="o">,</span><span class="s">&#34;曹雪芹&#34;</span><span class="o">,</span><span class="n">15</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-        <span class="n">col</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Collection_Book</span><span class="o">(</span><span class="s">&#34;小李飞刀&#34;</span><span class="o">,</span><span class="s">&#34;古龙&#34;</span><span class="o">,</span><span class="n">8</span><span class="o">.</span><span class="na">1</span><span class="o">));</span>
-
-        <span class="k">for</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span> <span class="o">:</span> <span class="n">col</span><span class="o">){</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>运行结果与使用迭代器的一致。</p>
-<p>我们在**for(Object object : col)**这行代码加一个断点，通过Debug，可以发现增强for会依次调用迭代器的底层方法！</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">Itr</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">cursor</span> <span class="o">!=</span> <span class="n">size</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">E</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">checkForComodification</span><span class="o">();</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="o">)</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchElementException</span><span class="o">();</span>
-    <span class="n">Object</span><span class="o">[]</span> <span class="n">elementData</span> <span class="o">=</span> <span class="n">ArrayList</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">elementData</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">ConcurrentModificationException</span><span class="o">();</span>
-    <span class="n">cursor</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
-    <span class="k">return</span> <span class="o">(</span><span class="n">E</span><span class="o">)</span> <span class="n">elementData</span><span class="o">[</span><span class="n">lastRet</span> <span class="o">=</span> <span class="n">i</span><span class="o">];</span>
-<span class="o">}</span>
-</code></pre></div><p>所以，我们可以得知，增强for的底层仍然是<strong>迭代器</strong>！</p>
-</li>
-</ul>
-<h4 id="3list接口和常用方法">3、List接口和常用方法</h4>
-<p>List接口是Collection接口的子接口</p>
-<ol>
-<li>
-<p>List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复</p>
-</li>
-<li>
-<p>List集合中的每个元素都有其对应的顺序索引，即支持索引</p>
-</li>
-<li>
-<p>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素</p>
-</li>
-<li>
-<p>List接口常用的实现类有:ArrayList、LinkedList、Vector</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.lists</span><span class="o">;</span>
-
-
-<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">List_</span> <span class="o">{</span>
-       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
-
-           <span class="c1">//1. List集合类中元素有序(即添加顺序与取出顺序一致)、且可重复
-</span><span class="c1"></span>           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
-           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">);</span>
-           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;heng&#34;</span><span class="o">);</span>
-           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
-           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
-           <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
-           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list=&#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
-           <span class="c1">//2. List集合中的每个元素都有其对应的顺序索引，即支持索引
-</span><span class="c1"></span>           <span class="c1">//   索引从0开始
-</span><span class="c1"></span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">3</span><span class="o">));</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p><img src="/image/JavaCollections01/image6.jpg" alt="image6"  /></p>
+</code></pre></div><p><img src="/image/JavaCollections03/image05.jpg" alt="image05"  /></p>
 </li>
 </ol>
+<h3 id="map接口的六大遍历方式">Map接口的六大遍历方式</h3>
+<ul>
+<li>
+<p>遍历以下Map接口的元素</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapFor</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;史森明&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;小虎&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>使用keySet()+增强for遍历k-v</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第一种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Set</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span><span class="o">+</span><span class="s">&#34;=&#34;</span><span class="o">+</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image06.jpg" alt="image06"  /></p>
+</li>
+<li>
+<p>使用keySet()+迭代器遍历k-v</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第二种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">keySet</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">next</span><span class="o">+</span><span class="s">&#34;=&#34;</span><span class="o">+</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">next</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image07.jpg" alt="image07"  /></p>
+</li>
+<li>
+<p>使用values()+增强for遍历value（因为value不能映射key，所以只能遍历value）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第三种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Collection</span> <span class="n">values</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image08.jpg" alt="image08"  /></p>
+</li>
+<li>
+<p>使用values()+迭代器遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第四种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator1</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator1</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator1</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image09.jpg" alt="image09"  /></p>
+</li>
+<li>
+<p>使用EntrySet()+增强for遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第五种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Set</span> <span class="n">entrySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">obj</span> <span class="o">:</span> <span class="n">entrySet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//将obj转成Map.Entry
+</span><span class="c1"></span>    <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">obj</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()+</span><span class="s">&#34;-&#34;</span><span class="o">+</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image10.jpg" alt="image10"  /></p>
+</li>
+<li>
+<p>使用EntrySet()+迭代器遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第六种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator2</span> <span class="o">=</span> <span class="n">entrySet</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator2</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator2</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">next</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()+</span><span class="s">&#34;-&#34;</span><span class="o">+</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image11.jpg" alt="image11"  /></p>
+</li>
+</ol>
+<h4 id="hashmap练习题">HashMap练习题</h4>
+<ul>
+<li>
+<p>使用HashMap添加三个元素对象，要求：</p>
+<ul>
+<li>键：员工ID，值：员工对象</li>
+<li>遍历显示工资&gt;18000的员工（遍历方法两种）</li>
+<li>员工类：姓名、工资、员工id</li>
+</ul>
+<p>员工类Staff代码如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Staff</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Staff</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">wages</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">wages</span> <span class="o">=</span> <span class="n">wages</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getWages</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWages</span><span class="o">(</span><span class="kt">double</span> <span class="n">wages</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">wages</span> <span class="o">=</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Staff{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, wages=&#34;</span> <span class="o">+</span> <span class="n">wages</span> <span class="o">+</span>
+                <span class="s">&#34;, id=&#34;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>测试类MapExercise代码如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapExercise</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;01&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;成志恒&#34;</span><span class="o">,</span><span class="n">19000</span><span class="o">,</span><span class="n">01</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;02&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;史森明&#34;</span><span class="o">,</span><span class="n">20000</span><span class="o">,</span><span class="n">02</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;03&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;小虎&#34;</span><span class="o">,</span><span class="n">17000</span><span class="o">,</span><span class="n">03</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;04&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;李元浩&#34;</span><span class="o">,</span><span class="n">18000</span><span class="o">,</span><span class="n">04</span><span class="o">));</span>
+
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===第一种方式===&#34;</span><span class="o">);</span>
+        <span class="c1">//使用entrySet方法返回映射中包含的映射的 Set 视图
+</span><span class="c1"></span>        <span class="n">Set</span> <span class="n">entrySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+        <span class="c1">//利用增强for循环遍历
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">o</span> <span class="o">:</span> <span class="n">entrySet</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//向下转型，为了能调用父类的方法
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">o</span><span class="o">;</span>
+            <span class="c1">//把value对象指向从entry集中取出来的value
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+            <span class="c1">//向下转型，这样可以使用Staff对象的getWages方法。
+</span><span class="c1"></span>            <span class="n">Staff</span> <span class="n">staff</span> <span class="o">=</span> <span class="o">(</span><span class="n">Staff</span><span class="o">)</span> <span class="n">value</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">staff</span><span class="o">.</span><span class="na">getWages</span><span class="o">()&gt;</span><span class="n">18000</span><span class="o">){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">staff</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===第二种方式===&#34;</span><span class="o">);</span>
+        <span class="c1">//使用keySet()方法返回封装到Map封装到Set里面的结点的Key值
+</span><span class="c1"></span>        <span class="n">Set</span> <span class="n">set</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="c1">//创建迭代器
+</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">set</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="c1">//获取迭代器中的数据
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="c1">//向下转型，吧staff对象指向从map里面取到的value对象。
+</span><span class="c1"></span>            <span class="n">Staff</span> <span class="n">staff1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Staff</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">staff1</span><span class="o">.</span><span class="na">getWages</span><span class="o">()&gt;</span><span class="n">18000</span><span class="o">){</span>
+               <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">staff1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections03/image12.jpg" alt="image12"  /></p>
+<p>上述题目中，数据的封装情况如下图</p>
+<p><img src="/image/JavaCollections03/image13.jpg" alt="image13"  /></p>
+<p>所以当我们需要取出value值时，我们需要先通过EntrySet取出Entry，然后通过Entry的指向取到HashSet$Node的值。</p>
+</li>
+</ul>
+<h3 id="map小结及hashmap底层源码分析">Map小结及HashMap底层源码分析</h3>
+<h4 id="map小结">Map小结</h4>
+<ol>
+<li>
+<p>Map接口的常用实现类：HashMap、Hashtable和Properties</p>
+</li>
+<li>
+<p>HashMap是Map接口使用频率最高的实现类</p>
+</li>
+<li>
+<p>HashMap是以key-value对的方式来存储数据的</p>
+</li>
+<li>
+<p>key不能重复，但是value可以重复，允许使用null键（只能有一个）和null值（可以多个）</p>
+</li>
+<li>
+<p>如果添加相同的可以，则会覆盖原来的key-value，等同于修改。（key不会替换，value会替换）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// existing mapping for key
+</span><span class="c1"></span>    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">onlyIfAbsent</span> <span class="o">||</span> <span class="n">oldValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="c1">//此处e指向替换前的Node，所以 e.value = value;即可完成替换
+</span><span class="c1"></span>        <span class="n">e</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="n">afterNodeAccess</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>与HashSet一样，不保证映射的顺序，因为底层是以hash表的方式来存储的。</p>
+</li>
+<li>
+<p>HashMap没有实现同步，因此线程是不安全的。方法没有做同步互斥的操作，没有synchronize</p>
+</li>
+</ol>
+<h4 id="hashmap底层机制及源码剖析">HashMap底层机制及源码剖析</h4>
+<ul>
+<li>
+<p>HashMap底层机制示意图</p>
+<p><img src="/image/JavaCollections03/image14.jpg" alt="image14"  /></p>
+<p>（key，value）是一个Node实现了Map$Entry&lt;K,V&gt;</p>
+</li>
+<li>
+<p>HashMap的扩容机制[和<a class="link" href="" >HashSet扩容机制</a>相同]</p>
+<ul>
+<li>HashMap底层维护了Node类型的数组table，默认为null</li>
+<li>当创建对象时，将加载因子(loadfactor)初始化为0.75</li>
+<li>当添加key-value是，通过<strong>key</strong>的hash值得到在table的索引。然后判断该索引处是否有元素，如果没有元素直接添加。如果该索引处有元素，继续判断该元素的key和准备加入的key是否相等，如果相等，则直接替换<strong>value</strong>；<strong>如果不相等需要判断是树结构还是链表结构，做出相应处理。如果添加时发现容量不够，则需要扩容。</strong></li>
+<li>第一次添加时，会将需要扩容的table容量扩容到16，临界值(threshold)为12</li>
+<li>如果需要再次扩容，会将需要扩容的table容量扩容到原来的2倍（32），临界值为原来的2倍（24） 依次类推。</li>
+<li>在Java8中，如果一条链表的元素个数到达TREEIFY_THRESHOLD(默认是8)，并且table的大小&gt;=MIN_TREEIFY_CAPACITY(默认是64)，就会进行树化（转换红黑树），<strong>否则任然采用数组扩容机制</strong></li>
+</ul>
+</li>
+</ul>
 
 </section>
 
@@ -577,13 +736,23 @@
                 <div class="widget--toc">
                     <nav id="TableOfContents">
   <ol>
-    <li>
+    <li><a href="#java集合类三">Java集合类(三)</a>
       <ol>
-        <li><a href="#java集合类_01">Java集合类_01</a>
+        <li><a href="#map接口实现类的特点和常用方法">Map接口实现类的特点和常用方法</a>
           <ol>
-            <li><a href="#1集合的概念">1、集合的概念</a></li>
-            <li><a href="#2collection接口和常用方法">2、Collection接口和常用方法</a></li>
-            <li><a href="#3list接口和常用方法">3、List接口和常用方法</a></li>
+            <li><a href="#map接口的特点">Map接口的特点</a></li>
+            <li><a href="#map接口的常用方法">Map接口的常用方法</a></li>
+          </ol>
+        </li>
+        <li><a href="#map接口的六大遍历方式">Map接口的六大遍历方式</a>
+          <ol>
+            <li><a href="#hashmap练习题">HashMap练习题</a></li>
+          </ol>
+        </li>
+        <li><a href="#map小结及hashmap底层源码分析">Map小结及HashMap底层源码分析</a>
+          <ol>
+            <li><a href="#map小结">Map小结</a></li>
+            <li><a href="#hashmap底层机制及源码剖析">HashMap底层机制及源码剖析</a></li>
           </ol>
         </li>
       </ol>

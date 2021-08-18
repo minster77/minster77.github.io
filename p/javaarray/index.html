@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
 dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
 dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
   获取数组长度：arrays.length
@@ -11,7 +11,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 <link rel='canonical' href='https://minster77.github.io/p/javaarray/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JavaArray'>
-<meta property='og:description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+<meta property='og:description' content='Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
 dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
 dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
   获取数组长度：arrays.length
@@ -21,7 +21,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 <meta property='og:site_name' content='MinsterBlog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-04-20T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-04-20T16:22:25&#43;08:00'/><meta property='og:image' content='https://minster77.github.io/cover04.jpg' />
 <meta name="twitter:title" content="JavaArray">
-<meta name="twitter:description" content="Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   1、数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  2、数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
+<meta name="twitter:description" content="Java数组   数组概述 数组声明创建 java内存分析 数组使用 多维数组 Arrays类 冒泡排序 稀疏数组   数组概述  数组是相同类型数据的有序集合 数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成 每一个数据称作一个数组元素，数组元素可以通过一个下标来访问  数组声明与创建   首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：
 dataType[] arrayRefvar;	//首选方法 dataType addayRefvar[];	//效果相同，但不是首选方法   java语言使用new操作符来创建方法(创建后数组就存在了)，语法如下：
 dataType[] arrayRefvar = new dataType[arraySize];   数组的元素是通过索引访问的，数组索引从0开始
   获取数组长度：arrays.length
@@ -129,13 +129,13 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 <li>稀疏数组</li>
 </ol>
 <hr>
-<h3 id="1数组概述">1、数组概述</h3>
+<h3 id="数组概述">数组概述</h3>
 <ul>
 <li>数组是相同类型数据的有序集合</li>
 <li>数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成</li>
 <li>每一个数据称作一个数组元素，数组元素可以通过一个下标来访问</li>
 </ul>
-<h3 id="2数组声明与创建">2、数组声明与创建</h3>
+<h3 id="数组声明与创建">数组声明与创建</h3>
 <ul>
 <li>
 <p>首先必须声明数组变量，才能在程序中使用数组(声明时数组并不存在)。声明方法：</p>
@@ -207,7 +207,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 </code></pre></div><p><img src="/image/Arrayimage/image4-3.png" alt="image4-3"  /></p>
 </li>
 </ul>
-<h3 id="3java内存分析">3、Java内存分析</h3>
+<h3 id="java内存分析">Java内存分析</h3>
 <ul>
 <li>
 <p>堆</p>
@@ -235,7 +235,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 <p><img src="/image/Arrayimage/image4-2.png" alt="image4-2"  /></p>
 </li>
 </ul>
-<h3 id="4数组使用">4、数组使用</h3>
+<h3 id="数组使用">数组使用</h3>
 <ul>
 <li>
 <p>For-Each循环</p>
@@ -297,7 +297,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 </code></pre></div><p><img src="/image/Arrayimage/image4-6.png" alt="image4-6"  /></p>
 </li>
 </ul>
-<h3 id="5多维数组">5、多维数组</h3>
+<h3 id="多维数组">多维数组</h3>
 <ul>
 <li>
 <p>多维数组可以看成是数组的数组。例如一个二维数组就是一个特殊的一维数组，每一个元素都是一个一维数组</p>
@@ -337,7 +337,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 </code></pre></div><p><img src="/image/Arrayimage/image4-8.png" alt="image4-8"  /></p>
 </li>
 </ul>
-<h3 id="6arrays类">6、Arrays类</h3>
+<h3 id="arrays类">Arrays类</h3>
 <ul>
 <li>
 <p>数组的工具类java.util.Arrays</p>
@@ -359,7 +359,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 </code></pre></div><p><img src="/image/Arrayimage/image4-9.png" alt="image4-9"  /></p>
 </li>
 </ul>
-<h3 id="7冒泡排序">7、冒泡排序</h3>
+<h3 id="冒泡排序">冒泡排序</h3>
 <ul>
 <li>
 <p>冒泡排序是最常用的八大排序算法之一，通过嵌套循环实现</p>
@@ -415,7 +415,7 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
 </code></pre></div><p><img src="/image/Arrayimage/image4-10.png" alt="image4-10"  /></p>
 </li>
 </ul>
-<h3 id="8稀疏数组">8、稀疏数组</h3>
+<h3 id="稀疏数组">稀疏数组</h3>
 <ul>
 <li>
 <p>稀疏数组就是一种数据结构</p>
@@ -797,14 +797,14 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
   <ol>
     <li><a href="#java数组">Java数组</a>
       <ol>
-        <li><a href="#1数组概述">1、数组概述</a></li>
-        <li><a href="#2数组声明与创建">2、数组声明与创建</a></li>
-        <li><a href="#3java内存分析">3、Java内存分析</a></li>
-        <li><a href="#4数组使用">4、数组使用</a></li>
-        <li><a href="#5多维数组">5、多维数组</a></li>
-        <li><a href="#6arrays类">6、Arrays类</a></li>
-        <li><a href="#7冒泡排序">7、冒泡排序</a></li>
-        <li><a href="#8稀疏数组">8、稀疏数组</a></li>
+        <li><a href="#数组概述">数组概述</a></li>
+        <li><a href="#数组声明与创建">数组声明与创建</a></li>
+        <li><a href="#java内存分析">Java内存分析</a></li>
+        <li><a href="#数组使用">数组使用</a></li>
+        <li><a href="#多维数组">多维数组</a></li>
+        <li><a href="#arrays类">Arrays类</a></li>
+        <li><a href="#冒泡排序">冒泡排序</a></li>
+        <li><a href="#稀疏数组">稀疏数组</a></li>
       </ol>
     </li>
   </ol>
