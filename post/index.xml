@@ -248,5 +248,14 @@ float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//�
 package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Java集合类(四)   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组+链表+红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组+双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组+链表，jdk8：数组+链表+红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    </description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,45 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
-  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
-  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
-  Map中的key不允许重复，原因和HashSet一样
-  Map中的value可以重复
-  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
-  常用String类作为Map的key
-  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
-代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.'><title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java集合类(四)   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组&#43;链表&#43;红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组&#43;双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组&#43;链表，jdk8：数组&#43;链表&#43;红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    '><title></title>
 
 <link rel='canonical' href='https://minster77.github.io/p/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content=''>
-<meta property='og:description' content='Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
-  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
-  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
-  Map中的key不允许重复，原因和HashSet一样
-  Map中的value可以重复
-  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
-  常用String类作为Map的key
-  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
-代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.'>
+<meta property='og:description' content='Java集合类(四)   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组&#43;链表&#43;红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组&#43;双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组&#43;链表，jdk8：数组&#43;链表&#43;红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    '>
 <meta property='og:url' content='https://minster77.github.io/p/'>
 <meta property='og:site_name' content='MinsterBlog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
-  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
-  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
-  Map中的key不允许重复，原因和HashSet一样
-  Map中的value可以重复
-  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
-  常用String类作为Map的key
-  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
-代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.">
-    <link rel="shortcut icon" href="image/icons/M.ico" />
+<meta name="twitter:description" content="Java集合类(四)   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组&#43;链表&#43;红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组&#43;双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组&#43;链表，jdk8：数组&#43;链表&#43;红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    ">
+    <link rel="shortcut icon" href="image/M.ico" />
 
     </head>
     <body class="
@@ -784,6 +757,70 @@ public class HashtableSource {
 </ul>
 <h4 id="hashmap与hashtable对比">HashMap与Hashtable对比</h4>
 <p><img src="/image/JavaCollections03/image19.jpg" alt="image19"  /></p>
+<h3 id="properties">Properties</h3>
+<ul>
+<li>
+<p>Properties类继承于Hashtable类并实现了Map接口，也是使用一种键值对的形式来保存数据</p>
+</li>
+<li>
+<p>他的使用特点和Hashtable类似</p>
+</li>
+<li>
+<p>Properties还可以用了从xxx.properties文件中，加载数据到Properties类对象，并进行读取和修改</p>
+</li>
+<li>
+<p>xxx.properties文件通常作为配置文件，详解见<a class="link" href="https://www.cnblogs.com/xudong-bupt/p/3758136.html"  target="_blank" rel="noopener"
+    >Java读取properties配置文件</a></p>
+<p>Properties的简单使用</p>
+<p>Properties_类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Properties_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//Properties 继承了Hashtable
+</span><span class="c1"></span>        <span class="c1">//Properties 也是通过k-v存储数据，当然key与value都不能为null
+</span><span class="c1"></span>        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+
+        <span class="c1">//添加元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;john&#34;</span><span class="o">,</span><span class="n">2</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span><span class="s">&#34;2&#34;</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//删除元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//修改元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">);</span><span class="c1">//替换
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//查找元素
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image20.jpg" alt="image20"  /></p>
+<p>需要注意的是，使用getPeoperties时，当put进去的值不是String类型的时候，会返回null</p>
+<p>例如在Properties类中添加以下代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">));</span>
+</code></pre></div><p><img src="/image/JavaCollections03/image21.jpg" alt="image21"  /></p>
+<p>阅读getProperty源码，我们可以发现其中原理</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getProperty</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//把oval指向key对应的value
+</span><span class="c1"></span>    <span class="n">Object</span> <span class="n">oval</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="c1">//使用三目运算符，当oval是String类型时，返回强转为String类型的oval，否则为null
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">sval</span> <span class="o">=</span> <span class="o">(</span><span class="n">oval</span> <span class="k">instanceof</span> <span class="n">String</span><span class="o">)</span> <span class="o">?</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">oval</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">//当sval为null，且设定了defaults的值时，返回defaultsValue，否则返回sval
+</span><span class="c1"></span>    <span class="k">return</span> <span class="o">((</span><span class="n">sval</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">defaults</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">))</span> <span class="o">?</span> <span class="n">defaults</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">:</span> <span class="n">sval</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
 
 </section>
 
@@ -998,6 +1035,7 @@ public class HashtableSource {
             <li><a href="#hashmap与hashtable对比">HashMap与Hashtable对比</a></li>
           </ol>
         </li>
+        <li><a href="#properties">Properties</a></li>
       </ol>
     </li>
   </ol>

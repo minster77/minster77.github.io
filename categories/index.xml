@@ -63,3 +63,17 @@
     
   </channel>
 </rss>
+</description>
+    </item>
+    
+    <item>
+      <title>Java集合</title>
+      <link>https://minster77.github.io/categories/java_io/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/categories/java_io/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

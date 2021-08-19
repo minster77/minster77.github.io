@@ -27,7 +27,7 @@ package com.singleton; public class SingleTon { public static void main(String[]
   饿汉式（只有类被加载了，该对象就会被创建）
  将构造器私有化 在类的内部之间创建（该对象是static） 提供一个公共的static方法，返回对象  例如，我们规定一个人必须专一，只能有一个女朋友！
 package com.singleton; public class SingleTon { public static void main(String[] args) { GirlFriend instance = GirlFriend.getInstance(); System.out.println(instance); //无论你怎么创建，该对象都是同一个  GirlFriend instance1 = GirlFriend.getInstance(); System.out.println(instance1); //返回结果为True  System.out.println(instance==instance1); } } class GirlFriend{ private String name ; //在类内部创建了对象，加static是为了可以在静态方法中返回girlFriend对象  private static GirlFriend girlFriend = new GirlFriend(&amp;#34;小红&amp;#34;); //构造器私有化  private GirlFriend(String name){ this.">
-    <link rel="shortcut icon" href="image/icons/M.ico" />
+    <link rel="shortcut icon" href="image/M.ico" />
 
     </head>
     <body class="
