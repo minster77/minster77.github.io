@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Map接口及其子类的剖析'><title>Java集合类（三）</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java集合类（三）'>
+<meta property='og:description' content='Map接口及其子类的剖析'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java集合类' /><meta property='article:published_time' content='2021-04-08T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-04-08T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java集合类（三）">
+<meta name="twitter:description" content="Map接口及其子类的剖析">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javacollection/" >
+                JavaCollection
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/">Java集合类（三）</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Map接口及其子类的剖析
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Apr 08, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="java集合类三">Java集合类(三)</h2>
+<hr>
+<ol>
+<li>Map接口实现类的特点和常用方法</li>
+<li>Map接口的六大遍历方式</li>
+<li>Map小结及HashMap底层源码分析</li>
+<li>Hashtable基本介绍</li>
+</ol>
+<hr>
+<h3 id="map接口实现类的特点和常用方法">Map接口实现类的特点和常用方法</h3>
+<h4 id="map接口的特点">Map接口的特点</h4>
+<p>注意：这里讲的是Jdk8的Map接口特点</p>
+<ul>
+<li>
+<p>Map与Collection并列存在。用于保存具有映射关系的数据：key-value</p>
+</li>
+<li>
+<p>Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中</p>
+</li>
+<li>
+<p>Map中的key不允许重复，原因和HashSet一样</p>
+</li>
+<li>
+<p>Map中的value可以重复</p>
+</li>
+<li>
+<p>Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个</p>
+</li>
+<li>
+<p>常用String类作为Map的key</p>
+</li>
+<li>
+<p>key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Map_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+
+        <span class="c1">//key不可以重复，重复的会被等价替换
+</span><span class="c1"></span>        <span class="c1">//value可以重复
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;张三丰&#34;</span><span class="o">);</span><span class="c1">//当有相同的key，就等于等价替换
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="c1">//key只能有一个null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;abc&#34;</span><span class="o">);</span><span class="c1">//等价替换
+</span><span class="c1"></span>        <span class="c1">//value可以多个为null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span><span class="c1">//value可以多个为null
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;赵敏&#34;</span><span class="o">);</span>
+
+        <span class="c1">//通过get方法，传入key，会返回对应的value
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">));</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections03/image01.jpg" alt="image01"  /></p>
+</li>
+</ul>
+<p><strong>Map接口k-v详解</strong></p>
+<ul>
+<li>
+<p>Map存放数据的key-value示意图，一对k-v是放在一个HashMap$Node中的。因为Node实现了Entry接口，所以有些书上也说一对k-v就是一个Entry。</p>
+</li>
+<li>
+<p>k-v 数据最后是存放在HashMap$Node node = newNode(hash,key,value,null) 这个对象里面的。</p>
+</li>
+<li>
+<p>k-v 为了方便程序员的遍历，还会创建EntrySet集合，该集合存放的元素的类型是Entry。而一个Entry对象本身就具有key，value值。所以有EntrySet&lt;Entry&lt;K,V&raquo;，即</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">transient</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">entrySet</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>EntrySet中，定义的类型是Map.Entry，但是实际上存放的还是HashMap$Node。原因如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> 
+</code></pre></div></li>
+<li>
+<p>由于Map.Entry提供了两个重要的方法：K getKey(); V getValue() ，所以当我们把HashMap$Node对象存放到EntrySet就可以方便我们的遍历。</p>
+<p><img src="/image/JavaCollections03/image02.jpg" alt="image02"  /></p>
+<p>程序演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>
+        <span class="n">Set</span> <span class="n">set</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">:</span><span class="n">set</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//向下转型
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">obj</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;-&#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="/image/JavaCollections03/image03.jpg" alt="image03"  /></p>
+<p>keySet()：与Node封装到EntrySet集合一样，不过他是封装到Set集合，利用该方法可以单独遍历Key值</p>
+<p>values：与Node封装到EntrySet集合一样，不过他是封装到Collection集合，利用该方法可以单独遍历Value值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Set</span> <span class="n">set1</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set1</span><span class="o">);</span>
+
+<span class="n">Collection</span> <span class="n">values</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">values</span><span class="o">);</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image04.jpg" alt="image04"  /></p>
+</li>
+</ul>
+<h4 id="map接口的常用方法">Map接口的常用方法</h4>
+<ol>
+<li>
+<p>put()：添加元素</p>
+</li>
+<li>
+<p>remove()：根据键删除映射关系</p>
+</li>
+<li>
+<p>get()：根据键获取值</p>
+</li>
+<li>
+<p>size()：获取元素的个数</p>
+</li>
+<li>
+<p>isEmpty()：判断元素个数是否为0</p>
+</li>
+<li>
+<p>clear()：清除集合键值对</p>
+</li>
+<li>
+<p>containsKey()：查找键是否存在</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapMethod</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="c1">//        1. put()：添加元素
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;小王子&#34;</span><span class="o">,</span><span class="n">100</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;史森明&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;小虎&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+<span class="c1">//        2. remove()：根据键删除映射关系
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;map = &#34;</span> <span class="o">+</span> <span class="n">map</span><span class="o">);</span>
+<span class="c1">//        3. get()：根据键获取值
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">));</span>
+<span class="c1">//        4. size()：获取元素的个数
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="c1">//        5. isEmpty()：判断元素个数是否为0
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+<span class="c1">//        6. clear()：清除集合键值对
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="c1">//        7. containsKey()：查找键是否存在
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;小王子&#34;</span><span class="o">,</span><span class="n">100</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">));</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Book</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Book{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, price=&#34;</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/JavaCollections03/image05.jpg" alt="image05"  /></p>
+</li>
+</ol>
+<h3 id="map接口的六大遍历方式">Map接口的六大遍历方式</h3>
+<ul>
+<li>
+<p>遍历以下Map接口的元素</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapFor</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;史森明&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no3&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no4&#34;</span><span class="o">,</span><span class="s">&#34;李元浩&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="s">&#34;小虎&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no5&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>使用keySet()+增强for遍历k-v</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第一种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Set</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span><span class="o">+</span><span class="s">&#34;=&#34;</span><span class="o">+</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image06.jpg" alt="image06"  /></p>
+</li>
+<li>
+<p>使用keySet()+迭代器遍历k-v</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第二种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">keySet</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">next</span><span class="o">+</span><span class="s">&#34;=&#34;</span><span class="o">+</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">next</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image07.jpg" alt="image07"  /></p>
+</li>
+<li>
+<p>使用values()+增强for遍历value（因为value不能映射key，所以只能遍历value）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第三种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Collection</span> <span class="n">values</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image08.jpg" alt="image08"  /></p>
+</li>
+<li>
+<p>使用values()+迭代器遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第四种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator1</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator1</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator1</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image09.jpg" alt="image09"  /></p>
+</li>
+<li>
+<p>使用EntrySet()+增强for遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第五种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Set</span> <span class="n">entrySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">obj</span> <span class="o">:</span> <span class="n">entrySet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//将obj转成Map.Entry
+</span><span class="c1"></span>    <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">obj</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()+</span><span class="s">&#34;-&#34;</span><span class="o">+</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image10.jpg" alt="image10"  /></p>
+</li>
+<li>
+<p>使用EntrySet()+迭代器遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=====第六种遍历方式=====&#34;</span><span class="o">);</span>
+<span class="n">Iterator</span> <span class="n">iterator2</span> <span class="o">=</span> <span class="n">entrySet</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iterator2</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator2</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">next</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()+</span><span class="s">&#34;-&#34;</span><span class="o">+</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image11.jpg" alt="image11"  /></p>
+</li>
+</ol>
+<h4 id="hashmap练习题">HashMap练习题</h4>
+<ul>
+<li>
+<p>使用HashMap添加三个元素对象，要求：</p>
+<ul>
+<li>键：员工ID，值：员工对象</li>
+<li>遍历显示工资&gt;18000的员工（遍历方法两种）</li>
+<li>员工类：姓名、工资、员工id</li>
+</ul>
+<p>员工类Staff代码如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Staff</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Staff</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">wages</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">wages</span> <span class="o">=</span> <span class="n">wages</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getWages</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWages</span><span class="o">(</span><span class="kt">double</span> <span class="n">wages</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">wages</span> <span class="o">=</span> <span class="n">wages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Staff{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, wages=&#34;</span> <span class="o">+</span> <span class="n">wages</span> <span class="o">+</span>
+                <span class="s">&#34;, id=&#34;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>测试类MapExercise代码如下</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapExercise</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;01&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;成志恒&#34;</span><span class="o">,</span><span class="n">19000</span><span class="o">,</span><span class="n">01</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;02&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;史森明&#34;</span><span class="o">,</span><span class="n">20000</span><span class="o">,</span><span class="n">02</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;03&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;小虎&#34;</span><span class="o">,</span><span class="n">17000</span><span class="o">,</span><span class="n">03</span><span class="o">));</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;04&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">Staff</span><span class="o">(</span><span class="s">&#34;李元浩&#34;</span><span class="o">,</span><span class="n">18000</span><span class="o">,</span><span class="n">04</span><span class="o">));</span>
+
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===第一种方式===&#34;</span><span class="o">);</span>
+        <span class="c1">//使用entrySet方法返回映射中包含的映射的 Set 视图
+</span><span class="c1"></span>        <span class="n">Set</span> <span class="n">entrySet</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+        <span class="c1">//利用增强for循环遍历
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">o</span> <span class="o">:</span> <span class="n">entrySet</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//向下转型，为了能调用父类的方法
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">)</span><span class="n">o</span><span class="o">;</span>
+            <span class="c1">//把value对象指向从entry集中取出来的value
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+            <span class="c1">//向下转型，这样可以使用Staff对象的getWages方法。
+</span><span class="c1"></span>            <span class="n">Staff</span> <span class="n">staff</span> <span class="o">=</span> <span class="o">(</span><span class="n">Staff</span><span class="o">)</span> <span class="n">value</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">staff</span><span class="o">.</span><span class="na">getWages</span><span class="o">()&gt;</span><span class="n">18000</span><span class="o">){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">staff</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===第二种方式===&#34;</span><span class="o">);</span>
+        <span class="c1">//使用keySet()方法返回封装到Map封装到Set里面的结点的Key值
+</span><span class="c1"></span>        <span class="n">Set</span> <span class="n">set</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="c1">//创建迭代器
+</span><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">set</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="c1">//获取迭代器中的数据
+</span><span class="c1"></span>            <span class="n">Object</span> <span class="n">next</span> <span class="o">=</span>  <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="c1">//向下转型，吧staff对象指向从map里面取到的value对象。
+</span><span class="c1"></span>            <span class="n">Staff</span> <span class="n">staff1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Staff</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">staff1</span><span class="o">.</span><span class="na">getWages</span><span class="o">()&gt;</span><span class="n">18000</span><span class="o">){</span>
+               <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">staff1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections03/image12.jpg" alt="image12"  /></p>
+<p>上述题目中，数据的封装情况如下图</p>
+<p><img src="/image/JavaCollections03/image13.jpg" alt="image13"  /></p>
+<p>所以当我们需要取出value值时，我们需要先通过EntrySet取出Entry，然后通过Entry的指向取到HashSet$Node的值。</p>
+</li>
+</ul>
+<h3 id="map小结及hashmap底层源码分析">Map小结及HashMap底层源码分析</h3>
+<h4 id="map小结">Map小结</h4>
+<ol>
+<li>
+<p>Map接口的常用实现类：HashMap、Hashtable和Properties</p>
+</li>
+<li>
+<p>HashMap是Map接口使用频率最高的实现类</p>
+</li>
+<li>
+<p>HashMap是以key-value对的方式来存储数据的</p>
+</li>
+<li>
+<p>key不能重复，但是value可以重复，允许使用null键（只能有一个）和null值（可以多个）</p>
+</li>
+<li>
+<p>如果添加相同的可以，则会覆盖原来的key-value，等同于修改。（key不会替换，value会替换）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// existing mapping for key
+</span><span class="c1"></span>    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">onlyIfAbsent</span> <span class="o">||</span> <span class="n">oldValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="c1">//此处e指向替换前的Node，所以 e.value = value;即可完成替换
+</span><span class="c1"></span>        <span class="n">e</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="n">afterNodeAccess</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>与HashSet一样，不保证映射的顺序，因为底层是以hash表的方式来存储的。</p>
+</li>
+<li>
+<p>HashMap没有实现同步，因此线程是不安全的。方法没有做同步互斥的操作，没有synchronize</p>
+</li>
+</ol>
+<h4 id="hashmap底层机制及源码剖析">HashMap底层机制及源码剖析</h4>
+<ul>
+<li>
+<p>HashMap底层机制示意图</p>
+<p><img src="/image/JavaCollections03/image14.jpg" alt="image14"  /></p>
+<p>（key，value）是一个Node实现了Map$Entry&lt;K,V&gt;</p>
+</li>
+<li>
+<p>HashMap的扩容机制[和<a class="link" href="https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/#hashset%E5%BA%95%E5%B1%82%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"  target="_blank" rel="noopener"
+    >HashSet扩容机制</a>相同]</p>
+<ul>
+<li>HashMap底层维护了Node类型的数组table，默认为null</li>
+<li>当创建对象时，将加载因子(loadfactor)初始化为0.75</li>
+<li>当添加key-value是，通过<strong>key</strong>的hash值得到在table的索引。然后判断该索引处是否有元素，如果没有元素直接添加。如果该索引处有元素，继续判断该元素的key和准备加入的key是否相等，如果相等，则直接替换<strong>value</strong>；<strong>如果不相等需要判断是树结构还是链表结构，做出相应处理。如果添加时发现容量不够，则需要扩容。</strong></li>
+<li>第一次添加时，会将需要扩容的table容量扩容到16，临界值(threshold)为12</li>
+<li>如果需要再次扩容，会将需要扩容的table容量扩容到原来的2倍（32），临界值为原来的2倍（24） 依次类推。</li>
+<li>在Java8中，如果一条链表的元素个数到达TREEIFY_THRESHOLD(默认是8)，并且table的大小&gt;=MIN_TREEIFY_CAPACITY(默认是64)，就会进行树化（转换红黑树），<strong>否则任然采用数组扩容机制</strong></li>
+</ul>
+<p><strong>源码分析</strong></p>
+<p>创建MapSource类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;成志恒&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no2&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;no1&#34;</span><span class="o">,</span><span class="s">&#34;张无忌&#34;</span><span class="o">);</span><span class="c1">//k-v
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>调试程序，执行HashMap的无参构造器，=。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">HashMap</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">loadFactor</span> <span class="o">=</span> <span class="n">DEFAULT_LOAD_FACTOR</span><span class="o">;</span> <span class="c1">// all other fields defaulted
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>将负载因子(loadFactor)初始化并且创建一个空的table。</p>
+<p>向HashMap集合添加元素，执行put方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">putVal</span><span class="o">(</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>通过hash方法计算key的Hash值，然后返回给putVal方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">h</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>执行putVal方法，程序首先判断table是否为null，如果为null就table的容量扩容到16</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="n">tab</span> <span class="o">=</span> <span class="n">resize</span><span class="o">()).</span><span class="na">length</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>实现扩容的方法为risize()方法。</p>
+<p>继续调试，程序会判断当前hash值对应的table索引位置上是否已经存在值，如果不存在值，就把当前Hash值的结点赋值进去。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+    <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>然后modCount++（记录修改的次数），size++（记录已添加元素的个数）；</p>
+<p>倘若当前hash值对应的table索引位置上已存在值，首先会判断<strong>当前索引位置上的hash值</strong>是否与需要添加的key值对应的hash值相同且满足以下两个条件之一：</p>
+<ul>
+<li>准备添加的key值与p指向的Node结点的key是同一个对象</li>
+<li>p指向的Node结点的key的equals()和准备假如的key比较后相同。</li>
+</ul>
+<p>如果上述条件皆成立，直接让e指向p（p为当前索引位置上的结点）,e为辅助变量</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+    <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">)))){</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>然后继续执行，把需要添加的key值对应的value值替换掉原先存在的key值的value值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// existing mapping for key
+</span><span class="c1"></span>    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">onlyIfAbsent</span> <span class="o">||</span> <span class="n">oldValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="n">afterNodeAccess</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>返回修改后的value值。</p>
+<p>倘若上述条件不成立，程序会继续进行判断，判断需要添加的结点是否为树结点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">){</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">p</span><span class="o">).</span><span class="na">putTreeVal</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>如果是树结点，会执行putTreeVal()方法，把需要添加的树节点添加到红黑树上。</p>
+<p>如果不是树节点，程序会继续调试，进入到下一个else。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">binCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="o">;</span> <span class="o">++</span><span class="n">binCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">binCount</span> <span class="o">&gt;=</span> <span class="n">TREEIFY_THRESHOLD</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// -1 for 1st
+</span><span class="c1"></span>                <span class="n">treeifyBin</span><span class="o">(</span><span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+            <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>在此处程序会进入一个死循环，直至找到对应索引位置上的尾结点或者找到key相同的结点才会退出。详细见<a class="link" href="https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/#hashset%E5%BA%95%E5%B1%82%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"  target="_blank" rel="noopener"
+    >HashSet底层添加元素源码分析</a>的最后一步。</p>
+</li>
+</ul>
+<h4 id="模拟hashmap触发扩容树化情况并debug验证">模拟HashMap触发扩容、树化情况，并debug验证</h4>
+<ul>
+<li>
+<p>创建测试类MapSource01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapSource01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">12</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+          <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="k">new</span> <span class="n">A</span><span class="o">(</span><span class="n">i</span><span class="o">),</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建A类，重写HashCode方法，让他们有统一的Hash值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">A</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">no</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">A</span><span class="o">(</span><span class="kt">int</span> <span class="n">no</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">no</span> <span class="o">=</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">100</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNo</span><span class="o">(</span><span class="kt">int</span> <span class="n">no</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">no</span> <span class="o">=</span> <span class="n">no</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;\nA{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;no=&#34;</span> <span class="o">+</span> <span class="n">no</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行调试，直至添加到第9个元素，因为达到树化的条件（一条链表的元素个数到达8个），但table的大小&lt;MIN_TREEIFY_CAPACITY(默认是64)，所以table会扩容。</p>
+<p><img src="/image/JavaCollections03/image15.jpg" alt="image15"  /></p>
+<p>继续调试，table再次扩容，直至table扩容到容量为64时，该链表会发生树化</p>
+<p><img src="/image/JavaCollections03/image16.jpg" alt="image16"  /></p>
+</li>
+</ul>
+<h3 id="hashtable">Hashtable</h3>
+<h4 id="hashtable的基本介绍">Hashtable的基本介绍</h4>
+<ul>
+<li>
+<p>Hashtable存放的元素时键值对：即K-V</p>
+</li>
+<li>
+<p>Hashtable的键和值都不能为null，否则会抛出NullPointerException</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Hashtable使用方法基本上和HashMap一样</p>
+</li>
+<li>
+<p>Hashtable是线程安全的（synchronize），HashMap是线程不安全的</p>
+</li>
+</ul>
+<p><strong>Hashtable底层的简单剖析</strong></p>
+<ul>
+<li>
+<p>底层有数组 Hashtable$Entry[]，初始化大小为11</p>
+</li>
+<li>
+<p>临界值 threshold = 8 （11*0.75）</p>
+<p>创建HashtableSource类调试</p>
+<pre><code>package com.conllection_.maps;
+
+import java.util.Hashtable;
+
+public class HashtableSource {
+    public static void main(String[] args) {
+        Hashtable hashtable = new Hashtable();
+
+        hashtable.put(&quot;john&quot;,100);
+        hashtable.put(&quot;jack&quot;,100);
+        hashtable.put(&quot;mary&quot;,200);
+        hashtable.put(&quot;tom&quot;,300);
+        hashtable.put(&quot;smith&quot;,500);
+        hashtable.put(&quot;minster&quot;,600);
+        hashtable.put(&quot;chris&quot;,200);
+        hashtable.put(&quot;ssm&quot;,500);
+
+        System.out.println(&quot;hashtable = &quot; + hashtable);
+    }
+}
+</code></pre><p>调试程序，我们可以发现</p>
+<p><img src="/image/JavaCollections03/image17.jpg" alt="image17"  /></p>
+</li>
+<li>
+<p>Hashtable按照自己的扩容机制进行扩容</p>
+<p>继续调试HashtableSource，执行put方法，可以发现该接口添加元素时执行了addEntry方法把添加的K-V封装到Entry</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">addEntry</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+
+    <span class="n">Entry</span><span class="o">&lt;?,?&gt;</span> <span class="n">tab</span><span class="o">[]</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+    <span class="c1">//当增加的元素数量大于或等于临界值时，执行rehash方法进行扩容
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Rehash the table if the threshold is exceeded
+</span><span class="c1"></span>        <span class="n">rehash</span><span class="o">();</span>
+
+        <span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+        <span class="n">hash</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="n">0x7FFFFFFF</span><span class="o">)</span> <span class="o">%</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Creates the new entry.
+</span><span class="c1"></span>    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+    <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span> <span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+    <span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;&gt;(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="n">count</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div><p>执行rehash方法进行扩容。下面截取部分rehash源码。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="n">Entry</span><span class="o">&lt;?,?&gt;[]</span> <span class="n">oldMap</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+
+    <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>    <span class="c1">//进行扩容
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&lt;&lt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">==</span> <span class="n">MAX_ARRAY_SIZE</span><span class="o">)</span>
+            <span class="c1">// Keep running with MAX_ARRAY_SIZE buckets
+</span><span class="c1"></span>            <span class="k">return</span><span class="o">;</span>
+        <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//指向扩容后的Entry
+</span><span class="c1"></span>    <span class="n">Entry</span><span class="o">&lt;?,?&gt;[]</span> <span class="n">newMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;?,?&gt;[</span><span class="n">newCapacity</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div><p>我们可以发现，当容量达到临界值时，rehash方法会通过 **int newCapacity = (oldCapacity &laquo; 1) + 1;**这条语句进行扩容。所以hashtable第一次扩容后的容量为23（11*2+1）；</p>
+<p><img src="/image/JavaCollections03/image18.jpg" alt="image18"  /></p>
+</li>
+</ul>
+<h4 id="hashmap与hashtable对比">HashMap与Hashtable对比</h4>
+<p><img src="/image/JavaCollections03/image19.jpg" alt="image19"  /></p>
+<h3 id="properties">Properties</h3>
+<ul>
+<li>
+<p>Properties类继承于Hashtable类并实现了Map接口，也是使用一种键值对的形式来保存数据</p>
+</li>
+<li>
+<p>他的使用特点和Hashtable类似</p>
+</li>
+<li>
+<p>Properties还可以用了从xxx.properties文件中，加载数据到Properties类对象，并进行读取和修改</p>
+</li>
+<li>
+<p>xxx.properties文件通常作为配置文件，详解见<a class="link" href="https://www.cnblogs.com/xudong-bupt/p/3758136.html"  target="_blank" rel="noopener"
+    >Java读取properties配置文件</a></p>
+<p>Properties的简单使用</p>
+<p>Properties_类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Properties_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//Properties 继承了Hashtable
+</span><span class="c1"></span>        <span class="c1">//Properties 也是通过k-v存储数据，当然key与value都不能为null
+</span><span class="c1"></span>        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+
+        <span class="c1">//添加元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;john&#34;</span><span class="o">,</span><span class="n">2</span><span class="o">);</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span><span class="s">&#34;2&#34;</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//删除元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//修改元素
+</span><span class="c1"></span>        <span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">);</span><span class="c1">//替换
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;properties = &#34;</span><span class="o">+</span><span class="n">properties</span><span class="o">);</span>
+
+        <span class="c1">//查找元素
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/JavaCollections03/image20.jpg" alt="image20"  /></p>
+<p>需要注意的是，使用getPeoperties时，当put进去的值不是String类型的时候，会返回null</p>
+<p>例如在Properties类中添加以下代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">));</span>
+</code></pre></div><p><img src="/image/JavaCollections03/image21.jpg" alt="image21"  /></p>
+<p>阅读getProperty源码，我们可以发现其中原理</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getProperty</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//把oval指向key对应的value
+</span><span class="c1"></span>    <span class="n">Object</span> <span class="n">oval</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="c1">//使用三目运算符，当oval是String类型时，返回强转为String类型的oval，否则为null
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">sval</span> <span class="o">=</span> <span class="o">(</span><span class="n">oval</span> <span class="k">instanceof</span> <span class="n">String</span><span class="o">)</span> <span class="o">?</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">oval</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">//当sval为null，且设定了defaults的值时，返回defaultsValue，否则返回sval
+</span><span class="c1"></span>    <span class="k">return</span> <span class="o">((</span><span class="n">sval</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">defaults</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">))</span> <span class="o">?</span> <span class="n">defaults</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">:</span> <span class="n">sval</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E9%9B%86%E5%90%88%E7%B1%BB/">Java集合类</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（四）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（二）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（一）</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#java集合类三">Java集合类(三)</a>
+      <ol>
+        <li><a href="#map接口实现类的特点和常用方法">Map接口实现类的特点和常用方法</a>
+          <ol>
+            <li><a href="#map接口的特点">Map接口的特点</a></li>
+            <li><a href="#map接口的常用方法">Map接口的常用方法</a></li>
+          </ol>
+        </li>
+        <li><a href="#map接口的六大遍历方式">Map接口的六大遍历方式</a>
+          <ol>
+            <li><a href="#hashmap练习题">HashMap练习题</a></li>
+          </ol>
+        </li>
+        <li><a href="#map小结及hashmap底层源码分析">Map小结及HashMap底层源码分析</a>
+          <ol>
+            <li><a href="#map小结">Map小结</a></li>
+            <li><a href="#hashmap底层机制及源码剖析">HashMap底层机制及源码剖析</a></li>
+            <li><a href="#模拟hashmap触发扩容树化情况并debug验证">模拟HashMap触发扩容、树化情况，并debug验证</a></li>
+          </ol>
+        </li>
+        <li><a href="#hashtable">Hashtable</a>
+          <ol>
+            <li><a href="#hashtable的基本介绍">Hashtable的基本介绍</a></li>
+            <li><a href="#hashmap与hashtable对比">HashMap与Hashtable对比</a></li>
+          </ol>
+        </li>
+        <li><a href="#properties">Properties</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

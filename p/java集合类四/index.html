@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='TreeSet和TreeMap讲解及总结练习'><title>Java集合类（四）</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java集合类（四）'>
+<meta property='og:description' content='TreeSet和TreeMap讲解及总结练习'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java集合类' /><meta property='article:published_time' content='2021-04-16T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-04-16T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java集合类（四）">
+<meta name="twitter:description" content="TreeSet和TreeMap讲解及总结练习">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javacollection/" >
+                JavaCollection
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/">Java集合类（四）</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        TreeSet和TreeMap讲解及总结练习
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Apr 16, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="java集合类四">Java集合类(四)</h2>
+<hr>
+<ol>
+<li>开发中如何选择集合实现类</li>
+<li>TreeSet底层源码剖析</li>
+<li>TreeMap底层源码剖析</li>
+<li>Collections工具类</li>
+<li>集合章节练习题</li>
+</ol>
+<hr>
+<h3 id="开发中如何选择集合实现类">开发中如何选择集合实现类</h3>
+<ul>
+<li>在开发中，选择什么集合实现类，主要取决于<strong>业务操作特点</strong>，然后根据集合实现类特性进行选择，分析如下：</li>
+</ul>
+<ol>
+<li>先判断存储的类型（一组对象[单列]或一组键值对[双列]）</li>
+<li>一组对象[单列]：Collection接口
+<ul>
+<li>允许重复：List
+<ul>
+<li>增删多：LinkedLike（底层维护了一个双向链表）</li>
+<li>改查多：ArrayList（底层维护了Object类型的可变数组）</li>
+</ul>
+</li>
+<li>不允许重复：Set
+<ul>
+<li>无序：HashSet（底层是HashMap，维护了一个哈希表【数组+链表+红黑树】）</li>
+<li>排序：TreeSet</li>
+<li>插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组+双向链表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一对键值对：Map
+<ul>
+<li>键无序：HashMap（底层是哈希表，jdk7：数组+链表，jdk8：数组+链表+红黑树）</li>
+<li>键排序：TreeMap</li>
+<li>键插入和取出顺序一致：LinkedHashMap（底层是HashMap）</li>
+<li>读取文件：Properties</li>
+</ul>
+</li>
+</ol>
+<h3 id="treeset底层源码剖析">TreeSet底层源码剖析</h3>
+<ul>
+<li>
+<p>TreeSet的底层就是TreeMap</p>
+<ul>
+<li>key不允许重复。</li>
+</ul>
+</li>
+<li>
+<p>TreeSet可以实现有序排序，但是当我们使用其无参构造器时，仍然是无序的。要使用TreeSet提供的一个构造器，传入一个比较器（匿名内部类）才能实现排序</p>
+<p>下面使用TreeSet对数据进行排序（按字符串长度比较）</p>
+<p>创建测试类TreeSet_</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.sets</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Comparator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.TreeSet</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TreeSet_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TreeSet</span> <span class="n">treeSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">(</span><span class="k">new</span> <span class="n">Comparator</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//按字符串长度进行比较
+</span><span class="c1"></span>                <span class="k">return</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">o1</span><span class="o">).</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">o2</span><span class="o">).</span><span class="na">length</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">);</span>
+        <span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;ha&#34;</span><span class="o">);</span>
+        <span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;xiaohu&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;treeSet = &#34;</span> <span class="o">+</span><span class="n">treeSet</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>debug调试，我们可以看到TreeSet此时使用的构造器</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">TreeSet</span><span class="o">(</span><span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">E</span><span class="o">&gt;</span> <span class="n">comparator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">(</span><span class="k">new</span> <span class="n">TreeMap</span><span class="o">&lt;&gt;(</span><span class="n">comparator</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div><p>可以发现，该构造器把我们的一个比较器（匿名内部类）对象传到了TreeSet的底层TreeMap</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">TreeMap</span><span class="o">(</span><span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;</span> <span class="n">comparator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">comparator</span> <span class="o">=</span> <span class="n">comparator</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>并且把比较器对象赋给了TreeMap的属性comparator。</p>
+<p>在调用treeSet.add(&ldquo;tom&rdquo;);时，在底层会执行put的方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">PRESENT</span><span class="o">)==</span><span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>继续往下走，可以发现程序执行以下代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">cmp</span><span class="o">;</span>
+<span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">parent</span><span class="o">;</span>
+<span class="c1">// split comparator and comparable paths
+</span><span class="c1">//cpr为我们传进去的匿名内部类
+</span><span class="c1"></span><span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;</span> <span class="n">cpr</span> <span class="o">=</span> <span class="n">comparator</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">cpr</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="c1">//动态绑定到我们的匿名内部类对象，且调用了其compare方法。
+</span><span class="c1"></span>        <span class="n">cmp</span> <span class="o">=</span> <span class="n">cpr</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">t</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="k">else</span><span class="c1">//如果两个元素比较后相等，即返回0，这个key就不能加入进去
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>此时的treeSet集合如下</p>
+<p><img src="/image/JavaCollections04/image01.png" alt="image01"  /></p>
+<p>运行结果</p>
+<p><img src="/image/JavaCollections04/image02.png" alt="image02"  /></p>
+<p>需要注意的是，排序规则可以自己定义，按照需求来定义。</p>
+</li>
+</ul>
+<h3 id="treemap底层源码剖析">TreeMap底层源码剖析</h3>
+<ul>
+<li>
+<p>TreeMap机制与TreeSet大体一致，但TreeMap是键值对方式存储数据</p>
+</li>
+<li>
+<p>TreeMap底层实现的是Entry数组</p>
+<p>创建TreeMap_测试类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.conllection_.maps</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Comparator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.TreeMap</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TreeMap_</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//使用有参构造，重写比较器
+</span><span class="c1"></span>        <span class="n">TreeMap</span> <span class="n">treeMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeMap</span><span class="o">(</span><span class="k">new</span> <span class="n">Comparator</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//按照字符串长度进行比较
+</span><span class="c1"></span>                <span class="k">return</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">o1</span><span class="o">).</span><span class="na">length</span><span class="o">()-((</span><span class="n">String</span><span class="o">)</span><span class="n">o2</span><span class="o">).</span><span class="na">length</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">treeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span><span class="s">&#34;杰克&#34;</span><span class="o">);</span>
+        <span class="n">treeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span><span class="s">&#34;汤姆&#34;</span><span class="o">);</span>
+        <span class="n">treeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;xiaohu&#34;</span><span class="o">,</span><span class="s">&#34;小虎&#34;</span><span class="o">);</span>
+        <span class="n">treeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mary&#34;</span><span class="o">,</span><span class="s">&#34;玛丽&#34;</span><span class="o">);</span><span class="c1">//替换杰克
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;treeMap = &#34;</span><span class="o">+</span> <span class="n">treeMap</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>调试程序，执行put方法，首次添加时会进行初始化</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">t</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">compare</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span> <span class="c1">// type (and possibly null) check
+</span><span class="c1"></span>
+    <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+    <span class="n">modCount</span><span class="o">++;</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>因为此时只有一个元素，不能进行比较，所以就直接添加到Entry里面了</p>
+<p>继续添加元素，程序执行以下代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">cmp</span><span class="o">;</span>
+<span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">parent</span><span class="o">;</span>
+<span class="c1">// split comparator and comparable paths
+</span><span class="c1"></span><span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;</span> <span class="n">cpr</span> <span class="o">=</span> <span class="n">comparator</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">cpr</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="n">cmp</span> <span class="o">=</span> <span class="n">cpr</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">t</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>此时会调动到比较器进行比较，与TreeSet不同的是当key值比较结果相同时，程序会把新增的key的value值替换掉原来的key的value值。</p>
+<p><img src="/image/JavaCollections04/image03.png" alt="image03"  /></p>
+<p>需要注意的是，key不能为null</p>
+</li>
+</ul>
+<h3 id="collections工具类">Collections工具类</h3>
+<ul>
+<li>
+<p>Collections是一个操作Set、List和Map等集合的工具类</p>
+</li>
+<li>
+<p>Collections中提供了一系列静态的方法对集合元素进行排序、查询和修改等操作</p>
+</li>
+<li>
+<p>排序操作（均为static方法）</p>
+<ol>
+<li>reverse(List)：反转List中元素的顺序</li>
+<li>shuffle(List)：对List集合元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定List集合元素按升序排序</li>
+<li>sort(List,Comparator)：根据指定的Comparator产生的顺序对List元素进行排序</li>
+<li>swap(List,int,int)：将指定List集合中的i处元素和j处元素进行交换</li>
+</ol>
+<p>代码演示</p>
+<p>创建Collections01测试类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.collections_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Comparator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collections02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;smith&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;h&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+<span class="c1">//        1. reverse(List)：反转List中元素的顺序
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">reverse</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;将list反转后&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+<span class="c1">//        2. shuffle(List)：对List集合元素进行随机排序
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">shuffle</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;将list元素进行随机排序后&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+<span class="c1">//        3. sort(List)：根据元素的自然顺序对指定List集合元素按升序排序
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;自然排序后&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+<span class="c1">//        4. sort(List,Comparator)：根据指定的Comparator产生的顺序对List元素进行排序
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//按字符串长度排序
+</span><span class="c1"></span>                <span class="c1">//可以加入一些校验代码，提高严谨性
+</span><span class="c1"></span>                <span class="k">return</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">o1</span><span class="o">).</span><span class="na">length</span><span class="o">()-((</span><span class="n">String</span><span class="o">)</span><span class="n">o2</span><span class="o">).</span><span class="na">length</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;按字符串长度排序后&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+<span class="c1">//        5. swap(List,int,int)：将指定List集合中的i处元素和j处元素进行交换
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">swap</span><span class="o">(</span><span class="n">list</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;将下标为1的元素与下标为3的元素互换&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections04/image04.png" alt="image04"  /></p>
+</li>
+<li>
+<p>查找、替换</p>
+<ol>
+<li>Object max(Collection)：根据元素的自然顺序，返回给定集合中的最大元素</li>
+<li>Object max(Collection,Comparator)：根据Comparator指定的顺序。返回给定集合中的最大元素</li>
+<li>Object min(Collection)：根据元素的自然顺序，返回给定集合中的最小元素</li>
+<li>Object min(Collection,Comparator)：根据Comparator指定的顺序。返回给定集合中的最小元素</li>
+<li>int frequency(Collection,Object)：返回指定集合中指定元素的出现次数</li>
+<li>void copy(List dest,List src)：将src中的内容复制到dest中</li>
+<li>boolean replaceAll(List list,Object oldVal,Object newVal)：使用新值替换List对象的所有旧值</li>
+</ol>
+<p>代码演示</p>
+<p>创建Collections02测试类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.collections_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Comparator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Collections02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;smith&#34;</span><span class="o">);</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;h&#34;</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;List = &#34;</span><span class="o">+</span><span class="n">list</span><span class="o">);</span>
+
+<span class="c1">//        1. Object max(Collection)：根据元素的自然顺序，返回给定集合中的最大元素
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;返回自然顺序中的最大元素&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;然顺序中的最大元素是&#34;</span><span class="o">+</span><span class="n">Collections</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">list</span><span class="o">));</span>
+<span class="c1">//        2. Object max(Collection,Comparator)：根据Comparator指定的顺序。返回给定集合中的最大元素
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;返回Comparator指定的顺序中的最大元素&#34;</span><span class="o">);</span>
+        <span class="c1">//比如返回字符串长度最长元素
+</span><span class="c1"></span>        <span class="n">Object</span> <span class="n">maxObject</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">o1</span><span class="o">).</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">o2</span><span class="o">).</span><span class="na">length</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;字符串长度最长元素是&#34;</span> <span class="o">+</span> <span class="n">maxObject</span><span class="o">);</span>
+<span class="c1">//        3. Object min(Collection)：根据元素的自然顺序，返回给定集合中的最小元素
+</span><span class="c1">//        4. Object min(Collection,Comparator)：根据Comparator指定的顺序。返回给定集合中的最小元素
+</span><span class="c1">//        5. int frequency(Collection,Object)：返回指定集合中指定元素的出现次数
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;tom出现的次数为&#34;</span> <span class="o">+</span> <span class="n">Collections</span><span class="o">.</span><span class="na">frequency</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="s">&#34;tom&#34;</span><span class="o">));</span>
+<span class="c1">//        6. void copy(List dest,List src)：将src中的内容复制到dest中
+</span><span class="c1"></span>        <span class="n">ArrayList</span> <span class="n">dest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">dest</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">Collections</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">dest</span><span class="o">,</span><span class="n">list</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;dest = &#34;</span><span class="o">+</span> <span class="n">dest</span><span class="o">);</span>
+<span class="c1">//        7. boolean replaceAll(List list,Object oldVal,Object newVal)：使用新值替换List对象的所有旧值
+</span><span class="c1"></span>        <span class="n">Collections</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="n">list</span><span class="o">,</span><span class="s">&#34;tom&#34;</span><span class="o">,</span><span class="s">&#34;汤姆&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;替换后&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;list = &#34;</span> <span class="o">+</span> <span class="n">list</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/JavaCollections04/image05.jpg" alt="image05"  /></p>
+<p>需要注意的是，使用copy时，dest数组的大小必须大于src数组，否则会报数组越界异常</p>
+<p><img src="/image/JavaCollections04/image06.png" alt="image06"  /></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">srcSize</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">srcSize</span> <span class="o">&gt;</span> <span class="n">dest</span><span class="o">.</span><span class="na">size</span><span class="o">()){</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">&#34;Source does not fit in dest&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="本章练习题">本章练习题</h3>
+<ol>
+<li>
+<p>试分析HashSet和TreeSet分别如何实现去重的</p>
+<ul>
+<li>
+<p>HashSet去重机制：HashSet是通过hashCode()+equals()方法实现去重的。底层先通过hashCode方法计算出key对应的hash值，然后通过hash值查找在table表上对应索引位置上是否已经存在值。如果该位置上不存在值，则直接把key添加进去。否则通过equals方法遍历比较新增的key与已存在的key是否相同，相同就把key加入到已存在的key的后面，否则不添加。equals方法可以自定义比较的内容。</p>
+</li>
+<li>
+<p>TreeSet去重机制：如果你在定义TreeSet时传入了一个Comparator匿名内部类（比较器），就使用该比较器中定义的compare方法实现去重。如果返回是0，则说明添加元素相同，不添加。如果你没有传入一个Comparator匿名内部类，系统会通过你添加的对象实现的Comprareable接口的compareTo实现去重。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+     <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+     <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+     <span class="c1">//把k指向key对象的类型实现的Comparable接口
+</span><span class="c1"></span>     <span class="n">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="o">(</span><span class="n">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;)</span> <span class="n">key</span><span class="o">;</span>
+     <span class="k">do</span> <span class="o">{</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="c1">//动态绑定compareTo方法
+</span><span class="c1"></span>        <span class="n">cmp</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+     <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>分析下面代码运行会不会抛出异常，并从源码层面说明原因</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">TreeSet</span> <span class="n">treeSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">();</span>
+<span class="n">treeSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">());</span>
+
+<span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><p>会抛出ClassCastException异常</p>
+<p>因为在定义TreeSet时没有传进去一个Comparator匿名类，所以在执行add的时候，程序会进入下述代码中</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">else</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+     <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+     <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+     <span class="c1">//把k指向key对象的类型实现的Comparable接口
+</span><span class="c1"></span>     <span class="n">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;</span> <span class="n">k</span> <span class="o">=</span> <span class="o">(</span><span class="n">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">K</span><span class="o">&gt;)</span> <span class="n">key</span><span class="o">;</span>
+     <span class="k">do</span> <span class="o">{</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="c1">//动态绑定compareTo方法
+</span><span class="c1"></span>        <span class="n">cmp</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+     <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>又因为Person类并没有实现Comparable接口，所以运行到第6行代码处时会抛出ClassCastException异常。</p>
+</li>
+<li>
+<p>已知：Person类按照id和name重写了hashCode与equals方法。下面代码会输出什么？</p>
+<p>Exercises04测试类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.collections_</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Exercises04</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span><span class="s">&#34;AA&#34;</span><span class="o">);</span>
+        <span class="n">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1002</span><span class="o">,</span><span class="s">&#34;BB&#34;</span><span class="o">);</span>
+        <span class="n">HashSet</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">();</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">p2</span><span class="o">);</span>
+     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set</span><span class="o">);</span>
+        <span class="n">p1</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;CC&#34;</span><span class="o">;</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set</span><span class="o">);</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span><span class="s">&#34;CC&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set</span><span class="o">);</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span><span class="s">&#34;AA&#34;</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Person类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="o">(</span><span class="n">Person</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">id</span> <span class="o">==</span> <span class="n">person</span><span class="o">.</span><span class="na">id</span> <span class="o">&amp;&amp;</span> <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Objects</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Person{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;id=&#34;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
+                <span class="s">&#34;, name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>输出结果为</p>
+<p><img src="/image/JavaCollections04/image07.jpg" alt="image07"  /></p>
+<p><strong>为什么set.remove(p1);执行了却没有remove成功呢？</strong></p>
+<p>因为在执行remove方法之前，我们把p1的name值改变了**p1.name = &ldquo;CC&rdquo;;**而且我们在Person类中重写了hashCode方法，所以我们把name值改变的同时导致p1对应的hash值也发生改变。而我们观看remove的源码可以知道</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">removeNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">Object</span> <span class="n">key</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">,</span>
+                           <span class="kt">boolean</span> <span class="n">matchValue</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">movable</span><span class="o">)</span>
+</code></pre></div><p>此处传进去的hash值为p1更改后hash值<img src="/image/JavaCollections04/image08.jpg" alt="image08"  /></p>
+<p>而辅助变量p却指向了table表中的p1，即hash值为table的hash值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span>
+    <span class="o">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+</code></pre></div><p><img src="/image/JavaCollections04/image09.jpg" alt="image09"  /></p>
+<p>因为两个hash值不同，所以在接下来的几个if判断中结果都为false</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">removeNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">Object</span> <span class="n">key</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">,</span>
+                           <span class="kt">boolean</span> <span class="n">matchValue</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">movable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;[]</span> <span class="n">tab</span><span class="o">;</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">p</span><span class="o">;</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="n">index</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span>
+        <span class="o">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">index</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">node</span> <span class="o">=</span> <span class="kc">null</span><span class="o">,</span> <span class="n">e</span><span class="o">;</span> <span class="n">K</span> <span class="n">k</span><span class="o">;</span> <span class="n">V</span> <span class="n">v</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+            <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span><span class="c1">//False
+</span><span class="c1"></span>            <span class="n">node</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">((</span><span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span><span class="c1">//False
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">)</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">p</span><span class="o">).</span><span class="na">getTreeNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+            <span class="k">else</span> <span class="o">{</span>
+                <span class="k">do</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
+                        <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span>
+                         <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span> <span class="o">{</span>
+                        <span class="n">node</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="o">}</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">while</span> <span class="o">((</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">//False
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">(!</span><span class="n">matchValue</span> <span class="o">||</span> <span class="o">(</span><span class="n">v</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">value</span><span class="o">)</span> <span class="o">==</span> <span class="n">value</span> <span class="o">||</span>
+                             <span class="o">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">value</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">v</span><span class="o">))))</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">)</span>
+                <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">node</span><span class="o">).</span><span class="na">removeTreeNode</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">tab</span><span class="o">,</span> <span class="n">movable</span><span class="o">);</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="n">p</span><span class="o">)</span>
+                <span class="n">tab</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="k">else</span>
+                <span class="n">p</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">++</span><span class="n">modCount</span><span class="o">;</span>
+            <span class="o">--</span><span class="n">size</span><span class="o">;</span>
+            <span class="n">afterNodeRemoval</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>所以最后只能return null；然后回到remove方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">remove</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">e</span> <span class="o">=</span> <span class="n">removeNode</span><span class="o">(</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">))</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span>
+        <span class="kc">null</span> <span class="o">:</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>因为removeNode方法return null，所以返回到remove也只能return null 即修改失败。</p>
+<p><img src="/image/JavaCollections04/image10.jpg" alt="image10"  /></p>
+<p>而后面添加</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span><span class="s">&#34;CC&#34;</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span><span class="s">&#34;AA&#34;</span><span class="o">));</span>
+</code></pre></div><p>可以成功，原理跟上述图示一样</p>
+<p><strong>因为后面添加的Person(1001,&ldquo;AA&rdquo;)同上面一样是指向索引为3处（该处为null），所以添加成功</strong></p>
+<p><img src="/image/JavaCollections04/image11.jpg" alt="image11"  /></p>
+<p><strong>而Person(1001,&ldquo;AA&rdquo;)添加成功是因为此时索引为1出的Person值的name已发生改变。且计算出来的Hash值与索引为1处对应。所以该Person添加到索引为1处的Person后面</strong></p>
+<p><img src="/image/JavaCollections04/image12.jpg" alt="image12"  /></p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E9%9B%86%E5%90%88%E7%B1%BB/">Java集合类</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（三）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（二）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java集合类（一）</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#java集合类四">Java集合类(四)</a>
+      <ol>
+        <li><a href="#开发中如何选择集合实现类">开发中如何选择集合实现类</a></li>
+        <li><a href="#treeset底层源码剖析">TreeSet底层源码剖析</a></li>
+        <li><a href="#treemap底层源码剖析">TreeMap底层源码剖析</a></li>
+        <li><a href="#collections工具类">Collections工具类</a></li>
+        <li><a href="#本章练习题">本章练习题</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

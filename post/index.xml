@@ -138,6 +138,19 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
     </item>
     
     <item>
+      <title>Java集合类（四）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/</link>
+      <pubDate>Fri, 16 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/</guid>
+      <description>Java集合类(四)   开发中如何选择集合实现类 TreeSet底层源码剖析 TreeMap底层源码剖析 Collections工具类 集合章节练习题   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组+链表+红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组+双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组+链表，jdk8：数组+链表+红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    TreeSet底层源码剖析   TreeSet的底层就是TreeMap
+ key不允许重复。    TreeSet可以实现有序排序，但是当我们使用其无参构造器时，仍然是无序的。要使用TreeSet提供的一个构造器，传入一个比较器（匿名内部类）才能实现排序
+下面使用TreeSet对数据进行排序（按字符串长度比较）
+创建测试类TreeSet_
+package com.conllection_.sets; import java.util.Comparator; import java.util.TreeSet; public class TreeSet_ { public static void main(String[] args) { TreeSet treeSet = new TreeSet(new Comparator() { @Override public int compare(Object o1, Object o2) { //按字符串长度进行比较  return ((String)o1).</description>
+    </item>
+    
+    <item>
       <title>JavaMethod</title>
       <link>https://minster77.github.io/p/javamethod/</link>
       <pubDate>Thu, 08 Apr 2021 16:22:25 +0800</pubDate>
@@ -148,6 +161,24 @@ package com.heng.array; public class Demo01 { public static void main(String[] a
   命名规则：首字母小写的驼峰命名法
   方法创建及使用
 package com.heng.method; public class Demo01 { //main方法  public static void main(String[] args) { int sum = add(1,3); System.out.println(sum); } //add方法  public static int add(int a , int b){ return a+b; }   方法的定义及调用  方法的定义    方法包含一个方法头和一个方法体。以下是一个方法的所有部分</description>
+    </item>
+    
+    <item>
+      <title>Java集合类（三）</title>
+      <link>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/</link>
+      <pubDate>Thu, 08 Apr 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/</guid>
+      <description>Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
+  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
+  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
+  Map中的key不允许重复，原因和HashSet一样
+  Map中的value可以重复
+  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
+  常用String类作为Map的key
+  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
+代码演示
+package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.</description>
     </item>
     
     <item>
@@ -228,33 +259,6 @@ HashMap hashMap = new HashMap(); hashMap.put(&amp;#34;No1&amp;#34;,&amp;#34;jack
   Boolean类型：占一位 其真值只有true和Flase两个
   浮点数拓展
 float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://minster77.github.io/p/</guid>
-      <description>Java集合类(三)   Map接口实现类的特点和常用方法 Map接口的六大遍历方式 Map小结及HashMap底层源码分析 Hashtable基本介绍   Map接口实现类的特点和常用方法 Map接口的特点 注意：这里讲的是Jdk8的Map接口特点
-  Map与Collection并列存在。用于保存具有映射关系的数据：key-value
-  Map中的key和value可以是任何引用类型的数据，会封装到HashMao$Node对象中
-  Map中的key不允许重复，原因和HashSet一样
-  Map中的value可以重复
-  Map的key可以为null，value也可以为null，但是key为null的结点只能有一个，value为null的结点可以有多个
-  常用String类作为Map的key
-  key和value之间存在单向一对一关系，即通过指定的key总能找到对应的value
-代码演示
-package com.conllection_.maps; import java.util.HashMap; import java.util.Map; public class Map_ { public static void main(String[] args) { Map map = new HashMap(); //key不可以重复，重复的会被等价替换  //value可以重复  map.put(&amp;#34;no1&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  map.put(&amp;#34;no2&amp;#34;,&amp;#34;张无忌&amp;#34;);//k-v  map.put(&amp;#34;no1&amp;#34;,&amp;#34;张三丰&amp;#34;);//当有相同的key，就等于等价替换  map.put(&amp;#34;no3&amp;#34;,&amp;#34;成志恒&amp;#34;);//k-v  //key只能有一个null  map.put(null,null); map.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://minster77.github.io/p/</guid>
-      <description>Java集合类(四)   开发中如何选择集合实现类  在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行选择，分析如下：   先判断存储的类型（一组对象[单列]或一组键值对[双列]） 一组对象[单列]：Collection接口  允许重复：List  增删多：LinkedLike（底层维护了一个双向链表） 改查多：ArrayList（底层维护了Object类型的可变数组）   不允许重复：Set  无序：HashSet（底层是HashMap，维护了一个哈希表【数组+链表+红黑树】） 排序：TreeSet 插入和取出顺序一致：LinkeHashSet（底层是LinkedHashMap），维护了数组+双向链表     一对键值对：Map  键无序：HashMap（底层是哈希表，jdk7：数组+链表，jdk8：数组+链表+红黑树） 键排序：TreeMap 键插入和取出顺序一致：LinkedHashMap（底层是HashMap） 读取文件：Properties    </description>
     </item>
     
   </channel>

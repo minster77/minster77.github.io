@@ -8,62 +8,48 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Aug 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>JavaThink</title>
+      <title></title>
       <link>https://minster77.github.io/categories/javathink/</link>
-      <pubDate>Sun, 01 Aug 2021 16:22:25 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://minster77.github.io/categories/javathink/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>JavaBase</title>
-      <link>https://minster77.github.io/categories/javabase/</link>
-      <pubDate>Mon, 28 Jun 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/categories/javabase/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DesignPattern</title>
-      <link>https://minster77.github.io/categories/designpattern/</link>
-      <pubDate>Fri, 28 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/categories/designpattern/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JavaException</title>
-      <link>https://minster77.github.io/categories/javaexception/</link>
-      <pubDate>Mon, 03 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/categories/javaexception/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Java_OOP</title>
       <link>https://minster77.github.io/categories/java_oop/</link>
-      <pubDate>Sun, 02 May 2021 16:22:25 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://minster77.github.io/categories/java_oop/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>JavaBase</title>
+      <link>https://minster77.github.io/categories/javabase/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/categories/javabase/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>JavaCollection</title>
       <link>https://minster77.github.io/categories/javacollection/</link>
-      <pubDate>Tue, 06 Apr 2021 16:22:25 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://minster77.github.io/categories/javacollection/</guid>
       <description></description>
     </item>
     
-  </channel>
-</rss>
-</description>
+    <item>
+      <title>JavaException</title>
+      <link>https://minster77.github.io/categories/javaexception/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/categories/javaexception/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -75,5 +61,8 @@
       <description></description>
     </item>
     
+  </channel>
+</rss>
+   
   </channel>
 </rss>
