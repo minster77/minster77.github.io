@@ -29,7 +29,11 @@ MyBlog
 
 ### [List接口及其子类的剖析](https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%80/)
 
-###[set接口及其子类剖析](https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/)
+### [set接口及其子类剖析](https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%BA%8C/)
+
+### [Map接口及其子类的剖析](https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E4%B8%89/)
+
+### [TreeSet和TreeMap讲解以及集合的总结练习](https://minster77.github.io/p/java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%9B/)
 
 
 
