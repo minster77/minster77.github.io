@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='接口的介绍与使用'><title>JavaInterface</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/javainterface/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JavaInterface'>
+<meta property='og:description' content='接口的介绍与使用'>
+<meta property='og:url' content='https://minster77.github.io/p/javainterface/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-05-04T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-04T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="JavaInterface">
+<meta name="twitter:description" content="接口的介绍与使用">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java_oop/" >
+                Java_OOP
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/javainterface/">JavaInterface</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        接口的介绍与使用
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 04, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="javainterface">JavaInterface</h2>
+<hr>
+<ol>
+<li>接口的基本介绍</li>
+<li>接口的注意事项及使用细节</li>
+<li>接口实现与类的继承</li>
+<li>接口的多态性</li>
+</ol>
+<hr>
+<h3 id="接口基本介绍">接口基本介绍</h3>
+<ul>
+<li>
+<p>接口就是给出一些没有实现的方法，封装到一起，到某个类要使用的时候，再根据具体情况把这些方法写出来。</p>
+<p>接口的定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">接口名</span><span class="o">{</span>
+    <span class="c1">//属性
+</span><span class="c1"></span>    <span class="c1">//方法
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>类实现接口:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">ClassName</span> <span class="kd">implements</span> <span class="n">Interface</span> <span class="o">{</span>
+    <span class="c1">//自己的属性
+</span><span class="c1"></span>    <span class="c1">//自己的方法
+</span><span class="c1"></span>    <span class="c1">//必须实现的接口的抽象方法
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>在jdk7前，接口里的所以方法都没有方法体，即都是抽象方法。</p>
+</li>
+<li>
+<p>jdk8后接口可以有静态方法，默认方法，也就是说接口中可以有方法的具体实现。但默认方法需要使用default关键字修饰</p>
+</li>
+<li>
+<p>在接口中，定义抽象方法时可以省略abstract关键字。如果一个类实现了接口，则需要把接口的所有抽象方法都实现。</p>
+<p>代码演示</p>
+<p>创建接口Interface01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Interface01</span> <span class="o">{</span>
+    <span class="c1">//定义属性
+</span><span class="c1"></span>    <span class="kd">public</span>  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span><span class="n">1</span><span class="o">;</span>
+    <span class="c1">//定义抽象方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">A</span><span class="o">();</span>
+    <span class="c1">//定义默认方法
+</span><span class="c1"></span>    <span class="k">default</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">B</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;我是默认方法&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//定义静态方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">C</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;我是静态方法&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建实现类InterfaceImp01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceImp01</span> <span class="kd">implements</span> <span class="n">Interface01</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">A</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;实现抽象方法&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">B</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Interface01</span><span class="o">.</span><span class="na">super</span><span class="o">.</span><span class="na">B</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类InterfaceTest</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">InterfaceImp01</span> <span class="n">interfaceImp01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InterfaceImp01</span><span class="o">();</span>
+        <span class="n">interfaceImp01</span><span class="o">.</span><span class="na">A</span><span class="o">();</span>
+        <span class="n">interfaceImp01</span><span class="o">.</span><span class="na">B</span><span class="o">();</span>
+        <span class="c1">//调用静态方法
+</span><span class="c1"></span>        <span class="n">Interface01</span><span class="o">.</span><span class="na">C</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="/image/Interface/image01.jpg" alt="image01"  /></p>
+</li>
+<li>
+<p>对于初学者来说，接口的概念不难理解。难的是不知道什么时候使用接口，下面例举应用场景来理解接口的使用：</p>
+<ul>
+<li>现在要制作战斗机，武装直升机。专家只需要把飞机需要的功能/规格定下来即可，然后让工程师来实现</li>
+<li>现在有一个项目经理，管理三个程序员，功能开发一个软件，为了控制和管理软件，项目经理可以定义一些接口，然后由程序员来实现。</li>
+</ul>
+</li>
+</ul>
+<h3 id="接口的注意事项与使用细节">接口的注意事项与使用细节</h3>
+<ul>
+<li>
+<p>接口不能被实例化</p>
+</li>
+<li>
+<p>接口中所有的方法都是public，接口中的抽象方法可以不用abstract修饰</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Interface</span><span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">say</span><span class="o">();</span>
+    <span class="c1">//相当于
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>一个普通类实现接口，就必须将该接口的所有方法都实现(可以使用alt+enter来解决)</p>
+</li>
+<li>
+<p>抽象类去实现接口时，可以不实现接口的抽象方法</p>
+</li>
+<li>
+<p>一个类可以同时实现多个接口。</p>
+<p>创建接口Interface01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Interface01</span><span class="o">{</span>
+    <span class="n">say</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建接口Interface02</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Interface02</span><span class="o">{</span>
+    <span class="n">hi</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>实现类dog</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">dog</span> <span class="kd">implements</span> <span class="n">Interface01</span><span class="o">,</span><span class="n">Interface02</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hi</span><span class="o">(){</span>
+
+    <span class="o">}</span>
+        <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">(){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>接口中的属性只能是final，而且是public static final修饰符。属性的访问形式为<strong>接口名.属性名</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Interface01</span><span class="o">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+    <span class="c1">//实际上是
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span><span class="c1">//必须初始化值
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>证明：创建测试类InterfaceTest</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//此处可以直接调用接口Interface01的属性，证明该属性为static
+</span><span class="c1"></span>        <span class="n">Interface01</span><span class="o">.</span><span class="na">n</span><span class="o">;</span>
+        <span class="n">Interface01</span><span class="o">.</span><span class="na">n</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span><span class="c1">//系统会报错，证明该属性被final修饰
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>接口不能继承其他的类，但是可以继承其他接口。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Interface03</span> <span class="kd">extends</span> <span class="n">Interface01</span><span class="o">,</span><span class="n">Interface02</span><span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><p>而且继承其他接口时不用实现其他接口的方法。</p>
+</li>
+<li>
+<p>接口的修饰符与类一样，只能是public或者是默认</p>
+</li>
+<li>
+<p>思考题：下面程序是否正确，正确的话输出什么？</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//创建接口
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Interface02</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">23</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="c1">//创建接口实现类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceImp02</span> <span class="kd">implements</span> <span class="n">Interface02</span><span class="o">{</span>
+
+<span class="o">}</span>
+<span class="c1">//创建测试类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">InterfaceImp02</span> <span class="n">imp02</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InterfaceImp02</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">imp02</span><span class="o">.</span><span class="na">a</span><span class="o">);</span>
+        <span class="c1">//因为InterfaceImp02实现了接口Interface02 所以也可以成功输出
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">InterfaceImp02</span><span class="o">.</span><span class="na">a</span><span class="o">);</span>
+        <span class="c1">//a为static属性，所以可以输出
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Interface02</span><span class="o">.</span><span class="na">a</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>代码正确，输出结果为</p>
+<p><img src="/image/Interface/image02.png" alt="image02"  /></p>
+</li>
+</ul>
+<h3 id="接口实现与类继承">接口实现与类继承</h3>
+<ul>
+<li>
+<p>当子类继承了父类，就会**自动的拥有父类的功能(方法)。**而如果子类需要拓展功能，<strong>可以通过实现接口的方式拓展</strong></p>
+</li>
+<li>
+<p>可以理解成实现接口就是对Java单继承机制的一种补充</p>
+<p>下面举个例子理解接口实现与类继承</p>
+<p>例：假如有一只小猴子悟空，他继承了父亲的爬树技能。当他看到鱼儿在游泳时，就跟鱼儿学习了游泳技能；当他看到鸟儿在飞翔时，就跟鸟儿学习了飞翔技能&hellip;</p>
+<p>代码演示：</p>
+<p>创建猴子父类 Monkey</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Monkey</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Monkey</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">climbing</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#34;在爬树&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>子类LittleMonkey</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LittleMonkey</span> <span class="kd">extends</span> <span class="n">Monkey</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">LittleMonkey</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>此时，LittleMonkey继承了Monkey，所以很自然的会爬树</p>
+<p><img src="/image/Interface/image03.png" alt="image03"  /></p>
+<p>因为悟空需要拓展技能，我们创建接口FishAble和BirdAble</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FishAble</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Swimming</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BirdAble</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">flying</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>而且LittleMonkey也实现了FishAble与BirdAble</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LittleMonkey</span> <span class="kd">extends</span> <span class="n">Monkey</span> <span class="kd">implements</span> <span class="n">BirdAble</span><span class="o">,</span><span class="n">FishAble</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">LittleMonkey</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">flying</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;通过学习，学会了飞翔&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Swimming</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;通过学习，学会了游泳&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>最终，悟空学会了飞翔与游泳</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LittleMonkey</span> <span class="n">wuKong</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LittleMonkey</span><span class="o">(</span><span class="s">&#34;悟空&#34;</span><span class="o">);</span>
+
+        <span class="n">wuKong</span><span class="o">.</span><span class="na">climbing</span><span class="o">();</span>
+        <span class="n">wuKong</span><span class="o">.</span><span class="na">flying</span><span class="o">();</span>
+        <span class="n">wuKong</span><span class="o">.</span><span class="na">Swimming</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/Interface/image04.png" alt="image04"  /></p>
+</li>
+<li>
+<p>实现接口VS继承类</p>
+<p>接口和继承解决的问题不同</p>
+<ul>
+<li>继承的价值主要在于：解决代码的复用性和可维护性</li>
+<li>接口的价值主要在于：设计好各种规范（方法），让它的实现类去实现这些方法。更加的灵活</li>
+</ul>
+<p>接口比继承更加灵活</p>
+<ul>
+<li>
+<p>继承是满足is-a的关系，而接口只需满足like-a的关系即可。</p>
+<p>比如：猫它是动物(is-a)，而猫像鱼一样会游泳(like-a)</p>
+</li>
+</ul>
+<p>接口在一定程度上实现代码解耦（即：接口的规范性+动态绑定机制）</p>
+</li>
+</ul>
+<h3 id="接口的多态性">接口的多态性</h3>
+<ul>
+<li>
+<p>接口类型的变量可以指向实现了接口类的对象实例</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfacePolyParameter</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//接口的多态体现
+</span><span class="c1"></span>        <span class="n">IF</span> <span class="n">if01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Monster</span><span class="o">();</span>
+        <span class="n">if01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">interface</span> <span class="nc">IF</span><span class="o">{}</span>
+<span class="kd">class</span> <span class="nc">Monster</span> <span class="kd">implements</span> <span class="n">IF</span><span class="o">{}</span>
+<span class="kd">class</span> <span class="nc">Car</span> <span class="kd">implements</span> <span class="n">IF</span><span class="o">{}</span>
+
+</code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>多态参数的体现</p>
+<p>演示一个案例：有一个接口UsbInterface usb，既可以接收手机对象，又可以接收相机对象，就体现了接口的多态（接口引用可以指向实现了接口的类的对象）</p>
+<p>创建接口UsbInterface</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UsbInterface</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">start</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">stop</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建接口实现类Phone1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Phone1</span> <span class="kd">implements</span> <span class="n">UsbInterface</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Phone开始工作&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Phone停止工作&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建接口实现类Camera1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Camera1</span> <span class="kd">implements</span> <span class="n">UsbInterface</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Camera开始工作&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Camera停止工作&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建类Computer01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Computer01</span> <span class="o">{</span>
+    <span class="c1">//1. UsbInterface usbInterface 说明Work的形参类型是UsbInterface
+</span><span class="c1"></span>    <span class="c1">//2. 这个参数可以接收实现了UsbInterface接口的类的对象实例
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Work</span><span class="o">(</span><span class="n">UsbInterface</span> <span class="n">usbInterface</span><span class="o">){</span>
+        <span class="n">usbInterface</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">usbInterface</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Tset</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfaceTest02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//创建手机对象，Phone1实现了UsbInterface接口
+</span><span class="c1"></span>        <span class="n">Phone1</span> <span class="n">phone1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Phone1</span><span class="o">();</span>
+        <span class="c1">//创建相机对象，Camera1实现了UsbInterface接口
+</span><span class="c1"></span>        <span class="n">Camera1</span> <span class="n">camera1</span><span class="o">=</span> <span class="k">new</span> <span class="n">Camera1</span><span class="o">();</span>
+        <span class="c1">//创建计算机对象
+</span><span class="c1"></span>        <span class="n">Computer01</span> <span class="n">computer01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Computer01</span><span class="o">();</span>
+
+        <span class="c1">//把手机接入电脑
+</span><span class="c1"></span>        <span class="n">computer01</span><span class="o">.</span><span class="na">Work</span><span class="o">(</span><span class="n">phone1</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===============&#34;</span><span class="o">);</span>
+        <span class="c1">//把相机接入电脑
+</span><span class="c1"></span>        <span class="n">computer01</span><span class="o">.</span><span class="na">Work</span><span class="o">(</span><span class="n">camera1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/Interface/image05.jpg" alt="image05"  /></p>
+</li>
+<li>
+<p>多态数组的体现</p>
+<p>演示一个案例：给定Usb数组中，存放Phone和Camera对象，Phone类还有一个特有的方法call()，请遍历Usb数组，如果是Phone对象，除了调用Usb接口定义的方法外，还需要调用Phone特有方法call。</p>
+<p>创建接口Usb</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Usb</span><span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">Work</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建接口实现类Phone2与Camrea2</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Phone2</span> <span class="kd">implements</span> <span class="n">Usb</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Work</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Phone工作了&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Phone打电话&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Camera2</span> <span class="kd">implements</span> <span class="n">Usb</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Work</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Camera工作了&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类InterfacePolyAry</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfacePolyAry</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//多态数组 -&gt;接口类型数组
+</span><span class="c1"></span>        <span class="n">Usb</span><span class="o">[]</span> <span class="n">usbs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Usb</span><span class="o">[</span><span class="n">2</span><span class="o">];</span>
+        <span class="n">usbs</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Phone2</span><span class="o">();</span>
+        <span class="n">usbs</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera2</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">usbs</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="n">usbs</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">Work</span><span class="o">();</span><span class="c1">//多态绑定
+</span><span class="c1"></span>            <span class="c1">//需要进行类型的向下转型
+</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">usbs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="k">instanceof</span> <span class="n">Phone2</span><span class="o">){</span>
+                <span class="o">((</span><span class="n">Phone2</span><span class="o">)</span> <span class="n">usbs</span><span class="o">[</span><span class="n">i</span><span class="o">]).</span><span class="na">call</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/Interface/image06.jpg" alt="image06"  /></p>
+</li>
+</ol>
+<ul>
+<li>
+<p>接口存在多态传递现象（代码演示）</p>
+<p>创建接口InterfacePoly1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">InterfacePoly1</span><span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">hi</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建接口InterfacePoly2继承了接口创建接口InterfacePoly1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">InterfacePoly2</span> <span class="kd">extends</span> <span class="n">InterfacePoly1</span><span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><p>创建接口实现类InterfacePolyImp</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">InterfacePolyImp</span> <span class="kd">implements</span> <span class="n">InterfacePoly2</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hi</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hi&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类InterfacePolyPass</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.interface_</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterfacePolyPass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//接口类型的变量可以指向实现了该接口的对象实例
+</span><span class="c1"></span>        <span class="n">InterfacePoly2</span> <span class="n">interfacePoly2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InterfacePolyImp</span><span class="o">();</span>
+        <span class="c1">//如果InterfacePoly2继承了InterfacePoly1接口，而InterfacePolyImp实现了InterfacePoly2接口
+</span><span class="c1"></span>        <span class="c1">//那么实际上就相当于InterfacePolyImp实现了InterfacePoly1接口
+</span><span class="c1"></span>        <span class="c1">//这就是所谓的接口多态传递现象
+</span><span class="c1"></span>        <span class="n">InterfacePoly1</span> <span class="n">interfacePoly1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InterfacePolyImp</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E5%86%85%E9%83%A8%E7%B1%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java内部类</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javaoop_02/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/Java_OOP_02.jpg" loading="lazy" data-key="" data-hash="/Java_OOP_02.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaOOP_02</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javaoop_01/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/Java_OOP_01.jpg" loading="lazy" data-key="" data-hash="/Java_OOP_01.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaOOP_01</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#javainterface">JavaInterface</a>
+      <ol>
+        <li><a href="#接口基本介绍">接口基本介绍</a></li>
+        <li><a href="#接口的注意事项与使用细节">接口的注意事项与使用细节</a></li>
+        <li><a href="#接口实现与类继承">接口实现与类继承</a></li>
+        <li><a href="#接口的多态性">接口的多态性</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

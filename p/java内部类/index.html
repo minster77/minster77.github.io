@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='内部类的介绍及分类'><title>Java内部类</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java内部类'>
+<meta property='og:description' content='内部类的介绍及分类'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-05-03T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-05-03T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java内部类">
+<meta name="twitter:description" content="内部类的介绍及分类">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java_oop/" >
+                Java_OOP
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E5%86%85%E9%83%A8%E7%B1%BB/">Java内部类</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        内部类的介绍及分类
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 03, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="java内部类">Java内部类</h2>
+<hr>
+<ol>
+<li>内部类的基本介绍</li>
+<li>局部内部类</li>
+<li>匿名内部类</li>
+<li>成员内部类</li>
+<li>静态内部类</li>
+</ol>
+<hr>
+<h3 id="内部类基本介绍">内部类基本介绍</h3>
+<ul>
+<li>
+<p>一个类的内部又完整的嵌套了另一个类结构。被嵌套的类又称为内部类，嵌套其他类的类称为外部类。<strong>是类的五大成员之一（属性、方法、构造器、代码块、内部类）。</strong></p>
+</li>
+<li>
+<p>内部类最大的特点就是可以直接访问私有属性，并且可以体现类与类之间的包含关系</p>
+</li>
+<li>
+<p>基本语法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Outer</span><span class="o">{</span><span class="c1">//外部类
+</span><span class="c1"></span>    <span class="kd">class</span> <span class="nc">Inner</span><span class="o">{</span><span class="c1">//内部类
+</span><span class="c1"></span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Other</span><span class="o">{</span><span class="c1">//外部其他类
+</span><span class="c1"></span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>内部类的分类</p>
+<ul>
+<li>定义在外部类的局部位置上（比如方法内）：
+<ol>
+<li>局部内部类（有类名）</li>
+<li>匿名内部类（没有类名，重点！）</li>
+</ol>
+</li>
+<li>定义在外部类的成员位置上：
+<ol>
+<li>成员内部类（没用static修饰）</li>
+<li>静态内部类（使用static修饰）</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="局部内部类">局部内部类</h3>
+<p>说明：局部内部类是定义在外部类的局部位置上的，通常在方法中，并且有类名。</p>
+<ol>
+<li>
+<p>可以直接访问外部类的所有成员，包含私有的</p>
+</li>
+<li>
+<p>不能添加访问修饰符，因为它的地位就是一个局部变量。局部变量是不能使用修饰符的。但是可以使用final修饰，因为局部变量也可以使用final。（使用了final说明该内部类不能被继承！）</p>
+</li>
+<li>
+<p>作用域：仅仅在定义它的方法或代码块中。</p>
+</li>
+<li>
+<p>局部内部类访问外部类的成员（访问方式：直接访问）</p>
+</li>
+<li>
+<p>外部类访问局部内部类的成员（访问方式：创建对象，再访问[<strong>注意，必须在作用域内！</strong>]）</p>
+<p>代码演示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LocalInnerClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Outer01</span> <span class="n">outer01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer01</span><span class="o">();</span>
+        <span class="n">outer01</span><span class="o">.</span><span class="na">m2</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Outer01</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">m1</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;m1&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">m2</span><span class="o">(){</span>
+        <span class="c1">//定义为final就不能被继承
+</span><span class="c1"></span>        <span class="c1">//作用域：定义它的方法或代码块中
+</span><span class="c1"></span>        <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Inner01</span><span class="o">{</span><span class="c1">//局部内部类
+</span><span class="c1"></span>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">f1</span><span class="o">(){</span>
+                <span class="c1">//访问外部类的成员属性n与m1
+</span><span class="c1"></span>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;n = &#34;</span><span class="o">+</span> <span class="n">n</span><span class="o">);</span>
+                <span class="n">m1</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">//外部类调用必须在内部类的作用域内！
+</span><span class="c1"></span>        <span class="n">Inner01</span> <span class="n">inner01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Inner01</span><span class="o">();</span>
+        <span class="n">inner01</span><span class="o">.</span><span class="na">f1</span><span class="o">();</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<ul>
+<li>
+<p>外部其他类不能访问局部内部类！因为局部内部类是一个局部变量</p>
+</li>
+<li>
+<p>如果外部类和局部内部类的成员重名时，默认遵循<strong>就近原则</strong>，如果想要访问外部类的成员，则可以使用(外部类目.this.成员)去访问。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;OuterClass的n2 = &#34;</span><span class="o">+</span> <span class="n">OuterClass</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">n2</span><span class="o">);</span>
+</code></pre></div><p>OuterClass.this本质就是外部类的对象，即哪个对象调用了内部类作用域的方法，OuterClass.this就是哪个对象</p>
+</li>
+</ul>
+<h3 id="匿名内部类">匿名内部类</h3>
+<p>说明：匿名内部类是定义在外部类的局部位置，比如方法中，并且没有类名（系统的底层有给他分配名字）。</p>
+<ol>
+<li>
+<p>匿名内部类的基本语法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">new</span> <span class="n">类或接口</span><span class="o">(</span><span class="n">参数列表</span><span class="o">){</span>
+    <span class="c1">//类体
+</span><span class="c1"></span><span class="o">};</span>
+</code></pre></div></li>
+<li>
+<p>匿名内部类的本质（代码演示）</p>
+<p>有一个需求，想要使用AnonInterface接口，并创建对象。</p>
+<p>传统的方式是写一个类，实现该接口，并创建其对象。</p>
+<p>AnonmousInterface接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">AnonInterface</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cry</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>Tiger类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Tiger</span> <span class="kd">implements</span> <span class="n">AnonInterface</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cry</span><span class="o">(){</span>
+        <span class="nd">@Override</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Titge 在叫&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>然后在main函数创建其对象即可</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonymousInnerClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">AnonInterface</span> <span class="n">tiger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tiger</span><span class="o">();</span>
+        <span class="n">tiger</span><span class="o">.</span><span class="na">cry</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>如果我们现在的需求改为Tiger类只使用一次，后面不再使用时。我们可以使用匿名内部类来简化开发。</p>
+<p>AnonInterface接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">AnonInterface</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cry</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>外部类Outer02</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span>   <span class="nc">Outer02</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
+        <span class="c1">//使用匿名内部类
+</span><span class="c1"></span>        <span class="n">AnonInterface</span> <span class="n">tiger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnonInterface</span><span class="o">(){</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cry</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;tiger 在叫&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">tiger</span><span class="o">.</span><span class="na">cry</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>main</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonymousInnerClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Outer02</span> <span class="n">outer02</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer02</span><span class="o">();</span>
+        <span class="n">outer02</span><span class="o">.</span><span class="na">method</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>上述代码与传统方式均实现了需求，而且上面的代码，Tiger类只使用了一次。这就是匿名内部类的奇妙之处！</p>
+<p>思考：上述外部类Outer02中，Tiger的编译类型及运行类型分别是什么？</p>
+<ul>
+<li>
+<p>Tiger的编译类型为接口AnonInterface</p>
+</li>
+<li>
+<p>Tiger的运行类型为匿名内部类 Outer02$1</p>
+<p>其实在使用匿名内部类时，底层是给该内部类分配了名字的</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">Outer02$1</span> <span class="kd">implements</span> <span class="n">AnonInterface</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="n">pubilc</span> <span class="kt">void</span> <span class="nf">cry</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Tiger 在叫&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>我们通过getclass()方法可以验证上述代码。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">tiger</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+</code></pre></div><p><img src="/image/Interface/image07.jpg" alt="image07"  /></p>
+<p>而且，在外部类Outer02中，AnonInterface tiger = new AnonInterface()这条语句的执行，jdk底层会在创建匿名内部类Outer02$1时，立刻创建Outer02$1实例，并且把地址返回给tiger</p>
+<p><img src="/image/Interface/image08.jpg" alt="image08"  /></p>
+</li>
+</ul>
+<p><strong>需要注意的是：匿名内部类Outer02$1是只使用一次，就不能再使用。而对象Tiger能重复使用！</strong></p>
+<p>基于类构建的匿名内部类也与上述大体一致。</p>
+</li>
+<li>
+<p>匿名内部类的细节</p>
+<ul>
+<li>
+<p>匿名内部类的语法比较奇特，需要注意的是，因为匿名内部类既是一个类的定义，同时它本身也是一个对象，因此从语法上看，它既有定义类的特征，也有创建对象的特征。因此可以直接调用匿名内部类的方法。</p>
+<p>代码演示：</p>
+<p>创建Person类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hi</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hi&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hi &#34;</span><span class="o">+</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建外部类Outer03</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Outer03</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">f1</span><span class="o">(){</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(){</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hi</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;匿名内部类重写了Hi方法&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+        <span class="c1">//动态绑定，person的运行类型是Outer03$1
+</span><span class="c1"></span>        <span class="n">person</span><span class="o">.</span><span class="na">hi</span><span class="o">();</span>
+
+        <span class="c1">//因为匿名内部类返回的是一个对象（new），所以可以直接调用方法
+</span><span class="c1"></span>        <span class="c1">//在底层 class 匿名内部类 extends Person
+</span><span class="c1"></span>        <span class="k">new</span> <span class="n">Person</span><span class="o">(){</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">sayHi</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}.</span><span class="na">sayHi</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建AnonymousInnerClassDetail</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonymousInnerClassDetail</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Outer03</span> <span class="n">outer03</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer03</span><span class="o">();</span>
+        <span class="n">outer03</span><span class="o">.</span><span class="na">f1</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>输出结果：</p>
+<p><img src="/image/Interface/image09.jpg" alt="image09"  /></p>
+</li>
+<li>
+<p>外部其他类不能访问匿名内部类</p>
+</li>
+</ul>
+</li>
+<li>
+<p>匿名内部类的实践</p>
+<p>匿名内部类可以当做实参直接传递，简洁高效，避免硬编码</p>
+<p>创建接口InterfaceExercise</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">InterfaceExercise</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建InnerClassExercise01</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InnerClassExercise01</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//匿名内部类做形参，简洁高效。
+</span><span class="c1"></span>        <span class="n">f1</span><span class="o">(</span><span class="k">new</span> <span class="n">InterfaceExercise</span><span class="o">(){</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;这是一幅名画...&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+    <span class="c1">//静态方法，参数是接口类型
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">f1</span><span class="o">(</span><span class="n">InterfaceExercise</span> <span class="n">iE</span><span class="o">){</span>
+        <span class="n">iE</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>如果使用实现类实现该接口，那修改一个实现类的对象时会影响到其他的实现类对象。而使用匿名内部类，可以避免这个问题，并且这个类只使用一次即可。</p>
+<p><img src="/image/Interface/image10.jpg" alt="image10"  /></p>
+</li>
+</ol>
+<h3 id="成员内部类">成员内部类</h3>
+<p>说明：成员内部类是定义在外部类的成员位置，并且没有static修饰。</p>
+<ol>
+<li>
+<p>可以直接访问外部类的所有成员，包含私有的</p>
+</li>
+<li>
+<p>可以添加任意访问修饰符(public,protected,默认,private)，因为它的地位就是一个成员。</p>
+<p>代码演示：</p>
+<p>创建外部类Outer05</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Outer05</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="c1">//定义在成员位置上，可以添加修饰符！
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Inner04</span><span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">(){</span>
+            <span class="c1">//可以访问外部类的私有属性
+</span><span class="c1"></span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;成员内部类 i = &#34;</span><span class="o">+</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c1">//因为作用域是方法或代码块内，所以需要写一个方法来使用内部类
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">t1</span><span class="o">(){</span>
+        <span class="n">Inner04</span> <span class="n">inner04</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Inner04</span><span class="o">();</span>
+        <span class="n">inner04</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类MemberInnerClass</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberInnerClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Outer05</span> <span class="n">outer05</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer05</span><span class="o">();</span>
+    <span class="n">outer05</span><span class="o">.</span><span class="na">t1</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/Interface/image11.jpg" alt="image11"  /></p>
+</li>
+<li>
+<p>作用域与外部类的其他成员一样，为整个类体。比如上述案例，在外部类的成员方法中创建成员内部类对象，再调用方法。</p>
+</li>
+<li>
+<p>外部其他类可以访问成员内部类</p>
+<p>外部其他类使用成员内部类的两种方式</p>
+<p>第一种方式</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//第一种方式
+</span><span class="c1">//outer05.new Inner04();相当于把 new Inner04()当做是outer05的成员
+</span><span class="c1"></span><span class="n">Outer05</span><span class="o">.</span><span class="na">Inner04</span> <span class="n">inner04</span> <span class="o">=</span> <span class="n">outer05</span><span class="o">.</span><span class="na">new</span> <span class="nf">Inner04</span><span class="o">();</span>
+</code></pre></div><p>第二种方式</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//在外部类中编写一个方法，可以返回一个Inner04的值
+</span><span class="c1"></span><span class="n">Outer05</span><span class="o">.</span><span class="na">Inner04</span> <span class="n">getInner04</span> <span class="o">=</span> <span class="n">outer05</span><span class="o">.</span><span class="na">getInner04</span><span class="o">();</span>
+</code></pre></div><p>外部类Outer05中</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//该方法返回一个成员内部类
+</span><span class="c1"></span><span class="n">Inner04</span> <span class="nf">getInner04</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Inner04</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<h3 id="静态内部类">静态内部类</h3>
+<p>说明：静态内部类定义在外部类的成员位置，并且有static修饰</p>
+<ol>
+<li>
+<p>可以直接访问外部类的所有静态成员，包括私有的，但不能直接访问非静态成员</p>
+<p><img src="/image/Interface/image12.jpg" alt="image12"  /></p>
+</li>
+<li>
+<p>可以添加任意访问修饰符(public,protected,默认,private)，因为它的地位就是一个成员。</p>
+</li>
+<li>
+<p>作用域：同其他成员，为整个类体</p>
+<p>代码演示</p>
+<p>创建Outer06类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Outer06</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">n1</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Inner06</span><span class="o">{</span>
+        <span class="kt">void</span> <span class="nf">say</span><span class="o">(){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hi n = &#34;</span> <span class="o">+</span> <span class="n">n2</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">t1</span><span class="o">(){</span>
+        <span class="n">Inner06</span> <span class="n">inner06</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Inner06</span><span class="o">();</span>
+        <span class="n">inner06</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类StaticInnerClass</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.innerclass</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StaticInnerClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Outer06</span> <span class="n">outer06</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer06</span><span class="o">();</span>
+        <span class="n">outer06</span><span class="o">.</span><span class="na">t1</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/Interface/image13.jpg" alt="image13"  /></p>
+</li>
+<li>
+<p>静态内部类要访问外部类的话，可以访问其全部静态成员。</p>
+</li>
+<li>
+<p>外部类访问静态内部类，需要先创建对象，再访问。</p>
+</li>
+<li>
+<p>外部其他类使用静态内部类的方式有两种，与成员内部类的一样。</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/javainterface/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaInterface</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javaoop_02/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/Java_OOP_02.jpg" loading="lazy" data-key="" data-hash="/Java_OOP_02.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaOOP_02</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/javaoop_01/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/Java_OOP_01.jpg" loading="lazy" data-key="" data-hash="/Java_OOP_01.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JavaOOP_01</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#java内部类">Java内部类</a>
+      <ol>
+        <li><a href="#内部类基本介绍">内部类基本介绍</a></li>
+        <li><a href="#局部内部类">局部内部类</a></li>
+        <li><a href="#匿名内部类">匿名内部类</a></li>
+        <li><a href="#成员内部类">成员内部类</a></li>
+        <li><a href="#静态内部类">静态内部类</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
