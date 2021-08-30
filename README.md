@@ -17,6 +17,10 @@ MyBlog
 
 ### [面向对象的深入学习](https://minster77.github.io/p/javaoop_02/)
 
+### [接口的定义及使用](https://minster77.github.io/p/javainterface/)
+
+### [常用的四个内部类解析及用法](https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/)
+
 ### [Java异常处理机制](https://minster77.github.io/p/javaexception/)
 
 ### [Java IO流的基本概念](https://minster77.github.io/p/java_io%E6%B5%81/)

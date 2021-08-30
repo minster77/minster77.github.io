@@ -3376,7 +3376,8 @@
 &lt;/ul&gt;
 &lt;h4 id=&#34;内部类&#34;&gt;内部类&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;内部类就是在一个类的内部再定义一个类
+&lt;li&gt;内部类就是在一个类的内部再定义一个类,详解见&lt;a class=&#34;link&#34; href=&#34;https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;内部类解析&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;成员内部类&lt;/li&gt;
 &lt;li&gt;静态内部类&lt;/li&gt;
