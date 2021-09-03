@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+   代理模式的定义
+​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
+  意图
+​	为其他对象提供一种代理以控制队这个对象的访问。
+  代理模式的结构
+ 抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
+​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
+  静态代理简单实现
+​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道抽象主题角色便是婚礼（结婚），然后代理主题角色是婚礼公司，真实主题角色是jack。
+​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
+创建接口Marry
+interface Marry{ void HoldWedding(); } 创建被代理类Customer
+class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
+class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.'><title>Java静态代理模式</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java静态代理模式'>
+<meta property='og:description' content='静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+   代理模式的定义
+​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
+  意图
+​	为其他对象提供一种代理以控制队这个对象的访问。
+  代理模式的结构
+ 抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
+​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
+  静态代理简单实现
+​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道抽象主题角色便是婚礼（结婚），然后代理主题角色是婚礼公司，真实主题角色是jack。
+​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
+创建接口Marry
+interface Marry{ void HoldWedding(); } 创建被代理类Customer
+class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
+class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='设计模式' /><meta property='article:published_time' content='2021-09-02T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-09-02T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java静态代理模式">
+<meta name="twitter:description" content="静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+   代理模式的定义
+​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
+  意图
+​	为其他对象提供一种代理以控制队这个对象的访问。
+  代理模式的结构
+ 抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
+​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
+  静态代理简单实现
+​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道抽象主题角色便是婚礼（结婚），然后代理主题角色是婚礼公司，真实主题角色是jack。
+​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
+创建接口Marry
+interface Marry{ void HoldWedding(); } 创建被代理类Customer
+class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
+class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/designpattern/" >
+                DesignPattern
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">Java静态代理模式</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 02, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="静态代理模式">静态代理模式</h2>
+<blockquote>
+<p><strong>间接的“美”</strong>
+　中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。
+　　　　　　　　　　　　　　　　　　　　　　　　　　&mdash;-&laquo;Java与模式&raquo;</p>
+</blockquote>
+<ul>
+<li>
+<p>代理模式的定义</p>
+<p>​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。</p>
+</li>
+<li>
+<p>意图</p>
+<p>​	为其他对象提供一种代理以控制队这个对象的访问。</p>
+</li>
+<li>
+<p>代理模式的结构</p>
+<ul>
+<li><strong>抽象主题角色（接口）</strong>：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。</li>
+<li><strong>代理主题（Peoxy）角色（代理类）</strong>：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。</li>
+<li><strong>真实主题角色（被代理类）</strong>：定义了代理角色所代表的真实对象。</li>
+</ul>
+</li>
+<li>
+<p>静态代理</p>
+<p>​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。</p>
+</li>
+<li>
+<p>静态代理简单实现</p>
+<p>​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道<strong>抽象主题角色便是婚礼（结婚）</strong>，然后<strong>代理主题角色是婚礼公司</strong>，<strong>真实主题角色是jack</strong>。</p>
+<p>​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。</p>
+<p>创建接口Marry</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Marry</span><span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">HoldWedding</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>创建被代理类Customer</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Customer</span> <span class="kd">implements</span> <span class="n">Marry</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">HoldWedding</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;我是jack，我结婚了！&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建代理类WeddingCompany</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">WeddingCompany</span> <span class="kd">implements</span> <span class="n">Marry</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Customer</span> <span class="n">customer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WeddingCompany</span><span class="o">(</span><span class="n">Customer</span> <span class="n">customer</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">customer</span> <span class="o">=</span> <span class="n">customer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">HoldWedding</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">before</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">customer</span><span class="o">.</span><span class="na">HoldWedding</span><span class="o">();</span>
+        <span class="n">after</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">before</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;结婚之前，布置场地&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">after</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;结婚之后，收尾款&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类StaticProxy</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.polymorphic</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StaticProxy</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Marry</span> <span class="n">marry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeddingCompany</span><span class="o">(</span><span class="k">new</span> <span class="n">Customer</span><span class="o">());</span>
+        <span class="n">marry</span><span class="o">.</span><span class="na">HoldWedding</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行结果</p>
+<p><img src="/image/polymorphic/StaticProxyImage1.png" alt="StaticProxyImage1"  /></p>
+</li>
+<li>
+<p>总结</p>
+<ul>
+<li>真实对象和代理对象都要实现同一个接口</li>
+<li>代理对象要代理真实角色</li>
+<li>代理对象可以做很多真实对象做不了的事情</li>
+<li>真实对象可以专注自己的事情</li>
+</ul>
+</li>
+<li>
+<p>而在通过Runnable接口创建线程时，启动线程需要借助Thread类，这里就涉及到了静态代理模式。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Marry</span> <span class="n">marry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeddingCompany</span><span class="o">(</span><span class="k">new</span> <span class="n">Customer</span><span class="o">());</span>
+<span class="n">marry</span><span class="o">.</span><span class="na">HoldWedding</span><span class="o">();</span>
+<span class="c1">//如果我们把上述代码简写一下
+</span><span class="c1"></span><span class="k">new</span> <span class="n">WeddingCompany</span><span class="o">(</span><span class="k">new</span> <span class="n">Customer</span><span class="o">()).</span><span class="na">HoldWedding</span><span class="o">();</span>
+<span class="c1">//对照Runnable接口创建线程时，启动线程的方法
+</span><span class="c1"></span><span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">TestThread</span><span class="o">()).</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div><p>可以发现上面代码块的第四行与第六行有异曲同声的美妙！</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java单例模式</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#静态代理模式">静态代理模式</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

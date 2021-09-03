@@ -21,6 +21,26 @@ package com.polymorphic; public class Test { int a = 1; int number = 100000; // 
     </item>
     
     <item>
+      <title>Java编程思想集合篇（二）</title>
+      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</link>
+      <pubDate>Sun, 01 Aug 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</guid>
+      <description>Lamda表达式   Lambda表达式，可以称为闭包，它是推动Java8发动的最重要新特性
+  Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）
+  为什么要使用Lambda表达式
+ 可以避免匿名内部类定义过多 可以让你的代码看起来更加简洁 去掉了一堆没有意义的代码，只留下核心的逻辑    基本语法
+(parameters)-&amp;gt;expression[表达式]; (parameters)-&amp;gt;statement[语句]; (parameters)-&amp;gt;{statement};   函数式接口（Functional Interface）是学习Lambda表达式的关键所在。其定义为：
+  任何接口，如果只包含唯一一个抽象方法，那么它就是一个函数式接口。
+public interface Runnable{ public abstract void run(); }   对于函数式接口，我们可以通过lambda表达式来创建该接口的对象。
+    Lambda表达式的推导演示
+现在，我们有一个函数式接口LambdaInterface，它只有一个抽象方法我们该怎样实现他的方法并执行呢？
+  接口LambdaInterface
+//创建函数式接口 interface LambdaInterface { void lambda(); }     创建实现类去实现接口，再创建实现类的对象，调用该方法
+//1.创建实现类实现接口 class LambdaImp implements LambdaInterface { @Override public void lambda() { System.</description>
+    </item>
+    
+    <item>
       <title>polymorphic</title>
       <link>https://minster77.github.io/p/polymorphic/</link>
       <pubDate>Mon, 28 Jun 2021 16:22:25 +0800</pubDate>

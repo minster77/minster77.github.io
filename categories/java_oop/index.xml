@@ -6,44 +6,7 @@
     <description>Recent content in Java_OOP on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/java_oop/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>JavaInterface</title>
-      <link>https://minster77.github.io/p/javainterface/</link>
-      <pubDate>Tue, 04 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/javainterface/</guid>
-      <description>JavaInterface   接口的基本介绍 接口的注意事项及使用细节 接口实现与类的继承 接口的多态性   接口基本介绍   接口就是给出一些没有实现的方法，封装到一起，到某个类要使用的时候，再根据具体情况把这些方法写出来。
-接口的定义：
-interface 接口名{ //属性  //方法 } 类实现接口:
-class ClassName implements Interface { //自己的属性  //自己的方法  //必须实现的接口的抽象方法 }   在jdk7前，接口里的所以方法都没有方法体，即都是抽象方法。
-  jdk8后接口可以有静态方法，默认方法，也就是说接口中可以有方法的具体实现。但默认方法需要使用default关键字修饰
-  在接口中，定义抽象方法时可以省略abstract关键字。如果一个类实现了接口，则需要把接口的所有抽象方法都实现。
-代码演示
-创建接口Interface01
-package com.interface_; public interface Interface01 { //定义属性  public int n =1; //定义抽象方法  public void A(); //定义默认方法  default public void B(){ System.out.println(&amp;#34;我是默认方法&amp;#34;); } //定义静态方法  public static void C(){ System.</description>
-    </item>
-    
-    <item>
-      <title>Java内部类</title>
-      <link>https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/</link>
-      <pubDate>Mon, 03 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java%E5%86%85%E9%83%A8%E7%B1%BB/</guid>
-      <description>Java内部类   内部类的基本介绍 局部内部类 匿名内部类 成员内部类 静态内部类   内部类基本介绍   一个类的内部又完整的嵌套了另一个类结构。被嵌套的类又称为内部类，嵌套其他类的类称为外部类。是类的五大成员之一（属性、方法、构造器、代码块、内部类）。
-  内部类最大的特点就是可以直接访问私有属性，并且可以体现类与类之间的包含关系
-  基本语法
-class Outer{//外部类  class Inner{//内部类  } } class Other{//外部其他类  }   内部类的分类
- 定义在外部类的局部位置上（比如方法内）：  局部内部类（有类名） 匿名内部类（没有类名，重点！）   定义在外部类的成员位置上：  成员内部类（没用static修饰） 静态内部类（使用static修饰）      局部内部类 说明：局部内部类是定义在外部类的局部位置上的，通常在方法中，并且有类名。
-  可以直接访问外部类的所有成员，包含私有的
-  不能添加访问修饰符，因为它的地位就是一个局部变量。局部变量是不能使用修饰符的。但是可以使用final修饰，因为局部变量也可以使用final。（使用了final说明该内部类不能被继承！）
-  作用域：仅仅在定义它的方法或代码块中。
-  局部内部类访问外部类的成员（访问方式：直接访问）
-  外部类访问局部内部类的成员（访问方式：创建对象，再访问[注意，必须在作用域内！]）
-代码演示
-package com.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 02 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/java_oop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaOOP_02</title>
       <link>https://minster77.github.io/p/javaoop_02/</link>

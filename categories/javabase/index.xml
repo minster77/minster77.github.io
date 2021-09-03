@@ -22,32 +22,6 @@ package com.polymorphic; public class Test { public static void main(String[] ar
     </item>
     
     <item>
-      <title>Java_IO流_2</title>
-      <link>https://minster77.github.io/p/java_io%E6%B5%81_2/</link>
-      <pubDate>Sat, 19 Jun 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java_io%E6%B5%81_2/</guid>
-      <description>JavaIO流2   BufferedReader与BufferedWriter 使用字节流实现对二进制文件复制 对象流 标准输入输出流 转换流 打印流 Properties类   BufferedReader与BufferedWriter   BufferedReader和BufferedWriter属于字符流，是按照字符来读取数据的。
-  关闭处理流的时候，只需要关闭外层流即可
-演示bufferedReader的使用
-package com.java_io; import java.io.BufferedReader; import java.io.FileReader; public class BufferedReaderTest { public static void main(String[] args) throws Exception{ String path = &amp;#34;E://note.txt&amp;#34;; //创建BufferedReader对象  BufferedReader bufferedReader = new BufferedReader(new FileReader(path)); //按行读取，提高效率  String line; /* * bufferedReader.readLine()是按行读取文件的 * 当返回null时，表示已读取完毕 */ while ((line =bufferedReader.readLine())!=null){ System.out.println(line); } bufferedReader.close(); } }   需要注意的是，关闭流时只需要关闭BufferedReader。因为底层会自动关闭节点流</description>
-    </item>
-    
-    <item>
-      <title>Java_IO流</title>
-      <link>https://minster77.github.io/p/java_io%E6%B5%81/</link>
-      <pubDate>Sat, 29 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java_io%E6%B5%81/</guid>
-      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
-  文件流
-文件在程序中是以流的形式来操作的
- 流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
-    使用new File（String pathname）创建
-package com.java_io; import org.junit.Test; import java.io.File; import java.io.IOException; public class FileCreate1 { public static void main(String[] args) { } //方法1：使用new File(filePath)创建文件  @Test public void createFile01() throws IOException { //创建的文件路径名称  String filePath = &amp;#34;e:\\news1.</description>
-    </item>
-    
-    <item>
       <title>JavaArray</title>
       <link>https://minster77.github.io/p/javaarray/</link>
       <pubDate>Tue, 20 Apr 2021 16:22:25 +0800</pubDate>

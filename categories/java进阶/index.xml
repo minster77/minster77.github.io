@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java进阶 on MinsterBlog</title>
+    <link>https://minster77.github.io/categories/java%E8%BF%9B%E9%98%B6/</link>
+    <description>Recent content in Java进阶 on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Sep 2020 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/java%E8%BF%9B%E9%98%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaThread</title>
+      <link>https://minster77.github.io/p/javathread/</link>
+      <pubDate>Wed, 02 Sep 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/javathread/</guid>
+      <description>多线程详解   进程与线程简介 创建线程 线程状态 线程同步 线程协作 线程池   进程与线程简介   进程（Process）：指在系统中正在运行的一个应用程序；程序一旦运行就是进程；进程——系统资源分配的最小单位。
+  线程（Thread）：系统分配处理器时间资源的基本单元，或者说进程之内独立执行的一个单元执行流。线程——程序执行的最小单位。
+  两者之间的区别见下图
+可以发现，进程是由（线程+内存+文件/网络句柄）等元素构成的
+  注意：很多多线程是模拟出来的，真正的多线程是指有多个cpu，即多核，如服务器。如果是模拟出来的多线程，即在一个CPU的情况下，在同一个时间点，CPU只能执行一个代码，因为切换的很快，所以就有同时执行的错觉。
+  普通方法调用和多线程
+  核心概念
+ 线程就是独立的执行路径 在程序执行时，即使没有自己创建1线程，后台也会有多个线程，如主线程，gc线程(垃圾回收线程)。 main()称之为主线程，为系统的入口，用于执行整个程序 在一个程序中，如果开辟了多个线程，线程的运行由调度器安排调度，调度器是与操作系统紧密相关的，先后顺序是不能人为干预的 对同一份资源操作时，会存在资源抢夺的问题，需要加入并发控制。 线程会带来额外的开销，如CPU调度时间；并发控制开销。 每个线程在自己的工作内存交互，内存控制不当会造成数据不一致。    创建线程 三种创建方式
+  继承Thread创建线程
+ 自定义线程类继承Thread类 重写run()方法，编写线程执行体 创建线程对象，调用start()方法启动线程  创建TestThread01类，实现继承Thread类创建线程
+package com.thread_; //创建线程类方式一：继承Thread类，重写run方法，在主线程调用start开启线程。 public class TestThread01 extends Thread{ //run方法线程体  @Override public void run() { for (int i = 0; i &amp;lt; 50; i++) { System.</description>
+    </item>
+    
+  </channel>
+</rss>
