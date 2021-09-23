@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='MySQL的存储引擎、事务、索引以及B树等'><title>MySQL的进阶使用</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MySQL的进阶使用'>
+<meta property='og:description' content='MySQL的存储引擎、事务、索引以及B树等'>
+<meta property='og:url' content='https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySQL' /><meta property='article:published_time' content='2021-09-02T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-09-02T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="MySQL的进阶使用">
+<meta name="twitter:description" content="MySQL的存储引擎、事务、索引以及B树等">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mysql/" >
+                MySQL
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/">MySQL的进阶使用</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        MySQL的存储引擎、事务、索引以及B树等
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 02, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="mysql二">MySQL（二）</h2>
+<hr>
+<ol>
+<li>存储引擎</li>
+<li>事务</li>
+<li>索引</li>
+<li>备份与还原</li>
+<li>视图</li>
+</ol>
+<hr>
+<h3 id="存储引擎">存储引擎</h3>
+<p>​	存储引擎是MySQL中特有的一个术语，其它数据库中没有。（Oracle中有，但是不叫这个名字）；实际上存储引擎是一个<strong>表存储/组织数据的方式</strong>。不同的存储引擎，表存储数据的方式不同。</p>
+<ul>
+<li>
+<p><strong>创建存储引擎</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">t_student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">student_id</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">student_name</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">sex</span><span class="o">`</span><span class="w"> </span><span class="kt">char</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">birthday</span><span class="o">`</span><span class="w"> </span><span class="kt">date</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">email</span><span class="o">`</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">classes_id</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">student_id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">fk_classes_id</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">classes_id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">fk_classes_id</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">classes_id</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">t_classes</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">classes_id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="kp">CHARSET</span><span class="o">=</span><span class="n">gbk</span><span class="w">
+</span><span class="w"></span><span class="c1">--  ENGINE=InnoDB就是指定存储引擎 CHARSET是字符集
+</span></code></pre></div><blockquote>
+<p>mysql默认的存储引擎是InnoDB。CHARSET默认的字符集是utf8</p>
+</blockquote>
+</li>
+<li>
+<p><strong>MySQL有哪些常用的存储引擎</strong></p>
+<p>CMD下使用show engines\G可以查看MySQL支持的存储引擎</p>
+<ol>
+<li>
+<p>MyISAM存储引擎
+它管理的表具有以下特征：
+使用三个文件表示每个表：</p>
+<ul>
+<li>格式文件 — 存储表结构的定义（mytable.frm）</li>
+<li>数据文件 — 存储表行的内容（mytable.MYD）</li>
+<li>索引文件 — 存储表上索引（mytable.MYI）：索引是一本书的目录，缩小扫描范围，提高查询效率的一种机制。</li>
+<li>可被转换为压缩、只读表来节省空间</li>
+</ul>
+<blockquote>
+<p>提示一下：对于一张表来说，只要是主键，或者加有unique约束的字段上会自动创建索引。</p>
+<p>MyISAM存储引擎特点：可被转换为压缩、只读表来节省空间这是这种存储引擎的优势！！！！</p>
+<p>MyISAM不支持事务机制，安全性低。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>InnoDB存储引擎</strong></p>
+<ul>
+<li>这是mysql默认的存储引擎，同时也是一个重量级的存储引擎。</li>
+<li>InnoDB支持事务，支持数据库崩溃后自动恢复机制。</li>
+<li>InnoDB存储引擎最主要的特点是：非常安全。</li>
+<li>它管理的表具有下列主要特征：
+<ol>
+<li>每个 InnoDB 表在数据库目录中以.frm 格式文件表示</li>
+<li>InnoDB 表空间 tablespace 被用于存储表的内容（<strong>表空间是一个逻辑名，表空间存储数据+索引。</strong>）</li>
+<li>提供一组用来记录事务性活动的日志文件</li>
+<li>用 COMMIT(提交)、SAVEPOINT 及ROLLBACK(回滚)支持事务处理</li>
+<li>提供全 ACID 兼容</li>
+<li>在 MySQL 服务器崩溃后提供自动恢复</li>
+<li>多版本（MVCC）和行级锁定</li>
+<li>支持外键及引用的完整性，包括级联删除和更新</li>
+</ol>
+</li>
+<li>InnoDB最大的特点就是支持事务：以保证数据的安全。效率不是很高，并且也不能压缩，不能转换为只读，不能很好的节省存储空间。</li>
+</ul>
+</li>
+<li>
+<p><strong>MEMORY存储引擎</strong></p>
+<ul>
+<li>使用 MEMORY 存储引擎的表，其数据存储在内存中，且行的长度固定，</li>
+<li>这两个特点使得 MEMORY 存储引擎非常快。</li>
+<li>MEMORY 存储引擎管理的表具有下列特征：
+<ol>
+<li>在数据库目录内，每个表均以.frm 格式的文件表示。</li>
+<li>表数据及索引被存储在内存中。（目的就是快，查询快！）</li>
+<li>表级锁机制。</li>
+<li>不能包含 TEXT 或 BLOB 字段。</li>
+</ol>
+</li>
+<li>MEMORY 存储引擎以前被称为HEAP 引擎。</li>
+<li>MEMORY引擎优点：查询效率是最高的。不需要和硬盘交互。</li>
+<li>MEMORY引擎缺点：不安全，关机之后数据消失。因为数据和索引都是在内存当中。</li>
+</ul>
+</li>
+<li>
+<p><strong>MyISAM和InnoDB的区别</strong></p>
+<p>​	在MySQL 5.5 之前，MyISAM 引擎是 MySQL 的默认存储引擎，可谓是风光一时。</p>
+<p>​	虽然，MyISAM 的性能还行，各种特性也还不错（比如全文索引、压缩、空间函数等）。但是，MyISAM 不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。</p>
+<p>​	5.5 版本之后，MySQL 引入了 InnoDB（事务性数据库引擎），MySQL 5.5 版本后默认的存储引擎为 InnoDB。</p>
+<p>下面是两者的简单对比：</p>
+<ol>
+<li>
+<p><strong>是否支持行级锁</strong></p>
+<p>MyISAM只有表级锁(table-level locking)，而InnoDB支持行级锁(eow-level locking)和表级锁，默认为行级锁。</p>
+<p>也就是说，MyISAM一锁就锁住了整张表，这在并发写的时候会很蠢！！这也就是为什么InnoDB在并发写的时候，性能更加厉害了。</p>
+</li>
+<li>
+<p><strong>是否支持事务</strong></p>
+<p>MyISAM不提供事务支持</p>
+<p>InnoDB提供事务支持，具有提交(commit)和回滚(rollback)事务的能力</p>
+</li>
+<li>
+<p><strong>是否支持外键</strong></p>
+<p>MyISAM不支持，InnoDB支持</p>
+<blockquote>
+<p>一般我们也是不建议在数据库层面使用外键的，应用层面可以解决。不过，这样会对数据的一致性造成威胁。具体要不要使用外键还是要根据你的项目来决定</p>
+</blockquote>
+</li>
+<li>
+<p><strong>是否支持数据库异常崩溃后的安全恢复</strong></p>
+<p>MyISAM不支持，InnoDB支持。</p>
+<p>使用InnoDB的数据库在异常崩溃后，数据库重新启动的时候会保证数据库恢复到崩溃前的状态。这个恢复的过程依赖于<code>redo log</code> 。</p>
+<blockquote>
+<ul>
+<li>MySQL InnoDB 引擎使用 <strong>redo log(重做日志)</strong> 保证事务的<strong>持久性</strong>，使用 <strong>undo log(回滚日志)</strong> 来保证事务的<strong>原子性</strong>。</li>
+<li>MySQL InnoDB 引擎通过 <strong>锁机制</strong>、<strong>MVCC</strong> 等手段来保证事务的隔离性（ 默认支持的隔离级别是可重复读 <strong><code>REPEATABLE-READ</code></strong> ）。</li>
+<li>保证了事务的持久性、原子性、隔离性之后，一致性才能得到保障。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p><strong>是否支持 MVCC</strong></p>
+<p>MyISAM 不支持，而 InnoDB 支持。</p>
+<p>讲真，这个对比有点废话，毕竟 MyISAM 连行级锁都不支持。</p>
+<p>MVCC 可以看作是行级锁的一个升级，可以有效减少加锁操作，提供性能。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>锁机制与InnoDB锁算法</strong></p>
+<p><strong>MyISAM和InnoDB存储引擎使用的锁：</strong></p>
+<ul>
+<li>MyISAM采用表级锁(table-level locking)</li>
+<li>InnoDB支持行级锁(row-level locking)</li>
+</ul>
+<p><strong>表级锁和行级锁对比：</strong></p>
+<ul>
+<li>
+<p><strong>表级锁：<strong>MySQL中锁定</strong>粒度最大</strong>的一种锁，对当前操作的整张表加锁，实现简单，资源消耗也比较少，加锁快，不会出现死锁。其锁定粒度最大，触发锁冲突的概率最高，并发度最低，MyISAM和InnoDB引擎都支持表级锁。</p>
+</li>
+<li>
+<p><strong>行级锁：<strong>MySQL中锁定</strong>粒度最小</strong>的一种锁，只针对当前操作的行进行加锁。行级锁能大大减少数据库操作的冲突。其加锁粒度最小，并发度高，但加锁的开销也最大，加锁慢，会出现死锁。</p>
+<blockquote>
+<p><strong>锁粒度</strong>：所谓加锁粒度就是你要锁住的范围是多大。</p>
+<p>比如你在家上卫生间，你只要锁住卫生间就可以了吧，不需要将整个家都锁起来不让家人进门吧，卫生间就是你的加锁粒度。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>InnoDB存储引擎的锁的算法有三种：</strong></p>
+<ul>
+<li>Record lock：记录锁，单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li>Next-key lock：record+gap临键锁，锁定一个范围，包含记录本身</li>
+</ul>
+</li>
+</ul>
+<h3 id="事务">事务</h3>
+<ol>
+<li>
+<p><strong>什么是事务？</strong></p>
+<p>事务其实就是一个完整的业务逻辑。</p>
+<blockquote>
+<p>一个完整的业务逻辑：假设A向B转账1000；将A账户的钱减去1000；将B账户的钱增加1000。这就是一个完整的业务逻辑</p>
+<p>以上的操作是一个最小的工作单元，要么同时成功，要么同时失败，不可再分。这两个update语句要求必须同时成功或者同时失败，这样才能保证钱是正确的</p>
+</blockquote>
+<p>在本质上，一个事务其实就是多条DML语句同时成功或同时失败。</p>
+</li>
+</ol>
+<p><strong>只有DML语句才会有事务，其他语句和事务无关</strong>。因为 只有<code>insert</code>、<code>update</code>、<code>delete</code>三个语句是数据库表中数据进行增、删、改的。只要你的操作一旦涉及到数据的增、删、改，那么就一定要考虑安全问题。</p>
+<ol start="2">
+<li>
+<p><strong>事务是怎么做到多条DML语句同时成功和同时失败的</strong></p>
+<p>InnoDB存储引擎：提供一组用来记录事务性活动的日志文件</p>
+<blockquote>
+<p>在事务的执行过程中，每一条DML的操作都会记录到“事务性活动的日志文件”中。</p>
+</blockquote>
+<p>在事务的执行过程中，我们可以提交事务，也可以回滚事务。</p>
+<p>演示事务的回滚操作</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">bjpowernode</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">changed</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Empty</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 开启事务
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">transaction</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">DEPTNO</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DNAME</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">LOC</span><span class="w">       </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 回滚操作
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rollback</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">30</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Empty</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></code></pre></div><p>演示事务的提交操作</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Empty</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 开启事务
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">transaction</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">dept_bak</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">,</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;ming&#39;</span><span class="p">,</span><span class="s1">&#39;guangzhou&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">DEPTNO</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DNAME</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">LOC</span><span class="w">       </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 提交事务
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">commit</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">07</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">DEPTNO</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DNAME</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">LOC</span><span class="w">       </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rollback</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="nf">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept_bak</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">DEPTNO</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DNAME</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">LOC</span><span class="w">       </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w">     </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ming</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">guangzhou</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">+--------+-------+-----------+</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></code></pre></div><p>由上面代码测试，我们可以知道</p>
+<ul>
+<li>commit：提交事务</li>
+<li>rollback：回滚事务（回滚永远都是只能回滚带上一次的提交点！）</li>
+</ul>
+<blockquote>
+<p><strong>在mysql中，默认情况下是支持自动提交事物的（自动提交！），即没执行一条DML语句，则提交一次。</strong></p>
+<p>这种自动提交实际上是不符合我们的开发习惯，因为一个业务通常是需要多条DML语句共同执行才能完成的，为了保证数据的安全，必须要求同时成功之后再提交，所以不能执行一条就提交一条</p>
+</blockquote>
+<p>使用<code>start transaction</code>可以把mysql的自动提交机制关闭掉</p>
+</li>
+<li>
+<p>事务的三个特性</p>
+<ul>
+<li>原子性：说明事务是最小的工作单元。不可再分。</li>
+<li>一致性：所有事务要求，在同一个事务当中，所有操作必须同时成功，或者同时失败，以保证数据的一致性。</li>
+<li>隔离性：A事务和B事务之间具有一定的隔离。例如教室A和教室B之间有一道墙，这道墙就是隔离性。</li>
+<li>持久性：事务最终结束的一个保障。事务提交，就相当于将没有保存到硬盘上的数据保存到硬盘上！</li>
+</ul>
+</li>
+<li>
+<p>事物的隔离级别</p>
+<ol>
+<li>读未提交：read uncommitted（最低的隔离级别）
+<ul>
+<li>事务A可以读取到事务B未提交的数据。</li>
+<li>这种隔离级别存在的问题就是：脏读现象！(Dirty Read)；我们称读到了脏数据</li>
+<li>这种隔离级别一般都是理论上的，大多数的数据库隔离级别都是读已提交起步</li>
+</ul>
+</li>
+<li>读已提交：read committed
+<ul>
+<li>事务A只能读取到事务B提交之后的数据。</li>
+<li>这种隔离级别解决了脏读的现象。</li>
+<li>这种隔离级别存在不可重复读取数据的问题。</li>
+<li>这种隔离级别是比较真实的数据，每一次读到的数据是绝对的真实。</li>
+<li>oracle数据库默认的隔离级别是：read committed</li>
+</ul>
+</li>
+<li>可重复读：repeatable read
+<ul>
+<li>事务A开启之后，不管是多久，每一次在事务A中读取到的数据都是一致的。即使事务B将数据已经修改，并且提交了，事务A读取到的数据还是没有发生改变，这就是可重复读。</li>
+<li>解决了不可重复读取数据。</li>
+<li>可重复读会出现幻读。每一次读取到的数据都是幻象。不够真实</li>
+</ul>
+</li>
+<li>序列化/串行化：serializable（最高的隔离级别）
+<ul>
+<li>这是最高隔离级别，效率最低。解决了所有的问题。</li>
+<li>这种隔离级别表示事务排队，不能并发！与synchronized相似，线程同步（事务同步）</li>
+<li>每一次读取到的数据都是最真实的，并且效率是最低的。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>InnoDB 存储引擎提供了对 XA 事务的支持，并通过 XA 事务来支持分布式事务的实现。分布式事务指的是允许多个独立的事务资源（transactional resources）参与到一个全局的事务中。事务资源通常是关系型数据库系统，但也可以是其他类型的资源。全局事务要求在其中的所有参与的事务要么都提交，要么都回滚，这对于事务原有的 ACID 要求又有了提高。另外，在使用分布式事务时，InnoDB 存储引擎的事务隔离级别必须设置为 SERIALIZABLE。</p>
+<p>——摘自《MySQL 技术内幕：InnoDB 存储引擎(第 2 版)》7.7 章</p>
+</blockquote>
+<p><strong>设置隔离级别：<code>set global transaction isolation level read uncommitted;</code></strong></p>
+<p>查看隔离级别：<code>SELECT @@tx_isolation</code></p>
+</li>
+</ol>
+<h3 id="索引">索引</h3>
+<ol>
+<li>
+<p>什么是索引</p>
+<p><strong>索引是一种用于快速查询和检索数据的数据结构。常见的索引结构有: B 树， B+树和 Hash。</strong></p>
+<p>索引是在数据库表的字段上添加的，是为了提高查询效率存在的一种机制。一张表的一个字段可以添加一个索引，也可以多个字段联合起来添加索引。</p>
+<p><strong>索引相当于一本书的目录，是为了缩小扫描范围而存在的一种机制。</strong></p>
+<blockquote>
+<p>对于一本字典来说，查找某个汉字有两种方式：
+第一种方式：一页一页挨着找，直到找到为止，这种查找方式属于全字典扫描。效率比较低。
+第二种方式：先通过目录（索引）去定位一个大概的位置，然后直接定位到这个位置，做局域性扫描，缩小扫描的范围，快速的查找。这种查找方式属于通过索引检索，效率较高。</p>
+</blockquote>
+</li>
+<li>
+<p><a class="link" href="" >索引的底层数据结构</a></p>
+</li>
+<li>
+<p>索引类型</p>
+<ul>
+<li>
+<p><strong>主键索引(Primary Key)</strong></p>
+<p>数据表的主键列使用的就是主键索引。</p>
+<p>一张数据表只能有一个主键，并且主键不能为null，不能重复。</p>
+<p>在Mysql的InnoDB的表中，当没有显示的指定表的主键时，InnoDB会自动先检查表中是否有唯一索引的字段，如果有，则选择该字段为默认的主键，否则InnoDB将会自动创建一个6Byte的自增主键。</p>
+</li>
+<li>
+<p><strong>二级索引（辅助索引）</strong></p>
+<p>二级索引又称为辅助索引，是因为二级索引的叶子节点存储的数据是主键。也就是说，通过二级索引，可以定位到主键的位置。</p>
+<p>唯一索引，普通索引，前缀索引等索引属于二级索引。</p>
+<ol>
+<li><strong>唯一索引(Unique K)</strong>：唯一索引也是一种约束。**唯一索引的属性列不能出现重复的数据，但是允许数据为NULL，一张表允许创建多个唯一索引。**建立唯一索引的目的大部分时候都是为了该属性列的数据的唯一性，而不是为了查询效率、</li>
+<li><strong>普通索引(Index)：普通索引的唯一作用就是快速查询数据，一张表允许创建多个普通索引，并允许数据重复和NULL。</strong></li>
+<li>**前缀索引(Prefix)：**前缀索引只适用于字符串类型的数据。前缀索引是对文本的前几个字符创建索引，相比普通索引建议的数据更小，因为只取几个字符。</li>
+<li><strong>全文索引(Full Text)</strong> ：全文索引主要是为了检索大文本数据中的关键字的信息，是目前搜索引擎数据库使用的一种技术。Mysql5.6 之前只有 MYISAM 引擎支持全文索引，5.6 之后 InnoDB 也支持了全文索引。</li>
+</ol>
+<p><strong>二级索引：</strong></p>
+<p><img src="/image/MySQL/image14.png" alt="image14"  /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>索引的优缺点</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>使用索引可以大大加快 数据的检索速度（大大减少检索的数据量）, 这也是创建索引的最主要的原因。</li>
+<li>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>创建索引和维护索引需要耗费许多时间。当对表中的数据进行增删改的时候，如果数据有索引，那么索引也需要动态的修改，会降低 SQL 执行效率。</li>
+<li>索引需要使用物理文件存储，也会耗费一定空间。</li>
+</ul>
+<p>但是，<strong>使用索引一定能提高查询性能吗?</strong></p>
+<p>大多数情况下，索引查询都是比全表扫描要快的。但是如果数据库的数据量不大，那么使用索引也不一定能够带来很大提升。</p>
+</li>
+<li>
+<p>MySQL的查询方式</p>
+<ul>
+<li>第一种方式：全表扫描（如果字段没有添加索引就是用全表扫描，效率低）</li>
+<li>第二种方式：根据索引检索。</li>
+</ul>
+<blockquote>
+<p>在mysql数据库当中索引也是需要排序的，并且这个所以的排序和TreeSet数据结构相同。TreeSet（TreeMap）底层是一个自平衡的二叉树！在mysql当中索引是一个B-Tree数据结构。</p>
+<p><strong>遵循左小又大原则存放。采用中序遍历方式遍历取数据。</strong></p>
+</blockquote>
+</li>
+<li>
+<p>索引的实现原理</p>
+<p>假设现在有一张表t_user</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="nf">id</span><span class="p">(</span><span class="n">PK</span><span class="p">)</span><span class="w">					</span><span class="n">name</span><span class="w">			</span><span class="err">每一行记录在硬盘上都有物理存储编号</span><span class="w">
+</span><span class="w"></span><span class="o">----------------------------------------------------------------------</span><span class="c1">--
+</span><span class="c1">100						zhangsan					0x1111
+</span><span class="c1"></span><span class="mi">120</span><span class="w">						</span><span class="n">lisi</span><span class="w">						</span><span class="mi">0</span><span class="n">x2222</span><span class="w">
+</span><span class="w"></span><span class="mi">99</span><span class="w">					   	</span><span class="n">wangwu</span><span class="w">					</span><span class="mi">0</span><span class="n">x8888</span><span class="w">
+</span><span class="w"></span><span class="mi">88</span><span class="w">						   </span><span class="n">zhaoliu</span><span class="w">					</span><span class="mi">0</span><span class="n">x9999</span><span class="w">
+</span><span class="w"></span><span class="mi">101</span><span class="w">						</span><span class="n">jack</span><span class="w">						</span><span class="mi">0</span><span class="n">x6666</span><span class="w">
+</span><span class="w"></span><span class="mi">55</span><span class="w">						   </span><span class="n">lucy</span><span class="w">						</span><span class="mi">0</span><span class="n">x5555</span><span class="w">
+</span><span class="w"></span><span class="mi">130</span><span class="w">						</span><span class="n">tom</span><span class="w">						</span><span class="mi">0</span><span class="n">x7777</span><span class="w">
+</span></code></pre></div><p><strong>提醒：</strong></p>
+<ul>
+<li>在任何数据库当中主键上都会自动添加索引对象，id字段上自动有索引，因为id是PK。另外在mysql当中，一个字段上如果有unique约束的话，也会自动创建索引对象。</li>
+<li>在任何数据库当中，任何一张表的任何一条记录在硬盘存储上都有一个硬盘的物理存储编号。</li>
+<li>在mysql当中，索引是一个单独的对象，不同的存储引擎以不同的形式存在，在MyISAM存储引擎中，索引存储在一个.MYI文件中。在InnoDB存储引擎中索引存储在一个逻辑名称叫做tablespace的当中。在MEMORY存储引擎当中索引被存储在内存当中。不管索引存储在哪里，索引在mysql当中都是一个树的形式存在。（自平衡二叉树：B-Tree）</li>
+</ul>
+<p>索引的简单实现原理：<strong>存放遵循左小右大原则</strong></p>
+<p><img src="/image/MySQL/image09.jpg" alt="image09"  /></p>
+<p><strong>注意：上图只是索引的实现原理的大概模型，事实上索引的实现原理远比上图复杂的多！</strong></p>
+</li>
+<li>
+<p>索引的创建和删除</p>
+<p>创建索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 给emp表的ename字段添加索引，起名：emp_ename_index
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">emp_name_index</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">emp</span><span class="p">(</span><span class="n">ename</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>删除索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 将emp表上的emp_ename_index索引对象删除。
+</span><span class="c1"></span><span class="k">drop</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">emp_name_index</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>mysql中查看一个SQL语句是否使用了索引检索</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;KING&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>需要添加索引的条件。</p>
+<blockquote>
+<p>在mysql当中，主键上，以及unique字段上都会自动添加索引的</p>
+</blockquote>
+<ul>
+<li>条件1：数据量庞大（到底有多么庞大算庞大，这个需要测试，因为每一个硬件环境不同）</li>
+<li>条件2：该字段经常出现在where的后面，以条件的形式存在，也就是说这个字段总是被扫描。</li>
+<li>条件3：该字段很少的DML(insert delete update)操作。（因为DML之后，索引需要重新排序。）</li>
+</ul>
+<p>建议不要随意添加索引，因为索引也是需要维护的，太多的话反而会降低系统的性能。
+建议通过主键查询，建议通过unique约束的字段进行查询，效率是比较高的。</p>
+</li>
+<li>
+<p>索引失效</p>
+<ol>
+<li>
+<p><code>select * from emp where ename like '%T';</code>ename上即使添加了索引，也不会走索引。原因是因为模糊匹配当中以“%”开头了！尽量避免模糊查询的时候以“%”开始。这是一种优化的手段/策略。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%T&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p><img src="/image/MySQL/image10.jpg" alt="image10"  /></p>
+</li>
+<li>
+<p>使用or的时候会失效，如果使用or那么要求or两边的条件字段都要有索引，才会走索引，如果其中一边有一个字段没有索引，那么另一个字段上的索引也会实现。所以这就是为什么不建议使用or的原因。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;KING&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>使用复合索引的时候，没有使用左侧的列查找，索引失效</p>
+<blockquote>
+<p>两个字段，或者更多的字段联合起来添加一个索引，叫做复合索引。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">emp_job_sal_index</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">emp</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="n">sal</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">800</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>在where当中索引列参加了运算，索引失效。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">emp_sal_index</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">emp</span><span class="p">(</span><span class="n">sal</span><span class="p">);</span><span class="w">
+</span><span class="w"> </span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">sal</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">800</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>在where当中索引列使用了函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="nf">lower</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;smith&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+</li>
+</ol>
+<h3 id="备份与还原">备份与还原</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="cm">/* 备份与还原 */</span><span class="w"> </span><span class="o">----------------</span><span class="c1">--
+</span><span class="c1">备份，将数据的结构与表内数据保存起来。
+</span><span class="c1"></span><span class="err">利用</span><span class="w"> </span><span class="n">mysqldump</span><span class="w"> </span><span class="err">指令完成。</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 导出
+</span><span class="c1"></span><span class="n">mysqldump</span><span class="w"> </span><span class="p">[</span><span class="n">options</span><span class="p">]</span><span class="w"> </span><span class="n">db_name</span><span class="w"> </span><span class="p">[</span><span class="kp">tables</span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="n">mysqldump</span><span class="w"> </span><span class="p">[</span><span class="n">options</span><span class="p">]</span><span class="w"> </span><span class="o">---</span><span class="k">database</span><span class="w"> </span><span class="n">DB1</span><span class="w"> </span><span class="p">[</span><span class="n">DB2</span><span class="w"> </span><span class="n">DB3</span><span class="p">...]</span><span class="w">
+</span><span class="w"></span><span class="n">mysqldump</span><span class="w"> </span><span class="p">[</span><span class="n">options</span><span class="p">]</span><span class="w"> </span><span class="o">--</span><span class="k">all</span><span class="o">--</span><span class="k">database</span><span class="w">
+</span><span class="w"></span><span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="err">导出一张表</span><span class="w">
+</span><span class="w">　　</span><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">文件名</span><span class="p">(</span><span class="n">D</span><span class="p">:</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="k">sql</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="err">导出多张表</span><span class="w">
+</span><span class="w">　　</span><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="err">表</span><span class="mi">1</span><span class="w"> </span><span class="err">表</span><span class="mi">2</span><span class="w"> </span><span class="err">表</span><span class="mi">3</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">文件名</span><span class="p">(</span><span class="n">D</span><span class="p">:</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="k">sql</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="mi">3</span><span class="p">.</span><span class="w"> </span><span class="err">导出所有表</span><span class="w">
+</span><span class="w">　　</span><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">文件名</span><span class="p">(</span><span class="n">D</span><span class="p">:</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="k">sql</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="p">.</span><span class="w"> </span><span class="err">导出一个库</span><span class="w">
+</span><span class="w">　　</span><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="o">--</span><span class="k">lock</span><span class="o">-</span><span class="k">all</span><span class="o">-</span><span class="kp">tables</span><span class="w"> </span><span class="o">--</span><span class="k">database</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">文件名</span><span class="p">(</span><span class="n">D</span><span class="p">:</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="k">sql</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="err">可以</span><span class="o">-</span><span class="n">w携带WHERE条件</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 导入
+</span><span class="c1"></span><span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="err">在登录</span><span class="n">mysql的情况下</span><span class="err">：</span><span class="w">
+</span><span class="w">　　</span><span class="n">source</span><span class="w">  </span><span class="err">备份文件</span><span class="w">
+</span><span class="w"></span><span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="err">在不登录的情况下</span><span class="w">
+</span><span class="w">　　</span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="err">备份文件</span><span class="w">
+</span></code></pre></div><h3 id="视图">视图</h3>
+<ol>
+<li>
+<p>什么是视图</p>
+<p>​	视图是一个虚拟表，其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。但是，视图并不在数据库中以存储的数据值集形式存在。行和列数据来自由定义视图的查询所引用的表并且在引用视图时动态生成。</p>
+<p>​	视图具有表结构文件，但不存在数据文件。    对其中所引用的基础表来说，视图的作用类似于筛选。定义视图的筛选可以来自当前或其它数据库的一个或多个表，或者其它视图。通过视图进行查询没有任何限制，通过它们进行数据修改时的限制也很少。</p>
+<p>​	视图是存储在数据库中的查询的sql语句，它主要出于两种原因：安全原因，视图可以隐藏一些数据，如：社会保险基金表，可以用视图只显示姓名，地址，而不显示社会保险号和工资数等，另一原因是可使复杂的查询易于理解和使用。</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">MySQL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySQL基本介绍与使用</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mysql二">MySQL（二）</a>
+      <ol>
+        <li><a href="#存储引擎">存储引擎</a></li>
+        <li><a href="#事务">事务</a></li>
+        <li><a href="#索引">索引</a></li>
+        <li><a href="#备份与还原">备份与还原</a></li>
+        <li><a href="#视图">视图</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

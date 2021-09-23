@@ -96,170 +96,58 @@
 </header>
 
     <section class="article-content">
-    <h2 id="lamda表达式">Lamda表达式</h2>
-<ul>
-<li>
-<p>Lambda表达式，可以称为闭包，它是推动Java8发动的最重要新特性</p>
-</li>
-<li>
-<p>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）</p>
-</li>
-<li>
-<p>为什么要使用Lambda表达式</p>
-<ul>
-<li>可以避免匿名内部类定义过多</li>
-<li>可以让你的代码看起来更加简洁</li>
-<li>去掉了一堆没有意义的代码，只留下核心的逻辑</li>
-</ul>
-</li>
-<li>
-<p>基本语法</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;</span><span class="n">expression</span><span class="o">[</span><span class="n">表达式</span><span class="o">];</span>
-<span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;</span><span class="n">statement</span><span class="o">[</span><span class="n">语句</span><span class="o">];</span>
-<span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;{</span><span class="n">statement</span><span class="o">};</span>
-</code></pre></div></li>
-<li>
-<p>函数式接口（Functional Interface）是学习Lambda表达式的关键所在。其定义为：</p>
-<ul>
-<li>
-<p>任何接口，如果只包含唯一一个抽象方法，那么它就是一个函数式接口。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Runnable</span><span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">();</span>
+    <h2 id="java编程思想集合篇二">Java编程思想集合篇（二）</h2>
+<p><strong>Java HashMap为什么通过(n - 1) &amp; hash 获取哈希桶数组下标？</strong></p>
+<p>看过HashMap源码人应该都知道HashMap是如何根据hash值来计算哈希桶数组下标的，就是通过(n - 1) &amp; hash来计算的，那么为什么用的是位运算而不是取模运算(hash % n)呢？</p>
+<p>获取hash桶数组下标源码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+    <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></li>
-<li>
-<p>对于函数式接口，我们可以通过lambda表达式来创建该接口的对象。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Lambda表达式的推导演示</p>
-<p>现在，我们有一个函数式接口LambdaInterface，它只有一个抽象方法我们该怎样实现他的方法并执行呢？</p>
-<ul>
-<li>
-<p>接口LambdaInterface</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//创建函数式接口
-</span><span class="c1"></span><span class="kd">interface</span> <span class="nc">LambdaInterface</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">lambda</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></li>
-</ul>
-<ol>
-<li>
-<p>创建实现类去实现接口，再创建实现类的对象，调用该方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//1.创建实现类实现接口
-</span><span class="c1"></span><span class="kd">class</span> <span class="nc">LambdaImp</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
+</code></pre></div><p><strong>一. 位运算与取模运算时间比较</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.polymorphic</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">100000</span><span class="o">;</span> <span class="c1">// 数据集数量，初始定义为十万
+</span><span class="c1"></span>
+    <span class="c1">// 位运算
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">bitwise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
 
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda1&#34;</span><span class="o">);</span>
+        <span class="c1">//从十万开始，一直到Integer的最大值，计算所需时间
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">a</span> <span class="o">&amp;=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;位运算时间为：&#34;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> <span class="s">&#34;ms&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>main函数中调用</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">LambdaInterface</span> <span class="n">lambdaImp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp</span><span class="o">();</span>
-    <span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></li>
-<li>
-<p>上述需要在外部写一个实现类，比较繁琐，我们简化一下用一个静态内部类实现。</p>
-<p>在TestLambda类中</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//2.静态内部类实现
-</span><span class="c1"></span><span class="kd">static</span> <span class="kd">class</span> <span class="nc">LambdaImp2</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
-       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda2&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><p>main函数中</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">LambdaImp2</span> <span class="n">lambdaImp2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp2</span><span class="o">();</span>
-<span class="n">lambdaImp2</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
-</code></pre></div></li>
-<li>
-<p>因为静态内部类的实现不能直接在main函数中写，我们可以继续简化，在main函数中写一个局部内部类实现接口</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//3.局部内部类实现
-</span><span class="c1"></span><span class="kd">class</span> <span class="nc">LambdaImp3</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda3&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>        
-<span class="n">LambdaImp3</span> <span class="n">lambdaImp3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp3</span><span class="o">();</span>     
-<span class="n">lambdaImp3</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
-</code></pre></div></li>
-<li>
-<p>因为是使用局部内部类实现需要写方法名和继承的接口，所以我们继续简化，使用匿名内部类来实现接口</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//4.匿名内部类实现
-</span><span class="c1"></span> <span class="n">lambdaImp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaInterface</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda4&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">};</span>
-<span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
-</code></pre></div></li>
-<li>
-<p>倘若我们要继续简化下去，把一些接口、类和方法的声明都省略掉，仅保留核心代码。此时可以使用Lambda表达式来进行简化！</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//6.Lambda表达式简化实现
-</span><span class="c1"></span><span class="n">lambdaImp</span> <span class="o">=</span> <span class="o">()-&gt;{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda5&#34;</span><span class="o">);</span>
-<span class="o">};</span>
-<span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
-</code></pre></div><p>运行结果：</p>
-<p><img src="/image/Lambda/image01.png" alt="image01"  /></p>
-<p>​	我们可以发现，步骤1到步骤5都能实现需求。而每一个步骤都可以做出一定的简化，从步骤1的外部类实现到使用Lambda表达式保留核心代码，使我们的代码更为的简洁了，这便是Lambda表达式的推导过程。</p>
-</li>
-</ol>
-</li>
-<li>
-<p>Lambda的简化</p>
-<p>创建接口LambdaInterface02</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//1.创建函数式接口
-</span><span class="c1"></span><span class="kd">interface</span> <span class="nc">LambdaInterface02</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">lambda</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>创建测试类TestLambda02</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.lambda</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestLambda02</span> <span class="o">{</span>
+    <span class="c1">// 取模运算
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">module</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">a</span> <span class="o">%=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;取模运算时间为：&#34;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> <span class="s">&#34;ms&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">;</span>
+    <span class="o">}</span>
+
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">LambdaInterface02</span> <span class="n">lambdaInterface</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="c1">//Lambda表达式
-</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda1</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
-        <span class="o">};</span>
-        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-        <span class="c1">//简化1：去掉括号与类型
-</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
-        <span class="o">};</span>
-        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
-        <span class="c1">//简化2：去掉花括号
-</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda3</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
-        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
-
+        <span class="n">Test</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Test</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">bitwise</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">module</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p><img src="/image/Lambda/image02.png" alt="image02"  /></p>
-</li>
-<li>
-<p>总结</p>
-<ol>
-<li>
-<p>Lambda表达式只能有一行代码的情况下才能简化成为一行（去掉花括号），如果有多行代码，就需要用代码块包裹（花括号）</p>
-</li>
-<li>
-<p>使用Lambda表达式的前提是接口为函数式接口</p>
-</li>
-<li>
-<p>多个参数也可以去掉参数类型，但是需要把全部参数类型都去掉且必须加上小括号</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">LambdaInterface02</span> <span class="n">lambda2</span> <span class="o">=</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">);</span>
-<span class="o">};</span>
-</code></pre></div></li>
-</ol>
-</li>
-</ul>
+</code></pre></div><p>运行结果为</p>
+<p><img src="/image/JavaThought/image01.jpg" alt="image01"  /></p>
+<p>从测试结果我们可以看出，如果数据集足够的大，那么取模运算的时间将会是位运算时间的十几倍。这只是一方面，如果数据集足够大的话，HashMap的初始容量肯定不够，这也触发了HashMap的扩容机制。所以<strong>采用二进制位操作 &amp;，相对于%能够提高运算效率</strong></p>
+<p><strong>二.位运算是如何保证索引不越界</strong></p>
+<p>讲到这，我们也就要想想为什么HashMap的容量是2的n次幂？两者之间有着千丝万缕的联系。</p>
+<p>当 n 是2的次幂时， n - 1 通过 二进制表示即尾端一直都是以连续1的形式表示的。<strong>当(n - 1) 与 hash 做与运算时，会保留hash中 后 x 位的 1，这样就保证了索引值 不会超出数组长度</strong>。</p>
+<p>同时当n为2次幂时，会满足一个公式：<strong>(n - 1) &amp; hash = hash % n</strong>。</p>
 
 </section>
 
@@ -299,12 +187,24 @@
                 
                     
 <article class="">
-    <a href="/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/">
+    <a href="/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Java编程思想集合篇（二）</h2>
+            <h2 class="article-title">索引的底层数据结构</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lambda表达式</h2>
         </div>
     </a>
 </article>
@@ -485,7 +385,7 @@
                 <div class="widget--toc">
                     <nav id="TableOfContents">
   <ol>
-    <li><a href="#lamda表达式">Lamda表达式</a></li>
+    <li><a href="#java编程思想集合篇二">Java编程思想集合篇（二）</a></li>
   </ol>
 </nav>
                 </div>

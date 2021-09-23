@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Lambda表达式的创建与使用'><title>Lambda表达式</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Lambda表达式'>
+<meta property='og:description' content='Lambda表达式的创建与使用'>
+<meta property='og:url' content='https://minster77.github.io/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java编程思想' /><meta property='article:published_time' content='2021-08-01T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-08-01T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Lambda表达式">
+<meta name="twitter:description" content="Lambda表达式的创建与使用">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javathink/" >
+                JavaThink
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Lambda表达式</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Lambda表达式的创建与使用
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Aug 01, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="lamda表达式">Lamda表达式</h2>
+<ul>
+<li>
+<p>Lambda表达式，可以称为闭包，它是推动Java8发动的最重要新特性</p>
+</li>
+<li>
+<p>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）</p>
+</li>
+<li>
+<p>为什么要使用Lambda表达式</p>
+<ul>
+<li>可以避免匿名内部类定义过多</li>
+<li>可以让你的代码看起来更加简洁</li>
+<li>去掉了一堆没有意义的代码，只留下核心的逻辑</li>
+</ul>
+</li>
+<li>
+<p>基本语法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;</span><span class="n">expression</span><span class="o">[</span><span class="n">表达式</span><span class="o">];</span>
+<span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;</span><span class="n">statement</span><span class="o">[</span><span class="n">语句</span><span class="o">];</span>
+<span class="o">(</span><span class="n">parameters</span><span class="o">)-&gt;{</span><span class="n">statement</span><span class="o">};</span>
+</code></pre></div></li>
+<li>
+<p>函数式接口（Functional Interface）是学习Lambda表达式的关键所在。其定义为：</p>
+<ul>
+<li>
+<p>任何接口，如果只包含唯一一个抽象方法，那么它就是一个函数式接口。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Runnable</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>对于函数式接口，我们可以通过lambda表达式来创建该接口的对象。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Lambda表达式的推导演示</p>
+<p>现在，我们有一个函数式接口LambdaInterface，它只有一个抽象方法我们该怎样实现他的方法并执行呢？</p>
+<ul>
+<li>
+<p>接口LambdaInterface</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//创建函数式接口
+</span><span class="c1"></span><span class="kd">interface</span> <span class="nc">LambdaInterface</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">lambda</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>创建实现类去实现接口，再创建实现类的对象，调用该方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//1.创建实现类实现接口
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">LambdaImp</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda1&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>main函数中调用</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">LambdaInterface</span> <span class="n">lambdaImp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp</span><span class="o">();</span>
+    <span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>上述需要在外部写一个实现类，比较繁琐，我们简化一下用一个静态内部类实现。</p>
+<p>在TestLambda类中</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//2.静态内部类实现
+</span><span class="c1"></span><span class="kd">static</span> <span class="kd">class</span> <span class="nc">LambdaImp2</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda2&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>main函数中</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">LambdaImp2</span> <span class="n">lambdaImp2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp2</span><span class="o">();</span>
+<span class="n">lambdaImp2</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
+</code></pre></div></li>
+<li>
+<p>因为静态内部类的实现不能直接在main函数中写，我们可以继续简化，在main函数中写一个局部内部类实现接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//3.局部内部类实现
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">LambdaImp3</span> <span class="kd">implements</span> <span class="n">LambdaInterface</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda3&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>        
+<span class="n">LambdaImp3</span> <span class="n">lambdaImp3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaImp3</span><span class="o">();</span>     
+<span class="n">lambdaImp3</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
+</code></pre></div></li>
+<li>
+<p>因为是使用局部内部类实现需要写方法名和继承的接口，所以我们继续简化，使用匿名内部类来实现接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//4.匿名内部类实现
+</span><span class="c1"></span> <span class="n">lambdaImp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaInterface</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lambda</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda4&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+<span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
+</code></pre></div></li>
+<li>
+<p>倘若我们要继续简化下去，把一些接口、类和方法的声明都省略掉，仅保留核心代码。此时可以使用Lambda表达式来进行简化！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//6.Lambda表达式简化实现
+</span><span class="c1"></span><span class="n">lambdaImp</span> <span class="o">=</span> <span class="o">()-&gt;{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda5&#34;</span><span class="o">);</span>
+<span class="o">};</span>
+<span class="n">lambdaImp</span><span class="o">.</span><span class="na">lambda</span><span class="o">();</span>
+</code></pre></div><p>运行结果：</p>
+<p><img src="/image/Lambda/image01.png" alt="image01"  /></p>
+<p>​	我们可以发现，步骤1到步骤5都能实现需求。而每一个步骤都可以做出一定的简化，从步骤1的外部类实现到使用Lambda表达式保留核心代码，使我们的代码更为的简洁了，这便是Lambda表达式的推导过程。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Lambda的简化</p>
+<p>创建接口LambdaInterface02</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//1.创建函数式接口
+</span><span class="c1"></span><span class="kd">interface</span> <span class="nc">LambdaInterface02</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">lambda</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>创建测试类TestLambda02</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.lambda</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestLambda02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LambdaInterface02</span> <span class="n">lambdaInterface</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="c1">//Lambda表达式
+</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda1</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
+        <span class="o">};</span>
+        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+        <span class="c1">//简化1：去掉括号与类型
+</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
+        <span class="o">};</span>
+        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+        <span class="c1">//简化2：去掉花括号
+</span><span class="c1"></span>        <span class="n">LambdaInterface02</span> <span class="n">lambda3</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">);</span>
+        <span class="n">lambda1</span><span class="o">.</span><span class="na">lambda</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="/image/Lambda/image02.png" alt="image02"  /></p>
+</li>
+<li>
+<p>总结</p>
+<ol>
+<li>
+<p>Lambda表达式只能有一行代码的情况下才能简化成为一行（去掉花括号），如果有多行代码，就需要用代码块包裹（花括号）</p>
+</li>
+<li>
+<p>使用Lambda表达式的前提是接口为函数式接口</p>
+</li>
+<li>
+<p>多个参数也可以去掉参数类型，但是需要把全部参数类型都去掉且必须加上小括号</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">LambdaInterface02</span> <span class="n">lambda2</span> <span class="o">=</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;I am Lambda&#34;</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">);</span>
+<span class="o">};</span>
+</code></pre></div></li>
+</ol>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/">Java编程思想</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">索引的底层数据结构</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java编程思想集合篇（二）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java编程思想集合篇（一）</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lamda表达式">Lamda表达式</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

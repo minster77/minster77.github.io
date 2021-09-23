@@ -6,7 +6,23 @@
     <description>Recent content in JavaAdvanced on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/javaadvanced/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Sep 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/categories/javaadvanced/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reflection</title>
+      <link>https://minster77.github.io/p/reflection/</link>
+      <pubDate>Sun, 05 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/reflection/</guid>
+      <description>反射   反射机制 class类 类加载 反射获取类的结构信息 通过反射创建对象 练习   反射机制   引出反射
+  根据配置文件re.properties指定信息，创建Cat对象并调用方法hi
+properties配置文件如下
+classPath=com.reflection_.Catmethod=hiCat类
+package com.reflection_; public class Cat { private String name = &amp;#34;jack&amp;#34;; public void hi(){ System.out.println(&amp;#34;hi &amp;#34;+name); } } 实现类ReflectionQuestion
+package com.reflection_.question; import com.reflection_.Cat; public class ReflectionQuestion { public static void main(String[] args) { //1.使用传统方法实现，通过new一个对象，调用方法来实现  Cat cat = new Cat(); cat.hi(); } } 我们使用传统的方式，能实现上述需求，但如果我们Cat类需要增加功能或者换一种实现时，我们就需要去修改源码了！
+所以我们可以尝试使用反射来实现上述需求
+package com.reflection_.question; import com.</description>
+    </item>
+    
     <item>
       <title>Java_IO流_2</title>
       <link>https://minster77.github.io/p/java_io%E6%B5%81_2/</link>

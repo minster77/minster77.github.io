@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='MySQL的基本介绍与基本使用'><title>MySQL基本介绍与使用</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MySQL基本介绍与使用'>
+<meta property='og:description' content='MySQL的基本介绍与基本使用'>
+<meta property='og:url' content='https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySQL' /><meta property='article:published_time' content='2021-09-02T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-09-02T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="MySQL基本介绍与使用">
+<meta name="twitter:description" content="MySQL的基本介绍与基本使用">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mysql/" >
+                MySQL
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/">MySQL基本介绍与使用</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        MySQL的基本介绍与基本使用
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 02, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="mysql一">MySQL（一）</h2>
+<hr>
+<ol>
+<li>MySQL的基本介绍</li>
+<li>MySQL的基本使用</li>
+<li>增删改查</li>
+<li>约束</li>
+</ol>
+<hr>
+<h3 id="mysql的基本介绍">MySQL的基本介绍</h3>
+<ol>
+<li>
+<p>sql、DB、DBMS分别是什么，他们之间的关系？</p>
+<p>DB：DataBase（数据库，数据库实际上在硬盘上以文件的形式存在）</p>
+<p>DBMS：DataBase Management System（数据库管理系统，常见的有：MySQL、Oracle、DB2、Sybase、SqlServer&hellip;）</p>
+<p>SQL：结构化查询语言，是一门标准通用的语言。标准的SQL适合于所有的数据库产品。SQL属于高级语言。SQL语句在执行的时候，实际上内部也会先进行编译，然后再执行sql。（sql语句的编译由DNMS完成）</p>
+<blockquote>
+<p>DBMS负责执行sql语句，通过执行sql语句来操作DB当中的数据</p>
+</blockquote>
+</li>
+<li>
+<p>什么是表？</p>
+<ul>
+<li>
+<p>表：table是数据库的基本组成单元，所有的数据都以表格的形式组织，目的是可读性强。</p>
+</li>
+<li>
+<p>一个表包括行和列：</p>
+<ul>
+<li>行：被称为数据/记录（data）</li>
+<li>列：被称为字段（column）每一个字段包括字段名、数据类型、相关的约束</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>学习MySQL主要还是学习通用的SQL语句，那么SQL语句包括增删改查，SQL语句怎么分类？</p>
+<ul>
+<li>DQL（数据查询语言）：查询语句，凡是select语句都是DQL。</li>
+<li>DML（数据操作语言）：insert(增加)、delete(删除)、update(修改)，对表当中数据进行增删改。</li>
+<li>DDL（数据定义语言）：create(增加)、drop(删除)、alter(修改) ，对表结构的增删改。</li>
+<li>TCL（事务控制语言）：commit提交事务、rollback回滚事务</li>
+<li>DCL（数据控制语言）：grant授权、revoke撤销权限等。</li>
+</ul>
+</li>
+<li>
+<p>当因为sql脚本中的数据量太大的而无法打开的时候，可以使用source。</p>
+</li>
+</ol>
+<h3 id="mysql的基本使用">MySQL的基本使用</h3>
+<p>MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：</p>
+<p><img src="/image/MySQL/data.jpg" alt="data"  /></p>
+<ul>
+<li><code>表头(header)</code>: 每一列的名称;</li>
+<li><code>列(col)</code>: 具有相同数据类型的数据的集合;</li>
+<li><code>行(row)</code>: 每一行用来描述某个人/物的具体信息;</li>
+<li><code>值(value)</code>: 行的具体信息, 每个值必须与该列的数据类型相同;</li>
+<li><code>键(key)</code>: 表中用来识别某个特定的人\物的方法, 键的值在当前列中具有唯一性。</li>
+</ul>
+<h4 id="登录数据库">登录数据库</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="err">用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="err">所选择的数据库名</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="err">主机名</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="err">用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">exit</span><span class="w"> </span><span class="c1"># 退出 使用 “quit;” 或 “\q;” 一样的效果
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">  </span><span class="c1"># 显示当前mysql的version的各种信息
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="nf">version</span><span class="p">();</span><span class="w"> </span><span class="c1"># 显示当前mysql的version信息
+</span><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;port&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># 查看MySQL端口号
+</span></code></pre></div><h4 id="创建数据库">创建数据库</h4>
+<p>对于表的操作需要先进入库<code>use 库名;</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 创建一个名为 samp_db 的数据库，数据库字符编码指定为 gbk
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">samp_db</span><span class="w"> </span><span class="k">character</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="n">gbk</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">samp_db</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 删除 库名为samp_db的库
+</span><span class="c1"></span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span><span class="w">        </span><span class="c1">-- 显示数据库列表。
+</span><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">samp_db</span><span class="p">;</span><span class="w">     </span><span class="c1">-- 选择创建的数据库samp_db
+</span><span class="c1"></span><span class="k">show</span><span class="w"> </span><span class="kp">tables</span><span class="p">;</span><span class="w">     </span><span class="c1">-- 显示samp_db下面所有的表名字
+</span><span class="c1"></span><span class="k">describe</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">    </span><span class="c1">-- 显示数据表的结构(缩写为desc)
+</span><span class="c1"></span><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 清空表中记录
+</span></code></pre></div><h4 id="创建数据库表">创建数据库表</h4>
+<blockquote>
+<p>使用 create table 语句可完成对表的创建, create table 的常见形式: 语法：create table 表名称(列声明);</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 如果数据库中存在user_accounts表，就把它从数据库中drop掉
+</span><span class="c1"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">user_accounts</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">user_accounts</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w">             </span><span class="kt">int</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="kp">AUTO_INCREMENT</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="w">       </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="w">       </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户密码&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">reset_password</span><span class="o">`</span><span class="w"> </span><span class="kt">tinyint</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="w">       </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户类型：0－不需要重置密码；1-需要重置密码&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">mobile</span><span class="o">`</span><span class="w">         </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">       </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;手机&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">create_at</span><span class="o">`</span><span class="w">      </span><span class="kt">timestamp</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w">      </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">update_at</span><span class="o">`</span><span class="w">      </span><span class="kt">timestamp</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w">      </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="c1">-- 创建唯一索引，不允许重复
+</span><span class="c1"></span><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="nf">idx_user_mobile</span><span class="p">(</span><span class="o">`</span><span class="n">mobile</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w"></span><span class="n">COMMENT</span><span class="o">=</span><span class="s1">&#39;用户表信息&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>数据类型的属性解释</p>
+<ul>
+<li><code>NULL</code>：数据列可包含NULL值；</li>
+<li><code>NOT NULL</code>：数据列不允许包含NULL值；</li>
+<li><code>DEFAULT</code>：默认值；</li>
+<li><code>PRIMARY</code>：KEY 主键；</li>
+<li><code>AUTO_INCREMENT</code>：自动递增，适用于整数类型；</li>
+<li><code>UNSIGNED</code>：是指数值类型只能为正数；</li>
+<li><code>CHARACTER SET name</code>：指定一个字符集；</li>
+<li><code>COMMENT</code>：对表或者字段说明；</li>
+</ul>
+<p>需要注意的是，创建的时候字段名字需要用**``**来标记，而非**‘ ’**</p>
+<h3 id="增删改查">增删改查</h3>
+<h4 id="select">SELECT</h4>
+<blockquote>
+<p>SELECT 语句用于从表中选取数据。
+语法：<code>SELECT 列名称 FROM 表名称</code>
+语法：<code>SELECT * FROM 表名称</code></p>
+</blockquote>
+<h5 id="单表查询">单表查询</h5>
+<ol>
+<li>
+<p>简单查询</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 查看当前数据库版本
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="nf">version</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查看当前使用的是哪个数据库
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="k">database</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询单个字段
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="err">表名；</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询多个字段（使用逗号隔开）
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="w"> </span><span class="n">form</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询所有字段
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="c1">-- 实际开发中不建议；
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">...</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 给查询的列起别名，as关键字可以省略
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">deptname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="w"> </span><span class="n">deptname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 倘若别名中有空格，则用单引号括起来
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="w"> </span><span class="s1">&#39;dept name&#39;</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 字段可以使用数学表达式！
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">yearsal</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>条件查询</p>
+<p>不是将表中所有数据都查出来。是查询出来符合条件的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 语法格式：
+</span><span class="c1"></span><span class="w">	</span><span class="k">select</span><span class="w">
+</span><span class="w">     </span><span class="err">字段</span><span class="mi">1</span><span class="p">,</span><span class="err">字段</span><span class="mi">2</span><span class="p">,</span><span class="err">字段</span><span class="mi">3</span><span class="p">....</span><span class="w">
+</span><span class="w">	</span><span class="k">from</span><span class="w"> 
+</span><span class="w">     </span><span class="err">表名</span><span class="w">
+</span><span class="w">	</span><span class="k">where</span><span class="w">
+</span><span class="w">     </span><span class="err">条件</span><span class="p">;</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- = 等
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">empno</span><span class="p">,</span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="o">=</span><span class="mi">800</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- !=或&lt;&gt;不等于
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">!=</span><span class="mi">800</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="mi">800</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- &lt; 小于 &gt; 大于 &lt;= 小于等于 &gt;= 大于等于
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&lt;=</span><span class="mi">2000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">2000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&gt;=</span><span class="mi">2000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- between ... and ...,查询两个值之间 使用between...and... 必须左小右大，且为闭区间！
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="p">,</span><span class="n">sal</span><span class="w"> 
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">2450</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">3000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 等价于
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&gt;=</span><span class="mi">2450</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3000</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- is null 为 null（is not null 不为空）在数据库中null不能使用=衡量！
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="no">NULL</span><span class="p">;</span><span class="w"> 
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="p">;</span><span class="w"> 
+</span><span class="w"></span><span class="c1">-- AND-&gt;并且 OR-&gt;或者 AND的优先级高于OR。如需OR先执行，需要加小括号
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2500</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- IN 包含相当于多个OR。NOT IN 不包含
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">empno</span><span class="p">,</span><span class="n">ename</span><span class="p">,</span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">JOB</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>like 称为模糊查询，支持%或下划线匹配</p>
+<ul>
+<li>%匹配任意多个字符</li>
+<li>下划线：任意一个字符。（%是一个特殊的符号，_ 也是一个特殊符号）</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出含有O的名字
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%O%&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 找出第二个字母为O的名字
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;_O%&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 找出名字中含有下划线的 用\转义
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w"> </span><span class="n">ename</span><span class="w"> 
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w"> </span><span class="n">emp</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%\_%&#39;</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>排序查询</p>
+<blockquote>
+<p>ORDER BY : 升序排序，默认</p>
+<p>ORDER BY &hellip; desc;：指定降序排序</p>
+<p>ORDER BY &hellip; asc;：指定升序排序</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 默认排序查询
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="n">FROMemp</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sal</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 指定降序排序
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="n">FROMemp</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 指定升序排序
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w"> </span><span class="n">FROMemp</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="k">asc</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 按多个字段进行排序
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">  </span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w"> 
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">  </span><span class="n">emp</span><span class="w"> 
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">
+</span><span class="w">  </span><span class="n">sal</span><span class="w"> </span><span class="k">asc</span><span class="p">,</span><span class="n">ename</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w"> </span><span class="c1">-- sal在前，起主导，只有当sal相等时才会启用ename比较
+</span></code></pre></div><p>综合案例：找出工资在1250到3000之间的员工信息，要求按照薪资降序排列。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">  </span><span class="o">*</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">  </span><span class="n">emp</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w">
+</span><span class="w">  </span><span class="n">sal</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1250</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">3000</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">
+</span><span class="w">  </span><span class="n">sal</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w">
+</span></code></pre></div><blockquote>
+<p>以上执行顺序必须掌握！排序总是在最后！</p>
+</blockquote>
+</li>
+<li>
+<p>数据处理函数</p>
+<ul>
+<li>
+<p>数据处理函数又被称为单行处理函数</p>
+<ul>
+<li>
+<p>单行处理函数的特点：一个输入对应一个输出。</p>
+</li>
+<li>
+<p>和单行处理函数相对的是：多行处理函数。（多行处理函数特点：多个输入，对应1个输出！）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>常见的单行处理函数</p>
+<ol>
+<li>
+<p>Lower	转换小写</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">LOWER</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>upper	转换大写</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">UPPER</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>substr	取子串（substr(被截取的字符串,起始下标(从1开始),截取的长度)）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">SUBSTR</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>length	取长度</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">LENGTH</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span><span class="w"> </span><span class="n">enamelength</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>trim	去空格,可以去前后空白</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">trim</span><span class="p">(</span><span class="s1">&#39;  KING&#39;</span><span class="p">)</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>str_to_date	将字符串转换成日期</p>
+</li>
+<li>
+<p>date_format	格式化日期</p>
+</li>
+<li>
+<p>format	设置千分位</p>
+</li>
+<li>
+<p>round	四舍五入</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 生成100以内的随机整数
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="nf">ROUND</span><span class="p">(</span><span class="nf">RAND</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>rand()	生成随机数</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">RAND</span><span class="p">()</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>Ifnull	可以将null转换成一个具体值</p>
+<blockquote>
+<p>ifnull是空处理函数，专门处理null的。
+在所有的数据库中，null只要参与运算，最终结果一定是null。</p>
+<p>需要使用ifnull函数处理，用法：</p>
+<p>ifnull(数据，替换值)</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 计算年薪的时候，把补贴为null的值替换成0，这样子就可以避免最后算出来的年薪为null
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,(</span><span class="n">sal</span><span class="o">+</span><span class="nf">IFNULL</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="mi">12</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">yearsal</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>concat函数进行字符串的拼接</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">CONCAT</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span><span class="n">empno</span><span class="p">)</span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>case..when..then..when..then..else..end</p>
+<p>当员工的工作岗位是MANAGER的时候，工资上调10%，当工作岗位是SALESMAN的时候，工资上调50%,其它正常。
+（注意：不修改数据库，只是将查询结果显示为工资上调）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">job</span><span class="p">,</span><span class="n">sal</span><span class="w"> 
+</span><span class="w"></span><span class="k">AS</span><span class="w"> 
+</span><span class="w">   </span><span class="n">oldsal</span><span class="p">,</span><span class="w">
+</span><span class="w">   </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="n">JOB</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="n">sal</span><span class="w"> </span><span class="n">END</span><span class="p">)</span><span class="k">AS</span><span class="w"> </span><span class="n">newsal</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span><span class="w">   </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>分组函数（多行处理函数）</p>
+<ul>
+<li>分组函数在使用时<strong>必须进行分组才能使用</strong>。</li>
+<li>如果没有对数据进行分组，那么整张表就会默认为一组</li>
+</ul>
+<ol>
+<li>
+<p>count 计数</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">COUNT</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>sum 求和</p>
+<div class="highlight"><pre class="chroma"><code class="language-MYSQL" data-lang="MYSQL"><span class="k">SELECT</span><span class="w"> </span><span class="nf">SUM</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>avg 平均值</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">avg</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>max 最大值</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">MAX</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>min 最小值</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">MIN</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<ul>
+<li>
+<p>分组函数需要注意的点：</p>
+<ol>
+<li>
+<p>分组函数自动处理null，使用时不需要对null进行处理</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="nf">COUNT</span><span class="p">(</span><span class="n">comm</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p><img src="/image/MySQL/image02.png" alt="image02"  /></p>
+</li>
+<li>
+<p>count(具体字段)：表示统计该字段下所有不为null的元素总数</p>
+</li>
+<li>
+<p>count * ：统计表当中的总行数。只要有一行数据count就++。</p>
+</li>
+<li>
+<p>分组函数不能直接使用在where子句中。</p>
+</li>
+<li>
+<p>所有分组函数都可以组合起来用。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>分组查询</p>
+<blockquote>
+<p><strong>sql语句各关键字的执行顺序：FROM-&gt;WHERE-&gt;GROUP BY-&gt;SELECT-&gt;ORDER BY</strong></p>
+</blockquote>
+<p>​	由上面的执行顺序，我们可以知道为什么分组函数不能直接使用在where子句中；因为sql语句在执行的时候，select在group by后面，所以**SELECT MIN(sal) FROM emp;<strong>可以正常执行，但</strong>SELECT ename FROM emp WHERE sal &gt;(sal);（WHERE在group by前面，还没分组）**却会报错。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出每个工作岗位的工资和
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="nf">SUM</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">JOB</span><span class="p">;</span><span class="w">
+</span></code></pre></div><blockquote>
+<p>​	在一条select语句当中，如果有group by语句的话，select后面只能跟：参加分组的字段，以及分组函数！其他字段或函数一律不能写在select后面</p>
+</blockquote>
+<p>使用Having可以对分完组之后的数据做进一步的过滤（having与group by配套使用）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出每个部门最高薪资，要求显示最高薪资大于3000的
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="nf">MAX</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> 
+</span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">deptno</span><span class="w">
+</span><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="nf">MAX</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">3000</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>优化策略：where与having都可以解决的问题，优先使用where</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="nf">MAX</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">sal</span><span class="o">&gt;</span><span class="mi">3000</span><span class="w"> 
+</span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">deptno</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>这样子可以先选出符合要求的数据再进行分组，优化了执行效率。</p>
+<p>不能使用where的情况</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出每个部门平均薪资，要求显示平均薪资高于2500的SELECT deptno,AVG(sal)FROM empGROUP BY deptnoHAVING AVG(sal)&gt;2500;
+</span></code></pre></div><p>因为上述要求的是平均薪资，即为AVG(sal)，而where后面不能跟分组函数，所以where无法解决上述问题，只能使用having</p>
+</li>
+<li>
+<p>单表查询总结</p>
+<p>当我们需要从某张表中查询数据，需要先经过where条件筛选出有价值的数据，再对这些有价值的数据进行分组。分组之后可以使用having 继续筛选，然后select查询出来，最后排序输出。</p>
+<p>练习：找出每个岗位的平均薪资，要求显示平均薪资大于1500的，除MANAGER岗位之外，要求按照平均薪资降序排序。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">	</span><span class="n">job</span><span class="p">,</span><span class="nf">AVG</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avgsal</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span><span class="w">	</span><span class="n">emp</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> 
+</span><span class="w">	</span><span class="n">job</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span><span class="w">	</span><span class="n">job</span><span class="w">
+</span><span class="w"></span><span class="k">HAVING</span><span class="w"> 
+</span><span class="w">	</span><span class="n">avgsal</span><span class="o">&gt;</span><span class="mi">1500</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span><span class="w">	</span><span class="n">avgsal</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>DISTINCT关键字</p>
+<blockquote>
+<p>DISTINCT关键字可以把查询结果去除重复的记录（原表数据不会被修改）。</p>
+</blockquote>
+<ul>
+<li>
+<p>作用于单列</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 查询工作岗位类型
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>作用于多列</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">deptno</span><span class="p">,</span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>上述语句是同时作用在**“deptno+job”**上面的，实际上是根据**“deptno+job”**实现去重。即同一部门同一岗位的信息去掉。</p>
+<p><img src="/image/MySQL/image03.png" alt="image03"  /></p>
+</li>
+<li>
+<p>需要注意的是DISTINCT只能出现在所有的字段的最前方。</p>
+</li>
+<li>
+<p>count+distinct使用</p>
+<p><img src="/image/MySQL/image04.png" alt="image04"  /></p>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="多表查询">多表查询</h5>
+<ol>
+<li>
+<p>什么是多表查询（连接查询）</p>
+<p>从一张表中单独查询，称为单表查询。
+emp表和dept表联合起来查询数据，从emp表中取员工名字，从dept表中取部门名字。
+这种跨表查询，多张表联合起来查询数据，被称为连接查询。</p>
+</li>
+<li>
+<p>连接查询的分类</p>
+<ul>
+<li>
+<p>根据语法的年代分类：
+SQL92：1992年的时候出现的语法
+SQL99：1999年的时候出现的语法
+我们这里重点学习SQL99.(这个过程中简单演示一个SQL92的例子)</p>
+</li>
+<li>
+<p>根据表连接的方式分类：</p>
+<ul>
+<li>
+<p>内连接：</p>
+<ol>
+<li>
+<p>等值连接</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- SQL92语法
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">dname</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="n">dept</span><span class="w"> </span><span class="n">d</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span><span class="p">;</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- SQL99语法
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">	</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">dname</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span><span class="w">	</span><span class="n">emp</span><span class="w"> </span><span class="nf">e</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="k">INNER</span><span class="p">)</span><span class="k">JOIN</span><span class="w"> </span><span class="c1">-- INNER可以省略，但带着INNER可读性更好！
+</span><span class="c1"></span><span class="w">	</span><span class="n">dept</span><span class="w"> </span><span class="n">d</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> 
+</span><span class="w">	</span><span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w">
+</span><span class="w">	</span><span class="s1">&#39;筛选条件&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><blockquote>
+<p>sql92的缺点：结构不清晰，表的连接条件，和后期进一步筛选的条件，都放到了where后面。</p>
+<p>sql99的优点：表连接的条件是独立的，连接之后，如果还需要进一步筛选，再往后继续添加where</p>
+</blockquote>
+</li>
+<li>
+<p>非等值连接</p>
+<p>条件不是一个等量关系，称为非等值连接。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出每个员工的薪资等级，要求显示员工名、薪资、薪资等级
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">	</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span><span class="n">s</span><span class="p">.</span><span class="n">grade</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">	</span><span class="n">emp</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span><span class="w"></span><span class="k">JOIN</span><span class="w"> 
+</span><span class="w">	</span><span class="n">salgrade</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w">
+</span><span class="w">	</span><span class="n">e</span><span class="p">.</span><span class="n">sal</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">losal</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">hisal</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span><span class="w">	</span><span class="n">grade</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>自连接</p>
+<p>一张表看作两张表来用</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 查询员工的上级领导，要求显示员工名和对应的领导名
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;员工名&#39;</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;领导名&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">JOIN</span><span class="w"> 
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w">
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">mgr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">empno</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>
+<p>外连接：</p>
+<blockquote>
+<p>外连接就是在内连接的基础上，在JOIN的左边加上一个关键字RIGHT或LEFT。</p>
+<p><strong>RIGHT/LEFT</strong>代表什么：表示将<strong>join关键字右/左边的这张表看成主表</strong>，主要是为了<strong>将这张表的数据全部查询出来</strong>，捎带着关联查询左/右边的表。在外连接当中，两张表连接，产生了<strong>主次关系</strong>。</p>
+</blockquote>
+<ol>
+<li>
+<p>左外连接（左连接）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;员工名&#39;</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;领导名&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> 
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w">
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">mgr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">empno</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>右外连接（右连接）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;员工名&#39;</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">ename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;领导名&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> 
+</span><span class="w">   </span><span class="n">emp</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w">
+</span><span class="w">   </span><span class="n">a</span><span class="p">.</span><span class="n">mgr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">empno</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>全连接（不常用）</p>
+</li>
+</ol>
+<p><strong>注意：外连接的查询结果条数一定是大于或等于内连接的查询结果条数</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>当两张表进行连接查询，没有任何条件限制的时候</strong>，最终查询结果条数，是两张表条数的乘积，这种现象被称为：<strong>笛卡尔积现象</strong>。（笛卡尔发现的，这是一个数学现象。）</p>
+</blockquote>
+<p><strong>注意：通过笛卡尔积现象可以得出表的连接次数越多效率越低，所以要尽量避免表的连接次数。</strong></p>
+<p>实现案例：查询每个员工所在部门名称演示多表查询（<strong>避免笛卡尔乘积</strong>）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">dname</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="p">,</span><span class="n">dept</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">DEPTNO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>给表起别名，优化效率：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- SQL92语法
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">dname</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="n">dept</span><span class="w"> </span><span class="n">d</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>多张表的连接查询</p>
+<p>三张表，四张表怎么连接？</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> 
+</span><span class="w">	</span><span class="p">...</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w">
+</span><span class="w">	</span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w">
+</span><span class="w">	</span><span class="n">b</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w">
+</span><span class="w">	</span><span class="n">a和b的连接条件</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w">
+</span><span class="w">	</span><span class="n">c</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w">
+</span><span class="w">	</span><span class="n">a和c的连接条件</span><span class="w">
+</span><span class="w"></span><span class="k">right</span><span class="w"> </span><span class="k">join</span><span class="w">
+</span><span class="w">	</span><span class="n">d</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w">
+</span><span class="w">	</span><span class="n">a和d的连接条件</span><span class="w">	
+</span></code></pre></div><p>一条SQL中内连接和外连接可以混合。都可以出现！</p>
+</li>
+<li>
+<p>子查询</p>
+<p>select语句中嵌套select语句，被嵌套的select语句称为子查询。</p>
+<ul>
+<li>
+<p>子查询可以出现在那些地方</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w">
+</span><span class="w">       </span><span class="p">..(</span><span class="k">select</span><span class="p">).</span><span class="w">
+</span><span class="w">	</span><span class="k">from</span><span class="w">
+</span><span class="w">       </span><span class="p">..(</span><span class="k">select</span><span class="p">).</span><span class="w">
+</span><span class="w">	</span><span class="k">where</span><span class="w">
+</span><span class="w">       </span><span class="p">..(</span><span class="k">select</span><span class="p">).</span><span class="w">
+</span></code></pre></div><ol>
+<li>
+<p>where子句中的子查询</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出比最低工资高的员工姓名和工资
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">	</span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span><span class="w">	</span><span class="n">emp</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">    </span><span class="nf">MIN</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span><span class="w">    </span><span class="n">emp</span><span class="p">);</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>from子句中的子查询</p>
+<p><strong>注意：from后面的子查询，可以将子查询的查询结果当做一张临时表。</strong></p>
+<p>案例：找出每个岗位的平均工资的薪资等级</p>
+<p>第一步：先把每个岗位的平均薪资查询出来</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="n">JOB</span><span class="p">,</span><span class="nf">AVG</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avgsal</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">JOB</span><span class="w">
+</span></code></pre></div><p><img src="/image/MySQL/image05.png" alt="image05"  /></p>
+<p>第二步：把以上的查询结果就当做一张真实存在的表t让t表和s表进行表连接，条件：t表avg(sal) between s.losal and s.hisal;</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">	</span><span class="n">t</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="n">s</span><span class="p">.</span><span class="n">grade</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">	</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">JOB</span><span class="p">,</span><span class="nf">AVG</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avgsal</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">JOB</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span><span class="w"></span><span class="k">JOIN</span><span class="w"> 
+</span><span class="w">	</span><span class="n">salgrade</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> 
+</span><span class="w">	</span><span class="n">t</span><span class="p">.</span><span class="n">avgsal</span><span class="w"> 
+</span><span class="w"></span><span class="k">BETWEEN</span><span class="w"> 
+</span><span class="w">	</span><span class="n">s</span><span class="p">.</span><span class="o">`</span><span class="n">LOSAL</span><span class="o">`</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="o">`</span><span class="n">HISAL</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>查询结果：</p>
+<p><img src="/image/MySQL/image06.jpg" alt="image06"  /></p>
+</li>
+<li>
+<p>select后面出现的子查询</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 找出每个员工的部门名称，要求显示员工名，部门名
+</span><span class="c1"></span><span class="k">select</span><span class="w"> 
+</span><span class="w">	</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="p">,(</span><span class="k">select</span><span class="w"> 
+</span><span class="w">                        </span><span class="n">d</span><span class="p">.</span><span class="n">dname</span><span class="w"> 
+</span><span class="w">                      </span><span class="k">from</span><span class="w"> 
+</span><span class="w">                        </span><span class="n">dept</span><span class="w"> </span><span class="n">d</span><span class="w"> 
+</span><span class="w">                      </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dname</span><span class="w"> 
+</span><span class="w"></span><span class="k">from</span><span class="w"> 
+</span><span class="w">	</span><span class="n">emp</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<p>注意：对于select后面的子查询来说，这个子查询只能一次返回1条结果</p>
+</li>
+</ul>
+</li>
+<li>
+<p>union合并结果集</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 查询工作岗位是MANAGER和SALESMAN的员工
+</span><span class="c1">-- 使用表连接查询
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 使用union查询
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MANAGER&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">UNION</span><span class="w"> 
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">ename</span><span class="p">,</span><span class="n">job</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>union的效率要高一些。对于表连接来说，每连接一次新表，每次匹配的次数满足笛卡尔积都会翻倍；但是union可以减少匹配的次数。在减少匹配次数的情况下，还可以完成两个结果集的拼接。</p>
+<p>union在使用的时候的注意事项：</p>
+<ul>
+<li>union在进行结果集合并的时候，要求两个结果集的列数相同</li>
+<li>在MySQL中，允许结果集合并时列和列的数据类型不一致。但Oracle结果集合并时列和列的数据类型要一致。</li>
+</ul>
+</li>
+<li>
+<p>limit：将查询结果集的一部分取出来。通常使用在分页查询当中。</p>
+<p>分页的作用是为了提高用户的体验，因为一次全部都查出来，用户体验差。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 按照薪资降序，取出排名在第【5-9】名的员工
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w">  
+</span><span class="w">	</span><span class="n">ename</span><span class="p">,</span><span class="n">sal</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w">
+</span><span class="w">	</span><span class="n">emp</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span><span class="w">	</span><span class="n">sal</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>limit语法：</p>
+<blockquote>
+<p>完整用法：limit startIndex, length
+startIndex是偏移量（起始下标），length是需要取出的数据长度。起始下标从0开始</p>
+<p>省略用法：limit 5；取出0-5个数据</p>
+<p>limit在order by之后执行</p>
+</blockquote>
+<p>在Java中，若我们需要每页显示pageSize条记录，会有下面的公式</p>
+<blockquote>
+<p>limit (pageNo-1)*pageSize , pageSize;	其中pageNo是页码</p>
+</blockquote>
+</li>
+<li>
+<p>DQL语句的执行顺序</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="mi">1</span><span class="p">.</span><span class="k">from</span><span class="w">
+</span><span class="w"></span><span class="mi">2</span><span class="p">.</span><span class="k">where</span><span class="w">
+</span><span class="w"></span><span class="mi">3</span><span class="p">.</span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w">
+</span><span class="w"></span><span class="mi">4</span><span class="p">.</span><span class="k">having</span><span class="w">
+</span><span class="w"></span><span class="mi">5</span><span class="p">.</span><span class="k">select</span><span class="w">
+</span><span class="w"></span><span class="mi">6</span><span class="p">.</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w">
+</span><span class="w"></span><span class="mi">7</span><span class="p">.</span><span class="k">limit</span><span class="p">..</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<h4 id="create">CREATE</h4>
+<ol>
+<li>
+<p>表的创建（建表属于DDL语句，DDL包括：create drop alter）</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="err">字段名</span><span class="mi">1</span><span class="w"> </span><span class="err">数据类型</span><span class="p">,</span><span class="w"> </span><span class="err">字段名</span><span class="mi">2</span><span class="w"> </span><span class="err">数据类型</span><span class="p">,</span><span class="w"> </span><span class="err">字段名</span><span class="mi">3</span><span class="w"> </span><span class="err">数据类型</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="err">字段名</span><span class="mi">1</span><span class="w"> </span><span class="err">数据类型</span><span class="p">,</span><span class="w"> 
+</span><span class="w">	</span><span class="err">字段名</span><span class="mi">2</span><span class="w"> </span><span class="err">数据类型</span><span class="p">,</span><span class="w"> 
+</span><span class="w">	</span><span class="err">字段名</span><span class="mi">3</span><span class="w"> </span><span class="err">数据类型</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>表名：建议以t_ 或者 tbl_开始，可读性强。见名知意。
+字段名：见名知意。
+表名和字段名都属于标识符。</p>
+</li>
+<li>
+<p>mysql中的数据类型：</p>
+<ul>
+<li>
+<p>varchar(最长255)：可变长度的字符串，比较智能，节省空间。会根据实际的数据长度动态分配空间。
+优点：节省空间
+缺点：需要动态分配空间，速度慢</p>
+</li>
+<li>
+<p>char(最长255)：定长字符串，不管实际的数据长度是多少。分配固定长度的空间去存储数据。使用不恰当的时候，可能会导致空间的浪费。</p>
+<p>优点：不需要动态分配空间，速度快。
+缺点：使用不当可能会导致空间的浪费。</p>
+</li>
+<li>
+<p>int(最长11)：数字中的整数型。等同于java的int</p>
+</li>
+<li>
+<p>bigint：数字中的长整型。等同于java中的long。</p>
+</li>
+<li>
+<p>float：单精度浮点型数据</p>
+</li>
+<li>
+<p>double：双精度浮点型数据</p>
+</li>
+<li>
+<p>date：短日期类型</p>
+</li>
+<li>
+<p>datetime：长日期类型</p>
+</li>
+<li>
+<p>clob：字符大对象，最多可以存储4G的字符串。超过255个字符的都要采用CLOB字符大对象来存储。</p>
+</li>
+<li>
+<p>blob：二进制大对象。专门用来存储图片、声音、视频等流媒体数据。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>创建表与增加数据</p>
+<p>创建表</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="n">NO</span><span class="w"> </span><span class="kt">INT</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="n">NAME</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w">
+</span><span class="w">	</span><span class="n">sex</span><span class="w"> </span><span class="kt">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w">
+</span><span class="w">	</span><span class="n">age</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">	</span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>增加数据</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 注意字段名要和值一一对应。即数量对应，数据类型对应。
+</span><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="n">NO</span><span class="p">,</span><span class="n">NAME</span><span class="p">,</span><span class="n">sex</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="s1">&#39;男&#39;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s1">&#39;123456@qq.com&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 顺序可以不一样
+</span><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="n">NAME</span><span class="p">,</span><span class="n">sex</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">NO</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;lisi@123.com&#39;</span><span class="p">,</span><span class="s1">&#39;lisi&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- INSERT可以添加单个字段。没添加到的字段默认值为null
+</span><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="n">NO</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 如果添加时省略所有字段名，则说明添加全部字段名
+</span><span class="c1"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">t_student</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 错误的
+</span><span class="c1"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">t_student</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;xiaoming&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ming@123.com&#39;</span><span class="p">);</span><span class="c1">-- 需要把其他值也添加上
+</span></code></pre></div><p><img src="/image/MySQL/image07.jpg" alt="image07"  /></p>
+<p>INSERT添加日期</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- t_user表中的birth为date属性。
+</span><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">t_user</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">birth</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;jack&#39;</span><span class="p">,</span><span class="nf">STR_TO_DATE</span><span class="p">(</span><span class="s1">&#39;01-10-1990&#39;</span><span class="p">,</span><span class="s1">&#39;%d-%m-%Y&#39;</span><span class="p">));</span><span class="w">
+</span></code></pre></div><blockquote>
+<p>str_to_date函数可以将字符串转换成日期类型date。通常使用在插入insert方面，因为插入的时候需要一个日期类型的数据，需要通过该函数将字符串转换成date</p>
+<p>mysql的日期格式：%Y -&gt; 年，%m -&gt; 月，%d -&gt; 日，%h -&gt; 时，%i -&gt; 分，%s -&gt; 秒</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 这个函数可以将日期类型转换成特定格式的字符串。
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="nf">date_format</span><span class="p">(</span><span class="n">birth</span><span class="p">,</span><span class="s1">&#39;%Y/%m/%d&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">birth</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t_user</span><span class="p">;</span><span class="w">	
+</span></code></pre></div><blockquote>
+<p>date_format(日期类型数据, &lsquo;日期格式&rsquo;)；这个函数通常使用在查询日期方面。设置展示的日期格式</p>
+</blockquote>
+</li>
+<li>
+<p>date和datetime两个类型的区别</p>
+<ul>
+<li>date是短日期：只包括月日信息。mysql短日期默认格式：%Y-%m-%d</li>
+<li>datetime是长日期：包括年月日时分秒信息。mysql长日期默认格式：%Y-%m-%d %h:%i:%s</li>
+</ul>
+<p>now() 函数可以获取系统当前的时间，获取到的信息带有：时分秒信息！是datetime类型的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 在表t_user中增加一个字段create——time
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t_user</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">create_time</span><span class="w"> </span><span class="kt">DATETIME</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>INSERT插入多条数据</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">t_user</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">birth</span><span class="p">,</span><span class="n">create_time</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w">
+</span><span class="w">	</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;zs&#39;</span><span class="p">,</span><span class="s1">&#39;1980-10-11&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">()),</span><span class="w"> 
+</span><span class="w">	</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;lisi&#39;</span><span class="p">,</span><span class="s1">&#39;1981-10-11&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">()),</span><span class="w">
+</span><span class="w">	</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;wangwu&#39;</span><span class="p">,</span><span class="s1">&#39;1982-10-11&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>将查询结果插入到一张表当中</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">dept_bak</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">dept_bak</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<h4 id="update">UPDATE</h4>
+<ol>
+<li>
+<p>语法格式：<code>update 表名 set 字段名1=值1,字段名2=值2,字段名3=值3... where 条件;</code></p>
+<p><strong>注意：没有条件限制会导致所有数据全部更新。</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 更新t_user表中id=1的数据
+</span><span class="c1"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">t_user</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;mary&#39;</span><span class="p">,</span><span class="n">birth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2000-10-1&#39;</span><span class="p">,</span><span class="n">create_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<h4 id="delete">DELETE</h4>
+<ol>
+<li>
+<p>删除表中的数据</p>
+<p>语法格式：<code>delete from 表名 where 条件;</code></p>
+<p><strong>注意：没有条件，整张表的数据会全部删除！</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 删除t_user表中 id为2的数据
+</span><span class="c1"></span><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t_user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>删除表：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 这不是删除表中的数据，这是把表删除。
+</span><span class="c1"></span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t_user</span><span class="p">;</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>快速删除表中的数据</p>
+<p>传统删除表中的数据是使用delete语句，其原理如下</p>
+<blockquote>
+<p>表中的数据被删除了，但是这个数据在硬盘上的真实存储空间不会被释放！！！</p>
+<p>缺点是：删除效率比较低。</p>
+<p>优点是：支持回滚，后悔了可以再恢复数据！！！(使用rollback)</p>
+</blockquote>
+<p>快速删除表中的数据使用truncate语句，其原理如下：</p>
+<blockquote>
+<p>语法：truncate table dept_bak;</p>
+<p>删除效率比较高，表被一次截断（删除表中的所有数据），物理删除。</p>
+<p>缺点：不支持回滚</p>
+<p>优点：快速删除表中的数据。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="约束">约束</h3>
+<ul>
+<li>常见的约束
+<ul>
+<li>非空约束，not null</li>
+<li>唯一约束，unique</li>
+<li>主键约束，primary key</li>
+<li>外键约束，foreign key</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>
+<p>非空约束（not null）</p>
+<p>非空约束，针对某个字段设置其值不为空，如：学生的姓名不能为空</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">t_student</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">student_name</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sex</span><span class="w"> </span><span class="kt">CHAR</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">birthday</span><span class="w"> </span><span class="kt">DATE</span><span class="p">,</span><span class="w"> 
+</span><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">classes_id</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>插入数据</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">birthday</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">classes_id</span><span class="p">)</span><span class="w"> 
+</span><span class="w"></span><span class="k">values</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">1002</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1988-01-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qqq@163.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>因为插入的数据没有插入student_name字段的值，所以系统会报错</p>
+<p><img src="/image/MySQL/image08.jpg" alt="image08"  /></p>
+<p><code>not null</code>只有列级约束，没有表级约束</p>
+</li>
+<li>
+<p>唯一约束（unique）</p>
+<p>唯一性约束，它可以使某个字段的值不能重复，如：email 不能重复。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">t_student</span><span class="p">;</span><span class="w"> 
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">student_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="c1">-- 非空约束
+</span><span class="c1"></span><span class="w">    </span><span class="n">sex</span><span class="w"> </span><span class="kt">char</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="n">birthday</span><span class="w"> </span><span class="kt">date</span><span class="p">,</span><span class="w"> 
+</span><span class="w">	</span><span class="n">email</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span><span class="w"> </span><span class="c1">-- 唯一约束
+</span><span class="c1"></span><span class="w">	</span><span class="n">classes_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 联合唯一
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_vip</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="n">vip_id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">vip_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">unique</span><span class="p">(</span><span class="n">vip_id</span><span class="p">,</span><span class="n">vip_name</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>上述联合唯一的<code>unique(vip_id,vip_name)</code>由于约束没有添加在列的后面，所以被称为表级约束。</p>
+<p><code>unique</code>和<code>not null</code>联合使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_vip</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="c1">-- 主键字段 
+</span><span class="c1"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>在mysql中，如果一个字段同时被not null和unique约束的话，该字段自动变成主键字段。（注意：oracle中不一样！）</p>
+</li>
+<li>
+<p>主键约束（primary key）</p>
+<p>每个表应该具有主键，主键可以标识记录的唯一性，主键分为单一主键和复合（联合）主键，单一主键是由一个字段</p>
+<p>构成的，复合（联合）主键是由多个字段构成的。</p>
+<ul>
+<li>主键约束：就是一种约束</li>
+<li>主键字段：该字段上添加了主键约束，这样的字段叫做主键字段</li>
+<li>主键值：：主键字段中的每一个值都叫做主键值（建议使用int，bigint，char；不建议使用varchar）</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">t_student</span><span class="p">;</span><span class="w"> 
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="n">student_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="cm">/*列级约束*/</span><span class="w">
+</span><span class="w">	</span><span class="n">student_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="n">sex</span><span class="w"> </span><span class="kt">char</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="n">birthday</span><span class="w"> </span><span class="kt">date</span><span class="p">,</span><span class="w"> 
+</span><span class="w">	</span><span class="n">email</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="n">classes_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 复合主键
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_vip</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="n">vip_id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">vip_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">vip_id</span><span class="p">,</span><span class="n">vip_name</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 实际开发中，不建议使用复合主键！
+</span></code></pre></div><p>**注意：**每一张表都必须有主键，否则这张表无效。且一张表只能有一个主键</p>
+<ul>
+<li>自然主键：主键值是一个自然数，和业务没有关系。</li>
+<li>业务主键：主键值和业务紧密关联，例如银行卡账号做主键值。这就是业务主键</li>
+</ul>
+<blockquote>
+<p>实际开发中，自然主键使用比较多，因为主键只要做到不重复就行，不需要任何意义。而主键一旦和业务挂钩，那么当业务发生变动的时候可能会影响到主键值，所以业务主键不建议使用。尽量使用自然主键。</p>
+</blockquote>
+<p><code>auto_increment</code>：表示自增，从1开始，以1递增，用于维护主键。</p>
+</li>
+<li>
+<p>外键约束（foreign key）</p>
+<p>外键主要是维护表之间的关系的，主要是为了保证参照完整性，如果表中的某个字段为外键字段，那么该字段的值必须来源于参照的表的主键，如：emp 中的 deptno 值必须来源于 dept 表中的 deptno 字段值。</p>
+<ul>
+<li>外键约束：就是一种约束</li>
+<li>外键字段：该字段上添加了外键约束，这样的字段叫做外键字段</li>
+<li>外键值：：外键字段中的每一个值都叫做外键值。外键值可以为null</li>
+</ul>
+<p>建立学生和班级表之间的连接：</p>
+<p>首先建立班级表 t_classes</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">t_classes</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_classes</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">classes_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">classes_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">constraint</span><span class="w"> </span><span class="n">pk_classes_id</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">classes_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>然后创建表t_student</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">t_student</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="nf">t_student</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">student_name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">sex</span><span class="w"> </span><span class="kt">char</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">birthday</span><span class="w"> </span><span class="kt">date</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">classes_id</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">constraint</span><span class="w"> </span><span class="n">student_id_pk</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">student_id</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">constraint</span><span class="w"> </span><span class="n">fk_classes_id</span><span class="w"> </span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="p">(</span><span class="n">classes_id</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="nf">t_classes</span><span class="p">(</span><span class="n">classes_id</span><span class="p">)</span><span class="w"> 
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>注意：t_classes是父表，t_student是子表。</p>
+<blockquote>
+<p>外键不一定是主键，但一定要有unique约束</p>
+</blockquote>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">MySQL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MySQL的进阶使用</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mysql一">MySQL（一）</a>
+      <ol>
+        <li><a href="#mysql的基本介绍">MySQL的基本介绍</a></li>
+        <li><a href="#mysql的基本使用">MySQL的基本使用</a>
+          <ol>
+            <li><a href="#登录数据库">登录数据库</a></li>
+            <li><a href="#创建数据库">创建数据库</a></li>
+            <li><a href="#创建数据库表">创建数据库表</a></li>
+          </ol>
+        </li>
+        <li><a href="#增删改查">增删改查</a>
+          <ol>
+            <li><a href="#select">SELECT</a></li>
+            <li><a href="#create">CREATE</a></li>
+            <li><a href="#update">UPDATE</a></li>
+            <li><a href="#delete">DELETE</a></li>
+          </ol>
+        </li>
+        <li><a href="#约束">约束</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

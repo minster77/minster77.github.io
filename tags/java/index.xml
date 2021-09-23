@@ -6,21 +6,7 @@
     <description>Recent content in Java on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Java_IO流</title>
-      <link>https://minster77.github.io/p/java_io%E6%B5%81/</link>
-      <pubDate>Sat, 29 May 2021 16:22:25 +0800</pubDate>
-      
-      <guid>https://minster77.github.io/p/java_io%E6%B5%81/</guid>
-      <description>Java IO流1（概念及节点流）   文件 IO流原理及流的分类 InputStream的子类及使用 OutputStream的子类及使用 利用FileInputStream及FileOutputStream进行文件copy Reader与Writer的子类及使用 节点流和处理流   文件   文件是保存数据的地方，例如word文档，txt文档等都是文件。
-  文件流
-文件在程序中是以流的形式来操作的
- 流：数据在数据源(文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）的路径 输出流：数据从程序（内存）到数据源（文件）的路径    常用的文件操作
-    使用new File（String pathname）创建
-package com.java_io; import org.junit.Test; import java.io.File; import java.io.IOException; public class FileCreate1 { public static void main(String[] args) { } //方法1：使用new File(filePath)创建文件  @Test public void createFile01() throws IOException { //创建的文件路径名称  String filePath = &amp;#34;e:\\news1.</description>
-    </item>
-    
+    <lastBuildDate>Mon, 03 May 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaException</title>
       <link>https://minster77.github.io/p/javaexception/</link>

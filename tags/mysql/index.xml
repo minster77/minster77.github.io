@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on MinsterBlog</title>
+    <link>https://minster77.github.io/tags/mysql/</link>
+    <description>Recent content in MySQL on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Sep 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL基本介绍与使用</title>
+      <link>https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+      <description>MySQL（一）   MySQL的基本介绍 MySQL的基本使用 增删改查 约束   MySQL的基本介绍   sql、DB、DBMS分别是什么，他们之间的关系？
+DB：DataBase（数据库，数据库实际上在硬盘上以文件的形式存在）
+DBMS：DataBase Management System（数据库管理系统，常见的有：MySQL、Oracle、DB2、Sybase、SqlServer&amp;hellip;）
+SQL：结构化查询语言，是一门标准通用的语言。标准的SQL适合于所有的数据库产品。SQL属于高级语言。SQL语句在执行的时候，实际上内部也会先进行编译，然后再执行sql。（sql语句的编译由DNMS完成）
+ DBMS负责执行sql语句，通过执行sql语句来操作DB当中的数据
+   什么是表？
+  表：table是数据库的基本组成单元，所有的数据都以表格的形式组织，目的是可读性强。
+  一个表包括行和列：
+ 行：被称为数据/记录（data） 列：被称为字段（column）每一个字段包括字段名、数据类型、相关的约束      学习MySQL主要还是学习通用的SQL语句，那么SQL语句包括增删改查，SQL语句怎么分类？
+ DQL（数据查询语言）：查询语句，凡是select语句都是DQL。 DML（数据操作语言）：insert(增加)、delete(删除)、update(修改)，对表当中数据进行增删改。 DDL（数据定义语言）：create(增加)、drop(删除)、alter(修改) ，对表结构的增删改。 TCL（事务控制语言）：commit提交事务、rollback回滚事务 DCL（数据控制语言）：grant授权、revoke撤销权限等。    当因为sql脚本中的数据量太大的而无法打开的时候，可以使用source。
+  MySQL的基本使用 MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：
+ 表头(header): 每一列的名称; 列(col): 具有相同数据类型的数据的集合; 行(row): 每一行用来描述某个人/物的具体信息; 值(value): 行的具体信息, 每个值必须与该列的数据类型相同; 键(key): 表中用来识别某个特定的人\物的方法, 键的值在当前列中具有唯一性。  登录数据库 mysql-h127.</description>
+    </item>
+    
+    <item>
+      <title>MySQL的进阶使用</title>
+      <link>https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/</guid>
+      <description>MySQL（二）   存储引擎 事务 索引 备份与还原 视图   存储引擎 ​	存储引擎是MySQL中特有的一个术语，其它数据库中没有。（Oracle中有，但是不叫这个名字）；实际上存储引擎是一个表存储/组织数据的方式。不同的存储引擎，表存储数据的方式不同。
+  创建存储引擎
+CREATETABLE`t_student`(`student_id`intNOTNULL,`student_name`varchar(20)DEFAULTNULL,`sex`char(2)DEFAULTNULL,`birthday`dateDEFAULTNULL,`email`varchar(30)DEFAULTNULL,`classes_id`intDEFAULTNULL,PRIMARYKEY(`student_id`),KEY`fk_classes_id`(`classes_id`),CONSTRAINT`fk_classes_id`FOREIGNKEY(`classes_id`)REFERENCES`t_classes`(`classes_id`))ENGINE=InnoDBDEFAULTCHARSET=gbk-- ENGINE=InnoDB就是指定存储引擎 CHARSET是字符集  mysql默认的存储引擎是InnoDB。CHARSET默认的字符集是utf8
+   MySQL有哪些常用的存储引擎
+CMD下使用show engines\G可以查看MySQL支持的存储引擎
+  MyISAM存储引擎 它管理的表具有以下特征： 使用三个文件表示每个表：
+ 格式文件 — 存储表结构的定义（mytable.frm） 数据文件 — 存储表行的内容（mytable.MYD） 索引文件 — 存储表上索引（mytable.MYI）：索引是一本书的目录，缩小扫描范围，提高查询效率的一种机制。 可被转换为压缩、只读表来节省空间   提示一下：对于一张表来说，只要是主键，或者加有unique约束的字段上会自动创建索引。
+MyISAM存储引擎特点：可被转换为压缩、只读表来节省空间这是这种存储引擎的优势！！！！
+MyISAM不支持事务机制，安全性低。
+   InnoDB存储引擎
+ 这是mysql默认的存储引擎，同时也是一个重量级的存储引擎。 InnoDB支持事务，支持数据库崩溃后自动恢复机制。 InnoDB存储引擎最主要的特点是：非常安全。 它管理的表具有下列主要特征：  每个 InnoDB 表在数据库目录中以.frm 格式文件表示 InnoDB 表空间 tablespace 被用于存储表的内容（表空间是一个逻辑名，表空间存储数据+索引。） 提供一组用来记录事务性活动的日志文件 用 COMMIT(提交)、SAVEPOINT 及ROLLBACK(回滚)支持事务处理 提供全 ACID 兼容 在 MySQL 服务器崩溃后提供自动恢复 多版本（MVCC）和行级锁定 支持外键及引用的完整性，包括级联删除和更新   InnoDB最大的特点就是支持事务：以保证数据的安全。效率不是很高，并且也不能压缩，不能转换为只读，不能很好的节省存储空间。    MEMORY存储引擎</description>
+    </item>
+    
+  </channel>
+</rss>

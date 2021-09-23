@@ -6,7 +6,23 @@
     <description>Recent content in Posts on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Sep 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Sep 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reflection</title>
+      <link>https://minster77.github.io/p/reflection/</link>
+      <pubDate>Sun, 05 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/reflection/</guid>
+      <description>反射   反射机制 class类 类加载 反射获取类的结构信息 通过反射创建对象 练习   反射机制   引出反射
+  根据配置文件re.properties指定信息，创建Cat对象并调用方法hi
+properties配置文件如下
+classPath=com.reflection_.Catmethod=hiCat类
+package com.reflection_; public class Cat { private String name = &amp;#34;jack&amp;#34;; public void hi(){ System.out.println(&amp;#34;hi &amp;#34;+name); } } 实现类ReflectionQuestion
+package com.reflection_.question; import com.reflection_.Cat; public class ReflectionQuestion { public static void main(String[] args) { //1.使用传统方法实现，通过new一个对象，调用方法来实现  Cat cat = new Cat(); cat.hi(); } } 我们使用传统的方式，能实现上述需求，但如果我们Cat类需要增加功能或者换一种实现时，我们就需要去修改源码了！
+所以我们可以尝试使用反射来实现上述需求
+package com.reflection_.question; import com.</description>
+    </item>
+    
     <item>
       <title>Java静态代理模式</title>
       <link>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
@@ -17,7 +33,7 @@
    代理模式的定义
 ​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
   意图
-​	为其他对象提供一种代理以控制队这个对象的访问。
+​	为其他对象提供一种代理以控制对这个对象的访问。
   代理模式的结构
  抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
 ​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
@@ -28,6 +44,76 @@
 interface Marry{ void HoldWedding(); } 创建被代理类Customer
 class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
 class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.</description>
+    </item>
+    
+    <item>
+      <title>MySQL基本介绍与使用</title>
+      <link>https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mysql%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+      <description>MySQL（一）   MySQL的基本介绍 MySQL的基本使用 增删改查 约束   MySQL的基本介绍   sql、DB、DBMS分别是什么，他们之间的关系？
+DB：DataBase（数据库，数据库实际上在硬盘上以文件的形式存在）
+DBMS：DataBase Management System（数据库管理系统，常见的有：MySQL、Oracle、DB2、Sybase、SqlServer&amp;hellip;）
+SQL：结构化查询语言，是一门标准通用的语言。标准的SQL适合于所有的数据库产品。SQL属于高级语言。SQL语句在执行的时候，实际上内部也会先进行编译，然后再执行sql。（sql语句的编译由DNMS完成）
+ DBMS负责执行sql语句，通过执行sql语句来操作DB当中的数据
+   什么是表？
+  表：table是数据库的基本组成单元，所有的数据都以表格的形式组织，目的是可读性强。
+  一个表包括行和列：
+ 行：被称为数据/记录（data） 列：被称为字段（column）每一个字段包括字段名、数据类型、相关的约束      学习MySQL主要还是学习通用的SQL语句，那么SQL语句包括增删改查，SQL语句怎么分类？
+ DQL（数据查询语言）：查询语句，凡是select语句都是DQL。 DML（数据操作语言）：insert(增加)、delete(删除)、update(修改)，对表当中数据进行增删改。 DDL（数据定义语言）：create(增加)、drop(删除)、alter(修改) ，对表结构的增删改。 TCL（事务控制语言）：commit提交事务、rollback回滚事务 DCL（数据控制语言）：grant授权、revoke撤销权限等。    当因为sql脚本中的数据量太大的而无法打开的时候，可以使用source。
+  MySQL的基本使用 MySQL 为关系型数据库(Relational Database Management System)，一个关系型数据库由一个或数个表格组成, 如图所示的一个表格：
+ 表头(header): 每一列的名称; 列(col): 具有相同数据类型的数据的集合; 行(row): 每一行用来描述某个人/物的具体信息; 值(value): 行的具体信息, 每个值必须与该列的数据类型相同; 键(key): 表中用来识别某个特定的人\物的方法, 键的值在当前列中具有唯一性。  登录数据库 mysql-h127.</description>
+    </item>
+    
+    <item>
+      <title>MySQL的进阶使用</title>
+      <link>https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mysql%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/</guid>
+      <description>MySQL（二）   存储引擎 事务 索引 备份与还原 视图   存储引擎 ​	存储引擎是MySQL中特有的一个术语，其它数据库中没有。（Oracle中有，但是不叫这个名字）；实际上存储引擎是一个表存储/组织数据的方式。不同的存储引擎，表存储数据的方式不同。
+  创建存储引擎
+CREATETABLE`t_student`(`student_id`intNOTNULL,`student_name`varchar(20)DEFAULTNULL,`sex`char(2)DEFAULTNULL,`birthday`dateDEFAULTNULL,`email`varchar(30)DEFAULTNULL,`classes_id`intDEFAULTNULL,PRIMARYKEY(`student_id`),KEY`fk_classes_id`(`classes_id`),CONSTRAINT`fk_classes_id`FOREIGNKEY(`classes_id`)REFERENCES`t_classes`(`classes_id`))ENGINE=InnoDBDEFAULTCHARSET=gbk-- ENGINE=InnoDB就是指定存储引擎 CHARSET是字符集  mysql默认的存储引擎是InnoDB。CHARSET默认的字符集是utf8
+   MySQL有哪些常用的存储引擎
+CMD下使用show engines\G可以查看MySQL支持的存储引擎
+  MyISAM存储引擎 它管理的表具有以下特征： 使用三个文件表示每个表：
+ 格式文件 — 存储表结构的定义（mytable.frm） 数据文件 — 存储表行的内容（mytable.MYD） 索引文件 — 存储表上索引（mytable.MYI）：索引是一本书的目录，缩小扫描范围，提高查询效率的一种机制。 可被转换为压缩、只读表来节省空间   提示一下：对于一张表来说，只要是主键，或者加有unique约束的字段上会自动创建索引。
+MyISAM存储引擎特点：可被转换为压缩、只读表来节省空间这是这种存储引擎的优势！！！！
+MyISAM不支持事务机制，安全性低。
+   InnoDB存储引擎
+ 这是mysql默认的存储引擎，同时也是一个重量级的存储引擎。 InnoDB支持事务，支持数据库崩溃后自动恢复机制。 InnoDB存储引擎最主要的特点是：非常安全。 它管理的表具有下列主要特征：  每个 InnoDB 表在数据库目录中以.frm 格式文件表示 InnoDB 表空间 tablespace 被用于存储表的内容（表空间是一个逻辑名，表空间存储数据+索引。） 提供一组用来记录事务性活动的日志文件 用 COMMIT(提交)、SAVEPOINT 及ROLLBACK(回滚)支持事务处理 提供全 ACID 兼容 在 MySQL 服务器崩溃后提供自动恢复 多版本（MVCC）和行级锁定 支持外键及引用的完整性，包括级联删除和更新   InnoDB最大的特点就是支持事务：以保证数据的安全。效率不是很高，并且也不能压缩，不能转换为只读，不能很好的节省存储空间。    MEMORY存储引擎</description>
+    </item>
+    
+    <item>
+      <title>索引的底层数据结构</title>
+      <link>https://minster77.github.io/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Wed, 01 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description>索引的底层数据结构 Hash表 哈希表是键值对的集合，通过键（key）即可快速取出对应的值（value），因此哈希表可以快速检索数据（时间复杂度接近O(1)）。
+为何能通过key快速取出value呢？原因在于哈希算法（也叫散列算法）。通过哈希算法，我们可以快速找到value对应的index值，找到了index也就找到了对应的value。
+hash = hashfunc(key); index = hash %array_size; 但是！哈希算法会有个Hash冲突问题，也就是说多个不同的key最后得到的index相同。通常情况下，我们会使用链地址法来解决这个问题。链地址法就是将哈希冲突数据存放在链表中。就比如JDK1.8之前HashMap就是通过链地址法来解决哈希冲突的。不过JDK1.8以后HashMap为了减少链表过长的时候搜索时间过长的问题，就引入了红黑树
+为了减少 Hash 冲突的发生，一个好的哈希函数应该“均匀地”将数据分布在整个可能的哈希值集合中。
+既然哈希表这么快，为什么MySQL 没有使用其作为索引的数据结构呢？
+1.Hash 冲突问题 ：我们上面也提到过Hash 冲突了，不过对于数据库来说这还不算最大的缺点。
+2.Hash 索引不支持顺序和范围查询(Hash 索引不支持顺序和范围查询是它最大的缺点： 假如我们要对表中的数据进行排序或者进行范围查询，那 Hash 索引可就不行了。
+试想一种情况:
+SELECT*FROMtb1WHEREid&amp;lt;500;在这种范围查询中，优势非常大，直接遍历比 500 小的叶子节点就够了。而 Hash 索引是根据 hash 算法来定位的，难不成还要把 1 - 499 的数据，每个都进行一次 hash 计算来定位吗?这就是 Hash 最大的缺点了。
+B树&amp;amp;B+树 B树也成B-Tree，全称多路平衡查找树，B+树是B树的一种变体。B树和B+树中的B是Balanced（平衡）的意思
+目前大部分数据库系统及文件系统都采用B-Tree或其变种B+Tree作为索引结构。
+B-Tree B-Tree是为磁盘设备设计的一种平衡查找树。
+系统从磁盘读取数据到内存，是以磁盘块（block）为基本单位的，位于同一个磁盘块中的数据会被一次性取出来，而不是需要什么取什么。
+InnoDB存储引擎中有页（Page）的概念，页是其磁盘管理的最小单位。InnoDB存储引擎中默认每个页的大小为16KB，可通过参数innodb_page_size将页的大小设置为4K、8K、16K，在MySQL中可通过如下命令查看页的大小：
+showvariableslike&amp;#39;innodb_page_size&amp;#39;;而系统一个磁盘块的存储空间往往没有这么大，因此InnoDB每次申请磁盘空间时都会是若干地址连续磁盘块来达到页的大小16KB。InnoDB在把磁盘数据读入到磁盘时会以页为基本单位，在查询数据时如果一个页中的每条数据都能有助于定位数据记录的位置，这将会减少磁盘I/O次数，提高查询效率。
+满足以下条件的，就是B-Tree
+根结点至少有两个子女 每一个结点最多包含K个孩子，K的大小取决于磁盘页的大小。
+模拟查找关键字29的过程：
+根据根节点找到磁盘块1，读入内存。【磁盘I/O操作第1次】 比较关键字29在区间（17,35），找到磁盘块1的指针P2。 根据P2指针找到磁盘块3，读入内存。【磁盘I/O操作第2次】 比较关键字29在区间（26,30），找到磁盘块3的指针P2。 根据P2指针找到磁盘块8，读入内存。【磁盘I/O操作第3次】 在磁盘块8中的关键字列表中找到关键字29。
+​	分析上面过程，发现需要3次磁盘I/O操作，和3次内存查找操作。由于内存中的关键字是一个有序表结构，可以利用二分法查找提高效率。而3次磁盘I/O操作是影响整个B-Tree查找效率的决定因素。B-Tree相对于AVLTree缩减了节点个数，使每次磁盘I/O取到内存的数据都发挥了作用，从而提高了查询效率。
+​	总结：说到底，B-Tree就是将原先一个结点只能存储一个值的情况，改为一个结点可以存储多个值，因为查找的时候，需要将数据从磁盘中读取到内存里面，一旦磁盘IO次数过多，就会造成查询缓慢，所以这里存储多个值，可以一次性读取相近的值，从而避免查询多次IO，将查询操作放到内存里面。内存执行效率可以忽略不计。
+​	再简单说，举个例子，数据库有10条数据，id为1,2,3…10，以前要查询第10条，我查询数据库10次，然后for循环到第10条（对应二叉树）；现在不用了，现在我把1,2,3…10直接查出来，放到内存里面，直接从内存里面比较然后拿出来（对应B-Tree）
+​	缺点： 结点中的数据，不仅存储了key，还存储了value值，而这些数据是存储在页中的，每一页为16KB，页存储的空间是有限的，所以有可能存在，每一个结点，只存储了一个key和value就存不下去了，也就是变成了二叉树的数据结构。深度一样，磁盘IO树也是一样了。所以又衍生出了B+Tree。</description>
     </item>
     
     <item>
@@ -44,11 +130,11 @@ package com.polymorphic; public class Test { int a = 1; int number = 100000; // 
     </item>
     
     <item>
-      <title>Java编程思想集合篇（二）</title>
-      <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</link>
+      <title>Lambda表达式</title>
+      <link>https://minster77.github.io/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
       <pubDate>Sun, 01 Aug 2021 16:22:25 +0800</pubDate>
       
-      <guid>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/</guid>
+      <guid>https://minster77.github.io/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
       <description>Lamda表达式   Lambda表达式，可以称为闭包，它是推动Java8发动的最重要新特性
   Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）
   为什么要使用Lambda表达式
@@ -369,6 +455,54 @@ package com.thread_; //创建线程类方式一：继承Thread类，重写run方
   Boolean类型：占一位 其真值只有true和Flase两个
   浮点数拓展
 float a1 = 0.1f;//0.1  double a2 = 1.0/10;//0.1  System.out.println(a1==a2);//此处输出为false  System.out.println(a1); System.out.println(a2); float a3 = 2121213121212f; float a4 = a3+1; System.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>JVM   概述 ​	对于Java程序员来说，在虚拟机自动内存管理机制下，不再需要想C/C++程序开发程序员那样为每一个new操作去写对于的delete/free操作，不容易出现内存泄漏和内存溢出问题。正是因为Java程序员把内存控制权力交给Java虚拟机，如果不了解虚拟机是怎样使用内存的，一旦出现内存泄漏和溢出方面的问题，那么排查错误将是一个非常艰巨的任务。
+运行时数据区域 Java虚拟机在执行Java程序的过程中会把它管理的内存划分成若干个不同的数据区域。JDK1.8和之前的版本若有不同。
+JDK1.8之前：
+JDK1.8：
+ JDK1.8把线程共享的内存中的方法区移到了本地内存，变成了元空间
+ 线程是共享的：
+ **方法区：**存储虚拟机加载的类信息（类的版本、字段、方法、接口），常量，静态常量，即时编译后的代码等数据，也可能会抛出OutOfMemoryError异常。 **堆：**java虚拟机最大的内存区域，存放对象实例，也是垃圾收集器管理的主要区域，分为新生代（由Eden 与Survivor Space 组成）和老生代，可能会抛出OutOfMemoryError异常 直接内存（非运行时数据区的一部分）：jdk1.4中增加了NIO，可以分配堆外内存（系统内存替代用户内存），提高了性能。  线程是私有的：
+ 程序计数器：程序计数器(处于线程独)占区是一个非常小的内存空间，它可以看成是当前线程所执行的字节码的行号指示器 **虚拟机栈：**虚拟机栈描述的是Java方法执行的动态内存模型 **本地方法栈：**本地方法栈为虚拟机执行native方法服务  程序计数器 ​	程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时可以通过改变这个程序计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成
+​	另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为”线程私有“的内存
+通过上面的介绍，我们可以知道程序计数器的两个作用：
+ 字节码编译器通过改变程序计数器的值来选取下一条需要执行的字节码指令，从而实现了对程序流程的控制。如：顺序执行、选择、循环、异常处理。 在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪里了。  注意：程序计数器是唯一一个不会出现OutOfMemoryError（内存溢出异常）的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。
+Java虚拟机栈 ​	与程序计数器一样，Java虚拟机栈也是线程私有的，它的生命周期和线程相同，描写的是Java方法执行的内存模型，每次方法调用数据都是通过栈传递的。
+​	Java内存可以粗糙的分为堆内存和栈内存，其中栈就是现在说的虚拟机栈，或者说是虚拟机栈中局部变量表部分。（实际上，Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。）
+**栈帧：**每个方法执行时都要创建一个栈帧，方法执行完毕，栈帧销毁。栈帧用于存储局部变量表，操作数栈，动态链接，方法出口等。
+局部变量表：局部变量表主要存放了编译期可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用类型（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置），局部变量表的大小在编译期便已经可以确定，在运行时期不会发生改变。
+Java 虚拟机栈会出现两种错误：StackOverFlowError 和 OutOfMemoryError。
+ StackOverFlowError： 若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出 StackOverFlowError 错误。 OutOfMemoryError： Java 虚拟机栈的内存大小可以动态扩展， 如果虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出OutOfMemoryError异常  Java 虚拟机栈也是线程私有的，每个线程都有各自的 Java 虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>网络编程   概述   计算机网络：计算机网络是指将地理位置不同的具有独立功能的多态计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统。
+​	计算机网络是指两台或更多的计算机组成的网络，在一个网络中，任意两台计算机都可以直接通信，因为所有计算机都需要遵循同一种网络协议。
+​	那什么是互联网呢？互联网互联网是网络的网络（internet），即把很多计算机网络连接起来，形成一个全球统一的互联网。
+​	对某个特定的计算机网络来说，它可能使用网络协议ABC，而另一个计算机网络可能使用网络协议XYZ。如果计算机网络各自的通讯协议不统一，就没法把不同的网络连接起来形成互联网。因此，为了把计算机网络接入互联网，就必须使用TCP/IP协议。
+​	TCP/IP协议泛指互联网协议，其中最重要的两个协议是TCP协议和IP协议。只有使用TCP/IP协议的计算机才能够联入互联网，使用其他网络协议（例如NetBIOS、AppleTalk协议等）是无法联入互联网的。
+  网络通信中的要素   IP地址
+​	在互联网中，一个IP地址用于唯一标识一个网络接口（Network Interface）。一台联入互联网的计算机肯定有一个IP地址，但也可能有多个IP地址。
+​	IP地址分为IPv4（4个字节组成）和IPv6（8个无符号整数）两种。IPv4采用32位地址，类似101.202.99.12，而IPv6采用128位地址，类似2001:0DA8:100A:0000:0000:1020:F2F3:1428。IPv4地址总共有232个（大约42亿），而IPv6地址则总共有2128个（大约340万亿亿亿亿），IPv4的地址目前已耗尽，而IPv6的地址是根本用不完的。
+  域名
+​	因为直接记忆IP地址非常困难，所以我们通常使用域名访问某个特定的服务。域名解析服务器DNS负责把域名翻译成对应的IP，客户端再根据IP地址访问服务器。
+ 有一个特殊的本机域名localhost，它对应的IP地址总是本机地址127.0.0.1
+   网络模型
+​	由于计算机网络从底层的传输到高层的软件设计十分复杂，要合理地设计计算机网络模型，必须采用分层模型，每一层负责处理自己的操作。OSI（Open System Interconnect）网络模型是ISO组织定义的一个计算机互联的标准模型，注意它只是一个定义，目的是为了简化网络各层的操作，提供标准接口便于实现和维护。这个模型从上到下依次是：
+ 应用层，提供应用程序之间的通信； 表示层：处理数据格式，加解密等等； 会话层：负责建立和维护会话； 传输层：负责提供端到端的可靠传输； 网络层：负责根据目标地址选择路由来传输数据； 链路层和物理层负责把数据进行分片并且真正通过物理网络传输，例如，无线网、光纤等    TCP协议和UDP协议
+ TCP是专门设计用于在因特网上提供可靠的端到端的字节流通信的协议。它是一种面向连接的协议。TCP连接是字节流而非报文流（如银行转账系统）。 UDP是向应用程序提供了一种发送封装的原始IP数据报的方法，并且发送时无需建立连接，是一种不可靠的连接（如语音、视频、游戏）。    </description>
     </item>
     
   </channel>

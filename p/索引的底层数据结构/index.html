@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='索引的底层数据结构有哪些呢？'><title>索引的底层数据结构</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='索引的底层数据结构'>
+<meta property='og:description' content='索引的底层数据结构有哪些呢？'>
+<meta property='og:url' content='https://minster77.github.io/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java编程思想' /><meta property='article:published_time' content='2021-09-01T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2021-09-01T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="索引的底层数据结构">
+<meta name="twitter:description" content="索引的底层数据结构有哪些呢？">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/javathink/" >
+                JavaThink
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">索引的底层数据结构</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        索引的底层数据结构有哪些呢？
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 01, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="索引的底层数据结构">索引的底层数据结构</h2>
+<h3 id="hash表">Hash表</h3>
+<p>哈希表是键值对的集合，通过键（key）即可快速取出对应的值（value），因此哈希表可以快速检索数据（时间复杂度接近O(1)）。</p>
+<p><strong>为何能通过key快速取出value呢？<strong>原因在于</strong>哈希算法</strong>（也叫散列算法）。通过哈希算法，我们可以快速找到value对应的index值，找到了index也就找到了对应的value。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">hash</span> <span class="o">=</span> <span class="n">hashfunc</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">hash</span> <span class="o">%</span><span class="n">array_size</span><span class="o">;</span>
+</code></pre></div><p><img src="/E:%5cMyBlog%5ccontent%5cpost%5cimage%5cMySQL%5chashfun.png" alt="hashfun"  /></p>
+<p>但是！哈希算法会有个<strong>Hash冲突</strong>问题，也就是说多个不同的key最后得到的index相同。通常情况下，我们会使用<strong>链地址法</strong>来解决这个问题。链地址法就是将哈希冲突数据存放在链表中。就比如JDK1.8之前<code>HashMap</code>就是通过链地址法来解决哈希冲突的。不过JDK1.8以后<code>HashMap</code>为了减少链表过长的时候搜索时间过长的问题，就引入了<strong>红黑树</strong></p>
+<p><img src="/E:%5cMyBlog%5ccontent%5cpost%5cimage%5cMySQL%5cimage11.png" alt="image11"  /></p>
+<p>为了减少 Hash 冲突的发生，一个好的哈希函数应该“均匀地”将数据分布在整个可能的哈希值集合中。</p>
+<p>既然哈希表这么快，<strong>为什么MySQL 没有使用其作为索引的数据结构呢？</strong></p>
+<p><strong>1.Hash 冲突问题</strong> ：我们上面也提到过Hash 冲突了，不过对于数据库来说这还不算最大的缺点。</p>
+<p><strong>2.Hash 索引不支持顺序和范围查询(Hash 索引不支持顺序和范围查询是它最大的缺点：</strong> 假如我们要对表中的数据进行排序或者进行范围查询，那 Hash 索引可就不行了。</p>
+<p>试想一种情况:</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">tb1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>在这种范围查询中，优势非常大，直接遍历比 500 小的叶子节点就够了。而 Hash 索引是根据 hash 算法来定位的，难不成还要把 1 - 499 的数据，每个都进行一次 hash 计算来定位吗?这就是 Hash 最大的缺点了。</p>
+<h3 id="b树b树">B树&amp;B+树</h3>
+<p>B树也成<code>B-Tree</code>，全称<strong>多路平衡查找树</strong>，B+树是B树的一种变体。B树和B+树中的B是<code>Balanced</code>（平衡）的意思</p>
+<p>目前大部分数据库系统及文件系统都采用B-Tree或其变种B+Tree作为索引结构。</p>
+<h4 id="b-tree">B-Tree</h4>
+<p>B-Tree是为磁盘设备设计的一种平衡查找树。</p>
+<p>系统从磁盘读取数据到内存，是以磁盘块（block）为基本单位的，位于同一个磁盘块中的数据会被一次性取出来，而不是需要什么取什么。</p>
+<p>InnoDB存储引擎中有页（Page）的概念，页是其磁盘管理的最小单位。InnoDB存储引擎中默认每个页的大小为16KB，可通过参数innodb_page_size将页的大小设置为4K、8K、16K，在MySQL中可通过如下命令查看页的大小：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;innodb_page_size&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>而系统一个磁盘块的存储空间往往没有这么大，因此InnoDB每次申请磁盘空间时都会是若干地址连续磁盘块来达到页的大小16KB。InnoDB在把磁盘数据读入到磁盘时会以页为基本单位，在查询数据时如果一个页中的每条数据都能有助于定位数据记录的位置，这将会减少磁盘I/O次数，提高查询效率。</p>
+<p>满足以下条件的，就是B-Tree</p>
+<p>根结点至少有两个子女
+每一个结点最多包含K个孩子，K的大小取决于磁盘页的大小。</p>
+<p><img src="/E:%5cMyBlog%5ccontent%5cpost%5cimage%5cMySQL%5cimage12.png" alt="image12"  /></p>
+<p>模拟查找关键字29的过程：</p>
+<p>根据根节点找到磁盘块1，读入内存。【磁盘I/O操作第1次】
+比较关键字29在区间（17,35），找到磁盘块1的指针P2。
+根据P2指针找到磁盘块3，读入内存。【磁盘I/O操作第2次】
+比较关键字29在区间（26,30），找到磁盘块3的指针P2。
+根据P2指针找到磁盘块8，读入内存。【磁盘I/O操作第3次】
+在磁盘块8中的关键字列表中找到关键字29。</p>
+<p>​	分析上面过程，发现需要3次磁盘I/O操作，和3次内存查找操作。由于内存中的关键字是一个有序表结构，可以利用二分法查找提高效率。而3次磁盘I/O操作是影响整个B-Tree查找效率的决定因素。B-Tree相对于AVLTree缩减了节点个数，使每次磁盘I/O取到内存的数据都发挥了作用，从而提高了查询效率。</p>
+<p>​	<strong>总结：说到底，B-Tree就是将原先一个结点只能存储一个值的情况，改为一个结点可以存储多个值，因为查找的时候，需要将数据从磁盘中读取到内存里面，一旦磁盘IO次数过多，就会造成查询缓慢，所以这里存储多个值，可以一次性读取相近的值，从而避免查询多次IO，将查询操作放到内存里面。内存执行效率可以忽略不计。</strong></p>
+<p>​	<strong>再简单说，举个例子，数据库有10条数据，id为1,2,3…10，以前要查询第10条，我查询数据库10次，然后for循环到第10条（对应二叉树）；现在不用了，现在我把1,2,3…10直接查出来，放到内存里面，直接从内存里面比较然后拿出来（对应B-Tree）</strong></p>
+<p>​	缺点： 结点中的数据，不仅存储了key，还存储了value值，而这些数据是存储在页中的，每一页为16KB，页存储的空间是有限的，所以有可能存在，每一个结点，只存储了一个key和value就存不下去了，也就是变成了二叉树的数据结构。深度一样，磁盘IO树也是一样了。所以又衍生出了B+Tree。</p>
+<h4 id="btree">B+Tree</h4>
+<p>B+Tree是B-Tree的一种优化，更适合实现外存储索引结构，InnoDB就是用B+Tree实现索引结构。</p>
+<p>满足以下条件，就是B+Tree</p>
+<ul>
+<li>
+<p>非叶子结点，不保存数据，只保存索引；所有的数据都保存在叶子结点中</p>
+</li>
+<li>
+<p>叶子结点中，保存所有数据的信息，及指向含这些元素记录的指针，并且叶子结点本身根据关键字的大小自小而大顺序链接，是一个链表结构。</p>
+</li>
+<li>
+<p>每一个父结点的数据都出现在子结点中，是子结点的最大或最小元素
+<img src="/E:%5cMyBlog%5ccontent%5cpost%5cimage%5cMySQL%5cimage13.png" alt="image13"  /></p>
+<p>如查找元素3，B+Tree，因为没有非叶子结点没有存储数据，所以同样大小的磁盘页可以容纳更多的索引。</p>
+</li>
+</ul>
+<p>与B-Tree的比较</p>
+<ul>
+<li>存储结构不一样，单一节点存储更多的元素，使得查询的IO次数更少</li>
+<li>查找方式一致，所有查询都要查找到叶子节点，查询性能稳定</li>
+<li>所有叶子节点形成有序链表，便于范围查询</li>
+</ul>
+<p>数据库中的B+Tree索引可以分为聚集索引（clustered index）和辅助索引（secondary index）。上面的B+Tree示例图在数据库中的<strong>实现即为聚集索引，聚集索引的B+Tree中的叶子节点存放的是整张表的行记录数据。</strong></p>
+<p>辅助索引与聚集索引的区别在于辅助索引的叶子节点并不包含行记录的全部数据，而是存储相应行数据的聚集索引键，即主键。当通过辅助索引来查询数据时，InnoDB存储引擎会遍历辅助索引找到主键，然后再通过主键在聚集索引中找到完整的行记录数据。</p>
+<p><strong>在 MySQL 中，MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是，两者的实现方式不太一样。（下面的内容整理自《Java 工程师修炼之道》）</strong></p>
+<blockquote>
+<p>MyISAM 引擎中，B+Tree 叶节点的 data 域存放的是数据记录的地址。在索引检索的时候，首先按照 B+Tree 搜索算法搜索索引，如果指定的 Key 存在，则取出其 data 域的值，然后以 data 域的值为地址读取相应的数据记录。这被称为“非聚簇索引”。</p>
+<p>InnoDB 引擎中，其数据文件本身就是索引文件。相比 MyISAM，索引文件和数据文件是分离的，其表数据文件本身就是按 B+Tree 组织的一个索引结构，树的叶节点 data 域保存了完整的数据记录。这个索引的 key 是数据表的主键，因此 InnoDB 表数据文件本身就是主索引。这被称为“聚簇索引（或聚集索引）”，而其余的索引都作为辅助索引，辅助索引的 data 域存储相应记录主键的值而不是地址，这也是和 MyISAM 不同的地方。在根据主索引搜索时，直接找到 key 所在的节点即可取出数据；在根据辅助索引查找时，则需要先取出主键的值，在走一遍主索引。 因此，在设计表的时候，不建议使用过长的字段作为主键，也不建议使用非单调的字段作为主键，这样会造成主索引频繁分裂。</p>
+</blockquote>
+<h3 id="总结">总结</h3>
+<p><strong>B+Tree就是，将原先每一个非叶子结点存储的key，value这种结构，改为只存储key，然后叶子结点存储key，value，通过使用链接结构，上一个指针指向上一个值，下一个指针指向下一个值这种方式。</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/">Java编程思想</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java编程思想集合篇（二）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Lambda表达式</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java编程思想集合篇（一）</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#索引的底层数据结构">索引的底层数据结构</a>
+      <ol>
+        <li><a href="#hash表">Hash表</a></li>
+        <li><a href="#b树b树">B树&amp;B+树</a>
+          <ol>
+            <li><a href="#b-tree">B-Tree</a></li>
+            <li><a href="#btree">B+Tree</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
