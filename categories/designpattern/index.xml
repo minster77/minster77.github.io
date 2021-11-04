@@ -13,7 +13,12 @@
       <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
-      <description>静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+      <description>代理模式   代理模式基本介绍
+  代理模式：为一个对象提供一个替身，以控制对这个对象的访问。即通过代理对象访问目标对象。这样做的**好处是：**可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能
+  被代理的对象可以是远程对象、创建开销大的对象或需要安全控制的对象
+  代理模式有不同的形式，主要有三种静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，他是属于动态代理的范畴的）。
+  代理模式示意图
+    静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
    代理模式的定义
 ​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
   意图
@@ -26,8 +31,34 @@
 ​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
 创建接口Marry
 interface Marry{ void HoldWedding(); } 创建被代理类Customer
-class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
-class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.</description>
+class Customer implements Marry{ @Override public void HoldWedding() { System.</description>
+    </item>
+    
+    <item>
+      <title>Java静态代理模式</title>
+      <link>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
+      <description>代理模式   代理模式基本介绍
+  代理模式：为一个对象提供一个替身，以控制对这个对象的访问。即通过代理对象访问目标对象。这样做的**好处是：**可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能
+  被代理的对象可以是远程对象、创建开销大的对象或需要安全控制的对象
+  代理模式有不同的形式，主要有三种静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，他是属于动态代理的范畴的）。
+  代理模式示意图
+    静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+   代理模式的定义
+​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
+  意图
+​	为其他对象提供一种代理以控制对这个对象的访问。
+  代理模式的结构
+ 抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
+​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
+  静态代理简单实现
+​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道抽象主题角色便是婚礼（结婚），然后代理主题角色是婚礼公司，真实主题角色是jack。
+​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
+创建接口Marry
+interface Marry{ void HoldWedding(); } 创建被代理类Customer
+class Customer implements Marry{ @Override public void HoldWedding() { System.</description>
     </item>
     
     <item>

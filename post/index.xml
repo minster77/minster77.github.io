@@ -6,7 +6,76 @@
     <description>Recent content in Posts on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Sep 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Oct 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring（一）</title>
+      <link>https://minster77.github.io/p/spring%E4%B8%80/</link>
+      <pubDate>Mon, 04 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/spring%E4%B8%80/</guid>
+      <description>Spring（一） Spring框架概述   概述
+  Spring是轻量级的开源JavaEE框架
+  Spring可以解决企业应用开发的复杂性
+  Spring有两个核心部分：IOC和AOP
+ IOC：控制反转，把创建对象的过程交给Spring进行管理 Aop：面向切面，不修改源代码进行功能增强    Spring特点
+1、Spring是一个开源免费的框架 , 容器 .
+2、Spring是一个轻量级的框架 , 非侵入式的 .
+3、控制反转 IoC , 面向切面 Aop
+4、对事物的支持 , 对框架的支持
+ 概括来说就是：Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。
+     Spring的组成
+Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式 .
+组成 Spring 框架的每个模块（或组件）都可以单独存在，或者与其他一个或多个模块联合实现。每个模块的功能如下：
+  核心容器：核心容器提供 Spring 框架的基本功能。核心容器的主要组件是 BeanFactory，它是工厂模式的实现。BeanFactory 使用控制反转（IOC） 模式将应用程序的配置和依赖性规范与实际的应用程序代码分开。
+  Spring 上下文：Spring 上下文是一个配置文件，向 Spring 框架提供上下文信息。Spring 上下文包括企业服务，例如 JNDI、EJB、电子邮件、国际化、校验和调度功能。</description>
+    </item>
+    
+    <item>
+      <title>Spring（二）</title>
+      <link>https://minster77.github.io/p/spring%E4%BA%8C/</link>
+      <pubDate>Mon, 04 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/spring%E4%BA%8C/</guid>
+      <description>Spring（二） Beaen的自动装配  自动装配是Spring满足Bean依赖的一种方式 Spring会在上下文中自动寻找，并自动给Bean装配属性    byName自动装配
+byName：会自动在容器上下文中查找和自己对象set方法后面的值对应的bean id
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&amp;#34;&amp;gt; &amp;lt;bean id=&amp;#34;cat&amp;#34; class=&amp;#34;com.heng.pojo.Cat&amp;#34;&amp;gt;&amp;lt;/bean&amp;gt; &amp;lt;bean id=&amp;#34;dog&amp;#34; class=&amp;#34;com.heng.pojo.Dog&amp;#34;&amp;gt;&amp;lt;/bean&amp;gt; &amp;lt;bean id=&amp;#34;person&amp;#34; class=&amp;#34;com.heng.pojo.Person&amp;#34; autowire=&amp;#34;byName&amp;#34;&amp;gt; &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;jack&amp;#34;&amp;gt;&amp;lt;/property&amp;gt; &amp;lt;/bean&amp;gt; &amp;lt;/beans&amp;gt; 使用byName时，需要保证所有bean的id唯一，并且这个bean需要和自动注入的属性的set方法的值一致！
+  byType自动装配
+byType：会自动在容器上下文中查找和自己对象属性类型相同的bean
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&amp;#34;&amp;gt; &amp;lt;bean id=&amp;#34;cat&amp;#34; class=&amp;#34;com.heng.pojo.Cat&amp;#34;&amp;gt;&amp;lt;/bean&amp;gt; &amp;lt;bean id=&amp;#34;dog&amp;#34; class=&amp;#34;com.heng.pojo.Dog&amp;#34;&amp;gt;&amp;lt;/bean&amp;gt; &amp;lt;bean id=&amp;#34;person&amp;#34; class=&amp;#34;com.heng.pojo.Person&amp;#34; autowire=&amp;#34;byType&amp;#34;&amp;gt; &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;jack&amp;#34;&amp;gt;&amp;lt;/property&amp;gt; &amp;lt;/bean&amp;gt; &amp;lt;/beans&amp;gt; 使用byType时，需要保证所有bean的class唯一，并且这个bean需要和自动注入的属性的类型一致！
+  使用注解实现自动装配
+要使用注解，则需要做以下准备工作：
+  导入约束</description>
+    </item>
+    
+    <item>
+      <title>MyBatis（二）</title>
+      <link>https://minster77.github.io/p/mybatis%E4%BA%8C/</link>
+      <pubDate>Sat, 02 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mybatis%E4%BA%8C/</guid>
+      <description>MyBatis(二) MyBatis resultMap元素 resultMap是MyBatis中最复杂的元素，主要用于解决实体类属性名与数据库表中字段名不一致的情况，可以将查询结果映射成实体对象。下面我们先从最简单的功能开始介绍
+ 现有的MyBatis版本只支持resultMap查询，不支持更新或者保存，更不必说级联的更新、删除和修改。
+   resultMap元素的构成
+resultMap元素可以包含以下子元素，代码如下
+&amp;lt;resultMap id = &amp;#34;&amp;#34; type = &amp;#34;&amp;#34; &amp;gt; &amp;lt;!--类在实例化时用来注入结果的构造方法--&amp;gt; &amp;lt;constructor&amp;gt; &amp;lt;!--ID是参数，结果为ID--&amp;gt; &amp;lt;idArg&amp;gt;&amp;lt;/idArg&amp;gt; &amp;lt;!--注入到构造方法的一个普通结果--&amp;gt; &amp;lt;arg&amp;gt;&amp;lt;/arg&amp;gt; &amp;lt;/constructor&amp;gt; &amp;lt;!-- 用于表示哪个列是主键 --&amp;gt; &amp;lt;id&amp;gt;&amp;lt;/id&amp;gt; &amp;lt;!--注入到字段或JavaBean属性的普通结果--&amp;gt; &amp;lt;result&amp;gt;&amp;lt;/result&amp;gt; &amp;lt;!--用于一对一关联--&amp;gt; &amp;lt;association property = &amp;#34;&amp;#34;&amp;gt;&amp;lt;/association&amp;gt; &amp;lt;!--用于一对多、多对多关联--&amp;gt; &amp;lt;collection property = &amp;#34;&amp;#34;&amp;gt;&amp;lt;/collection&amp;gt; &amp;lt;!--使用结果值来决定使用哪个结果映射--&amp;gt; &amp;lt;discriminator javaType = &amp;#34;&amp;#34;&amp;gt; &amp;lt;!--基于某些值的结果映射--&amp;gt; &amp;lt;case value = &amp;#34;&amp;#34;&amp;gt;&amp;lt;/case&amp;gt; &amp;lt;/discriminator&amp;gt; &amp;lt;/resultMap&amp;gt; 其中：
+ &amp;lt;resultMap&amp;gt; 元素的 type 属性表示需要的 POJO，id 属性是 resultMap 的唯一标识。 子元素 &amp;lt;constructor&amp;gt; 用于配置构造方法。当一个 POJO 没有无参数构造方法时使用。 子元素 &amp;lt;id&amp;gt; 用于表示哪个列是主键。允许多个主键，多个主键称为联合主键。 子元素&amp;lt;result&amp;gt;用于表示 POJO 和 SQL 列名的映射关系。 子元素 &amp;lt;association&amp;gt;、&amp;lt;collection&amp;gt; 和 &amp;lt;discriminator&amp;gt; 在级联的情况下使用  &amp;lt;id&amp;gt;和&amp;lt;result&amp;gt;元素都有以下属性</description>
+    </item>
+    
+    <item>
+      <title>MyBatis（一）</title>
+      <link>https://minster77.github.io/p/mybatis%E4%B8%80/</link>
+      <pubDate>Fri, 01 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/mybatis%E4%B8%80/</guid>
+      <description>MyBatis(一) MyBatis概括   什么是MyBatis
+ MyBatis 是一款优秀的持久层框架 MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集的过程 MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 实体类 【Plain Old Java Objects,普通的 Java对象】映射成数据库中的记录。 MyBatis 本是apache的一个开源项目ibatis, 2010年这个项目由apache 迁移到了google code，并且改名为MyBatis 。 2013年11月迁移到Github . Mybatis官方文档 : http://www.mybatis.org/mybatis-3/zh/index.html GitHub : https://github.com/mybatis/mybatis-3    什么是持久化
+持久化就是将程序数据在持久状态和瞬时状态间转化的机制。
+ 即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的对象存储在数据库中，或者存储在磁盘文件中、XML数据文件中等等。 JDBC就是一种持久化机制。文件IO也是一种持久化机制。 在生活中 : 将鲜肉冷藏，吃的时候再解冻的方法也是。将水果做成罐头的方法也是。    为什么需要持久化服务呢？
+那是由于内存本身的缺陷引起的
+ 内存断电后数据会丢失，但有一些对象是无论如何都不能丢失的，比如银行账号等，遗憾的是，人们还无法保证内存永不掉电。 内存过于昂贵，与硬盘、光盘等外存相比，内存的价格要高2~3个数量级，而且维持成本也高，至少需要一直供电吧。所以即使对象不需要永久保存，也会因为内存的容量限制不能一直呆在内存中，需要持久化来缓存到外存。    什么是持久层？
+持久层：完成持久化工作的代码块 . &amp;mdash;-&amp;gt; dao层 【DAO (Data Access Object) 数据访问对象】</description>
+    </item>
+    
     <item>
       <title>Reflection</title>
       <link>https://minster77.github.io/p/reflection/</link>
@@ -24,12 +93,36 @@ package com.reflection_.question; import com.</description>
     </item>
     
     <item>
+      <title>宋红康老师的JDBC笔记</title>
+      <link>https://minster77.github.io/p/%E5%AE%8B%E7%BA%A2%E5%BA%B7%E8%80%81%E5%B8%88%E7%9A%84jdbc%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 05 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/%E5%AE%8B%E7%BA%A2%E5%BA%B7%E8%80%81%E5%B8%88%E7%9A%84jdbc%E7%AC%94%E8%AE%B0/</guid>
+      <description>JDBC核心技术
+讲师：宋红康
+微博：尚硅谷-宋红康
+ 第1章：JDBC概述 1.1 数据的持久化   持久化(persistence)：把数据保存到可掉电式存储设备中以供之后使用。大多数情况下，特别是企业级应用，数据持久化意味着将内存中的数据保存到硬盘上加以”固化”，而持久化的实现过程大多通过各种关系数据库来完成。
+  持久化的主要应用是将内存中的数据存储在关系型数据库中，当然也可以存储在磁盘文件、XML数据文件中。
+  1.2 Java中的数据存储技术   在Java中，数据库存取技术可分为如下几类：
+  JDBC直接访问数据库
+  JDO (Java Data Object )技术
+  第三方O/R工具，如Hibernate, Mybatis 等
+    JDBC是java访问数据库的基石，JDO、Hibernate、MyBatis等只是更好的封装了JDBC。
+  1.3 JDBC介绍  JDBC(Java Database Connectivity)是一个独立于特定数据库管理系统、通用的SQL数据库存取和操作的公共接口（一组API），定义了用来访问数据库的标准Java类库，（java.sql,javax.sql）使用这些类库可以以一种标准的方法、方便地访问数据库资源。 JDBC为访问不同的数据库提供了一种统一的途径，为开发者屏蔽了一些细节问题。 JDBC的目标是使Java程序员使用JDBC可以连接任何提供了JDBC驱动程序的数据库系统，这样就使得程序员无需对特定的数据库系统的特点有过多的了解，从而大大简化和加快了开发过程。 如果没有JDBC，那么Java程序访问数据库时是这样的：    有了JDBC，Java程序访问数据库时是这样的：    总结如下：  1.4 JDBC体系结构  JDBC接口（API）包括两个层次：  面向应用的API：Java API，抽象接口，供应用程序开发人员使用（连接数据库，执行SQL语句，获得结果）。 面向数据库的API：Java Driver API，供开发商开发数据库驱动程序用。     JDBC是sun公司提供一套用于数据库操作的接口，java程序员只需要面向这套接口编程即可。</description>
+    </item>
+    
+    <item>
       <title>Java静态代理模式</title>
       <link>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
       
       <guid>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
-      <description>静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+      <description>代理模式   代理模式基本介绍
+  代理模式：为一个对象提供一个替身，以控制对这个对象的访问。即通过代理对象访问目标对象。这样做的**好处是：**可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能
+  被代理的对象可以是远程对象、创建开销大的对象或需要安全控制的对象
+  代理模式有不同的形式，主要有三种静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，他是属于动态代理的范畴的）。
+  代理模式示意图
+    静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
    代理模式的定义
 ​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
   意图
@@ -42,8 +135,34 @@ package com.reflection_.question; import com.</description>
 ​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
 创建接口Marry
 interface Marry{ void HoldWedding(); } 创建被代理类Customer
-class Customer implements Marry{ @Override public void HoldWedding() { System.out.println(&amp;#34;我是jack，我结婚了！&amp;#34;); } } 创建代理类WeddingCompany
-class WeddingCompany implements Marry{ private Customer customer; public WeddingCompany(Customer customer){ this.customer = customer; } @Override public void HoldWedding() { before(); this.</description>
+class Customer implements Marry{ @Override public void HoldWedding() { System.</description>
+    </item>
+    
+    <item>
+      <title>Java静态代理模式</title>
+      <link>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 02 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
+      <description>代理模式   代理模式基本介绍
+  代理模式：为一个对象提供一个替身，以控制对这个对象的访问。即通过代理对象访问目标对象。这样做的**好处是：**可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能
+  被代理的对象可以是远程对象、创建开销大的对象或需要安全控制的对象
+  代理模式有不同的形式，主要有三种静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，他是属于动态代理的范畴的）。
+  代理模式示意图
+    静态代理模式  间接的“美” 中国人是一个含蓄的民族，讲究微妙和间接的交流方式。对象间的间接通信也同样是面向对象设计中一条重要的审美观。间接性的通信可以给出较低的耦合关系，较强的合作关系，以及微妙的结构和易于复用的设计架构。 &amp;mdash;-&amp;laquo;Java与模式&amp;raquo;
+   代理模式的定义
+​	代理模式的英文叫Proxy或Surrogate。所谓代理就是指一个人或者一个机构代表另一个人或者另一个机构行动。有一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介作用。
+  意图
+​	为其他对象提供一种代理以控制对这个对象的访问。
+  代理模式的结构
+ 抽象主题角色（接口）：声明了正是主题和代理主题的共同接口。这样一来任何使用真是主题的地方都可以使用代理主题。 代理主题（Peoxy）角色（代理类）：代理主题角色内部含有一个对真实主题角色的引用。从而可以在任何时候操作真实主体对象；代理主题角色提供一个与真实主题角色相同的接口，以便在任何时候都可以代替真实主题；控制对真实主题的引用，负责在需要的时候创建真实主题对象（或删除真实主题对象）；代理主题通常在客户端调用真实主题之前或之后都要执行某个操作，而不是单纯将调用传给真实主题。 真实主题角色（被代理类）：定义了代理角色所代表的真实对象。    静态代理
+​	由程序员创建或特定工具自动生成源码，也就是说在编译时就已经将接口，被代理类，代理类等确定了下来。在程序运行之前，代理类的.class文件就已经生成。
+  静态代理简单实现
+​	假设现在jack要结婚，jack把他的婚礼包办给了婚礼公司，在这个案例中，我们可以知道抽象主题角色便是婚礼（结婚），然后代理主题角色是婚礼公司，真实主题角色是jack。
+​	首先，我们创建一个Marry接口。这个接口就是jack（被代理类）和婚礼公司（代理类）的公共接口，他们都有举办婚礼的行为。这样，jack的婚礼就可以让婚礼公司来代理执行。
+创建接口Marry
+interface Marry{ void HoldWedding(); } 创建被代理类Customer
+class Customer implements Marry{ @Override public void HoldWedding() { System.</description>
     </item>
     
     <item>
@@ -83,6 +202,35 @@ MyISAM存储引擎特点：可被转换为压缩、只读表来节省空间这�
 MyISAM不支持事务机制，安全性低。
    InnoDB存储引擎
  这是mysql默认的存储引擎，同时也是一个重量级的存储引擎。 InnoDB支持事务，支持数据库崩溃后自动恢复机制。 InnoDB存储引擎最主要的特点是：非常安全。 它管理的表具有下列主要特征：  每个 InnoDB 表在数据库目录中以.frm 格式文件表示 InnoDB 表空间 tablespace 被用于存储表的内容（表空间是一个逻辑名，表空间存储数据+索引。） 提供一组用来记录事务性活动的日志文件 用 COMMIT(提交)、SAVEPOINT 及ROLLBACK(回滚)支持事务处理 提供全 ACID 兼容 在 MySQL 服务器崩溃后提供自动恢复 多版本（MVCC）和行级锁定 支持外键及引用的完整性，包括级联删除和更新   InnoDB最大的特点就是支持事务：以保证数据的安全。效率不是很高，并且也不能压缩，不能转换为只读，不能很好的节省存储空间。    MEMORY存储引擎</description>
+    </item>
+    
+    <item>
+      <title>注解</title>
+      <link>https://minster77.github.io/p/%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Wed, 01 Sep 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/%E6%B3%A8%E8%A7%A3/</guid>
+      <description>注解 注解简述   为什么要引入注解
+在使用注解之前，XML被广泛应用于描述元数据，得到各大框架的青睐，它以松耦合的方式完成了框架中几乎所有的配置。但是随着项目越来越庞大，XML的内容也越来越复杂，一些开发人员和架构师发现维护成本变高。他们希望使用一些和代码紧耦合的东西来解决这个问题。于是就有人提出了一种标记式高耦合的配置方式——注解。方法上可以进行注解，类上也可以注解，字段属性上也可以注解，反正几乎需要配置的地方都可以进行注解。
+ 下面我们通过一个例子来理解这两者的区别。
+假如你想为应用设置很多的常量或参数，这种情况下，**【XML】是一个很好的选择，因为它不会同特定的代码耦合。如果你想把某个方法声明为服务，那么使用【注解】会更好一些，因为这种情况下需要注解和方法紧密耦合起来，**开发人员也必须认识到这点。
+同时，【注解】定义了一种标准的描述元数据的方式。
+关于【注解】和【XML】两种不同的配置模式，争论了好多年，各有各的优劣，注解可以提供更大的便捷性，易于维护修改，但耦合度高，而 【XML】 相对于注解则是相反的。追求低耦合就要抛弃高效率，追求效率必然会遇到耦合。目前，许多框架将【XML】和【注解】两种方式结合使用，平衡两者之间的利弊。
+   什么是注解
+注解也叫元数据，即一种描述数据的数据。例如例如我们常见的@Override和@Deprecated。注解是JDK1.5版本开始引入的一个特性，用于对代码进行说明，可以对包、类、接口、字段、方法参数、局部变量等进行注解。
+在Annotation接口中有下面这句话来描述注解：Annotation 是所有注解继承的公共接口。
+The common interface extended by all annotation types. 所以，注解的本质就是一个继承了Annotation接口的接口。
+一个注解准确意义上来说，只不过是一种特殊的注释而已，如果没有解析它的代码，它可能连注释都不如。
+而解析一个类或者方法的注解往往有两种形式，一种是编译期直接的扫描，一种是运行期反射。反射的事情我们先不讨论，而编译器的扫描指的是编译器在对 Java 代码编译成字节码的过程中会检测到某个类或者方法被一些注解修饰，这时它就会对于这些注解进行某些处理。
+@Override public String toString(){ return &amp;#34;Hello Annotation&amp;#34;; } 在上述代码中，我重写了toSting()方法，并使用了@Override注解、但是，即使我不使用@Override注解标记代码，程序也能够正常执行。
+那么，该注解表示什么呢？这样写有什么好处吗？事实上，@Override告诉编译器这个方法是一个重写方法（描述方法的元数据），如果父类中不存在该方法时，编译器会报错，提示该方法并没有重写父类的方法。
+如果我们不小心拼写错误，例如将toString()写成了toStrring()，而且我们也没有使用@Override注解**，此时程序依然能编译运行。但是运行结果会和期望的大不相同。**
+现在我们了解了什么是注解，并且使用注解有助于提高代码的可读性。
+  注解的用途
+ 生成文档，通过代码里标识的元数据生成javadoc文档。 编译检查，通过代码里标识的元数据让编译器在编译期间进行检查验证。 编译时动态处理，编译时通过代码里标识的元数据动态处理，例如动态生成代码。 运行时动态处理，运行时通过代码里标识的元数据动态处理，例如使用反射注入实例    注解的分类
+ Java自带的标准注解，包括@Override（标明重写某个方法）、@Deprecated（标明某个类或方法过时）和@SuppressWarnings（标明要忽略的警告），使用这些注解后编译器就会进行检查 元注解，元注解是用于定义注解的注解，包括@Retention（标明注解被保留的阶段）、@Target（标明注解使用的范围）、@Inherited（标明注解可继承）、@Documented（标明是否生成javadoc文档） 自定义注解，可以根据自己的需求定义注解    元注解 元注解是用于修饰注解的注解
+元注解有@Retention、@Documented、@Target、@Inherited、@Repeatable五种
+  @Retention</description>
     </item>
     
     <item>
@@ -480,6 +628,20 @@ Java虚拟机栈 ​	与程序计数器一样，Java虚拟机栈也是线程私�
 局部变量表：局部变量表主要存放了编译期可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用类型（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置），局部变量表的大小在编译期便已经可以确定，在运行时期不会发生改变。
 Java 虚拟机栈会出现两种错误：StackOverFlowError 和 OutOfMemoryError。
  StackOverFlowError： 若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出 StackOverFlowError 错误。 OutOfMemoryError： Java 虚拟机栈的内存大小可以动态扩展， 如果虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出OutOfMemoryError异常  Java 虚拟机栈也是线程私有的，每个线程都有各自的 Java 虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>开发中用到的配置汇总   Log4j配置
+mybatis-config.xml中开启LOG4J日志配置
+&amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;#34;logImpl&amp;#34; value=&amp;#34;LOG4J&amp;#34;/&amp;gt; &amp;lt;/settings&amp;gt; 新建一个log4j.properties的配置文件
+#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码log4j.rootLogger=DEBUG,console,file#控制台输出的相关设置log4j.appender.console = org.apache.log4j.ConsoleAppenderlog4j.appender.console.Target = System.outlog4j.appender.console.Threshold=DEBUGlog4j.appender.console.layout = org.apache.log4j.PatternLayoutlog4j.appender.console.layout.ConversionPattern=[%c]-%m%n#文件输出的相关设置log4j.appender.file = org.apache.log4j.RollingFileAppenderlog4j.appender.file.File=./log/heng.loglog4j.appender.file.MaxFileSize=10mblog4j.appender.file.Threshold=DEBUGlog4j.appender.file.layout=org.apache.log4j.PatternLayoutlog4j.appender.file.layout.ConversionPattern=[%p][%d{yy-MM-dd}][%c]%m%n#日志输出级别log4j.logger.org.mybatis=DEBUGlog4j.logger.java.sql=DEBUGlog4j.logger.java.sql.Statement=DEBUGlog4j.logger.java.sql.ResultSet=DEBUGlog4j.logger.java.sql.PreparedStatement=DEBUG  Maven静态资源过滤问题
+在Pom文件中加入下面内容即可解决
+&amp;lt;build&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/java&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;/build&amp;gt;   </description>
     </item>
     
     <item>
