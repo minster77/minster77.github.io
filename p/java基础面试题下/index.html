@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Jav基础面试题'><title>Java基础面试题下</title>
+
+<link rel='canonical' href='https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java基础面试题下'>
+<meta property='og:description' content='Jav基础面试题'>
+<meta property='og:url' content='https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/'>
+<meta property='og:site_name' content='MinsterBlog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java面试题' /><meta property='article:published_time' content='2020-05-29T16:22:25&#43;08:00'/><meta property='article:modified_time' content='2020-05-29T16:22:25&#43;08:00'/>
+<meta name="twitter:title" content="Java基础面试题下">
+<meta name="twitter:description" content="Jav基础面试题">
+    <link rel="shortcut icon" href="image/M.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://minster77.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java%E9%9D%A2%E8%AF%95%E9%A2%98/" >
+                java面试题
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/">Java基础面试题下</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Jav基础面试题
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 29, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <ul>
+<li><a class="link" href="#string%e7%9b%b8%e5%85%b3" >String相关</a>
+<ul>
+<li><a class="link" href="#%e5%ad%97%e7%ac%a6%e5%9e%8b%e5%b8%b8%e9%87%8f%e5%92%8c%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab" >字符型常量和字符串常量的区别？</a></li>
+<li><a class="link" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e6%b1%a0" >什么是字符串常量池？</a></li>
+<li><a class="link" href="#string-straaa%e4%b8%8e-string-strnew-stringaaa%e4%b8%80%e6%a0%b7%e5%90%97new-stringaaa%e5%88%9b%e5%bb%ba%e4%ba%86%e5%87%a0%e4%b8%aa%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%af%b9%e8%b1%a1" >String str=&ldquo;aaa&quot;与 String str=new String(&ldquo;aaa&rdquo;)一样吗？<code>new String(“aaa”);</code>创建了几个字符串对象?</a></li>
+<li><a class="link" href="#string-%e6%98%af%e6%9c%80%e5%9f%ba%e6%9c%ac%e7%9a%84%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e5%90%97" >String 是最基本的数据类型吗?</a></li>
+<li><a class="link" href="#string%e6%9c%89%e5%93%aa%e4%ba%9b%e7%89%b9%e6%80%a7" >String有哪些特性?</a></li>
+<li><a class="link" href="#%e5%9c%a8%e4%bd%bf%e7%94%a8-hashmap-%e7%9a%84%e6%97%b6%e5%80%99%e7%94%a8-string-%e5%81%9a-key-%e6%9c%89%e4%bb%80%e4%b9%88%e5%a5%bd%e5%a4%84" >在使用 HashMap 的时候，用 String 做 key 有什么好处？</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b" >包装类型</a>
+<ul>
+<li><a class="link" href="#%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e6%98%af%e4%bb%80%e4%b9%88%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8c%85%e8%a3%85%e7%b1%bb%e5%9e%8b%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab" >包装类型是什么？基本类型和包装类型有什么区别？</a></li>
+<li><a class="link" href="#%e8%a7%a3%e9%87%8a%e4%b8%80%e4%b8%8b%e8%87%aa%e5%8a%a8%e8%a3%85%e7%ae%b1%e5%92%8c%e8%87%aa%e5%8a%a8%e6%8b%86%e7%ae%b1" >解释一下自动装箱和自动拆箱？</a></li>
+<li><a class="link" href="#int-%e5%92%8c-integer-%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab" >int 和 Integer 有什么区别?</a></li>
+<li><a class="link" href="#%e4%b8%a4%e4%b8%aanew%e7%94%9f%e6%88%90%e7%9a%84integer%e5%8f%98%e9%87%8f%e7%9a%84%e5%af%b9%e6%af%94" >两个new生成的Integer变量的对比</a></li>
+<li><a class="link" href="#integer%e5%8f%98%e9%87%8f%e5%92%8cint%e5%8f%98%e9%87%8f%e7%9a%84%e5%af%b9%e6%af%94" >Integer变量和int变量的对比</a></li>
+<li><a class="link" href="#%e9%9d%9enew%e7%94%9f%e6%88%90%e7%9a%84integer%e5%8f%98%e9%87%8f%e5%92%8cnew-integer%e7%94%9f%e6%88%90%e5%8f%98%e9%87%8f%e7%9a%84%e5%af%b9%e6%af%94" >非new生成的Integer变量和new Integer()生成变量的对比</a></li>
+<li><a class="link" href="#%e4%b8%a4%e4%b8%aa%e9%9d%9enew%e7%94%9f%e6%88%90%e7%9a%84integer%e5%af%b9%e8%b1%a1%e7%9a%84%e5%af%b9%e6%af%94" >两个非new生成的Integer对象的对比</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e5%8f%8d%e5%b0%84" >反射</a>
+<ul>
+<li><a class="link" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%8f%8d%e5%b0%84" >什么是反射？</a></li>
+<li><a class="link" href="#%e5%8f%8d%e5%b0%84%e6%9c%ba%e5%88%b6%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9%e6%9c%89%e5%93%aa%e4%ba%9b" >反射机制的优缺点有哪些？</a></li>
+<li><a class="link" href="#%e5%a6%82%e4%bd%95%e8%8e%b7%e5%8f%96%e5%8f%8d%e5%b0%84%e4%b8%ad%e7%9a%84class%e5%af%b9%e8%b1%a1" >如何获取反射中的Class对象？</a></li>
+<li><a class="link" href="#java%e5%8f%8d%e5%b0%84api%e6%9c%89%e5%87%a0%e7%b1%bb" >Java反射API有几类？</a></li>
+<li><a class="link" href="#%e5%8f%8d%e5%b0%84%e4%bd%bf%e7%94%a8%e7%9a%84%e6%ad%a5%e9%aa%a4" >反射使用的步骤？</a></li>
+<li><a class="link" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%bc%95%e5%85%a5%e5%8f%8d%e5%b0%84%e6%a6%82%e5%bf%b5%e5%8f%8d%e5%b0%84%e6%9c%ba%e5%88%b6%e7%9a%84%e5%ba%94%e7%94%a8%e6%9c%89%e5%93%aa%e4%ba%9b" >为什么引入反射概念？反射机制的应用有哪些？</a></li>
+<li><a class="link" href="#%e5%8f%8d%e5%b0%84%e6%9c%ba%e5%88%b6%e7%9a%84%e5%8e%9f%e7%90%86%e6%98%af%e4%bb%80%e4%b9%88" >反射机制的原理是什么？</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e6%b3%9b%e5%9e%8b" >泛型</a>
+<ul>
+<li><a class="link" href="#java%e4%b8%ad%e7%9a%84%e6%b3%9b%e5%9e%8b%e6%98%af%e4%bb%80%e4%b9%88-" >Java中的泛型是什么 ?</a></li>
+<li><a class="link" href="#%e4%bd%bf%e7%94%a8%e6%b3%9b%e5%9e%8b%e7%9a%84%e5%a5%bd%e5%a4%84%e6%98%af%e4%bb%80%e4%b9%88" >使用泛型的好处是什么?</a></li>
+<li><a class="link" href="#java%e6%b3%9b%e5%9e%8b%e7%9a%84%e5%8e%9f%e7%90%86%e6%98%af%e4%bb%80%e4%b9%88--%e4%bb%80%e4%b9%88%e6%98%af%e7%b1%bb%e5%9e%8b%e6%93%a6%e9%99%a4-" >Java泛型的原理是什么 ? 什么是类型擦除 ?</a></li>
+<li><a class="link" href="#%e4%bb%80%e4%b9%88%e6%98%af%e6%b3%9b%e5%9e%8b%e4%b8%ad%e7%9a%84%e9%99%90%e5%ae%9a%e9%80%9a%e9%85%8d%e7%ac%a6%e5%92%8c%e9%9d%9e%e9%99%90%e5%ae%9a%e9%80%9a%e9%85%8d%e7%ac%a6-" >什么是泛型中的限定通配符和非限定通配符 ?</a></li>
+<li><a class="link" href="#list-extends-t%e5%92%8clist--super-t%e4%b9%8b%e9%97%b4%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab-" >List&lt;? extends T&gt;和List &lt;? super T&gt;之间有什么区别 ?</a></li>
+<li><a class="link" href="#%e5%8f%af%e4%bb%a5%e6%8a%8aliststring%e4%bc%a0%e9%80%92%e7%bb%99%e4%b8%80%e4%b8%aa%e6%8e%a5%e5%8f%97listobject%e5%8f%82%e6%95%b0%e7%9a%84%e6%96%b9%e6%b3%95%e5%90%97" >可以把List<code>&lt;String&gt;</code>传递给一个接受List<code>&lt;Object&gt;</code>参数的方法吗？</a></li>
+<li><a class="link" href="#array%e4%b8%ad%e5%8f%af%e4%bb%a5%e7%94%a8%e6%b3%9b%e5%9e%8b%e5%90%97" >Array中可以用泛型吗?</a></li>
+<li><a class="link" href="#%e5%88%a4%e6%96%adarrayliststring%e4%b8%8earraylistinteger%e6%98%af%e5%90%a6%e7%9b%b8%e7%ad%89" >判断<code>ArrayList&lt;String&gt;</code>与<code>ArrayList&lt;Integer&gt;</code>是否相等？</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e5%ba%8f%e5%88%97%e5%8c%96" >序列化</a>
+<ul>
+<li><a class="link" href="#java%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%8e%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%98%af%e4%bb%80%e4%b9%88" >Java序列化与反序列化是什么？</a></li>
+<li><a class="link" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%8e%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" >为什么需要序列化与反序列化？</a></li>
+<li><a class="link" href="#%e5%ba%8f%e5%88%97%e5%8c%96%e5%ae%9e%e7%8e%b0%e7%9a%84%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e4%ba%9b" >序列化实现的方式有哪些？</a>
+<ul>
+<li><a class="link" href="#serializable%e6%8e%a5%e5%8f%a3" ><strong>Serializable</strong>接口</a></li>
+<li><a class="link" href="#externalizable%e6%8e%a5%e5%8f%a3" ><strong>Externalizable</strong>接口</a></li>
+<li><a class="link" href="#%e4%b8%a4%e7%a7%8d%e5%ba%8f%e5%88%97%e5%8c%96%e7%9a%84%e5%af%b9%e6%af%94" >两种序列化的对比</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e4%bb%80%e4%b9%88%e6%98%afserialversionuid" >什么是serialVersionUID？</a></li>
+<li><a class="link" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%98%e8%a6%81%e6%98%be%e7%a4%ba%e6%8c%87%e5%ae%9aserialversionuid%e7%9a%84%e5%80%bc" >为什么还要显示指定serialVersionUID的值?</a></li>
+<li><a class="link" href="#serialversionuid%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e4%bf%ae%e6%94%b9" >serialVersionUID什么时候修改？</a></li>
+<li><a class="link" href="#java-%e5%ba%8f%e5%88%97%e5%8c%96%e4%b8%ad%e5%a6%82%e6%9e%9c%e6%9c%89%e4%ba%9b%e5%ad%97%e6%ae%b5%e4%b8%8d%e6%83%b3%e8%bf%9b%e8%a1%8c%e5%ba%8f%e5%88%97%e5%8c%96%e6%80%8e%e4%b9%88%e5%8a%9e" >Java 序列化中如果有些字段不想进行序列化，怎么办？</a></li>
+<li><a class="link" href="#%e9%9d%99%e6%80%81%e5%8f%98%e9%87%8f%e4%bc%9a%e8%a2%ab%e5%ba%8f%e5%88%97%e5%8c%96%e5%90%97" >静态变量会被序列化吗?</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e5%bc%82%e5%b8%b8" >异常</a>
+<ul>
+<li><a class="link" href="#error-%e5%92%8c-exception-%e5%8c%ba%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88" >Error 和 Exception 区别是什么？</a></li>
+<li><a class="link" href="#%e9%9d%9e%e5%8f%97%e6%a3%80%e6%9f%a5%e5%bc%82%e5%b8%b8%e8%bf%90%e8%a1%8c%e6%97%b6%e5%bc%82%e5%b8%b8%e5%92%8c%e5%8f%97%e6%a3%80%e6%9f%a5%e5%bc%82%e5%b8%b8%e4%b8%80%e8%88%ac%e5%bc%82%e5%b8%b8%e5%8c%ba%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88" >非受检查异常(运行时异常)和受检查异常(一般异常)区别是什么？</a></li>
+<li><a class="link" href="#throw-%e5%92%8c-throws-%e7%9a%84%e5%8c%ba%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88" >throw 和 throws 的区别是什么？</a></li>
+<li><a class="link" href="#noclassdeffounderror-%e5%92%8c-classnotfoundexception-%e5%8c%ba%e5%88%ab" >NoClassDefFoundError 和 ClassNotFoundException 区别？</a></li>
+<li><a class="link" href="#java%e5%b8%b8%e8%a7%81%e5%bc%82%e5%b8%b8%e6%9c%89%e5%93%aa%e4%ba%9b" >Java常见异常有哪些？</a></li>
+<li><a class="link" href="#try-catch-finally-%e4%b8%ad%e5%93%aa%e4%b8%aa%e9%83%a8%e5%88%86%e5%8f%af%e4%bb%a5%e7%9c%81%e7%95%a5" >try-catch-finally 中哪个部分可以省略？</a></li>
+<li><a class="link" href="#try-catch-finally-%e4%b8%ad%e5%a6%82%e6%9e%9c-catch-%e4%b8%ad-return-%e4%ba%86finally-%e8%bf%98%e4%bc%9a%e6%89%a7%e8%a1%8c%e5%90%97" >try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？</a></li>
+<li><a class="link" href="#jvm-%e6%98%af%e5%a6%82%e4%bd%95%e5%a4%84%e7%90%86%e5%bc%82%e5%b8%b8%e7%9a%84" >JVM 是如何处理异常的？</a></li>
+</ul>
+</li>
+<li><a class="link" href="#io" >IO</a>
+<ul>
+<li><a class="link" href="#java%e7%9a%84io-%e6%b5%81%e5%88%86%e4%b8%ba%e5%87%a0%e7%a7%8d" >Java的IO 流分为几种？</a></li>
+<li><a class="link" href="#%e5%ad%97%e8%8a%82%e6%b5%81%e5%a6%82%e4%bd%95%e8%bd%ac%e4%b8%ba%e5%ad%97%e7%ac%a6%e6%b5%81" >字节流如何转为字符流？</a></li>
+<li><a class="link" href="#%e5%ad%97%e7%ac%a6%e6%b5%81%e4%b8%8e%e5%ad%97%e8%8a%82%e6%b5%81%e7%9a%84%e5%8c%ba%e5%88%ab" >字符流与字节流的区别？</a></li>
+<li><a class="link" href="#bionioaio%e7%9a%84%e5%8c%ba%e5%88%ab" >BIO、NIO、AIO的区别？</a></li>
+<li><a class="link" href="#java-io%e9%83%bd%e6%9c%89%e5%93%aa%e4%ba%9b%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" >Java IO都有哪些设计模式？</a></li>
+</ul>
+</li>
+<li><a class="link" href="#%e5%8f%82%e8%80%83" >参考</a></li>
+</ul>
+<h2 id="string相关">String相关</h2>
+<h3 id="字符型常量和字符串常量的区别">字符型常量和字符串常量的区别？</h3>
+<ol>
+<li>
+<p>形式上: 字符常量是单引号引起的一个字符，字符串常量是双引号引起的若干个字符；</p>
+</li>
+<li>
+<p>含义上: 字符常量相当于一个整型值( ASCII 值),可以参加表达式运算；字符串常量代表一个地址值(该字符串在内存中存放位置，相当于对象；</p>
+</li>
+<li>
+<p>占内存大小：字符常量只占2个字节；字符串常量占若干个字节(至少一个字符结束标志) (注意: char 在Java中占两个字节)。</p>
+</li>
+</ol>
+<h3 id="什么是字符串常量池">什么是字符串常量池？</h3>
+<p>java中常量池的概念主要有三个：<code>全局字符串常量池</code>，<code>class文件常量池</code>，<code>运行时常量池</code>。我们现在所说的就是<code>全局字符串常量池</code>，对这个想弄明白的同学可以看这篇<a class="link" href="http://tangxman.github.io/2015/07/27/the-difference-of-java-string-pool/"  target="_blank" rel="noopener"
+    >Java中几种常量池的区分</a>。</p>
+<p>jvm为了提升性能和减少内存开销，避免字符的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
+<p>字符串常量池的位置也是随着jdk版本的不同而位置不同。在jdk6中，常量池的位置在永久代（方法区）中，此时常量池中存储的是<strong>对象</strong>。在jdk7中，常量池的位置在堆中，此时，常量池存储的就是<strong>引用</strong>了。在jdk8中，永久代（方法区）被元空间取代了。</p>
+<h3 id="string-straaa与-string-strnew-stringaaa一样吗new-stringaaa创建了几个字符串对象">String str=&ldquo;aaa&quot;与 String str=new String(&ldquo;aaa&rdquo;)一样吗？<code>new String(“aaa”);</code>创建了几个字符串对象?</h3>
+<ul>
+<li>使用<code>String a = “aaa” ;</code>，程序运行时会在常量池中查找”aaa”字符串，若没有，会将”aaa”字符串放进常量池，再将其地址赋给a；若有，将找到的”aaa”字符串的地址赋给a。</li>
+<li>使用String b = new String(&ldquo;aaa&rdquo;);`，程序会在堆内存中开辟一片新空间存放新对象，同时会将”aaa”字符串放入常量池，相当于创建了两个对象，无论常量池中有没有”aaa”字符串，程序都会在堆内存中开辟一片新空间存放新对象。</li>
+</ul>
+<p>具体分析，见以下代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span>
+        <span class="n">s</span><span class="o">.</span><span class="na">intern</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&#34;2&#34;</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">s2</span><span class="o">);</span>
+
+
+        <span class="n">String</span> <span class="n">s3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;3&#34;</span><span class="o">)</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;3&#34;</span><span class="o">);</span>
+        <span class="n">s3</span><span class="o">.</span><span class="na">intern</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">s4</span> <span class="o">=</span> <span class="s">&#34;33&#34;</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s3</span> <span class="o">==</span> <span class="n">s4</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">jdk6</span>
+<span class="kc">false</span>
+<span class="kc">false</span>
+
+<span class="n">jdk7</span>
+<span class="kc">false</span>
+<span class="kc">true</span>
+</code></pre></div><p>这段代码在jdk6中输出是<code>false false</code>，但是在jdk7中输出的是<code>false true</code>。我们通过图来一行行解释。</p>
+<p><strong>先来认识下intern()函数</strong>：</p>
+<p>　　intern函数的作用是将对应的符号常量进入特殊处理，在JDK1.6以前 和 JDK1.7以后有不同的处理；</p>
+<p>　　在JDK1.6中，intern的处理是 先判断字符串常量是否在字符串常量池中，如果存在直接返回该常量，如果没有找到，则将该字符串常量加入到字符串常量区，也就是在字符串常量区建立该常量；</p>
+<p>　　在JDK1.7中，intern的处理是 先判断字符串常量是否在字符串常量池中，如果存在直接返回该常量，如果没有找到，说明该字符串常量在堆中，则处理是把堆区该对象的引用加入到字符串常量池中，以后别人拿到的是该字符串常量的引用，实际存在堆中</p>
+<p><strong>JDK1.6</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/16/167b663c264e6af2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="JDK1.6代码图"  /></p>
+<p><code>String s = new String(&quot;2&quot;);</code>创建了两个对象，一个在堆中的StringObject对象，一个是在常量池中的“2”对象。
+<code>s.intern();</code>在常量池中寻找与s变量内容相同的对象，发现已经存在内容相同对象“2”，返回对象2的地址。
+<code>String s2 = &quot;2&quot;;</code>使用字面量创建，在常量池寻找是否有相同内容的对象，发现有，返回对象&quot;2&quot;的地址。
+<code>System.out.println(s == s2);</code>从上面可以分析出，s变量和s2变量地址指向的是不同的对象，所以返回false</p>
+<p><code>String s3 = new String(&quot;3&quot;) + new String(&quot;3&quot;);</code>创建了两个对象，一个在堆中的StringObject对象，一个是在常量池中的“3”对象。中间还有2个匿名的new String(&ldquo;3&rdquo;)我们不去讨论它们。
+<code>s3.intern();</code>在常量池中寻找与s3变量内容相同的对象，没有发现“33”对象，在常量池中创建“33”对象，返回“33”对象的地址。
+<code>String s4 = &quot;33&quot;;</code>使用字面量创建，在常量池寻找是否有相同内容的对象，发现有，返回对象&quot;33&quot;的地址。
+<code>System.out.println(s3 == s4);</code>从上面可以分析出，s3变量和s4变量地址指向的是不同的对象，所以返回false</p>
+<p><strong>JDK1.7</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/16/167b663c2617a194?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="JDK1.7代码图"  /></p>
+<p><code>String s = new String(&quot;2&quot;);</code>创建了两个对象，一个在堆中的StringObject对象，一个是在堆中的“2”对象，并在常量池中保存“2”对象的引用地址。
+<code>s.intern();</code>在常量池中寻找与s变量内容相同的对象，发现已经存在内容相同对象“2”，返回对象“2”的引用地址。
+<code>String s2 = &quot;2&quot;;</code>使用字面量创建，在常量池寻找是否有相同内容的对象，发现有，返回对象“2”的引用地址。
+<code>System.out.println(s == s2);</code>从上面可以分析出，s变量和s2变量地址指向的是不同的对象，所以返回false</p>
+<p><code>String s3 = new String(&quot;3&quot;) + new String(&quot;3&quot;);</code>创建了两个对象，一个在堆中的StringObject对象，一个是在堆中的“3”对象，并在常量池中保存“3”对象的引用地址。中间还有2个匿名的new String(&ldquo;3&rdquo;)我们不去讨论它们。
+<code>s3.intern();</code>在常量池中寻找与s3变量内容相同的对象，没有发现“33”对象，将s3对应的StringObject对象的地址保存到常量池中，返回StringObject对象的地址。
+<code>String s4 = &quot;33&quot;;</code>使用字面量创建，在常量池寻找是否有相同内容的对象，发现有，返回其地址，也就是StringObject对象的引用地址。
+<code>System.out.println(s3 == s4);</code>从上面可以分析出，s3变量和s4变量地址指向的是相同的对象，所以返回true。</p>
+<h3 id="string-是最基本的数据类型吗">String 是最基本的数据类型吗?</h3>
+<p>不是。Java 中的基本数据类型只有 8 个 ：byte、short、int、long、float、double、char、boolean；除了基本类型（primitive type），剩下的都是引用类型（referencetype），Java 5 以后引入的枚举类型也算是一种比较特殊的引用类型。</p>
+<h3 id="string有哪些特性">String有哪些特性?</h3>
+<ul>
+<li>
+<p>不变性：String 是只读字符串，是一个典型的 immutable 对象，对它进行任何操作，其实都是创建一个新的对象，再把引用指向该对象。不变模式的主要作用在于当一个对象需要被多线程共享并频繁访问时，可以保证数据的一致性；</p>
+</li>
+<li>
+<p>常量池优化：String 对象创建之后，会在字符串常量池中进行缓存，如果下次创建同样的对象时，会直接返回缓存的引用；</p>
+</li>
+<li>
+<p>final：使用 final 来定义 String 类，表示 String 类不能被继承，提高了系统的安全性。</p>
+</li>
+</ul>
+<h3 id="在使用-hashmap-的时候用-string-做-key-有什么好处">在使用 HashMap 的时候，用 String 做 key 有什么好处？</h3>
+<p>HashMap 内部实现是通过 key 的 hashcode 来确定 value 的存储位置，因为字符串是不可变的，所以当创建字符串时，它的 hashcode 被缓存下来，不需要再次计算，所以相比于其他对象更快。</p>
+<h2 id="包装类型">包装类型</h2>
+<h3 id="包装类型是什么基本类型和包装类型有什么区别">包装类型是什么？基本类型和包装类型有什么区别？</h3>
+<p>Java 为每一个基本数据类型都引入了对应的包装类型（wrapper class），int 的包装类就是 Integer，从 Java 5 开始引入了自动装箱/拆箱机制，把基本类型转换成包装类型的过程叫做装箱（boxing）；反之，把包装类型转换成基本类型的过程叫做拆箱（unboxing），使得二者可以相互转换。</p>
+<p>Java 为每个原始类型提供了包装类型：</p>
+<p>原始类型: boolean，char，byte，short，int，long，float，double</p>
+<p>包装类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double</p>
+<p><strong>基本类型和包装类型的区别主要有以下 几点</strong>：</p>
+<ul>
+<li>
+<p><strong>包装类型可以为 null，而基本类型不可以</strong>。它使得包装类型可以应用于 POJO 中，而基本类型则不行。那为什么 POJO 的属性必须要用包装类型呢？《阿里巴巴 Java 开发手册》上有详细的说明， 数据库的查询结果可能是 null，如果使用基本类型的话，因为要自动拆箱（将包装类型转为基本类型，比如说把 Integer 对象转换成 int 值），就会抛出 <code>NullPointerException</code> 的异常。</p>
+</li>
+<li>
+<p><strong>包装类型可用于泛型，而基本类型不可以</strong>。泛型不能使用基本类型，因为使用基本类型时会编译出错。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span> <span class="c1">// 提示 Syntax error, insert &#34;Dimensions&#34; to complete ReferenceType
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div><p>因为泛型在编译时会进行类型擦除，最后只保留原始类型，而原始类型只能是 Object 类及其子类——基本类型是个特例。</p>
+</li>
+<li>
+<p><strong>基本类型比包装类型更高效</strong>。基本类型在栈中直接存储的具体数值，而包装类型则存储的是堆中的引用。 很显然，相比较于基本类型而言，包装类型需要占用更多的内存空间。</p>
+</li>
+</ul>
+<h3 id="解释一下自动装箱和自动拆箱">解释一下自动装箱和自动拆箱？</h3>
+<p><strong>自动装箱：将基本数据类型重新转化为对象</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>  
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+            <span class="c1">// 声明一个Integer对象，用到了自动的装箱：解析为:Integer num = Integer.valueOf(9);
+</span><span class="c1"></span>	        <span class="n">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="n">9</span><span class="o">;</span>
+        <span class="o">}</span>  
+    <span class="o">}</span>  
+</code></pre></div><p>9是属于基本数据类型的，原则上它是不能直接赋值给一个对象Integer的。但jdk1.5 开始引入了自动装箱/拆箱机制，就可以进行这样的声明，自动将基本数据类型转化为对应的封装类型，成为一个对象以后就可以调用对象所声明的所有的方法。</p>
+<p><strong>自动拆箱：将对象重新转化为基本数据类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>  
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>  
+            <span class="o">/</span> <span class="o">/</span><span class="n">声明一个Integer对象</span>
+	        <span class="n">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="n">9</span><span class="o">;</span>
+            
+            <span class="c1">// 进行计算时隐含的有自动拆箱
+</span><span class="c1"></span>		    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">num</span><span class="o">--);</span>
+        <span class="o">}</span>  
+    <span class="o">}</span>  
+</code></pre></div><p>因为<strong>对象时不能直接进行运算的，而是要转化为基本数据类型后才能进行加减乘除</strong>。</p>
+<h3 id="int-和-integer-有什么区别">int 和 Integer 有什么区别?</h3>
+<ul>
+<li>Integer是int的包装类；int是基本数据类型；</li>
+<li>Integer变量必须实例化后才能使用；int变量不需要；</li>
+<li>Integer实际是对象的引用，指向此new的Integer对象；int是直接存储数据值 ；</li>
+<li>Integer的默认值是null；int的默认值是0。</li>
+</ul>
+<h3 id="两个new生成的integer变量的对比">两个new生成的Integer变量的对比</h3>
+<p>由于Integer变量实际上是对一个Integer对象的引用，所以两个通过new生成的Integer变量永远是不相等的（因为new生成的是两个对象，其内存地址不同）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Integer</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">10000</span><span class="o">);</span>
+<span class="n">Integer</span> <span class="n">j</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">10000</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="o">);</span> <span class="c1">//false
+</span></code></pre></div><h3 id="integer变量和int变量的对比">Integer变量和int变量的对比</h3>
+<p>Integer变量和int变量比较时，只要两个变量的值是向等的，则结果为true（因为包装类Integer和基本数据类型int比较时，java会自动拆包装为int，然后进行比较，实际上就变为两个int变量的比较）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">10000</span><span class="o">);</span>
+    <span class="n">Integer</span> <span class="n">c</span><span class="o">=</span><span class="n">10000</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span> <span class="c1">// true
+</span><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">c</span><span class="o">);</span> <span class="c1">// true
+</span></code></pre></div><h3 id="非new生成的integer变量和new-integer生成变量的对比">非new生成的Integer变量和new Integer()生成变量的对比</h3>
+<p>非new生成的Integer变量和new Integer()生成的变量比较时，结果为false。（因为非new生成的Integer变量指向的是java常量池中的对象，而new Integer()生成的变量指向堆中新建的对象，两者在内存中的地址不同）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">10000</span><span class="o">);</span>
+    <span class="n">Integer</span> <span class="n">c</span><span class="o">=</span><span class="n">10000</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">c</span><span class="o">);</span> <span class="c1">// false
+</span></code></pre></div><h3 id="两个非new生成的integer对象的对比">两个非new生成的Integer对象的对比</h3>
+<p>对于两个非new生成的Integer对象，进行比较时，如果两个变量的值在区间-128到127之间，则比较结果为true，如果两个变量的值不在此区间，则比较结果为false</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Integer</span> <span class="n">i</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+<span class="n">Integer</span> <span class="n">j</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="o">);</span> <span class="c1">//true
+</span><span class="c1"></span>
+<span class="n">Integer</span> <span class="n">i</span> <span class="o">=</span> <span class="n">128</span><span class="o">;</span>
+<span class="n">Integer</span> <span class="n">j</span> <span class="o">=</span> <span class="n">128</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="o">);</span> <span class="c1">//false
+</span></code></pre></div><p>当值在 -128 ~ 127之间时，java会进行自动装箱，然后会对值进行缓存，如果下次再有相同的值，会直接在缓存中取出使用。缓存是通过Integer的内部类IntegerCache来完成的。当值超出此范围，会在堆中new出一个对象来存储。</p>
+<p>给一个Integer对象赋一个int值的时候，会调用Integer类的静态方法valueOf，源码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Integer</span> <span class="nf">valueOf</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">,</span> <span class="kt">int</span> <span class="n">radix</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">NumberFormatException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">parseInt</span><span class="o">(</span><span class="n">s</span><span class="o">,</span><span class="n">radix</span><span class="o">));</span>
+    <span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * （1）在-128~127之内：静态常量池中cache数组是static final类型，cache数组对象会被存储于静态常量池中。
+</span><span class="cm"> * cache数组里面的元素却不是static final类型，而是cache[k] = new Integer(j++)，
+</span><span class="cm"> * 那么这些元素是存储于堆中，只是cache数组对象存储的是指向了堆中的Integer对象（引用地址）
+</span><span class="cm"> * 
+</span><span class="cm"> * （2）在-128~127 之外：新建一个 Integer对象，并返回。
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Integer</span> <span class="nf">valueOf</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">assert</span> <span class="n">IntegerCache</span><span class="o">.</span><span class="na">high</span> <span class="o">&gt;=</span> <span class="n">127</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">IntegerCache</span><span class="o">.</span><span class="na">low</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">IntegerCache</span><span class="o">.</span><span class="na">high</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">IntegerCache</span><span class="o">.</span><span class="na">cache</span><span class="o">[</span><span class="n">i</span> <span class="o">+</span> <span class="o">(-</span><span class="n">IntegerCache</span><span class="o">.</span><span class="na">low</span><span class="o">)];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>IntegerCache是Integer的内部类，源码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="cm">/**
+</span><span class="cm">      * 缓存支持自动装箱的对象标识语义 -128和127（含）。
+</span><span class="cm">      * 缓存在第一次使用时初始化。 缓存的大小可以由-XX：AutoBoxCacheMax = &lt;size&gt;选项控制。
+</span><span class="cm">      * 在VM初始化期间，java.lang.Integer.IntegerCache.high属性可以设置并保存在私有系统属性中
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">IntegerCache</span> <span class="o">{</span>
+        <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="o">-</span><span class="n">128</span><span class="o">;</span>
+        <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">high</span><span class="o">;</span>
+        <span class="kd">static</span> <span class="kd">final</span> <span class="n">Integer</span> <span class="n">cache</span><span class="o">[];</span>
+
+        <span class="kd">static</span> <span class="o">{</span>
+            <span class="c1">// high value may be configured by property
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">127</span><span class="o">;</span>
+            <span class="n">String</span> <span class="n">integerCacheHighPropValue</span> <span class="o">=</span>
+                <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">VM</span><span class="o">.</span><span class="na">getSavedProperty</span><span class="o">(</span><span class="s">&#34;java.lang.Integer.IntegerCache.high&#34;</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">integerCacheHighPropValue</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">integerCacheHighPropValue</span><span class="o">);</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">127</span><span class="o">);</span>
+                <span class="c1">// Maximum array size is Integer.MAX_VALUE
+</span><span class="c1"></span>                <span class="n">h</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span> <span class="o">-</span> <span class="o">(-</span><span class="n">low</span><span class="o">)</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">high</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+
+            <span class="n">cache</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">[(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">cache</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">cache</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">j</span><span class="o">++);</span> <span class="c1">// 创建一个对象
+</span><span class="c1"></span>            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="nf">IntegerCache</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="o">}</span>
+
+</code></pre></div><h2 id="反射">反射</h2>
+<h3 id="什么是反射">什么是反射？</h3>
+<p>反射是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为 Java 语言的反射机制。</p>
+<h3 id="反射机制的优缺点有哪些">反射机制的优缺点有哪些？</h3>
+<p>优点：能够运行时动态获取类的实例，提高灵活性；可与动态编译结合<code>Class.forName('com.mysql.jdbc.Driver.class');</code>，加载<a class="link" href="https://www.wkcto.com/courses/mysql.html"  target="_blank" rel="noopener"
+    >MySQL</a>的驱动类。</p>
+<p>缺点：使用反射性能较低，需要解析字节码，将内存中的对象进行解析。其解决方案是：通过setAccessible(true)关闭JDK的安全检查来提升反射速度；多次创建一个类的实例时，有缓存会快很多；ReflflectASM工具类，通过字节码生成的方式加快反射速度。</p>
+<h3 id="如何获取反射中的class对象">如何获取反射中的Class对象？</h3>
+<ol>
+<li>
+<p>Class.forName(“类的路径”)；当你知道该类的全路径名时，你可以使用该方法获取 Class 类对象。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">clz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+</code></pre></div></li>
+<li>
+<p>类名.class。这种方法只适合在编译前就知道操作的 Class。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">clz</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</code></pre></div></li>
+<li>
+<p>对象名.getClass()。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span><span class="o">);</span>
+<span class="n">Class</span> <span class="n">clz</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</code></pre></div></li>
+<li>
+<p>如果是基本类型的包装类，可以调用包装类的Type属性来获得该包装类的Class对象。</p>
+</li>
+</ol>
+<h3 id="java反射api有几类">Java反射API有几类？</h3>
+<p>反射 API 用来生成 JVM 中的类、接口或则对象的信息。</p>
+<ul>
+<li>
+<p>Class 类：反射的核心类，可以获取类的属性，方法等信息。</p>
+</li>
+<li>
+<p>Field 类：Java.lang.reflec 包中的类，表示类的成员变量，可以用来获取和设置类之中的属性值。</p>
+</li>
+<li>
+<p>Method 类：Java.lang.reflec 包中的类，表示类的方法，它可以用来获取类中的方法信息或者执行方法。</p>
+</li>
+<li>
+<p>Constructor 类：Java.lang.reflec 包中的类，表示类的构造方法。</p>
+</li>
+</ul>
+<h3 id="反射使用的步骤">反射使用的步骤？</h3>
+<ol>
+<li>
+<p>获取想要操作的类的Class对象，这是反射的核心，通过Class对象我们可以任意调用类的方法。</p>
+</li>
+<li>
+<p>调用 Class 类中的方法，既就是反射的使用阶段。</p>
+</li>
+<li>
+<p>使用反射 API 来操作这些信息。</p>
+</li>
+</ol>
+<p>具体可以看下面的例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Apple</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+        <span class="c1">//正常的调用
+</span><span class="c1"></span>        <span class="n">Apple</span> <span class="n">apple</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="o">();</span>
+        <span class="n">apple</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">5</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Apple Price:&#34;</span> <span class="o">+</span> <span class="n">apple</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+        <span class="c1">//使用反射调用
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">clz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.chenshuyi.api.Apple&#34;</span><span class="o">);</span>
+        <span class="n">Method</span> <span class="n">setPriceMethod</span> <span class="o">=</span> <span class="n">clz</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;setPrice&#34;</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Constructor</span> <span class="n">appleConstructor</span> <span class="o">=</span> <span class="n">clz</span><span class="o">.</span><span class="na">getConstructor</span><span class="o">();</span>
+        <span class="n">Object</span> <span class="n">appleObj</span> <span class="o">=</span> <span class="n">appleConstructor</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="n">setPriceMethod</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">appleObj</span><span class="o">,</span> <span class="n">14</span><span class="o">);</span>
+        <span class="n">Method</span> <span class="n">getPriceMethod</span> <span class="o">=</span> <span class="n">clz</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;getPrice&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Apple Price:&#34;</span> <span class="o">+</span> <span class="n">getPriceMethod</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">appleObj</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>从代码中可以看到我们使用反射调用了 setPrice 方法，并传递了 14 的值。之后使用反射调用了 getPrice 方法，输出其价格。上面的代码整个的输出结果是：</p>
+<pre><code>Apple Price:5
+Apple Price:14
+</code></pre><p>从这个简单的例子可以看出，一般情况下我们使用反射获取一个对象的步骤：</p>
+<ul>
+<li>获取类的 Class 对象实例</li>
+</ul>
+<pre><code>Class clz = Class.forName(&quot;com.zhenai.api.Apple&quot;);
+</code></pre><ul>
+<li>根据 Class 对象实例获取 Constructor 对象</li>
+</ul>
+<pre><code>Constructor appleConstructor = clz.getConstructor();
+</code></pre><ul>
+<li>使用 Constructor 对象的 newInstance 方法获取反射类对象</li>
+</ul>
+<pre><code>Object appleObj = appleConstructor.newInstance();
+</code></pre><p>而如果要调用某一个方法，则需要经过下面的步骤：</p>
+<ul>
+<li>获取方法的 Method 对象</li>
+</ul>
+<pre><code>Method setPriceMethod = clz.getMethod(&quot;setPrice&quot;, int.class);
+</code></pre><ul>
+<li>利用 invoke 方法调用方法</li>
+</ul>
+<pre><code>setPriceMethod.invoke(appleObj, 14);
+</code></pre><h3 id="为什么引入反射概念反射机制的应用有哪些">为什么引入反射概念？反射机制的应用有哪些？</h3>
+<p>我们来看一下 Oracle 官方文档中对反射的描述：</p>
+<p>从 Oracle 官方文档中可以看出，反射主要应用在以下几方面：</p>
+<ul>
+<li>反射让开发人员可以通过外部类的全路径名创建对象，并使用这些类，实现一些扩展的功能。</li>
+<li>反射让开发人员可以枚举出类的全部成员，包括构造函数、属性、方法。以帮助开发者写出正确的代码。</li>
+<li>测试时可以利用反射 API 访问类的私有成员，以保证测试代码覆盖率。</li>
+</ul>
+<p>也就是说，Oracle 希望开发者将反射作为一个工具，用来帮助程序员实现本不可能实现的功能。</p>
+<p>举两个最常见使用反射的例子，来说明反射机制的强大之处：</p>
+<p>第一种：<strong>JDBC 的数据库的连接</strong></p>
+<p>在JDBC 的操作中，如果要想进行数据库的连接，则必须按照以上的几步完成</p>
+<ol>
+<li>通过Class.forName()加载数据库的驱动程序 （通过反射加载，前提是引入相关了Jar包）；</li>
+<li>通过 DriverManager 类进行数据库的连接，连接的时候要输入数据库的连接地址、用户名、密码；</li>
+<li>通过Connection 接口接收连接。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConnectionJDBC</span> <span class="o">{</span>  
+  
+    <span class="cm">/** 
+</span><span class="cm">     * @param args 
+</span><span class="cm">     */</span>  
+    <span class="c1">//驱动程序就是之前在classpath中配置的JDBC的驱动程序的JAR 包中  
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DBDRIVER</span> <span class="o">=</span> <span class="s">&#34;com.mysql.jdbc.Driver&#34;</span><span class="o">;</span>  
+    <span class="c1">//连接地址是由各个数据库生产商单独提供的，所以需要单独记住  
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DBURL</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/test&#34;</span><span class="o">;</span>  
+    <span class="c1">//连接数据库的用户名  
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DBUSER</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>  
+    <span class="c1">//连接数据库的密码  
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DBPASS</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>  
+      
+      
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>  
+        <span class="n">Connection</span> <span class="n">con</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//表示数据库的连接对象  
+</span><span class="c1"></span>        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">DBDRIVER</span><span class="o">);</span> <span class="c1">//1、使用CLASS 类加载驱动程序 ,反射机制的体现 
+</span><span class="c1"></span>        <span class="n">con</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">DBURL</span><span class="o">,</span><span class="n">DBUSER</span><span class="o">,</span><span class="n">DBPASS</span><span class="o">);</span> <span class="c1">//2、连接数据库  
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>  
+        <span class="n">con</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="c1">// 3、关闭数据库  
+</span><span class="c1"></span>    <span class="o">}</span>  
+
+</code></pre></div><p>第二种：<strong>Spring 框架的使用，最经典的就是xml的配置模式</strong>。</p>
+<p>Spring 通过 XML 配置模式装载 Bean 的过程：</p>
+<ol>
+<li>将程序内所有 XML 或 Properties 配置文件加载入内存中；</li>
+<li>Java类里面解析xml或properties里面的内容，得到对应实体类的字节码字符串以及相关的属性信息；</li>
+<li>使用反射机制，根据这个字符串获得某个类的Class实例；</li>
+<li>动态配置实例的属性。</li>
+</ol>
+<p>Spring这样做的好处是：</p>
+<ul>
+<li>不用每一次都要在代码里面去new或者做其他的事情；</li>
+<li>以后要改的话直接改配置文件，代码维护起来就很方便了；</li>
+<li>有时为了适应某些需求，Java类里面不一定能直接调用另外的方法，可以通过反射机制来实现。</li>
+</ul>
+<p>模拟 Spring 加载 XML 配置文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanFactory</span> <span class="o">{</span>
+       <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">beanMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+       <span class="cm">/**
+</span><span class="cm">       * bean工厂的初始化.
+</span><span class="cm">       * @param xml xml配置文件
+</span><span class="cm">       */</span>
+       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">String</span> <span class="n">xml</span><span class="o">)</span> <span class="o">{</span>
+              <span class="k">try</span> <span class="o">{</span>
+                     <span class="c1">//读取指定的配置文件
+</span><span class="c1"></span>                     <span class="n">SAXReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SAXReader</span><span class="o">();</span>
+                     <span class="n">ClassLoader</span> <span class="n">classLoader</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getContextClassLoader</span><span class="o">();</span>
+                     <span class="c1">//从class目录下获取指定的xml文件
+</span><span class="c1"></span>                     <span class="n">InputStream</span> <span class="n">ins</span> <span class="o">=</span> <span class="n">classLoader</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">xml</span><span class="o">);</span>
+                     <span class="n">Document</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">ins</span><span class="o">);</span>
+                     <span class="n">Element</span> <span class="n">root</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">getRootElement</span><span class="o">();</span>  
+                     <span class="n">Element</span> <span class="n">foo</span><span class="o">;</span>
+                    
+                     <span class="c1">//遍历bean
+</span><span class="c1"></span>                     <span class="k">for</span> <span class="o">(</span><span class="n">Iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">elementIterator</span><span class="o">(</span><span class="s">&#34;bean&#34;</span><span class="o">);</span> <span class="n">i</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();)</span> <span class="o">{</span>  
+                            <span class="n">foo</span> <span class="o">=</span> <span class="o">(</span><span class="n">Element</span><span class="o">)</span> <span class="n">i</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+                            <span class="c1">//获取bean的属性id和class
+</span><span class="c1"></span>                            <span class="n">Attribute</span> <span class="n">id</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="na">attribute</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">);</span>  
+                            <span class="n">Attribute</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="na">attribute</span><span class="o">(</span><span class="s">&#34;class&#34;</span><span class="o">);</span>
+                           
+                            <span class="c1">//利用Java反射机制，通过class的名称获取Class对象
+</span><span class="c1"></span>                            <span class="n">Class</span> <span class="n">bean</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">cls</span><span class="o">.</span><span class="na">getText</span><span class="o">());</span>
+                           
+                            <span class="c1">//获取对应class的信息
+</span><span class="c1"></span>                            <span class="n">java</span><span class="o">.</span><span class="na">beans</span><span class="o">.</span><span class="na">BeanInfo</span> <span class="n">info</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="na">beans</span><span class="o">.</span><span class="na">Introspector</span><span class="o">.</span><span class="na">getBeanInfo</span><span class="o">(</span><span class="n">bean</span><span class="o">);</span>
+                            <span class="c1">//获取其属性描述
+</span><span class="c1"></span>                            <span class="n">java</span><span class="o">.</span><span class="na">beans</span><span class="o">.</span><span class="na">PropertyDescriptor</span> <span class="n">pd</span><span class="o">[]</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="na">getPropertyDescriptors</span><span class="o">();</span>
+                            <span class="c1">//设置值的方法
+</span><span class="c1"></span>                            <span class="n">Method</span> <span class="n">mSet</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                            <span class="c1">//创建一个对象
+</span><span class="c1"></span>                            <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">bean</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+                           
+                            <span class="c1">//遍历该bean的property属性
+</span><span class="c1"></span>                            <span class="k">for</span> <span class="o">(</span><span class="n">Iterator</span> <span class="n">ite</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="na">elementIterator</span><span class="o">(</span><span class="s">&#34;property&#34;</span><span class="o">);</span> <span class="n">ite</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();)</span> <span class="o">{</span>  
+                                   <span class="n">Element</span> <span class="n">foo2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Element</span><span class="o">)</span> <span class="n">ite</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+                                   <span class="c1">//获取该property的name属性
+</span><span class="c1"></span>                                   <span class="n">Attribute</span> <span class="n">name</span> <span class="o">=</span> <span class="n">foo2</span><span class="o">.</span><span class="na">attribute</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">);</span>
+                                   <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                                  
+                                   <span class="c1">//获取该property的子元素value的值
+</span><span class="c1"></span>                                   <span class="k">for</span><span class="o">(</span><span class="n">Iterator</span> <span class="n">ite1</span> <span class="o">=</span> <span class="n">foo2</span><span class="o">.</span><span class="na">elementIterator</span><span class="o">(</span><span class="s">&#34;value&#34;</span><span class="o">);</span> <span class="n">ite1</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();)</span> <span class="o">{</span>
+                                          <span class="n">Element</span> <span class="n">node</span> <span class="o">=</span> <span class="o">(</span><span class="n">Element</span><span class="o">)</span> <span class="n">ite1</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+                                          <span class="n">value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getText</span><span class="o">();</span>
+                                          <span class="k">break</span><span class="o">;</span>
+                                   <span class="o">}</span>
+                                  
+                                   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+                                          <span class="k">if</span> <span class="o">(</span><span class="n">pd</span><span class="o">[</span><span class="n">k</span><span class="o">].</span><span class="na">getName</span><span class="o">().</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">name</span><span class="o">.</span><span class="na">getText</span><span class="o">()))</span> <span class="o">{</span>
+                                                 <span class="n">mSet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">[</span><span class="n">k</span><span class="o">].</span><span class="na">getWriteMethod</span><span class="o">();</span>
+                                                 <span class="c1">//利用Java的反射极致调用对象的某个set方法，并将值设置进去
+</span><span class="c1"></span>                                                 <span class="n">mSet</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+                                          <span class="o">}</span>
+                                   <span class="o">}</span>
+                            <span class="o">}</span>
+                           
+                            <span class="c1">//将对象放入beanMap中，其中key为id值，value为对象
+</span><span class="c1"></span>                            <span class="n">beanMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">.</span><span class="na">getText</span><span class="o">(),</span> <span class="n">obj</span><span class="o">);</span>
+                     <span class="o">}</span>
+              <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+              <span class="o">}</span>
+       <span class="o">}</span>
+      
+       <span class="c1">//other codes
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><h3 id="反射机制的原理是什么">反射机制的原理是什么？</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">actionClass</span><span class="o">=</span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="err">“</span><span class="n">MyClass</span><span class="err">”</span><span class="o">);</span>
+<span class="n">Object</span> <span class="n">action</span><span class="o">=</span><span class="n">actionClass</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+<span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">actionClass</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="err">“</span><span class="n">myMethod</span><span class="err">”</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+<span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">action</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+</code></pre></div><p>上面就是最常见的反射使用的例子，前两行实现了类的装载、链接和初始化（newInstance方法实际上也是使用反射调用了<!-- raw HTML omitted -->方法），后两行实现了从class对象中获取到method对象然后执行反射调用。</p>
+<p>因反射原理较复杂，下面简要描述下流程，想要详细了解的小伙伴，可以看这篇文章：https://www.cnblogs.com/yougewe/p/10125073.html</p>
+<ol>
+<li>反射获取类实例 Class.forName()，并没有将实现留给了java,而是交给了jvm去加载！主要是先获取 ClassLoader, 然后调用 native 方法，获取信息，加载类则是回调 java.lang.ClassLoader。最后，jvm又会回调 ClassLoader 进类加载！</li>
+<li>newInstance() 主要做了三件事：</li>
+</ol>
+<ul>
+<li>权限检测，如果不通过直接抛出异常；</li>
+<li>查找无参构造器，并将其缓存起来；</li>
+<li>调用具体方法的无参构造方法，生成实例并返回。</li>
+</ul>
+<ol start="3">
+<li>
+<p>获取Method对象，</p>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210226195426092.png" alt=""  /></p>
+</li>
+</ol>
+<p>上面的Class对象是在加载类时由JVM构造的，JVM为每个类管理一个独一无二的Class对象，这份Class对象里维护着该类的所有Method，Field，Constructor的cache，这份cache也可以被称作根对象。</p>
+<p>每次getMethod获取到的Method对象都持有对根对象的引用，因为一些重量级的Method的成员变量（主要是MethodAccessor），我们不希望每次创建Method对象都要重新初始化，于是所有代表同一个方法的Method对象都共享着根对象的MethodAccessor，每一次创建都会调用根对象的copy方法复制一份：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">Method</span> <span class="nf">copy</span><span class="o">()</span> <span class="o">{</span> 
+
+        <span class="n">Method</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Method</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">parameterTypes</span><span class="o">,</span> <span class="n">returnType</span><span class="o">,</span>
+
+                                <span class="n">exceptionTypes</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">,</span> <span class="n">slot</span><span class="o">,</span> <span class="n">signature</span><span class="o">,</span>
+
+                                <span class="n">annotations</span><span class="o">,</span> <span class="n">parameterAnnotations</span><span class="o">,</span> <span class="n">annotationDefault</span><span class="o">);</span>
+
+        <span class="n">res</span><span class="o">.</span><span class="na">root</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+
+        <span class="n">res</span><span class="o">.</span><span class="na">methodAccessor</span> <span class="o">=</span> <span class="n">methodAccessor</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+    <span class="o">}</span>
+</code></pre></div><ol start="4">
+<li>
+<p>调用invoke()方法。调用invoke方法的流程如下：</p>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210226195531619.png" alt=""  /></p>
+</li>
+</ol>
+<p>调用Method.invoke之后，会直接去调MethodAccessor.invoke。MethodAccessor就是上面提到的所有同名method共享的一个实例，由ReflectionFactory创建。</p>
+<p>创建机制采用了一种名为inflation的方式（JDK1.4之后）：如果该方法的累计调用次数&lt;=15，会创建出NativeMethodAccessorImpl，它的实现就是直接调用native方法实现反射；如果该方法的累计调用次数&gt;15，会由java代码创建出字节码组装而成的MethodAccessorImpl。（是否采用inflation和15这个数字都可以在jvm参数中调整）
+以调用MyClass.myMethod(String s)为例，生成出的MethodAccessorImpl字节码翻译成Java代码大致如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GeneratedMethodAccessor1</span> <span class="kd">extends</span> <span class="n">MethodAccessorImpl</span> <span class="o">{</span>    
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">MyClass</span> <span class="n">target</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyClass</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+            <span class="n">String</span> <span class="n">arg0</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+            <span class="n">target</span><span class="o">.</span><span class="na">myMethod</span><span class="o">(</span><span class="n">arg0</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvocationTargetException</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="泛型">泛型</h2>
+<h3 id="java中的泛型是什么-">Java中的泛型是什么 ?</h3>
+<p>泛型是 JDK1.5 的一个新特性，**泛型就是将类型参数化，其在编译时才确定具体的参数。**这种参数类型可以用在类、接口和方法的创建中，分别称为泛型类、泛型接口、泛型方法。</p>
+<h3 id="使用泛型的好处是什么">使用泛型的好处是什么?</h3>
+<p>远在 JDK 1.4 版本的时候，那时候是没有泛型的概念的，如果使用 Object 来实现通用、不同类型的处理，有这么两个缺点：</p>
+<ol>
+<li>每次使用时都需要强制转换成想要的类型</li>
+<li>在编译时编译器并不知道类型转换是否正常，运行时才知道，不安全。</li>
+</ol>
+<p>如这个例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;www.cnblogs.com&#34;</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">23</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>	<span class="c1">//ClassCastException
+</span></code></pre></div><p>上面的代码在运行时会发生强制类型转换异常。这是因为我们在存入的时候，第二个是一个 Integer 类型，但是取出来的时候却将其强制转换为 String 类型了。Sun 公司为了使 Java 语言更加安全，减少运行时异常的发生。于是在 JDK 1.5 之后推出了泛型的概念。</p>
+<p>根据《Java 编程思想》中的描述，泛型出现的动机在于：有许多原因促成了泛型的出现，而最引人注意的一个原因，就是<strong>为了创建容器类</strong>。</p>
+<p><strong>使用泛型的好处有以下几点</strong>：</p>
+<ol>
+<li>
+<p>类型安全</p>
+<ul>
+<li>泛型的主要目标是提高 Java 程序的类型安全</li>
+<li>编译时期就可以检查出因 Java 类型不正确导致的 ClassCastException 异常</li>
+<li>符合越早出错代价越小原则</li>
+</ul>
+</li>
+<li>
+<p>消除强制类型转换</p>
+<ul>
+<li>泛型的一个附带好处是，使用时直接得到目标类型，消除许多强制类型转换</li>
+<li>所得即所需，这使得代码更加可读，并且减少了出错机会</li>
+</ul>
+</li>
+<li>
+<p>潜在的性能收益</p>
+<ul>
+<li>由于泛型的实现方式，支持泛型（几乎）不需要 JVM 或类文件更改</li>
+<li>所有工作都在编译器中完成</li>
+<li>编译器生成的代码跟不使用泛型（和强制类型转换）时所写的代码几乎一致，只是更能确保类型安全而已</li>
+</ul>
+</li>
+</ol>
+<h3 id="java泛型的原理是什么--什么是类型擦除-">Java泛型的原理是什么 ? 什么是类型擦除 ?</h3>
+<p>泛型是一种语法糖，泛型这种语法糖的基本原理是类型擦除。Java中的泛型基本上都是在编译器这个层次来实现的，也就是说：**泛型只存在于编译阶段，而不存在于运行阶段。**在编译后的 class 文件中，是没有泛型这个概念的。</p>
+<p>类型擦除：使用泛型的时候加上的类型参数，编译器在编译的时候去掉类型参数。</p>
+<p>例如：</p>
+<pre><code>public class Caculate&lt;T&gt; {
+    private T num;
+}
+</code></pre><p>　　我们定义了一个泛型类，定义了一个属性成员，该成员的类型是一个泛型类型，这个 T 具体是什么类型，我们也不知道，它只是用于限定类型的。反编译一下这个 Caculate 类：</p>
+<pre><code>public class Caculate{
+    public Caculate(){}
+    private Object num;
+}
+</code></pre><p>　　发现编译器擦除 Caculate 类后面的两个尖括号，并且将 num 的类型定义为 Object 类型。</p>
+<p>　　那么是不是所有的泛型类型都以 Object 进行擦除呢？大部分情况下，泛型类型都会以 Object 进行替换，而有一种情况则不是。那就是使用到了extends和super语法的有界类型，如：</p>
+<pre><code>public class Caculate&lt;T extends String&gt; {
+    private T num;
+}
+</code></pre><p>　　这种情况的泛型类型，num 会被替换为 String 而不再是 Object。这是一个类型限定的语法，它限定 T 是 String 或者 String 的子类，也就是你构建 Caculate 实例的时候只能限定 T 为 String 或者 String 的子类，所以无论你限定 T 为什么类型，String 都是父类，不会出现类型不匹配的问题，于是可以使用 String 进行类型擦除。</p>
+<p>　　实际上编译器会正常的将使用泛型的地方编译并进行类型擦除，然后返回实例。但是除此之外的是，如果构建泛型实例时使用了泛型语法，那么编译器将标记该实例并关注该实例后续所有方法的调用，每次调用前都进行安全检查，非指定类型的方法都不能调用成功。</p>
+<p>　　实际上编译器不仅关注一个泛型方法的调用，它还会为某些返回值为限定的泛型类型的方法进行强制类型转换，由于类型擦除，返回值为泛型类型的方法都会擦除成 Object 类型，当这些方法被调用后，编译器会额外插入一行 checkcast 指令用于强制类型转换。这一个过程就叫做『泛型翻译』。</p>
+<h3 id="什么是泛型中的限定通配符和非限定通配符-">什么是泛型中的限定通配符和非限定通配符 ?</h3>
+<p>限定通配符对类型进行了限制。有两种限定通配符，一种是&lt;? extends T&gt;它通过确保类型必须是T的子类来设定类型的上界，另一种是&lt;? super T&gt;它通过确保类型必须是T的父类来设定类型的下界。泛型类型必须用限定内的类型来进行初始化，否则会导致编译错误。</p>
+<p>非限定通配符 <strong>？</strong>,可以用任意类型来替代。如<code>List&lt;?&gt;</code> 的意思是这个集合是一个可以持有任意类型的集合，它可以是<code>List&lt;A&gt;</code>，也可以是<code>List&lt;B&gt;</code>,或者<code>List&lt;C&gt;</code>等等。</p>
+<h3 id="list-extends-t和list--super-t之间有什么区别-">List&lt;? extends T&gt;和List &lt;? super T&gt;之间有什么区别 ?</h3>
+<p>这两个List的声明都是限定通配符的例子，List&lt;? extends T&gt;可以接受任何继承自T的类型的List，而List&lt;? super T&gt;可以接受任何T的父类构成的List。例如List&lt;? extends Number&gt;可以接受List<!-- raw HTML omitted -->或List<!-- raw HTML omitted -->。</p>
+<h3 id="可以把liststring传递给一个接受listobject参数的方法吗">可以把List<code>&lt;String&gt;</code>传递给一个接受List<code>&lt;Object&gt;</code>参数的方法吗？</h3>
+<p>不可以。真这样做的话会导致编译错误。因为List<!-- raw HTML omitted -->可以存储任何类型的对象包括String, Integer等等，而List<!-- raw HTML omitted -->却只能用来存储String。　</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">objectList</span><span class="o">;</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringList</span><span class="o">;</span>
+<span class="n">objectList</span> <span class="o">=</span> <span class="n">stringList</span><span class="o">;</span>  <span class="c1">//compilation error incompatible types
+</span></code></pre></div><h3 id="array中可以用泛型吗">Array中可以用泛型吗?</h3>
+<p>不可以。这也是为什么 Joshua Bloch 在 《Effective Java》一书中建议使用 List 来代替 Array，因为 List 可以提供编译期的类型安全保证，而 Array 却不能。</p>
+<h3 id="判断arrayliststring与arraylistinteger是否相等">判断<code>ArrayList&lt;String&gt;</code>与<code>ArrayList&lt;Integer&gt;</code>是否相等？</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+<span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
+<span class="n">Class</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+<span class="n">Class</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span><span class="o">);</span> 
+</code></pre></div><p>输出的结果是 true。因为无论对于 ArrayList 还是 ArrayList，它们的 Class 类型都是一直的，都是 ArrayList.class。</p>
+<p>那它们声明时指定的 String 和 Integer 到底体现在哪里呢？</p>
+<p>**答案是体现在类编译的时候。**当 JVM 进行类编译时，会进行泛型检查，如果一个集合被声明为 String 类型，那么它往该集合存取数据的时候就会对数据进行判断，从而避免存入或取出错误的数据。</p>
+<h2 id="序列化">序列化</h2>
+<h3 id="java序列化与反序列化是什么">Java序列化与反序列化是什么？</h3>
+<p>Java序列化是指把Java对象转换为字节序列的过程，而Java反序列化是指把字节序列恢复为Java对象的过程：</p>
+<ul>
+<li>
+<p>**序列化：**序列化是把对象转换成有序字节流，以便在网络上传输或者保存在本地文件中。核心作用是对象状态的保存与重建。我们都知道，Java对象是保存在JVM的堆内存中的，也就是说，如果JVM堆不存在了，那么对象也就跟着消失了。</p>
+<p>而序列化提供了一种方案，可以让你在即使JVM停机的情况下也能把对象保存下来的方案。就像我们平时用的U盘一样。把Java对象序列化成可存储或传输的形式（如二进制流），比如保存在文件中。这样，当再次需要这个对象的时候，从文件中读取出二进制流，再从二进制流中反序列化出对象。</p>
+</li>
+<li>
+<p>**反序列化：**客户端从文件中或网络上获得序列化后的对象字节流，根据字节流中所保存的对象状态及描述信息，通过反序列化重建对象。</p>
+</li>
+</ul>
+<h3 id="为什么需要序列化与反序列化">为什么需要序列化与反序列化？</h3>
+<p>简要描述：<strong>对内存中的对象进行持久化或网络传输, 这个时候都需要序列化和反序列化</strong></p>
+<p>深入描述：</p>
+<ol>
+<li><strong>对象序列化可以实现分布式对象。</strong></li>
+</ol>
+<p>主要应用例如：RMI(即远程调用Remote Method Invocation)要利用对象序列化运行远程主机上的服务，就像在本地机上运行对象时一样。</p>
+<ol start="2">
+<li><strong>java对象序列化不仅保留一个对象的数据，而且递归保存对象引用的每个对象的数据。</strong></li>
+</ol>
+<p>可以将整个对象层次写入字节流中，可以保存在文件中或在网络连接上传递。利用对象序列化可以进行对象的&quot;深复制&rdquo;，即复制对象本身及引用的对象本身。序列化一个对象可能得到整个对象序列。</p>
+<ol start="3">
+<li><strong>序列化可以将内存中的类写入文件或数据库中。</strong></li>
+</ol>
+<p>比如：将某个类序列化后存为文件，下次读取时只需将文件中的数据反序列化就可以将原先的类还原到内存中。也可以将类序列化为流数据进行传输。</p>
+<p>总的来说就是将一个已经实例化的类转成文件存储，下次需要实例化的时候只要反序列化即可将类实例化到内存中并保留序列化时类中的所有变量和状态。</p>
+<ol start="4">
+<li><strong>对象、文件、数据，有许多不同的格式，很难统一传输和保存。</strong></li>
+</ol>
+<p>序列化以后就都是字节流了，无论原来是什么东西，都能变成一样的东西，就可以进行通用的格式传输或保存，传输结束以后，要再次使用，就进行反序列化还原，这样对象还是对象，文件还是文件。</p>
+<h3 id="序列化实现的方式有哪些">序列化实现的方式有哪些？</h3>
+<p>实现<strong>Serializable</strong>接口或者<strong>Externalizable</strong>接口。</p>
+<h4 id="serializable接口"><strong>Serializable</strong>接口</h4>
+<p><strong>类通过实现 <code>java.io.Serializable</code> 接口以启用其序列化功能</strong>。可序列化类的所有子类型本身都是可序列化的。<strong>序列化接口没有方法或字段，仅用于标识可序列化的语义。</strong></p>
+<p>如以下例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;User{&#34;</span> <span class="o">+</span>
+               <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span>
+               <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>通过下面的代码进行序列化及反序列化：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SerializableDemo</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">//Initializes The Object
+</span><span class="c1"></span>       <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+       <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;cosen&#34;</span><span class="o">);</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+
+       <span class="c1">//Write Obj to File
+</span><span class="c1"></span>       <span class="k">try</span> <span class="o">(</span><span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;tempFile&#34;</span><span class="o">);</span> <span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span>
+           <span class="n">fos</span><span class="o">))</span> <span class="o">{</span>
+           <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+
+       <span class="c1">//Read Obj from File
+</span><span class="c1"></span>       <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;tempFile&#34;</span><span class="o">);</span>
+       <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">)))</span> <span class="o">{</span>
+           <span class="n">User</span> <span class="n">newUser</span> <span class="o">=</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">newUser</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//OutPut:
+</span><span class="c1">//User{name=&#39;cosen&#39;}
+</span><span class="c1">//User{name=&#39;cosen&#39;}
+</span></code></pre></div><h4 id="externalizable接口"><strong>Externalizable</strong>接口</h4>
+<p><code>Externalizable</code>继承自<code>Serializable</code>，该接口中定义了两个抽象方法：<code>writeExternal()</code>与<code>readExternal()</code>。</p>
+<p>当使用<code>Externalizable</code>接口来进行序列化与反序列化的时候需要开发人员重写<code>writeExternal()</code>与<code>readExternal()</code>方法。否则所有变量的值都会变成默认值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">implements</span> <span class="n">Externalizable</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeExternal</span><span class="o">(</span><span class="n">ObjectOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+       <span class="n">out</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readExternal</span><span class="o">(</span><span class="n">ObjectInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+       <span class="n">name</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;User{&#34;</span> <span class="o">+</span>
+               <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span>
+               <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>通过下面的代码进行序列化及反序列化：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExternalizableDemo1</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//Write Obj to file
+</span><span class="c1"></span>      <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+      <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;cosen&#34;</span><span class="o">);</span>
+      <span class="k">try</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;tempFile&#34;</span><span class="o">))){</span>
+          <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+      <span class="o">}</span>
+
+      <span class="c1">//Read Obj from file
+</span><span class="c1"></span>      <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;tempFile&#34;</span><span class="o">);</span>
+      <span class="k">try</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span>  <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">))){</span>
+          <span class="n">User</span> <span class="n">newInstance</span> <span class="o">=</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+          <span class="c1">//output
+</span><span class="c1"></span>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">newInstance</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ClassNotFoundException</span> <span class="n">e</span> <span class="o">)</span> <span class="o">{</span>
+          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//OutPut:
+</span><span class="c1">//User{name=&#39;cosen&#39;}
+</span></code></pre></div><h4 id="两种序列化的对比">两种序列化的对比</h4>
+<table>
+<thead>
+<tr>
+<th>实现Serializable接口</th>
+<th>实现Externalizable接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统自动存储必要的信息</td>
+<td>程序员决定存储哪些信息</td>
+</tr>
+<tr>
+<td>Java内建支持，易于实现，只需要实现该接口即可，无需任何代码支持</td>
+<td>必须实现接口内的两个方法</td>
+</tr>
+<tr>
+<td>性能略差</td>
+<td>性能略好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="什么是serialversionuid">什么是serialVersionUID？</h3>
+<p>serialVersionUID 用来表明类的不同版本间的兼容性</p>
+<p>Java的序列化机制是通过在运行时判断类的serialVersionUID来验证版本一致性的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID与本地相应实体（类）的serialVersionUID进行比较，如果相同就认为是一致的，可以进行反序列化，否则就会出现序列化版本不一致的异常。</p>
+<h3 id="为什么还要显示指定serialversionuid的值">为什么还要显示指定serialVersionUID的值?</h3>
+<p>如果不显示指定serialVersionUID, JVM在序列化时会根据属性自动生成一个serialVersionUID, 然后与属性一起序列化, 再进行持久化或网络传输. 在反序列化时, JVM会再根据属性自动生成一个新版serialVersionUID, 然后将这个新版serialVersionUID与序列化时生成的旧版serialVersionUID进行比较, 如果相同则反序列化成功, 否则报错.</p>
+<p>如果显示指定了, JVM在序列化和反序列化时仍然都会生成一个serialVersionUID, 但值为我们显示指定的值, 这样在反序列化时新旧版本的serialVersionUID就一致了.</p>
+<p>在实际开发中, 不显示指定serialVersionUID的情况会导致什么问题? 如果我们的类写完后不再修改, 那当然不会有问题, 但这在实际开发中是不可能的, 我们的类会不断迭代, 一旦类被修改了, 那旧对象反序列化就会报错. 所以在实际开发中, 我们都会显示指定一个serialVersionUID, 值是多少无所谓, 只要不变就行。</p>
+<h3 id="serialversionuid什么时候修改">serialVersionUID什么时候修改？</h3>
+<p>《阿里巴巴Java开发手册》中有以下规定：</p>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210226222339606.png" alt=""  /></p>
+<p>想要深入了解的小伙伴，可以看这篇文章：https://juejin.cn/post/6844903746682486791</p>
+<h3 id="java-序列化中如果有些字段不想进行序列化怎么办">Java 序列化中如果有些字段不想进行序列化，怎么办？</h3>
+<p>对于不想进行序列化的变量，使用 transient 关键字修饰。</p>
+<p><code>transient</code> 关键字的作用是控制变量的序列化，在变量声明前加上该关键字，可以阻止该变量被序列化到文件中，在被反序列化后，<code>transient</code> 变量的值被设为初始值，如 int 型的是 0，对象型的是 null。transient 只能修饰变量，不能修饰类和方法。</p>
+<h3 id="静态变量会被序列化吗">静态变量会被序列化吗?</h3>
+<p>不会。因为序列化是针对对象而言的, 而静态变量优先于对象存在, 随着类的加载而加载, 所以不会被序列化.</p>
+<p>看到这个结论, 是不是有人会问, serialVersionUID也被static修饰, 为什么serialVersionUID会被序列化? 其实serialVersionUID属性并没有被序列化, JVM在序列化对象时会自动生成一个serialVersionUID, 然后将我们显示指定的serialVersionUID属性值赋给自动生成的serialVersionUID。</p>
+<h2 id="异常">异常</h2>
+<h3 id="error-和-exception-区别是什么">Error 和 Exception 区别是什么？</h3>
+<p>Java 中，所有的异常都有一个共同的祖先 <code>java.lang</code> 包中的 <code>Throwable</code> 类。<code>Throwable</code> 类有两个重要的子类 <code>Exception</code>（异常）和 <code>Error</code>（错误）。</p>
+<p><code>Exception</code> 和 <code>Error</code> 二者都是 Java 异常处理的重要子类，各自都包含大量子类。</p>
+<ul>
+<li><strong><code>Exception</code></strong> :程序本身可以处理的异常，可以通过 <code>catch</code> 来进行捕获，通常遇到这种错误，应对其进行处理，使应用程序可以继续正常运行。<code>Exception</code> 又可以分为运行时异常(RuntimeException, 又叫非受检查异常)和非运行时异常(又叫受检查异常) 。</li>
+<li><strong><code>Error</code></strong> ：<code>Error</code> 属于程序无法处理的错误 ，我们没办法通过 <code>catch</code> 来进行捕获 。例如，系统崩溃，内存不足，堆栈溢出等，编译器不会对这类错误进行检测，一旦这类错误发生，通常应用程序会被终止，仅靠应用程序本身无法恢复。</li>
+</ul>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210227103256234.png" alt=""  /></p>
+<h3 id="非受检查异常运行时异常和受检查异常一般异常区别是什么">非受检查异常(运行时异常)和受检查异常(一般异常)区别是什么？</h3>
+<p>非受检查异常：包括 <code>RuntimeException</code> 类及其子类，表示 JVM 在运行期间可能出现的异常。 Java 编译器不会检查运行时异常。例如：<code>NullPointException(空指针)</code>、<code>NumberFormatException（字符串转换为数字）</code>、<code>IndexOutOfBoundsException(数组越界)</code>、<code>ClassCastException(类转换异常)</code>、<code>ArrayStoreException(数据存储异常，操作数组时类型不一致)</code>等。</p>
+<p>受检查异常：是Exception 中除 <code>RuntimeException</code> 及其子类之外的异常。 Java 编译器会检查受检查异常。常见的受检查异常有： IO 相关的异常、<code>ClassNotFoundException</code> 、<code>SQLException</code>等。</p>
+<p><strong>非受检查异常和受检查异常之间的区别</strong>：是否强制要求调用者必须处理此异常，如果强制要求调用者必须进行处理，那么就使用受检查异常，否则就选择非受检查异常。</p>
+<h3 id="throw-和-throws-的区别是什么">throw 和 throws 的区别是什么？</h3>
+<p>Java 中的异常处理除了包括捕获异常和处理异常之外，还包括声明异常和拋出异常，可以通过 throws 关键字在方法上声明该方法要拋出的异常，或者在方法内部通过 throw 拋出异常对象。</p>
+<p>throws 关键字和 throw 关键字在使用上的几点区别如下：</p>
+<ul>
+<li>throw 关键字用在方法内部，只能用于抛出一种异常，用来抛出方法或代码块中的异常，受查异常和非受查异常都可以被抛出。</li>
+<li>throws 关键字用在方法声明上，可以抛出多个异常，用来标识该方法可能抛出的异常列表。一个方法用 throws 标识了可能抛出的异常列表，调用该方法的方法中必须包含可处理异常的代码，否则也要在方法签名中用 throws 关键字声明相应的异常。</li>
+</ul>
+<p>举例如下：</p>
+<p><strong>throw 关键字</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="o">;</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;abc&#34;</span><span class="o">))</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">NumberFormatException</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="c1">//function();
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p><strong>throws 关键字</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">function</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">NumberFormatException</span><span class="o">{</span>
+		<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">s</span><span class="o">));</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">function</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;非数据类型不能转换。&#34;</span><span class="o">);</span>
+			<span class="c1">//e.printStackTrace();
+</span><span class="c1"></span>		<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="noclassdeffounderror-和-classnotfoundexception-区别">NoClassDefFoundError 和 ClassNotFoundException 区别？</h3>
+<p>NoClassDefFoundError 是一个 Error 类型的异常，是由 JVM 引起的，不应该尝试捕获这个异常。引起该异常的原因是 JVM 或 ClassLoader 尝试加载某类时在内存中找不到该类的定义，该动作发生在运行期间，即编译时该类存在，但是在运行时却找不到了，可能是变异后被删除了等原因导致。</p>
+<p>ClassNotFoundException 是一个受检查异常，需要显式地使用 try-catch 对其进行捕获和处理，或在方法签名中用 throws 关键字进行声明。当使用 Class.forName, ClassLoader.loadClass 或 ClassLoader.findSystemClass 动态加载类到内存的时候，通过传入的类路径参数没有找到该类，就会抛出该异常；另一种抛出该异常的可能原因是某个类已经由一个类加载器加载至内存中，另一个加载器又尝试去加载它。</p>
+<h3 id="java常见异常有哪些">Java常见异常有哪些？</h3>
+<ul>
+<li>java.lang.IllegalAccessError：违法访问错误。当一个应用试图访问、修改某个类的域（Field）或者调用其方法，但是又违反域或方法的可见性声明，则抛出该异常。</li>
+<li>java.lang.InstantiationError：实例化错误。当一个应用试图通过Java的new操作符构造一个抽象类或者接口时抛出该异常.</li>
+<li>java.lang.OutOfMemoryError：内存不足错误。当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</li>
+<li>java.lang.StackOverflowError：堆栈溢出错误。当一个应用递归调用的层次太深而导致堆栈溢出或者陷入死循环时抛出该错误。</li>
+<li>java.lang.ClassCastException：类造型异常。假设有类A和B（A不是B的父类或子类），O是A的实例，那么当强制将O构造为类B的实例时抛出该异常。该异常经常被称为强制类型转换异常。</li>
+<li>java.lang.ClassNotFoundException：找不到类异常。当应用试图根据字符串形式的类名构造类，而在遍历CLASSPAH之后找不到对应名称的class文件时，抛出该异常。</li>
+<li>java.lang.ArithmeticException：算术条件异常。譬如：整数除零等。</li>
+<li>java.lang.ArrayIndexOutOfBoundsException：数组索引越界异常。当对数组的索引值为负数或大于等于数组大小时抛出。</li>
+<li>java.lang.IndexOutOfBoundsException：索引越界异常。当访问某个序列的索引值小于0或大于等于序列大小时，抛出该异常。</li>
+<li>java.lang.InstantiationException：实例化异常。当试图通过newInstance()方法创建某个类的实例，而该类是一个抽象类或接口时，抛出该异常。</li>
+<li>java.lang.NoSuchFieldException：属性不存在异常。当访问某个类的不存在的属性时抛出该异常。</li>
+<li>java.lang.NoSuchMethodException：方法不存在异常。当访问某个类的不存在的方法时抛出该异常。</li>
+<li>java.lang.NullPointerException：空指针异常。当应用试图在要求使用对象的地方使用了null时，抛出该异常。譬如：调用null对象的实例方法、访问null对象的属性、计算null对象的长度、使用throw语句抛出null等等。</li>
+<li>java.lang.NumberFormatException：数字格式异常。当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常。</li>
+<li>java.lang.StringIndexOutOfBoundsException：字符串索引越界异常。当使用索引值访问某个字符串中的字符，而该索引值小于0或大于等于序列大小时，抛出该异常。</li>
+</ul>
+<h3 id="try-catch-finally-中哪个部分可以省略">try-catch-finally 中哪个部分可以省略？</h3>
+<p>catch 可以省略。更为严格的说法其实是：try只适合处理运行时异常，try+catch适合处理运行时异常+普通异常。也就是说，如果你只用try去处理普通异常却不加以catch处理，编译是通不过的，因为编译器硬性规定，普通异常如果选择捕获，则必须用catch显示声明以便进一步处理。而运行时异常在编译时没有如此规定，所以catch可以省略，你加上catch编译器也觉得无可厚非。</p>
+<p>理论上，编译器看任何代码都不顺眼，都觉得可能有潜在的问题，所以你即使对所有代码加上try，代码在运行期时也只不过是在正常运行的基础上加一层皮。但是你一旦对一段代码加上try，就等于显示地承诺编译器，对这段代码可能抛出的异常进行捕获而非向上抛出处理。如果是普通异常，编译器要求必须用catch捕获以便进一步处理；如果运行时异常，捕获然后丢弃并且+finally扫尾处理，或者加上catch捕获以便进一步处理。</p>
+<p>至于加上finally，则是在不管有没捕获异常，都要进行的“扫尾”处理。</p>
+<h3 id="try-catch-finally-中如果-catch-中-return-了finally-还会执行吗">try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？</h3>
+<p>会执行，在 return 前执行。</p>
+<p>在 finally 中改变返回值的做法是不好的，因为如果存在 finally 代码块，try中的 return 语句不会立马返回调用者，而是记录下返回值待 finally 代码块执行完毕之后再向调用者返回其值，然后如果在 finally 中修改了返回值，就会返回修改后的值。显然，在 finally 中返回或者修改返回值会对程序造成很大的困扰，Java 中也可以通过提升编译器的语法检查级别来产生警告或错误。
+<strong>代码示例1：</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getInt</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">0</span><span class="o">);</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">20</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">30</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+        <span class="cm">/*
+</span><span class="cm">         * return a 在程序执行到这一步的时候，这里不是return a 而是 return 30；这个返回路径就形成了
+</span><span class="cm">         * 但是呢，它发现后面还有finally，所以继续执行finally的内容，a=40
+</span><span class="cm">         * 再次回到以前的路径,继续走return 30，形成返回路径之后，这里的a就不是a变量了，而是常量30
+</span><span class="cm">         */</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">40</span><span class="o">;</span>
+    <span class="o">}</span>
+	<span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">//执行结果：30
+</span></code></pre></div><p><strong>代码示例2：</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getInt</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">0</span><span class="o">);</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">20</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">30</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">40</span><span class="o">;</span>
+        <span class="c1">//如果这样，就又重新形成了一条返回路径，由于只能通过1个return返回，所以这里直接返回40
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span> 
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="c1">// 执行结果：40
+</span></code></pre></div><h3 id="jvm-是如何处理异常的">JVM 是如何处理异常的？</h3>
+<p>在一个方法中如果发生异常，这个方法会创建一个异常对象，并转交给 JVM，该异常对象包含异常名称，异常描述以及异常发生时应用程序的状态。创建异常对象并转交给 JVM 的过程称为抛出异常。可能有一系列的方法调用，最终才进入抛出异常的方法，这一系列方法调用的有序列表叫做调用栈。</p>
+<p>JVM 会顺着调用栈去查找看是否有可以处理异常的代码，如果有，则调用异常处理代码。当 JVM 发现可以处理异常的代码时，会把发生的异常传递给它。如果 JVM 没有找到可以处理该异常的代码块，JVM 就会将该异常转交给默认的异常处理器（默认处理器为 JVM 的一部分），默认异常处理器打印出异常信息并终止应用程序。
+想要深入了解的小伙伴可以看这篇文章：https://www.cnblogs.com/qdhxhz/p/10765839.html</p>
+<h2 id="io">IO</h2>
+<h3 id="java的io-流分为几种">Java的IO 流分为几种？</h3>
+<ul>
+<li>按照流的方向：输入流（inputStream）和输出流（outputStream）；</li>
+<li>按照实现功能分：节点流（可以从或向一个特定的地方读写数据，如 FileReader）和处理流（是对一个已存在的流的连接和封装，通过所封装的流的功能调用实现数据读写， BufferedReader）；</li>
+<li>按照处理数据的单位： 字节流和字符流。分别由四个抽象类来表示（每种流包括输入和输出两种所以一共四个）:InputStream，OutputStream，Reader，Writer。Java中其他多种多样变化的流均是由它们派生出来的。</li>
+</ul>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210227113301593.png" alt=""  /></p>
+<h3 id="字节流如何转为字符流">字节流如何转为字符流？</h3>
+<p>字节输入流转字符输入流通过 InputStreamReader 实现，该类的构造函数可以传入 InputStream 对象。</p>
+<p>字节输出流转字符输出流通过 OutputStreamWriter 实现，该类的构造函数可以传入 OutputStream 对象。</p>
+<h3 id="字符流与字节流的区别">字符流与字节流的区别？</h3>
+<ul>
+<li>读写的时候字节流是按字节读写，字符流按字符读写。</li>
+<li>字节流适合所有类型文件的数据传输，因为计算机字节（Byte）是电脑中表示信息含义的最小单位。字符流只能够处理纯文本数据，其他类型数据不行，但是字符流处理文本要比字节流处理文本要方便。</li>
+<li>在读写文件需要对内容按行处理，比如比较特定字符，处理某一行数据的时候一般会选择字符流。</li>
+<li>只是读写文件，和文件内容无关时，一般选择字节流。</li>
+</ul>
+<h3 id="bionioaio的区别">BIO、NIO、AIO的区别？</h3>
+<ul>
+<li>BIO：同步并阻塞，在服务器中实现的模式为<strong>一个连接一个线程</strong>。也就是说，客户端有连接请求的时候，服务器就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然这也可以通过线程池机制改善。BIO<strong>一般适用于连接数目小且固定的架构</strong>，这种方式对于服务器资源要求比较高，而且并发局限于应用中，是JDK1.4之前的唯一选择，但好在程序直观简单，易理解。</li>
+<li>NIO：同步并非阻塞，在服务器中实现的模式为<strong>一个请求一个线程</strong>，也就是说，客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到有连接IO请求时才会启动一个线程进行处理。<strong>NIO一般适用于连接数目多且连接比较短（轻操作）的架构</strong>，并发局限于应用中，编程比较复杂，从JDK1.4开始支持。</li>
+<li>AIO：异步并非阻塞，在服务器中实现的模式为<strong>一个有效请求一个线程</strong>，也就是说，客户端的IO请求都是通过操作系统先完成之后，再通知服务器应用去启动线程进行处理。AIO一般适用于连接数目多且连接比较长（重操作）的架构，充分调用操作系统参与并发操作，编程比较复杂，从JDK1.7开始支持。</li>
+</ul>
+<h3 id="java-io都有哪些设计模式">Java IO都有哪些设计模式？</h3>
+<p>使用了<strong>适配器模式</strong>和<strong>装饰器模式</strong></p>
+<p><strong>适配器模式</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">INputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
+</code></pre></div><p><strong>把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作</strong></p>
+<ul>
+<li><strong>类适配器</strong>：Adapter类（适配器）继承Adaptee类（源角色）实现Target接口（目标角色）</li>
+<li><strong>对象适配器</strong>：Adapter类（适配器）持有Adaptee类（源角色）对象实例，实现Target接口（目标角色）
+<img src="http://blog-img.coolsen.cn/img/image-20210227114919307.png" alt=""  /></li>
+</ul>
+<p><strong>装饰器模式</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+</code></pre></div><p><strong>一种动态地往一个类中添加新的行为的设计模式。就功能而言，装饰器模式相比生成子类更为灵活，这样可以给某个对象而不是整个类添加一些功能。</strong></p>
+<ul>
+<li>ConcreteComponent（具体对象）和Decorator（抽象装饰器）实现相同的Conponent（接口）并且Decorator（抽象装饰器）里面持有Conponent（接口）对象，可以传递请求。</li>
+<li>ConcreteComponent（具体装饰器）覆盖Decorator（抽象装饰器）的方法并用super进行调用，传递请求。</li>
+</ul>
+<p><img src="http://blog-img.coolsen.cn/img/image-20210227115040999.png" alt=""  /></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://juejin.cn/post/6844903741032759310">https://juejin.cn/post/6844903741032759310</a></p>
+<p><a href="https://blog.csdn.net/chenliguan/article/details/53888018">https://blog.csdn.net/chenliguan/article/details/53888018</a></p>
+<p><a href="https://segmentfault.com/a/1190000010162647">https://segmentfault.com/a/1190000010162647</a></p>
+<p><a href="https://juejin.cn/post/6856664924203663367">https://juejin.cn/post/6856664924203663367</a></p>
+<p><a href="http://www.fanyilun.me/2015/10/29/Java%E5%8F%8D%E5%B0%84%E5%8E%9F%E7%90%86/">http://www.fanyilun.me/2015/10/29/Java%E5%8F%8D%E5%B0%84%E5%8E%9F%E7%90%86/</a></p>
+<p><a href="https://www.cnblogs.com/lixuwu/p/10829368.html">https://www.cnblogs.com/lixuwu/p/10829368.html</a></p>
+<p><a href="https://juejin.cn/post/6844903848167866375">https://juejin.cn/post/6844903848167866375</a></p>
+<p><a href="https://blog.csdn.net/lanzhupi/article/details/109809836">https://blog.csdn.net/lanzhupi/article/details/109809836</a></p>
+<p><a href="https://juejin.cn/post/6844903746682486791">https://juejin.cn/post/6844903746682486791</a></p>
+<p><a href="https://blog.csdn.net/ThinkWon/article/details/101681073">https://blog.csdn.net/ThinkWon/article/details/101681073</a></p>
+<p><a href="https://simplesnippets.tech/exception-handling-in-java-part-1/">https://simplesnippets.tech/exception-handling-in-java-part-1/</a></p>
+<p><a href="https://www.cnblogs.com/xingyunblog/p/8688859.html">https://www.cnblogs.com/xingyunblog/p/8688859.html</a></p>
+<p><a href="https://mp.weixin.qq.com/s/p5qM2UJ1uIWyongfVpRbCg">https://mp.weixin.qq.com/s/p5qM2UJ1uIWyongfVpRbCg</a></p>
+<p><a href="https://juejin.cn/post/6844903520856965128">https://juejin.cn/post/6844903520856965128</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E9%9D%A2%E8%AF%95%E9%A2%98/">Java面试题</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java基础面试题上</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="minster77/hugoblogtalks"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 MinsterBlog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#string相关">String相关</a>
+      <ol>
+        <li><a href="#字符型常量和字符串常量的区别">字符型常量和字符串常量的区别？</a></li>
+        <li><a href="#什么是字符串常量池">什么是字符串常量池？</a></li>
+        <li><a href="#string-straaa与-string-strnew-stringaaa一样吗new-stringaaa创建了几个字符串对象">String str=&ldquo;aaa&quot;与 String str=new String(&ldquo;aaa&rdquo;)一样吗？<code>new String(“aaa”);</code>创建了几个字符串对象?</a></li>
+        <li><a href="#string-是最基本的数据类型吗">String 是最基本的数据类型吗?</a></li>
+        <li><a href="#string有哪些特性">String有哪些特性?</a></li>
+        <li><a href="#在使用-hashmap-的时候用-string-做-key-有什么好处">在使用 HashMap 的时候，用 String 做 key 有什么好处？</a></li>
+      </ol>
+    </li>
+    <li><a href="#包装类型">包装类型</a>
+      <ol>
+        <li><a href="#包装类型是什么基本类型和包装类型有什么区别">包装类型是什么？基本类型和包装类型有什么区别？</a></li>
+        <li><a href="#解释一下自动装箱和自动拆箱">解释一下自动装箱和自动拆箱？</a></li>
+        <li><a href="#int-和-integer-有什么区别">int 和 Integer 有什么区别?</a></li>
+        <li><a href="#两个new生成的integer变量的对比">两个new生成的Integer变量的对比</a></li>
+        <li><a href="#integer变量和int变量的对比">Integer变量和int变量的对比</a></li>
+        <li><a href="#非new生成的integer变量和new-integer生成变量的对比">非new生成的Integer变量和new Integer()生成变量的对比</a></li>
+        <li><a href="#两个非new生成的integer对象的对比">两个非new生成的Integer对象的对比</a></li>
+      </ol>
+    </li>
+    <li><a href="#反射">反射</a>
+      <ol>
+        <li><a href="#什么是反射">什么是反射？</a></li>
+        <li><a href="#反射机制的优缺点有哪些">反射机制的优缺点有哪些？</a></li>
+        <li><a href="#如何获取反射中的class对象">如何获取反射中的Class对象？</a></li>
+        <li><a href="#java反射api有几类">Java反射API有几类？</a></li>
+        <li><a href="#反射使用的步骤">反射使用的步骤？</a></li>
+        <li><a href="#为什么引入反射概念反射机制的应用有哪些">为什么引入反射概念？反射机制的应用有哪些？</a></li>
+        <li><a href="#反射机制的原理是什么">反射机制的原理是什么？</a></li>
+      </ol>
+    </li>
+    <li><a href="#泛型">泛型</a>
+      <ol>
+        <li><a href="#java中的泛型是什么-">Java中的泛型是什么 ?</a></li>
+        <li><a href="#使用泛型的好处是什么">使用泛型的好处是什么?</a></li>
+        <li><a href="#java泛型的原理是什么--什么是类型擦除-">Java泛型的原理是什么 ? 什么是类型擦除 ?</a></li>
+        <li><a href="#什么是泛型中的限定通配符和非限定通配符-">什么是泛型中的限定通配符和非限定通配符 ?</a></li>
+        <li><a href="#list-extends-t和list--super-t之间有什么区别-">List&lt;? extends T&gt;和List &lt;? super T&gt;之间有什么区别 ?</a></li>
+        <li><a href="#可以把liststring传递给一个接受listobject参数的方法吗">可以把List<code>&lt;String&gt;</code>传递给一个接受List<code>&lt;Object&gt;</code>参数的方法吗？</a></li>
+        <li><a href="#array中可以用泛型吗">Array中可以用泛型吗?</a></li>
+        <li><a href="#判断arrayliststring与arraylistinteger是否相等">判断<code>ArrayList&lt;String&gt;</code>与<code>ArrayList&lt;Integer&gt;</code>是否相等？</a></li>
+      </ol>
+    </li>
+    <li><a href="#序列化">序列化</a>
+      <ol>
+        <li><a href="#java序列化与反序列化是什么">Java序列化与反序列化是什么？</a></li>
+        <li><a href="#为什么需要序列化与反序列化">为什么需要序列化与反序列化？</a></li>
+        <li><a href="#序列化实现的方式有哪些">序列化实现的方式有哪些？</a>
+          <ol>
+            <li><a href="#serializable接口"><strong>Serializable</strong>接口</a></li>
+            <li><a href="#externalizable接口"><strong>Externalizable</strong>接口</a></li>
+            <li><a href="#两种序列化的对比">两种序列化的对比</a></li>
+          </ol>
+        </li>
+        <li><a href="#什么是serialversionuid">什么是serialVersionUID？</a></li>
+        <li><a href="#为什么还要显示指定serialversionuid的值">为什么还要显示指定serialVersionUID的值?</a></li>
+        <li><a href="#serialversionuid什么时候修改">serialVersionUID什么时候修改？</a></li>
+        <li><a href="#java-序列化中如果有些字段不想进行序列化怎么办">Java 序列化中如果有些字段不想进行序列化，怎么办？</a></li>
+        <li><a href="#静态变量会被序列化吗">静态变量会被序列化吗?</a></li>
+      </ol>
+    </li>
+    <li><a href="#异常">异常</a>
+      <ol>
+        <li><a href="#error-和-exception-区别是什么">Error 和 Exception 区别是什么？</a></li>
+        <li><a href="#非受检查异常运行时异常和受检查异常一般异常区别是什么">非受检查异常(运行时异常)和受检查异常(一般异常)区别是什么？</a></li>
+        <li><a href="#throw-和-throws-的区别是什么">throw 和 throws 的区别是什么？</a></li>
+        <li><a href="#noclassdeffounderror-和-classnotfoundexception-区别">NoClassDefFoundError 和 ClassNotFoundException 区别？</a></li>
+        <li><a href="#java常见异常有哪些">Java常见异常有哪些？</a></li>
+        <li><a href="#try-catch-finally-中哪个部分可以省略">try-catch-finally 中哪个部分可以省略？</a></li>
+        <li><a href="#try-catch-finally-中如果-catch-中-return-了finally-还会执行吗">try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？</a></li>
+        <li><a href="#jvm-是如何处理异常的">JVM 是如何处理异常的？</a></li>
+      </ol>
+    </li>
+    <li><a href="#io">IO</a>
+      <ol>
+        <li><a href="#java的io-流分为几种">Java的IO 流分为几种？</a></li>
+        <li><a href="#字节流如何转为字符流">字节流如何转为字符流？</a></li>
+        <li><a href="#字符流与字节流的区别">字符流与字节流的区别？</a></li>
+        <li><a href="#bionioaio的区别">BIO、NIO、AIO的区别？</a></li>
+        <li><a href="#java-io都有哪些设计模式">Java IO都有哪些设计模式？</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

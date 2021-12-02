@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java面试题 on MinsterBlog</title>
+    <link>https://minster77.github.io/tags/java%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+    <description>Recent content in Java面试题 on MinsterBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 May 2020 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/tags/java%E9%9D%A2%E8%AF%95%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java基础面试题上</title>
+      <link>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/</guid>
+      <description>Java 基础面试题 Java概述 Java语言有哪些特点？   面向对象（封装，继承，多态）；
+  平台无关性，平台无关性的具体表现在于，Java 是“一次编写，到处运行（Write Once，Run any Where）”的语言，因此采用 Java 语言编写的程序具有很好的可移植性，而保证这一点的正是 Java 的虚拟机机制。在引入虚拟机之后，Java 语言在不同的平台上运行不需要重新编译。
+  可靠性、安全性；
+  支持多线程。C++ 语言没有内置的多线程机制，因此必须调用操作系统的多线程功能来进行多线程程序设计，而 Java 语言却提供了多线程支持；
+  支持网络编程并且很方便。Java 语言诞生本身就是为简化网络编程设计的，因此 Java 语言不仅支持网络编程而且很方便；
+  编译与解释并存；
+  Java和C++有什么关系，它们有什么区别？  都是面向对象的语言，都支持封装、继承和多态； C++ 支持指针，而 Java 没有指针的概念； C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口； Java 是完全面向对象的语言，并且还取消了 C/C++ 中的结构和联合，使编译程序更加简洁； Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。 Java 不支持操作符重载，操作符重载则被认为是 C++ 的突出特征； Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似； Java 不支持缺省参数函数，而 C++ 支持； C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的； goto 语句是 C 和 C++ 的“遗物”，Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读； Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。  JVM、JRE和JDK的关系是什么？ JDK是（Java Development Kit）的缩写，它是功能齐全的 Java SDK。它拥有 JRE 所拥有的一切，还有编译器（javac）和工具（如 javadoc 和 jdb）。它能够创建和编译程序。</description>
+    </item>
+    
+    <item>
+      <title>Java基础面试题下</title>
+      <link>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/</guid>
+      <description>String相关  字符型常量和字符串常量的区别？ 什么是字符串常量池？ String str=&amp;ldquo;aaa&amp;quot;与 String str=new String(&amp;ldquo;aaa&amp;rdquo;)一样吗？new String(“aaa”);创建了几个字符串对象? String 是最基本的数据类型吗? String有哪些特性? 在使用 HashMap 的时候，用 String 做 key 有什么好处？   包装类型  包装类型是什么？基本类型和包装类型有什么区别？ 解释一下自动装箱和自动拆箱？ int 和 Integer 有什么区别? 两个new生成的Integer变量的对比 Integer变量和int变量的对比 非new生成的Integer变量和new Integer()生成变量的对比 两个非new生成的Integer对象的对比   反射  什么是反射？ 反射机制的优缺点有哪些？ 如何获取反射中的Class对象？ Java反射API有几类？ 反射使用的步骤？ 为什么引入反射概念？反射机制的应用有哪些？ 反射机制的原理是什么？   泛型  Java中的泛型是什么 ? 使用泛型的好处是什么? Java泛型的原理是什么 ? 什么是类型擦除 ? 什么是泛型中的限定通配符和非限定通配符 ? List&amp;lt;? extends T&amp;gt;和List &amp;lt;? super T&amp;gt;之间有什么区别 ? 可以把List&amp;lt;String&amp;gt;传递给一个接受List&amp;lt;Object&amp;gt;参数的方法吗？ Array中可以用泛型吗? 判断ArrayList&amp;lt;String&amp;gt;与ArrayList&amp;lt;Integer&amp;gt;是否相等？   序列化  Java序列化与反序列化是什么？ 为什么需要序列化与反序列化？ 序列化实现的方式有哪些？  Serializable接口 Externalizable接口 两种序列化的对比   什么是serialVersionUID？ 为什么还要显示指定serialVersionUID的值?</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -575,6 +575,30 @@ package com.thread_; //创建线程类方式一：继承Thread类，重写run方
     </item>
     
     <item>
+      <title>Java基础面试题上</title>
+      <link>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/</guid>
+      <description>Java 基础面试题 Java概述 Java语言有哪些特点？   面向对象（封装，继承，多态）；
+  平台无关性，平台无关性的具体表现在于，Java 是“一次编写，到处运行（Write Once，Run any Where）”的语言，因此采用 Java 语言编写的程序具有很好的可移植性，而保证这一点的正是 Java 的虚拟机机制。在引入虚拟机之后，Java 语言在不同的平台上运行不需要重新编译。
+  可靠性、安全性；
+  支持多线程。C++ 语言没有内置的多线程机制，因此必须调用操作系统的多线程功能来进行多线程程序设计，而 Java 语言却提供了多线程支持；
+  支持网络编程并且很方便。Java 语言诞生本身就是为简化网络编程设计的，因此 Java 语言不仅支持网络编程而且很方便；
+  编译与解释并存；
+  Java和C++有什么关系，它们有什么区别？  都是面向对象的语言，都支持封装、继承和多态； C++ 支持指针，而 Java 没有指针的概念； C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口； Java 是完全面向对象的语言，并且还取消了 C/C++ 中的结构和联合，使编译程序更加简洁； Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。 Java 不支持操作符重载，操作符重载则被认为是 C++ 的突出特征； Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似； Java 不支持缺省参数函数，而 C++ 支持； C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的； goto 语句是 C 和 C++ 的“遗物”，Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读； Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。  JVM、JRE和JDK的关系是什么？ JDK是（Java Development Kit）的缩写，它是功能齐全的 Java SDK。它拥有 JRE 所拥有的一切，还有编译器（javac）和工具（如 javadoc 和 jdb）。它能够创建和编译程序。</description>
+    </item>
+    
+    <item>
+      <title>Java基础面试题下</title>
+      <link>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/</link>
+      <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/</guid>
+      <description>String相关  字符型常量和字符串常量的区别？ 什么是字符串常量池？ String str=&amp;ldquo;aaa&amp;quot;与 String str=new String(&amp;ldquo;aaa&amp;rdquo;)一样吗？new String(“aaa”);创建了几个字符串对象? String 是最基本的数据类型吗? String有哪些特性? 在使用 HashMap 的时候，用 String 做 key 有什么好处？   包装类型  包装类型是什么？基本类型和包装类型有什么区别？ 解释一下自动装箱和自动拆箱？ int 和 Integer 有什么区别? 两个new生成的Integer变量的对比 Integer变量和int变量的对比 非new生成的Integer变量和new Integer()生成变量的对比 两个非new生成的Integer对象的对比   反射  什么是反射？ 反射机制的优缺点有哪些？ 如何获取反射中的Class对象？ Java反射API有几类？ 反射使用的步骤？ 为什么引入反射概念？反射机制的应用有哪些？ 反射机制的原理是什么？   泛型  Java中的泛型是什么 ? 使用泛型的好处是什么? Java泛型的原理是什么 ? 什么是类型擦除 ? 什么是泛型中的限定通配符和非限定通配符 ? List&amp;lt;? extends T&amp;gt;和List &amp;lt;? super T&amp;gt;之间有什么区别 ? 可以把List&amp;lt;String&amp;gt;传递给一个接受List&amp;lt;Object&amp;gt;参数的方法吗？ Array中可以用泛型吗? 判断ArrayList&amp;lt;String&amp;gt;与ArrayList&amp;lt;Integer&amp;gt;是否相等？   序列化  Java序列化与反序列化是什么？ 为什么需要序列化与反序列化？ 序列化实现的方式有哪些？  Serializable接口 Externalizable接口 两种序列化的对比   什么是serialVersionUID？ 为什么还要显示指定serialVersionUID的值?</description>
+    </item>
+    
+    <item>
       <title>Java编程思想集合篇（一）</title>
       <link>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</link>
       <pubDate>Fri, 29 May 2020 16:22:25 +0800</pubDate>
@@ -628,6 +652,72 @@ Java虚拟机栈 ​	与程序计数器一样，Java虚拟机栈也是线程私�
 局部变量表：局部变量表主要存放了编译期可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用类型（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置），局部变量表的大小在编译期便已经可以确定，在运行时期不会发生改变。
 Java 虚拟机栈会出现两种错误：StackOverFlowError 和 OutOfMemoryError。
  StackOverFlowError： 若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出 StackOverFlowError 错误。 OutOfMemoryError： Java 虚拟机栈的内存大小可以动态扩展， 如果虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出OutOfMemoryError异常  Java 虚拟机栈也是线程私有的，每个线程都有各自的 Java 虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>MyBatis(一) MyBatis概括   什么是MyBatis
+ MyBatis 是一款优秀的持久层框架 MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集的过程 MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 实体类 【Plain Old Java Objects,普通的 Java对象】映射成数据库中的记录。 MyBatis 本是apache的一个开源项目ibatis, 2010年这个项目由apache 迁移到了google code，并且改名为MyBatis 。 2013年11月迁移到Github . Mybatis官方文档 : http://www.mybatis.org/mybatis-3/zh/index.html GitHub : https://github.com/mybatis/mybatis-3    什么是持久化
+持久化就是将程序数据在持久状态和瞬时状态间转化的机制。
+ 即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的对象存储在数据库中，或者存储在磁盘文件中、XML数据文件中等等。 JDBC就是一种持久化机制。文件IO也是一种持久化机制。 在生活中 : 将鲜肉冷藏，吃的时候再解冻的方法也是。将水果做成罐头的方法也是。    为什么需要持久化服务呢？
+那是由于内存本身的缺陷引起的
+ 内存断电后数据会丢失，但有一些对象是无论如何都不能丢失的，比如银行账号等，遗憾的是，人们还无法保证内存永不掉电。 内存过于昂贵，与硬盘、光盘等外存相比，内存的价格要高2~3个数量级，而且维持成本也高，至少需要一直供电吧。所以即使对象不需要永久保存，也会因为内存的容量限制不能一直呆在内存中，需要持久化来缓存到外存。    什么是持久层？
+持久层：完成持久化工作的代码块 . &amp;mdash;-&amp;gt; dao层 【DAO (Data Access Object) 数据访问对象】</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Spring MVC（二） HttpMessageConverter HttpMessageConverter，报文信息转换器，将请求报文转换为Java对象，或将Java对象转换为响应报文
+HttpMessageConverter提供了两个注解和两个类型：@RequestBody，@ResponseBody，RequestEntity，ResponseEntity
+  @RequestBody
+@RequestBody可以获取请求体，需要在控制器方法设置一个形参，使用@RequestBody进行标识，当前请求的请求体就会为当前注解所标识的形参赋值
+@RequestMapping(&amp;#34;/testRequestBody&amp;#34;) public String testRequestBody(@RequestBody String requestBody){ System.out.println(&amp;#34;requestBody:&amp;#34;+requestBody); return &amp;#34;success&amp;#34;; } index.html
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34; xmlns:th=&amp;#34;http://www.thymeleaf.org&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;TestRequestBody&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form th:action=&amp;#34;@{/testRequestEntity}&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; username:&amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;userName&amp;#34;&amp;gt; password:&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 输出结果：requestBody:userName=111&amp;amp;password=111
+  RequestEntity
+RequestEntity封装请求报文的一种类型，需要在控制器方法的形参中设置该类型的形参，当前请求的请求报文就会赋值给该形参，可以通过getHeaders()获取请求头信息，通过getBody()获取请求体信息
+@RequestMapping(&amp;#34;/testRequestEntity&amp;#34;) public String testRequestEntity(RequestEntity&amp;lt;String&amp;gt; requestEntity){ System.out.println(&amp;#34;requestHeader:&amp;#34;+requestEntity.getHeaders()); System.out.println(&amp;#34;requestBody:&amp;#34;+requestEntity.getBody()); return &amp;#34;success&amp;#34;; } 会在控制台返回一个报文的报头与报体
+  @ResponseBody
+@ResponseBody用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器
+@RequestMapping(&amp;#34;/testResponseBody&amp;#34;) @ResponseBody public String testResponseBody(){ return &amp;#34;Test ResponseBody&amp;#34;; }   @RestController</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://minster77.github.io/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://minster77.github.io/p/</guid>
+      <description>Spring MVC（一） Spring MVC概括   什么是MVC
+  MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
+  MVC主要作用是降低了视图与业务逻辑间的双向偶合。
+  MVC不是一种设计模式，MVC是一种架构模式。当然不同的MVC存在差异
+  Model(模型)：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或者JavaBean组件（包括数据和行为），不过现在一般分离开来：Value Object(数据Dao) 和服务层(行为Service)。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
+View(视图)：负责进行模型的展示，一般就是我们见到的用户界面，用户想看到的东西。
+Conttroller(控制器)：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责	展示、也就是说控制器做了个调度员的工作。
+最典型的MVC就是JSP+Servlet+JavaBean
+  Model1
+在Web开发早期通常采用Model1模式进行开发。
+在Model1模式下，整个Web应用几乎全部用JSP页面组成，只用少量的JavaBean来处理数据库连接、访问等操作
+这个模式下JSP即使控制层（Controller）又是视图层（View）。这明显不符合Java的单一职责原则。比如控制逻辑和表现逻辑混杂在一起，导致代码重用率极低；再比如前端和后端相互依赖，难以进行测试维护并且开发效率极低。
+  ​	Model1优点：架构简单，适合小型项目开发；
+​	Model1缺点：JSP职责不单一，，职责过重，不便于维护
+ Model2
+Model2就是上面所述的Java Bean+JSP+Servlet这种开发模式，这就是早期的JavaWeb MVC开发模式。
+ Model：系统涉及的数据，也就是dao与bean View：展示模型中的数据，只是用来展示 controller：处理用户请求发送给Model，然后Model返回数据的处理结果给JSP并展示给用户  职责分析：
+Controller：控制器
+ 取得表单数据 调用业务逻辑 转向指定的页面  Model：模型
+ 业务逻辑 保存数据的状态  View：视图
+ 显示页面   Model2模式下还存在着很多问题，Model2的抽象和封装程度还远远不够，使用Model2进行开发时不可避免地重复造轮子，这就大大降低了程序的可维护性和复用性。
+于是，很多JavaWeb开发相关的MVC框架应运而生，比如Stuts2，但是Struts2比较笨重。
+   Spring MVC时代</description>
     </item>
     
     <item>

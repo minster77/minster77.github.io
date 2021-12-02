@@ -164,7 +164,19 @@
     <loc>https://minster77.github.io/p/javathread/</loc>
     <lastmod>2020-09-02T16:22:25+08:00</lastmod>
   </url><url>
+    <loc>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8A/</loc>
+    <lastmod>2020-05-29T16:22:25+08:00</lastmod>
+  </url><url>
+    <loc>https://minster77.github.io/p/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8B/</loc>
+    <lastmod>2020-05-29T16:22:25+08:00</lastmod>
+  </url><url>
     <loc>https://minster77.github.io/p/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E9%9B%86%E5%90%88%E7%AF%87%E4%B8%80/</loc>
+    <lastmod>2020-05-29T16:22:25+08:00</lastmod>
+  </url><url>
+    <loc>https://minster77.github.io/tags/java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2020-05-29T16:22:25+08:00</lastmod>
+  </url><url>
+    <loc>https://minster77.github.io/categories/java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2020-05-29T16:22:25+08:00</lastmod>
   </url><url>
     <loc>https://minster77.github.io/p/javase01/</loc>
@@ -175,6 +187,12 @@
   </url><url>
     <loc>https://minster77.github.io/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://minster77.github.io/p/</loc>
+  </url><url>
+    <loc>https://minster77.github.io/p/</loc>
+  </url><url>
+    <loc>https://minster77.github.io/p/</loc>
   </url><url>
     <loc>https://minster77.github.io/p/</loc>
   </url><url>
@@ -199,5 +217,7 @@
     <loc>https://minster77.github.io/categories/mysql/</loc>
   </url><url>
     <loc>https://minster77.github.io/search/</loc>
+  </url><url>
+    <loc>https://minster77.github.io/categories/java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
   </url>
 </urlset>
