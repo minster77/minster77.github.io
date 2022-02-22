@@ -6,7 +6,58 @@
     <description>Recent content in Posts on MinsterBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Oct 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Oct 2021 16:22:25 +0800</lastBuildDate><atom:link href="https://minster77.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringMVC（二）</title>
+      <link>https://minster77.github.io/p/springmvc%E4%BA%8C/</link>
+      <pubDate>Wed, 06 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/springmvc%E4%BA%8C/</guid>
+      <description>Spring MVC（二） HttpMessageConverter HttpMessageConverter，报文信息转换器，将请求报文转换为Java对象，或将Java对象转换为响应报文
+HttpMessageConverter提供了两个注解和两个类型：@RequestBody，@ResponseBody，RequestEntity，ResponseEntity
+  @RequestBody
+@RequestBody可以获取请求体，需要在控制器方法设置一个形参，使用@RequestBody进行标识，当前请求的请求体就会为当前注解所标识的形参赋值
+@RequestMapping(&amp;#34;/testRequestBody&amp;#34;) public String testRequestBody(@RequestBody String requestBody){ System.out.println(&amp;#34;requestBody:&amp;#34;+requestBody); return &amp;#34;success&amp;#34;; } index.html
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34; xmlns:th=&amp;#34;http://www.thymeleaf.org&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;TestRequestBody&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form th:action=&amp;#34;@{/testRequestEntity}&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; username:&amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;userName&amp;#34;&amp;gt; password:&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 输出结果：requestBody:userName=111&amp;amp;password=111
+  RequestEntity
+RequestEntity封装请求报文的一种类型，需要在控制器方法的形参中设置该类型的形参，当前请求的请求报文就会赋值给该形参，可以通过getHeaders()获取请求头信息，通过getBody()获取请求体信息
+@RequestMapping(&amp;#34;/testRequestEntity&amp;#34;) public String testRequestEntity(RequestEntity&amp;lt;String&amp;gt; requestEntity){ System.out.println(&amp;#34;requestHeader:&amp;#34;+requestEntity.getHeaders()); System.out.println(&amp;#34;requestBody:&amp;#34;+requestEntity.getBody()); return &amp;#34;success&amp;#34;; } 会在控制台返回一个报文的报头与报体
+  @ResponseBody
+@ResponseBody用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器
+@RequestMapping(&amp;#34;/testResponseBody&amp;#34;) @ResponseBody public String testResponseBody(){ return &amp;#34;Test ResponseBody&amp;#34;; }   @RestController</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC（一）</title>
+      <link>https://minster77.github.io/p/springmvc%E4%B8%80/</link>
+      <pubDate>Tue, 05 Oct 2021 16:22:25 +0800</pubDate>
+      
+      <guid>https://minster77.github.io/p/springmvc%E4%B8%80/</guid>
+      <description>Spring MVC（一） Spring MVC概括   什么是MVC
+  MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
+  MVC主要作用是降低了视图与业务逻辑间的双向偶合。
+  MVC不是一种设计模式，MVC是一种架构模式。当然不同的MVC存在差异
+  Model(模型)：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或者JavaBean组件（包括数据和行为），不过现在一般分离开来：Value Object(数据Dao) 和服务层(行为Service)。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
+View(视图)：负责进行模型的展示，一般就是我们见到的用户界面，用户想看到的东西。
+Conttroller(控制器)：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责	展示、也就是说控制器做了个调度员的工作。
+最典型的MVC就是JSP+Servlet+JavaBean
+  Model1
+在Web开发早期通常采用Model1模式进行开发。
+在Model1模式下，整个Web应用几乎全部用JSP页面组成，只用少量的JavaBean来处理数据库连接、访问等操作
+这个模式下JSP即使控制层（Controller）又是视图层（View）。这明显不符合Java的单一职责原则。比如控制逻辑和表现逻辑混杂在一起，导致代码重用率极低；再比如前端和后端相互依赖，难以进行测试维护并且开发效率极低。
+  ​	Model1优点：架构简单，适合小型项目开发；
+​	Model1缺点：JSP职责不单一，，职责过重，不便于维护
+ Model2
+Model2就是上面所述的Java Bean+JSP+Servlet这种开发模式，这就是早期的JavaWeb MVC开发模式。
+ Model：系统涉及的数据，也就是dao与bean View：展示模型中的数据，只是用来展示 controller：处理用户请求发送给Model，然后Model返回数据的处理结果给JSP并展示给用户  职责分析：
+Controller：控制器
+ 取得表单数据 调用业务逻辑 转向指定的页面  Model：模型
+ 业务逻辑 保存数据的状态  View：视图
+ 显示页面   Model2模式下还存在着很多问题，Model2的抽象和封装程度还远远不够，使用Model2进行开发时不可避免地重复造轮子，这就大大降低了程序的可维护性和复用性。
+于是，很多JavaWeb开发相关的MVC框架应运而生，比如Stuts2，但是Struts2比较笨重。
+   Spring MVC时代</description>
+    </item>
+    
     <item>
       <title>Spring（一）</title>
       <link>https://minster77.github.io/p/spring%E4%B8%80/</link>
@@ -675,49 +726,12 @@ Java 虚拟机栈会出现两种错误：StackOverFlowError 和 OutOfMemoryError
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://minster77.github.io/p/</guid>
-      <description>Spring MVC（二） HttpMessageConverter HttpMessageConverter，报文信息转换器，将请求报文转换为Java对象，或将Java对象转换为响应报文
-HttpMessageConverter提供了两个注解和两个类型：@RequestBody，@ResponseBody，RequestEntity，ResponseEntity
-  @RequestBody
-@RequestBody可以获取请求体，需要在控制器方法设置一个形参，使用@RequestBody进行标识，当前请求的请求体就会为当前注解所标识的形参赋值
-@RequestMapping(&amp;#34;/testRequestBody&amp;#34;) public String testRequestBody(@RequestBody String requestBody){ System.out.println(&amp;#34;requestBody:&amp;#34;+requestBody); return &amp;#34;success&amp;#34;; } index.html
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34; xmlns:th=&amp;#34;http://www.thymeleaf.org&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;TestRequestBody&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form th:action=&amp;#34;@{/testRequestEntity}&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; username:&amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;userName&amp;#34;&amp;gt; password:&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 输出结果：requestBody:userName=111&amp;amp;password=111
-  RequestEntity
-RequestEntity封装请求报文的一种类型，需要在控制器方法的形参中设置该类型的形参，当前请求的请求报文就会赋值给该形参，可以通过getHeaders()获取请求头信息，通过getBody()获取请求体信息
-@RequestMapping(&amp;#34;/testRequestEntity&amp;#34;) public String testRequestEntity(RequestEntity&amp;lt;String&amp;gt; requestEntity){ System.out.println(&amp;#34;requestHeader:&amp;#34;+requestEntity.getHeaders()); System.out.println(&amp;#34;requestBody:&amp;#34;+requestEntity.getBody()); return &amp;#34;success&amp;#34;; } 会在控制台返回一个报文的报头与报体
-  @ResponseBody
-@ResponseBody用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器
-@RequestMapping(&amp;#34;/testResponseBody&amp;#34;) @ResponseBody public String testResponseBody(){ return &amp;#34;Test ResponseBody&amp;#34;; }   @RestController</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://minster77.github.io/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://minster77.github.io/p/</guid>
-      <description>Spring MVC（一） Spring MVC概括   什么是MVC
-  MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
-  MVC主要作用是降低了视图与业务逻辑间的双向偶合。
-  MVC不是一种设计模式，MVC是一种架构模式。当然不同的MVC存在差异
-  Model(模型)：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或者JavaBean组件（包括数据和行为），不过现在一般分离开来：Value Object(数据Dao) 和服务层(行为Service)。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
-View(视图)：负责进行模型的展示，一般就是我们见到的用户界面，用户想看到的东西。
-Conttroller(控制器)：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责	展示、也就是说控制器做了个调度员的工作。
-最典型的MVC就是JSP+Servlet+JavaBean
-  Model1
-在Web开发早期通常采用Model1模式进行开发。
-在Model1模式下，整个Web应用几乎全部用JSP页面组成，只用少量的JavaBean来处理数据库连接、访问等操作
-这个模式下JSP即使控制层（Controller）又是视图层（View）。这明显不符合Java的单一职责原则。比如控制逻辑和表现逻辑混杂在一起，导致代码重用率极低；再比如前端和后端相互依赖，难以进行测试维护并且开发效率极低。
-  ​	Model1优点：架构简单，适合小型项目开发；
-​	Model1缺点：JSP职责不单一，，职责过重，不便于维护
- Model2
-Model2就是上面所述的Java Bean+JSP+Servlet这种开发模式，这就是早期的JavaWeb MVC开发模式。
- Model：系统涉及的数据，也就是dao与bean View：展示模型中的数据，只是用来展示 controller：处理用户请求发送给Model，然后Model返回数据的处理结果给JSP并展示给用户  职责分析：
-Controller：控制器
- 取得表单数据 调用业务逻辑 转向指定的页面  Model：模型
- 业务逻辑 保存数据的状态  View：视图
- 显示页面   Model2模式下还存在着很多问题，Model2的抽象和封装程度还远远不够，使用Model2进行开发时不可避免地重复造轮子，这就大大降低了程序的可维护性和复用性。
-于是，很多JavaWeb开发相关的MVC框架应运而生，比如Stuts2，但是Struts2比较笨重。
-   Spring MVC时代</description>
+      <description>SpringBoot 2（一） 第一个SpringBoot2程序 SpringBoot的优点
+  Create stand-alone Spring applications
+   创建独立Spring应用    Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)
+   内嵌web服务器    Provide opinionated &amp;lsquo;starter&amp;rsquo; dependencies to simplify your build configuration
+   自动starter依赖，简化构建配置    Automatically configure Spring and 3rd party libraries whenever possible
+   自动配置Spring以及第三方功能    Provide production-ready features such as metrics, health checks, and externalized configuration</description>
     </item>
     
     <item>
